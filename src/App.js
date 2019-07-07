@@ -1,8 +1,14 @@
 import React from 'react';
-import './App.css';
-
+import Navbar from './components/Navbar';
+import {BrowserRouter, Switch, Route} from  'react-router-dom';
 function App() {
-  return ('Hola'
+  return ( 
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" component={Navbar}/>
+    </Switch>
+  </BrowserRouter>
+
   );
 }
 
