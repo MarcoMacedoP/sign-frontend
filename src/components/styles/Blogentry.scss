@@ -1,0 +1,72 @@
+@import "./../../sass/variables";
+
+
+.Blog-Entry__container{
+    box-sizing: border-box;
+    overflow: hidden;
+    width: 100%;
+    max-height: 31.25rem;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: 4.43rem 1fr;
+    gap: 1rem 0;
+    .headline-three{
+        grid-column: 1/2;
+        grid-row: 1/2;
+
+    }
+    .Blog-Entry__p{
+        grid-column: 1/2;
+        grid-row: 2/3;
+
+    }
+    .Blog-Entry__media-container{
+        grid-column: 2/3;
+        grid-row: 1/3;
+    }
+}
+.Blog-Entry__container.left{
+    box-sizing: border-box;
+    overflow: hidden;
+    width: 100%;
+    max-height: 31.25rem;
+    height: 61.87vh;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: 4.43rem 1fr;
+    gap: 0 1rem;
+    .headline-three{
+        grid-column: 2/3;
+        grid-row: 1/2;
+
+    }
+    .Blog-Entry__p{
+        grid-column: 2/3;
+        grid-row: 2/3;
+
+    }
+    .Blog-Entry__media-container{
+        grid-column: 1/2;
+        grid-row: 1/3;
+    }
+}
+.Blog-Entry__p{
+    font-family: $font_cuerpo;
+    font-size: 1rem;
+    font-weight: 400;
+    padding:  0 1rem 0 0 ;
+}
+.Blog-Entry__media-container{
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    img{
+        width: 100%;
+        height: auto;
+    }
+    video{
+        height: 202%;
+        width: auto;
+    }
+}

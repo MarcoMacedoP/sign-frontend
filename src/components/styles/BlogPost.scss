@@ -1,0 +1,9 @@
+@import "./../../sass/variables";
+
+.Blog_post{
+    background-color: $white;
+    margin: 0 5rem 0 5rem;
+    padding: 5rem 1rem 1rem 1rem;
+    max-width: 100%;
+    box-sizing: border-box;
+}

@@ -1,0 +1,55 @@
+@import '../../sass/variables';
+@import '../../sass/fonts';
+.nav-bar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    background-color: $white_ligth;
+    height: 7.875vh;
+    min-height: 63px;
+    box-sizing: border-box;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 3px 7px 0 rgba(50, 54, 53, 0.3);
+    .nav-bar__home a, li a{
+            text-emphasis-color: inherit;
+            color: inherit;
+            text-decoration: none;
+         
+    }
+    .button{
+        min-width: 10rem;
+    }
+   
+}
+.nav-bar__home{
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family: $font_titulos;
+}
+.nav-bar__home:hover{
+    color: rgba($color: $black, $alpha: 0.5);
+}
+.nav-bar__sections{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    a{
+        margin: 0 1rem;
+    }
+}
+.nav-bar__list{
+    margin:  0 auto;
+    display: flex;
+    li{
+        margin: 0 0.5rem;
+        font-weight: normal;
+        a:hover{
+            color: rgba($color: $black, $alpha: 0.5);
+        }
+    }
+}

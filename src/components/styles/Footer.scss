@@ -1,0 +1,40 @@
+@import './../../sass/variables';
+
+.Footer{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 0 0.75rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid $black_ligth;
+}
+
+.Footer__link{
+    font-size: 1rem;
+    color:  $black;
+    font-family: $font_cuerpo;
+    margin-top: 1rem;
+}
+
+.Footer__tittle{
+        font-family: $font-titulos;
+        font-weight: 500;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        
+}
+.Footer__pages-list{
+    display: flex;
+    align-items: center;
+}
+.Footer-list-item{
+    margin: 0 1rem;
+}
+.Footer-list-item:first-child{
+    margin: 0;
+}
+.Footer-list-item:last-child{
+    margin: 0;
+}
