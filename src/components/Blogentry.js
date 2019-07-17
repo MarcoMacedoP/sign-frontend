@@ -7,18 +7,19 @@ class BlogEntry extends React.Component {
         this.article = React.createRef();
     }
     render(){
-        return(
-            <article className="Blog-Entry__container" ref={this.article}>
-                <h2 className="headline-three">{this.props.title}</h2>
-                <p className = "Blog-Entry__p">{this.props.description}</p>
-                <div className="Blog-Entry__media-container">
-                    <BlogMedia media={this.props.media} poster={this.props.poster} mediaType={this.props.mediaType}/>
-                </div>
-            </article>
-        )
+       
+            return(
+                <article className="Blog-Entry__container" ref={this.article}>
+                    <h2 className="headline-three">{this.props.title}</h2>
+                    <p className = "Blog-Entry__p">{this.props.description}</p>
+                    {this.props.children}
+                    <div className="Blog-Entry__media-container">
+                        <BlogMedia media={this.props.media} poster={this.props.poster} mediaType={this.props.mediaType}/>
+                    </div>
+                </article>
+            )
     }
     componentDidMount(){
-        console.log(this.article.current)
         if (this.props.position==='left'){
             this.article.current.classList.add('left')
         }
@@ -31,7 +32,7 @@ class BlogMedia extends React.Component{
         switch(this.props.mediaType){
             case 'video':
                 return(
-                    <video src={this.props.media} poster={this.props.poster} preload="auto" loop autoplay>
+                    <video src={this.props.media} poster={this.props.poster} preload="auto" loop autoPlay>
                     </video>
                 );
             default:
