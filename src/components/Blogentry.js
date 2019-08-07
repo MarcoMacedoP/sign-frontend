@@ -1,48 +1,52 @@
-import React from 'react';
-import './styles/Blogentry.scss';
+import React from "react";
 
 class BlogEntry extends React.Component {
-    constructor(props){
-        super(props);
-        this.article = React.createRef();
+  constructor(props) {
+    super(props);
+    this.article = React.createRef();
+  }
+  render() {
+    return (
+      <article className="Blog-Entry__container" ref={this.article}>
+        <h2 className="headline-three">{this.props.title}</h2>
+        <p className="Blog-Entry__p">{this.props.description}</p>
+        {this.props.children}
+        <div className="Blog-Entry__media-container">
+          <BlogMedia
+            media={this.props.media}
+            poster={this.props.poster}
+            mediaType={this.props.mediaType}
+          />
+        </div>
+      </article>
+    );
+  }
+  componentDidMount() {
+    if (this.props.position === "left") {
+      this.article.current.classList.add("left");
     }
-    render(){
-       
-            return(
-                <article className="Blog-Entry__container" ref={this.article}>
-                    <h2 className="headline-three">{this.props.title}</h2>
-                    <p className = "Blog-Entry__p">{this.props.description}</p>
-                    {this.props.children}
-                    <div className="Blog-Entry__media-container">
-                        <BlogMedia media={this.props.media} poster={this.props.poster} mediaType={this.props.mediaType}/>
-                    </div>
-                </article>
-            )
-    }
-    componentDidMount(){
-        if (this.props.position==='left'){
-            this.article.current.classList.add('left')
-        }
-        
-    }
+  }
 }
 
-class BlogMedia extends React.Component{
-    render(){
-        switch(this.props.mediaType){
-            case 'video':
-                return(
-                    <video src={this.props.media} poster={this.props.poster} preload="auto" loop autoPlay>
-                    </video>
-                );
-            default:
-            case 'img':
-                return(
-                
-                    <img src={this.props.media} alt="imagen de la entrada"/>
-                );
-                
-        }
+class BlogMedia extends React.Component {
+  render() {
+    switch (this.props.mediaType) {
+      case "video":
+        return (
+          <video
+            src={this.props.media}
+            poster={this.props.poster}
+            preload="auto"
+            loop
+            autoPlay
+          />
+        );
+      default:
+      case "img":
+        return (
+          <img src={this.props.media} alt="imagen de la entrada" />
+        );
     }
+  }
 }
 export default BlogEntry;

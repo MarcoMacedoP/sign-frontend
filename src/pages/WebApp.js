@@ -1,7 +1,7 @@
 import React from "react";
 class WebApp extends React.Component {
   render() {
-    return "Esto es la web app";
+    return <h1>Main page</h1>;
   }
 }
 export default WebApp;

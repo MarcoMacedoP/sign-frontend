@@ -1,11 +1,11 @@
 import React from "react";
 class FormInput extends React.Component {
   /*
-    Este componente recibe como pros: 
-    name :  usado para el contenido de los labels y el name de los inputs, el label se relaciona
+    Este componente recibe como props: 
+    **name :  usado para el contenido de los labels y el name de los inputs, el label se relaciona
     con el input mediante el
-    type:  usado para definir el tipo de input
-    placeholder: usado para el placeholder el input
+    **type:  usado para definir el tipo de input
+    **placeholder: usado para el placeholder el input
     */
   render() {
     return (

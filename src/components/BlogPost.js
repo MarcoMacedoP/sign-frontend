@@ -1,13 +1,8 @@
-import React from 'react';
-import './styles/BlogPost.scss';
+import React from "react";
 
 class BlogPost extends React.Component {
-        render(){
-            return(
-                <main className="Blog_post">
-                    {this.props.children}
-                </main>
-            );
-        }
+  render() {
+    return <main className="Blog_post">{this.props.children}</main>;
+  }
 }
 export default BlogPost;

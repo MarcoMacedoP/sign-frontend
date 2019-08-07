@@ -1,0 +1,87 @@
+@import "./../../sass/variables";
+$padingSides: 2rem;
+.LateralMenu.hidden {
+  width: 0px;
+  min-width: 0px;
+  * {
+    display: none;
+  }
+}
+.LateralMenu {
+  position: relative;
+  top: 0;
+  left: 0;
+  background: $white_ligth;
+  padding: 2.5rem 0;
+  height: 100%;
+  width: 23.125vw;
+  min-width: 15rem;
+  box-sizing: border-box;
+  display: flex;
+  transition: width 0ms ease-out 350ms;
+  flex-direction: column;
+  border-right: 1px solid $white_dark;
+}
+
+.LateralMenu__user-info {
+  box-sizing: border-box;
+  padding: 0 $padingSides;
+  min-height: 5rem;
+  height: 12%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+.LateralMenu__profile-img {
+  width: 5rem;
+  height: 5rem;
+  grid-row: 1/-1;
+  grid-column: 1/2;
+  border-radius: 50%;
+  background: $white;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.LateralMenu__username {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: $black_ligth;
+  font-weight: bold;
+}
+.LateralMenu__nav {
+  display: flex;
+  flex-direction: column;
+}
+.LateralMenu__nav-item {
+  width: 100%;
+  height: 7vh;
+  padding: 0 $padingSides;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  cursor: pointer;
+  .material-icons {
+    cursor: unset;
+  }
+}
+.LateralMenu__nav-item:hover {
+  background: rgba($color: $main, $alpha: 0.56);
+  .material-icons,
+  .LateralMenu__nav-tittle {
+    color: $white_ligth;
+  }
+}
+
+.LateralMenu__nav-tittle {
+  color: $black_ligth;
+  padding: 0.5rem;
+}
