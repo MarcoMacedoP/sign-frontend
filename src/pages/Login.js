@@ -1,13 +1,12 @@
 import React from "react";
 import Form from "./../components/Form";
-import ImageLayout from "../layouts/ImageLayout";
-import LoginImg from "./images/iniciar-sesion.jpg";
+
 import FormInput from "./../components/FormInput";
 import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
-    <ImageLayout img={LoginImg} altImg="Inicia sesión">
+    <div>
       <h1 className="headline-four">Bienvenido de nuevo</h1>
       <Form className="Login__form">
         <FormInput
@@ -15,7 +14,11 @@ const Login = () => {
           type="email"
           placeholder="example@email.com"
         />
-        <FormInput name="Contraseña" type="password" placeholder="*********" />
+        <FormInput
+          name="Contraseña"
+          type="password"
+          placeholder="*********"
+        />
 
         <button className="button">Iniciar sesión</button>
         <span className="subtitle">
@@ -25,7 +28,7 @@ const Login = () => {
           </Link>
         </span>
       </Form>
-    </ImageLayout>
+    </div>
   );
 };
 export default Login;
