@@ -9,16 +9,27 @@ import Projects from "./pages/Projects";
 import CreateProject from "./pages/CreateProject";
 import { Dashboard } from "./pages/Dashboard";
 import { GlobalStyles } from "./styles/GlobalStyles";
+import { page404 } from "./pages/page404/";
 function App() {
-  const [login, setLogin] = React.useState(true);
+  const [ login, setLogin ] = React.useState(true);
   return (
     <BrowserRouter>
       <GlobalStyles />
       <Layout userLoged={login}>
         <Switch>
           <Route exact path="/" component={Landing} />
-          <Route exact path="/login" component={Login} setLogin={setLogin} />
-          <Route exact path="/signup" component={Signup} setLogin={setLogin} />
+          <Route
+            exact
+            path="/login"
+            component={Login}
+            setLogin={setLogin}
+          />
+          <Route
+            exact
+            path="/signup"
+            component={Signup}
+            setLogin={setLogin}
+          />
           <Route exact path="/app" component={Dashboard} />
           <Route exact path="/app/projects" component={Projects} />
           <Route
@@ -26,6 +37,7 @@ function App() {
             path="/app/projects/create"
             component={CreateProject}
           />
+          <Route component={page404} />
         </Switch>
       </Layout>
     </BrowserRouter>

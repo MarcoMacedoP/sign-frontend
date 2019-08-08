@@ -4,13 +4,14 @@ import {
   LoginButton,
   SignupButton,
   Header,
-  Home,
   ButtonContainer
 } from "./styles";
+import { Logo } from "../../styles/foundations/Logo";
+
 export const Navbar = () => {
   return (
     <Header className="nav-bar">
-      <Home to="/">SIGN</Home>
+      <Logo to="/">SIGN</Logo>
       <ButtonContainer>
         <LoginButton to="/login">Iniciar sesión</LoginButton>
         <SignupButton to="/signup">Registrarse</SignupButton>

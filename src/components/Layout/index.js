@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Navbar from "../Navbar/";
 import Footer from "../Footer";
-import AppNavbar from "../AppNavbar";
+import { AppNavbar } from "../AppNavbar/";
 
 export const Layout = ({ children, userLoged }) => {
   if (userLoged) {

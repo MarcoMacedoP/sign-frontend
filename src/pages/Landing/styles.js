@@ -3,7 +3,7 @@ import {
   whiteColorLigth,
   blackColorLigth
 } from "../../styles/variables";
-import landingImage from "../images/landing-page-image.svg";
+import landingImage from "../images/backgroundImage.svg";
 import { setHeadlineText } from "../../styles/foundations/Texts";
 import { Button as BaseButton } from "../../styles/foundations/Buttons";
 export const Main = styled.main`

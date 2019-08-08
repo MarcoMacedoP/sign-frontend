@@ -2,12 +2,7 @@ import {
   Button,
   SecondaryButton
 } from "../../styles/foundations/Buttons";
-import {
-  whiteColorLigth,
-  fontTitle,
-  blackColor
-} from "../../styles/variables";
-import { Link } from "react-router-dom";
+import { whiteColorLigth } from "../../styles/variables";
 
 import styled from "styled-components";
 
@@ -31,16 +26,7 @@ export const Header = styled.header`
   align-items: center;
   box-shadow: 0 3px 7px 0 rgba(50, 54, 53, 0.3);
 `;
-export const Home = styled(Link)`
-text-decoration: none;
-color: ${blackColor};
- font-size: 1.5rem;
-  font-weight: 500;
-  font-family: ${fontTitle};
-   &:hover {
-    opacity: 0.60;
-}
-`;
+
 export const ButtonContainer = styled.nav`
   display: flex;
   width: 100%;

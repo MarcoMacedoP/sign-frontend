@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="91" height="91" viewBox="0 0 91 91">
+    <defs>
+        <style>
+            .cls-1{fill:url(#linear-gradient)}.cls-2{clip-path:url(#clip-path)}.cls-3{fill:none}.cls-4{fill:url(#linear-gradient-2)}
+        </style>
+        <linearGradient id="linear-gradient" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff82ee"/>
+            <stop offset=".289" stop-color="#ef8fec"/>
+            <stop offset="1" stop-color="#86e5dd"/>
+        </linearGradient>
+        <clipPath id="clip-path">
+            <circle id="Elipse_22" cx="45.5" cy="45.5" r="45.5" class="cls-1" data-name="Elipse 22" transform="translate(100 241)"/>
+        </clipPath>
+        <linearGradient id="linear-gradient-2" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#86e5dd"/>
+            <stop offset="1" stop-color="#ef8fec"/>
+            <stop offset="1" stop-color="#ff82ee"/>
+        </linearGradient>
+    </defs>
+    <g id="Enmascarar_grupo_8" class="cls-2" data-name="Enmascarar grupo 8" transform="translate(-100 -241)">
+        <g id="baseline-credit_card-24px" transform="translate(100 241)">
+            <path id="Trazado_55" d="M0 0h91v91H0z" class="cls-3" data-name="Trazado 55"/>
+            <path id="Trazado_56" d="M75.833 15.167H15.167a7.525 7.525 0 0 0-7.546 7.583l-.038 45.5a7.557 7.557 0 0 0 7.583 7.583h60.667a7.557 7.557 0 0 0 7.583-7.583v-45.5a7.557 7.557 0 0 0-7.583-7.583zm0 53.083H15.167V45.5h60.666zm0-37.917H15.167V22.75h60.666z" class="cls-4" data-name="Trazado 56"/>
+        </g>
+    </g>
+</svg>
