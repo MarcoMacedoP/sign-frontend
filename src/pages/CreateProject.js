@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Form from "../components/Form";
-import FormInput from "../components/FormInput";
+import { Form } from "./Login/styles";
+
+import { Input } from "../components/Input/";
 
 const CreateProject = (props) => {
   return (
@@ -24,17 +25,17 @@ const CreateProject = (props) => {
         </div>
         <div className="col-two">
           <Form>
-            <FormInput
+            <Input
               name="Nombre del proyecto"
               type="text"
               placeholder="Un nombre elegante que describa tu proyecto."
             />
-            <FormInput
+            <Input
               name="Descripción corta"
               type="text"
               placeholder="Una descripción corta sobre lo que es tu proyecto."
             />
-            <FormInput
+            <Input
               name="Descripción a detalle"
               type="text"
               placeholder="Cuentanos los pequeños detalles."

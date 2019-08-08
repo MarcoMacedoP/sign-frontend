@@ -1,5 +1,6 @@
 export const mainColor = "#ff82ee";
 export const mainColorDark = "#ca50bb";
+export const mainColorLight = "#ffb5ff";
 
 export const whiteColor = "#ebebeb";
 export const whiteColorDark = "#cecece";

@@ -4,16 +4,16 @@ import {
   whiteColor,
   blackColor
 } from "../../styles/variables";
-import { setHeadlineText } from "../../styles/functions/texts";
+import { setHeadlineText } from "../../styles/foundations/Texts";
 import { Link } from "react-router-dom";
 export const Container = styled.div`
   width: 100%;
-  heigth: 100%;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 1rem;
   row-gap: 1rem;
-  grid-tempate-row: min-content 1fr;
+  grid-template-rows: min-content 1fr;
 `;
 export const Title = styled.h1`
   margin: 0 auto;

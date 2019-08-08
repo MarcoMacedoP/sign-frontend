@@ -1,7 +1,7 @@
 /*components*/
 import React from "react";
-import Form from "../components/Form";
-import FormInput from "../components/FormInput";
+import { Form } from "./Login/styles";
+import { Input } from "../components/Input/";
 import { Link } from "react-router-dom";
 
 /*resources*/
@@ -54,27 +54,27 @@ class UserRegister extends React.Component {
       <RegisterLayout
         headline="Cuentanos un poco sobre ti"
         subtitle="Antes de poner todo en marcha necesitamos conocerte">
-        <FormInput
+        <Input
           name="Nombre (s)"
           type="text"
           placeholder="Marco Antonio"
         />
-        <FormInput
+        <Input
           name="Apellido (s)"
           type="text"
           placeholder="Macedo Preciado"
         />
-        <FormInput
+        <Input
           name="Correo electronico"
           type="email"
           placeholder="example@email.com"
         />
-        <FormInput
+        <Input
           name="Contraseña"
           type="password"
           placeholder="**********"
         />
-        <FormInput
+        <Input
           name="Repetir contraseña"
           type="password"
           placeholder="**********"

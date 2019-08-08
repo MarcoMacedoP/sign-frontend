@@ -8,7 +8,7 @@ export const Landing = () => {
         SIGN es la manera más eficaz de <br /> mejorar la calidad de
         tu trabajo.
       </Subtitle>
-      <Button to="/welcome">Únete ahora</Button>
+      <Button to="/signup">Únete ahora</Button>
     </Main>
   );
 };
