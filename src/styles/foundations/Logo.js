@@ -1,11 +1,14 @@
-import { fontTitle, blackColor } from "../../styles/variables";
+import {
+  fontTitle,
+  blackColorTransparent
+} from "../../styles/variables";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
 export const Logo = styled(Link)`
 text-decoration: none;
-color: ${blackColor};
+color: ${blackColorTransparent};
  font-size: 1.5rem;
   font-weight: 500;
   font-family: ${fontTitle};

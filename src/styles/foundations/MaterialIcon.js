@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { mainColorLight, whiteColorLigth } from "../variables";
+import {
+  mainColorLight,
+  whiteColorLigth,
+  blackColorTransparent
+} from "../variables";
 
 export const MaterialIcon = styled.i`
   font-family: 'Material Icons';
@@ -17,8 +21,9 @@ export const MaterialIcon = styled.i`
   -moz-osx-font-smoothing: grayscale;
   padding: 0.5rem;
   cursor: pointer;
-  --duration: 140ms;
+  color: ${blackColorTransparent};
   border-radius: 50%;
+  --duration: 140ms;
   transition: background-color var(--duration) ease-in 0ms,
     color var(--duration) ease-in 0ms;
   &:active {
