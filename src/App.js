@@ -9,6 +9,7 @@ import Projects from "./pages/Projects";
 import CreateProject from "./pages/CreateProject";
 import { Dashboard } from "./pages/Dashboard";
 import { GlobalStyles } from "./styles/GlobalStyles";
+import { Providers } from "./pages/Providers";
 import { page404 } from "./pages/page404/";
 function App() {
   const [ login, setLogin ] = React.useState(true);
@@ -37,6 +38,7 @@ function App() {
             path="/app/projects/create"
             component={CreateProject}
           />
+          <Route exact path="/app/providers/" component={Providers} />
           <Route component={page404} />
         </Switch>
       </Layout>

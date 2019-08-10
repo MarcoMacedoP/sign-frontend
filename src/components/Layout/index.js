@@ -4,7 +4,7 @@ import Footer from "../Footer";
 import { AppNavbar } from "../AppNavbar/";
 import { LateralMenu } from "../LateralMenu/";
 export const Layout = ({ children, userLoged }) => {
-  const [ menuStatus, setMenuStatus ] = useState(true);
+  const [ menuStatus, setMenuStatus ] = useState(false);
 
   if (userLoged) {
     return (

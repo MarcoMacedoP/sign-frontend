@@ -17,31 +17,31 @@ export const Dashboard = (props) => {
   return (
     <Container>
       <NavigationCard
-        linkDirection="/projects/"
+        linkDirection="/app/projects/"
         title="Proyectos"
         icon={iconProjects}
         description="Organiza, crea proyectos y controla los detalles con precisión milimétrica."
       />
       <NavigationCard
-        linkDirection="/clients/"
+        linkDirection="/app/clients/"
         title="Clientes"
         icon={iconClient}
         description="Organiza y lleva un seguimiento de tus clientes más importantes."
       />
       <NavigationCard
-        linkDirection="/providers/"
+        linkDirection="/app/providers/"
         title="Proveedores"
         icon={iconProviders}
         description="Administra a tus proveedores y los servicisos o productos que te ofrecen."
       />
       <NavigationCard
-        linkDirection="/teams/"
+        linkDirection="/app/teams/"
         title="Colaboradores"
         icon={iconTeams}
         description="Crea equipos de trabajo con diferentes usuarios."
       />
       <NavigationCard
-        linkDirection="/reminders/"
+        linkDirection="/app/reminders/"
         title="Recordatorios"
         icon={iconReminders}
         description="¡No olvides las cosas importantes! Crea recordatorios para ti tus equipos."
