@@ -1,12 +1,21 @@
 import React from "react";
-import { MaterialIcon } from "../../styles/foundations/MaterialIcon";
-
-export const LongCard = ({ name, date, description }) => (
-  <div>
-    <picture />
-    <p>{name || "name"}</p>
-    <p>{description || "About this..."}</p>
-    <date>{date || "04/08/2000"}</date>
-    <MaterialIcon>arrow_forward_ios</MaterialIcon>
-  </div>
+import {
+  Container,
+  Picture,
+  Title,
+  Description,
+  Date,
+  ArrowIcon,
+  PictureContainer
+} from "./styles";
+export const LongCard = ({ name, date, description, image }) => (
+  <Container>
+    <PictureContainer>
+      <Picture image={image} />
+    </PictureContainer>
+    <Title>{name || "name"}</Title>
+    <Description>{description || "About this..."}</Description>
+    <Date>{date || "04/08/2000"}</Date>
+    <ArrowIcon>arrow_forward_ios</ArrowIcon>
+  </Container>
 );
