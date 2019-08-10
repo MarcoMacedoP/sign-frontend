@@ -9,7 +9,8 @@ import {
   BigProvidersList,
   LongProvidersList,
   SearchBarContainer,
-  Title
+  Title,
+  LongProvider
 } from "./styles";
 
 export const Providers = () => (
@@ -28,9 +29,9 @@ export const Providers = () => (
 
     <LongProvidersList>
       {[ 1, 2, 3, 4 ].map((actualValue) => (
-        <li key={actualValue}>
+        <LongProvider key={actualValue}>
           <LongCard />
-        </li>
+        </LongProvider>
       ))}
     </LongProvidersList>
   </Container>

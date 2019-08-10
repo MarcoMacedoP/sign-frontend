@@ -21,7 +21,7 @@ export const SearchBarContainer = styled.div`
   justify-content: flex-end;
 `;
 export const BigProvidersList = styled.ul`
-  width: 80%;
+  width: 90%;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -41,4 +41,8 @@ export const LongProvidersList = styled.ul`
   li:first-child {
     margin-top: 0;
   }
+`;
+export const LongProvider = styled.li`
+  width: 90%;
+  cursor: pointer;
 `;

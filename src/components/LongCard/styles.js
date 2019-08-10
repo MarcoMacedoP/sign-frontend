@@ -14,6 +14,7 @@ export const Container = styled.div`
   box-shadow: 0 3px 6px 0 ${blackColorTransparent};
   background-color: ${whiteColor};
   padding: 1rem;
+  position: relative;
   display: grid;
   grid-template-columns: 3rem 1fr 1fr 3rem;
   grid-template-rows: repeat(2, 1fr);
@@ -55,6 +56,8 @@ export const Date = styled.p`
 `;
 
 export const ArrowIcon = styled(MaterialIcon)`
+position: absolute;
+right: 0;
 grid-column: 4/-1;
   grid-row: 1/-1;
 `;
