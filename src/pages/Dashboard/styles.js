@@ -49,7 +49,7 @@ export const Card = styled(Link)`
   }
   &:hover {
     opacity: 1;
-    box-shadow: 0 3px 6px 0 #ff82ee;
+    box-shadow: 0 3px 6px 0 ${mainColor};
   
   }
 

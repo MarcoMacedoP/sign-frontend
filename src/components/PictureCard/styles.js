@@ -5,7 +5,7 @@ import {
   secondaryColorLigth
 } from "../../styles/variables";
 export const Container = styled.div`
-  max-width: 530px;
+  max-width: 100%;
   padding-top: 1rem;
   height: min-content;
   min-height: 100px;

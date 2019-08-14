@@ -1,16 +1,17 @@
 import React from "react";
 //Components
-import { PictureCard } from "../../components/PictureCard/";
-import { SearchBar } from "../../components/SearchBar/";
-import { LongCard } from "../../components/LongCard/";
+import { PictureCard } from "../../components/PictureCard";
+import { SearchBar } from "../../components/SearchBar";
+import { LongCard } from "../../components/LongCard";
+import { AddButton } from "../../components/AddButton";
+import { Link } from "react-router-dom";
 //Styled Components
 import {
   Container,
   BigProvidersList,
   LongProvidersList,
   SearchBarContainer,
-  Title,
-  LongProvider
+  Title
 } from "./styles";
 
 export const Providers = () => (
@@ -21,18 +22,19 @@ export const Providers = () => (
     </SearchBarContainer>
     <BigProvidersList>
       {[ 1, 2, 3, 4 ].map((actualValue) => (
-        <li key={actualValue}>
+        <Link key={actualValue} to={`/app/providers/${actualValue}`}>
           <PictureCard />
-        </li>
+        </Link>
       ))}
     </BigProvidersList>
 
     <LongProvidersList>
       {[ 1, 2, 3, 4 ].map((actualValue) => (
-        <LongProvider key={actualValue}>
+        <Link key={actualValue} to={`/app/providers/${actualValue}`}>
           <LongCard />
-        </LongProvider>
+        </Link>
       ))}
     </LongProvidersList>
+    <AddButton />
   </Container>
 );

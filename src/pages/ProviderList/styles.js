@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { setHeadlineText } from "../../styles/foundations/Texts";
+import { appPadding } from "../../styles/variables";
 
 export const Container = styled.main`
   width: 100%;
   height: 100%;
-  padding: 1.5rem;
+  padding: ${appPadding};
   box-sizing: border-box;
 
   display: flex;
@@ -21,12 +22,15 @@ export const SearchBarContainer = styled.div`
   justify-content: flex-end;
 `;
 export const BigProvidersList = styled.ul`
-  width: 90%;
+  width: 100%;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr 1fr;
   gap: 1.5rem;
+  * {
+    text-decoration: none;
+  }
 `;
 export const LongProvidersList = styled.ul`
   margin-top: 3rem;
@@ -35,14 +39,15 @@ export const LongProvidersList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  li {
+  //Selecting <Link> childs
+  a {
     margin-top: 1rem;
+    width: 100%;
   }
-  li:first-child {
+  a:first-child {
     margin-top: 0;
   }
-`;
-export const LongProvider = styled.li`
-  width: 90%;
-  cursor: pointer;
+  * {
+    text-decoration: none;
+  }
 `;
