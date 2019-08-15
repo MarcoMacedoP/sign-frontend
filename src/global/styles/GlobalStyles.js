@@ -29,6 +29,7 @@ html{
 body{
 	background-color: ${whiteColorLigth};
 	overflow-x: hidden;
+	
 }
 a{
 	color: ${mainColor};
@@ -37,4 +38,9 @@ a{
   		opacity: 0.6;
 	}
 }
+#root{
+	transition: filter 400ms ease-out 50ms;
+	
+}
+
 `;
