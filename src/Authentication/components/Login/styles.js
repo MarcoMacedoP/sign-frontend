@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import LoginImage from "../images/LoginImage.png";
-import { setPrimaryButton } from "../../styles/foundations/Buttons";
-import { setHeadlineText } from "../../styles/foundations/Texts";
-import { whiteColorDark } from "../../styles/variables";
+import LoginImage from "../../utils/images/LoginImage.png";
+import { setPrimaryButton } from "../../../global/styles/foundations/Buttons";
+import { setHeadlineText } from "../../../global/styles/foundations/Texts";
+import { whiteColorDark } from "../../../global/styles/variables";
 import {
   setHalfScreenContainer,
   setChildContainer
-} from "../../styles/foundations/Containers";
+} from "../../../global/styles/foundations/Containers";
 export const Container = styled.div`
   ${setHalfScreenContainer()};
   position: relative;

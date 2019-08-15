@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="91" height="91" viewBox="0 0 91 91">
+    <defs>
+        <style>
+            .cls-1{fill:url(#linear-gradient)}.cls-2{clip-path:url(#clip-path)}.cls-3{fill:url(#linear-gradient-2)}.cls-4{fill:none}
+        </style>
+        <linearGradient id="linear-gradient" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff82ee"/>
+            <stop offset=".289" stop-color="#ef8fec"/>
+            <stop offset=".389" stop-color="#95d9df"/>
+            <stop offset=".724" stop-color="#afc4e3"/>
+            <stop offset=".958" stop-color="#8ce0de"/>
+            <stop offset="1" stop-color="#86e5dd"/>
+        </linearGradient>
+        <clipPath id="clip-path">
+            <circle id="Elipse_22" cx="45.5" cy="45.5" r="45.5" class="cls-1" data-name="Elipse 22" transform="translate(100 241)"/>
+        </clipPath>
+        <linearGradient id="linear-gradient-2" x1=".162" x2=".805" y1="-.217" y2=".92" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff82ee"/>
+            <stop offset=".171" stop-color="#ef8fec"/>
+            <stop offset=".406" stop-color="#df9cea"/>
+            <stop offset=".895" stop-color="#96d8df"/>
+            <stop offset="1" stop-color="#86e5dd"/>
+        </linearGradient>
+    </defs>
+    <g id="Enmascarar_grupo_6" class="cls-2" data-name="Enmascarar grupo 6" transform="translate(-100 -241)">
+        <g id="baseline-person-24px_1_" data-name="baseline-person-24px(1)" transform="translate(100 241)">
+            <path id="Trazado_51" d="M45.5 45.5a15.167 15.167 0 1 0-15.167-15.167A15.162 15.162 0 0 0 45.5 45.5zm0 7.583c-10.124 0-30.333 5.081-30.333 15.167v7.583h60.666V68.25c0-10.086-20.209-15.167-30.333-15.167z" class="cls-3" data-name="Trazado 51"/>
+            <path id="Trazado_52" d="M0 0h91v91H0z" class="cls-4" data-name="Trazado 52"/>
+        </g>
+    </g>
+</svg>

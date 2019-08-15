@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Input } from "../../components/Input";
+import { Input } from "../../../global/components/Input/";
 import { Link } from "react-router-dom";
 import {
   Form,

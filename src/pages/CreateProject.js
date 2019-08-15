@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Form } from "./Login/styles";
+// import { Form } from "./Login/styles";
 
 import { Input } from "../components/Input/";
 
@@ -24,7 +24,7 @@ const CreateProject = (props) => {
           </p>
         </div>
         <div className="col-two">
-          <Form>
+          <form>
             <Input
               name="Nombre del proyecto"
               type="text"
@@ -41,7 +41,7 @@ const CreateProject = (props) => {
               placeholder="Cuentanos los pequeños detalles."
             />
             <button className="button">Crear proyecto</button>
-          </Form>
+          </form>
         </div>
       </div>
     </div>

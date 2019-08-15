@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="91" height="91" viewBox="0 0 91 91">
+    <defs>
+        <style>
+            .cls-1{fill:url(#linear-gradient)}.cls-2{clip-path:url(#clip-path)}.cls-3{fill:none}
+        </style>
+        <linearGradient id="linear-gradient" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff82ee"/>
+            <stop offset=".289" stop-color="#ef8fec"/>
+            <stop offset="1" stop-color="#86e5dd"/>
+        </linearGradient>
+        <clipPath id="clip-path">
+            <circle id="Elipse_22" cx="45.5" cy="45.5" r="45.5" class="cls-1" data-name="Elipse 22" transform="translate(100 241)"/>
+        </clipPath>
+    </defs>
+    <g id="Enmascarar_grupo_7" class="cls-2" data-name="Enmascarar grupo 7" transform="translate(-100 -241)">
+        <g id="baseline-shopping_cart-24px" transform="translate(100 241)">
+            <path id="Trazado_53" d="M22.517 57.517a6.242 6.242 0 1 0 6.242 6.242 6.233 6.233 0 0 0-6.242-6.242zM3.792 7.583v6.242h6.242l11.234 23.687-4.213 7.646a6.034 6.034 0 0 0-.78 3 6.26 6.26 0 0 0 6.242 6.242h37.45v-6.246h-36.14a.773.773 0 0 1-.78-.78l.094-.374 2.809-5.087H49.2a6.212 6.212 0 0 0 5.461-3.213l11.173-20.256a3.049 3.049 0 0 0 .375-1.5 3.13 3.13 0 0 0-3.121-3.121H16.93L14 7.583H3.792zm49.933 49.934a6.242 6.242 0 1 0 6.242 6.242 6.233 6.233 0 0 0-6.242-6.242z" class="cls-1" data-name="Trazado 53" transform="translate(10.417 7.417)"/>
+            <path id="Trazado_54" d="M0 0h91v91H0z" class="cls-3" data-name="Trazado 54"/>
+        </g>
+    </g>
+</svg>

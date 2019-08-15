@@ -9,7 +9,7 @@ import {
   Button,
   Signup as Login
 } from "../Login/styles";
-import { Input } from "../../components/Input";
+import { Input } from "../../../global/components/Input";
 import { Subtitle } from "./styles";
 
 export const Signup = (props) => (

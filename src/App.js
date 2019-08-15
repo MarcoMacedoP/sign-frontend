@@ -3,12 +3,11 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 //Pages
 import { Landing } from "./pages/Landing/Landing";
-import { Login } from "./pages/Login/";
-import { Signup } from "./pages/Signup/";
+import { Login, Signup } from "./Authentication";
 import { Layout } from "./components/Layout";
 import Projects from "./pages/Projects";
 import CreateProject from "./pages/CreateProject";
-import { Dashboard } from "./pages/Dashboard";
+import { Dashboard } from "./Dashboard";
 import { Providers } from "./pages/ProviderList/";
 import { ProviderInfo } from "./pages/ProviderInfo/";
 import { page404 } from "./pages/page404/";

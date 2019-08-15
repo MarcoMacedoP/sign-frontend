@@ -1,3 +1,26 @@
+/*
+
+@Author: Marco Macedo
+@Description : This project uses POD structure for carpets.
+                Every Feature has is own carpet. Feature First.
+
+- profile
+    - index.js
+    - api.js
+    - hooks.js
+    - Profile.js
+    - styles/
+- courses
+    - index.js
+    - api/
+    - hooks/
+    - components/
+    - containers/
+- global
+    - sharedHooks/
+    - bodyStyles.css
+*/
+
 import React from "react";
 import ReactDOM from "react-dom";
 
