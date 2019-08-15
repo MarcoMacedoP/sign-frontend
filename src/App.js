@@ -2,7 +2,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 //Pages
-import { Landing } from "./pages/Landing/Landing";
+import { Landing } from "./LandingPage";
 import { Login, Signup } from "./Authentication";
 import { Layout } from "./components/Layout";
 import Projects from "./pages/Projects";

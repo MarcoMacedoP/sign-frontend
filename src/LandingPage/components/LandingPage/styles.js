@@ -2,10 +2,10 @@ import styled from "styled-components";
 import {
   whiteColorLigth,
   blackColorLigth
-} from "../../styles/variables";
-import landingImage from "../images/backgroundImage.svg";
-import { setHeadlineText } from "../../styles/foundations/Texts";
-import { Button as BaseButton } from "../../styles/foundations/Buttons";
+} from "../../../global/styles/variables";
+import landingImage from "../../../global/images/backgroundImage.svg";
+import { setHeadlineText } from "../../../global/styles/foundations/Texts";
+import { Button as BaseButton } from "../../../global/styles/foundations/Buttons";
 export const Main = styled.main`
   box-sizing: border-box;
   background-color: ${whiteColorLigth};
