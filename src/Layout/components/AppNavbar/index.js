@@ -1,6 +1,6 @@
 import React from "react";
-import { Logo } from "../../styles/foundations/Logo";
-import { MaterialIcon } from "../../styles/foundations/MaterialIcon";
+import { Logo } from "../../../global/styles/foundations/Logo";
+import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 import { Navbar } from "./styles";
 export const AppNavbar = ({ openMenu }) => {
   return (

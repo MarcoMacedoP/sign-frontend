@@ -4,15 +4,15 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 //Pages
 import { Landing } from "./LandingPage";
 import { Login, Signup } from "./Authentication";
-import { Layout } from "./components/Layout";
+import { Layout } from "./Layout";
 
 import { Dashboard } from "./Dashboard";
 import { ProviderInfo, ProvidersList } from "./Providers";
 import { page404 } from "./404";
 //Resources
-import { GlobalStyles } from "./styles/GlobalStyles";
+import { GlobalStyles } from "./global/styles/GlobalStyles";
 function App() {
-  const [ login, setLogin ] = React.useState(true);
+  const [ login, setLogin ] = React.useState(false);
   return (
     <BrowserRouter>
       <GlobalStyles />

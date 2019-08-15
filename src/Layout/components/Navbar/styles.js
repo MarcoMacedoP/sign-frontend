@@ -1,8 +1,8 @@
 import {
   Button,
   SecondaryButton
-} from "../../styles/foundations/Buttons";
-import { whiteColorLigth } from "../../styles/variables";
+} from "../../../global/styles/foundations/Buttons";
+import { whiteColorLigth } from "../../../global/styles/variables";
 
 import styled from "styled-components";
 

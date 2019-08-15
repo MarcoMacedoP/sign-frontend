@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { MaterialIcon } from "../../styles/foundations/MaterialIcon";
+import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 
 import {
   whiteColorLigth,
@@ -8,7 +8,7 @@ import {
   blackColorLigth,
   blackColorTransparent,
   mainColor
-} from "../../styles/variables";
+} from "../../../global/styles/variables";
 
 export const Menu = styled.aside`
   position: absolute;

@@ -6,7 +6,7 @@ import {
   Header,
   ButtonContainer
 } from "./styles";
-import { Logo } from "../../styles/foundations/Logo";
+import { Logo } from "../../../global/styles/foundations/Logo";
 
 export const Navbar = () => {
   return (

@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
-import Navbar from "../Navbar/";
-import Footer from "../Footer";
-import { AppNavbar } from "../AppNavbar/";
-import { LateralMenu } from "../LateralMenu/";
+import { Navbar } from "../Navbar";
+import { Footer } from "../Footer";
+import { AppNavbar } from "../AppNavbar";
+import { LateralMenu } from "../LateralMenu";
 export const Layout = ({ children, userLoged }) => {
   const [ menuStatus, setMenuStatus ] = useState(false);
 
