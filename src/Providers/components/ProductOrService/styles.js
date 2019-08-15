@@ -4,8 +4,8 @@ import {
   positiveStatusColor,
   whiteColorLigth,
   blackColorTransparent
-} from "../../styles/variables";
-import { MaterialIcon } from "../../styles/foundations/MaterialIcon";
+} from "../../../global/styles/variables";
+import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 export const Container = styled.div`
   min-width: 13rem;
   min-height: 9rem;

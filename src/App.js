@@ -8,8 +8,7 @@ import { Layout } from "./components/Layout";
 import Projects from "./pages/Projects";
 import CreateProject from "./pages/CreateProject";
 import { Dashboard } from "./Dashboard";
-import { Providers } from "./pages/ProviderList/";
-import { ProviderInfo } from "./pages/ProviderInfo/";
+import { ProviderInfo, ProvidersList } from "./Providers";
 import { page404 } from "./pages/page404/";
 //Resources
 import { GlobalStyles } from "./styles/GlobalStyles";
@@ -40,7 +39,11 @@ function App() {
             path="/app/projects/create"
             component={CreateProject}
           />
-          <Route exact path="/app/providers/" component={Providers} />
+          <Route
+            exact
+            path="/app/providers/"
+            component={ProvidersList}
+          />
           <Route
             exact
             path="/app/providers/:providerId"
