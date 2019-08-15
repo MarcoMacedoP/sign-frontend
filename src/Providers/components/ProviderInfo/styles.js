@@ -1,20 +1,13 @@
 import styled from "styled-components";
 import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 import { setHeadlineText } from "../../../global/styles/foundations/Texts";
-import {
-  secondaryColor,
-  appPadding
-} from "../../../global/styles/variables";
-
-export const Container = styled.div`
-  padding: ${appPadding};
-  position: relative;
-`;
+import { secondaryColor } from "../../../global/styles/variables";
 
 export const About = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1rem;
 `;
 export const BackIcon = styled(MaterialIcon)`
  align-self: flex-start;
@@ -63,26 +56,13 @@ export const ContactInfoContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 export const ContactInfo = styled.div`
   display: flex;
   align-items: center;
-  margin: 1rem;
-`;
-export const Services = styled.div`
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 15vw;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-export const ServicesList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 2.5rem;
-  row-gap: 2.5rem;
+  margin: 0 1rem;
+  & i {
+    padding: 0 0.5rem;
+  }
 `;

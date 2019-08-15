@@ -7,12 +7,12 @@ import { Login, Signup } from "./Authentication";
 import { Layout } from "./Layout";
 
 import { Dashboard } from "./Dashboard";
-import { ProviderInfo, ProvidersList } from "./Providers";
+import { ProviderPage, ProvidersList } from "./Providers";
 import { page404 } from "./404";
 //Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
 function App() {
-  const [ login, setLogin ] = React.useState(false);
+  const [ login, setLogin ] = React.useState(true);
   return (
     <BrowserRouter>
       <GlobalStyles />
@@ -40,7 +40,7 @@ function App() {
           <Route
             exact
             path="/app/providers/:providerId"
-            component={ProviderInfo}
+            component={ProviderPage}
           />
 
           <Route component={page404} />

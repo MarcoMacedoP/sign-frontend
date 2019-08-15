@@ -4,5 +4,5 @@
 
 
 */
-export { ProviderInfo } from "./components/ProviderInfo";
+export { ProviderPage } from "./components/ProviderPage";
 export { ProvidersList } from "./components/ProviderList";

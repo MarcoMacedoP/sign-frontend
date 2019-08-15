@@ -10,9 +10,4 @@ export const Container = styled.footer`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  * {
-    text-decoration: none;
-    margin-top: 1rem;
-  }
 `;

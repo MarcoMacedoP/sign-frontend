@@ -5,13 +5,11 @@
 
 //Components
 import React from "react";
-import { ProductOrService } from "../ProductOrService";
-import { AddButton } from "../../../global/components/AddButton";
+import { withRouter } from "react-router-dom";
 
 //Styled components
 import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 import {
-  Container,
   About,
   BackIcon,
   MoreIcon,
@@ -20,26 +18,20 @@ import {
   Biography,
   ProfilePicture,
   ContactInfoContainer,
-  ContactInfo,
-  Services,
-  ServicesList
+  ContactInfo
 } from "./styles";
 
-export const ProviderInfo = ({
-  name,
-  image,
-  description,
-  phone,
-  email
-}) => {
-  return (
-    <Container>
-      {/*About the provider*/}
+export const ProviderInfo = withRouter(
+  ({ name, image, description, phone, email, history }) => {
+    return (
       <About>
-        {/*Icons*/}
-        <BackIcon>arrow_back</BackIcon>
+        <BackIcon
+          onClick={() =>
+            history ? history.goBack() : history.push("/app/")}>
+          arrow_back{" "}
+        </BackIcon>
         <MoreIcon>more_vert</MoreIcon>
-        {/*Info*/}
+
         <Name>{name || "Proveedor"}</Name>
         <BiographyContainer>
           <ProfilePicture image={image}>
@@ -62,13 +54,6 @@ export const ProviderInfo = ({
           </ContactInfo>
         </ContactInfoContainer>
       </About>
-      <Services>
-        <Name>Servicios</Name>
-        <ServicesList>
-          {[ 1, 2, 3, 4, 5 ].map(() => <ProductOrService />)}
-        </ServicesList>
-        <AddButton position="static" />
-      </Services>
-    </Container>
-  );
-};
+    );
+  }
+);

@@ -32,4 +32,8 @@ export const Container = styled.div`
   &:active {
     background-color: ${mainColorLight};
   }
+  &:hover {
+    opacity: 0.9;
+    box-shadow: 5px 7px 8px 0px ${blackColorTransparent};
+  }
 `;

@@ -6,9 +6,8 @@ import {
 } from "../../styles/variables";
 export const Container = styled.div`
   max-width: 100%;
-  padding-top: 1rem;
-  height: min-content;
-  min-height: 100px;
+  height: 15.21vh;
+  min-height: 121px;
 
   box-shadow: 0 3px 6px 0 ${blackColorTransparent};
   background-color: ${whiteColor};
@@ -19,7 +18,7 @@ export const Container = styled.div`
   overflow: hidden;
 
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 20.19% 3fr 1fr;
   grid-template-rows: 1fr 3fr;
   row-gap: 1rem;
   column-gap: 1rem;
@@ -32,10 +31,11 @@ export const PictureContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
 
   width: 100%;
   height: inherit;
+  padding-left: 1rem;
+  box-sizing: border-box;
 `;
 export const Picture = styled.picture`
   display: block;
@@ -64,6 +64,8 @@ export const Title = styled.p`
 
   display: flex;
   align-items: flex-end;
+
+  margin-top: 1rem;
 `;
 export const IconContainer = styled.div`
   grid-column: 3/-1;
@@ -72,4 +74,10 @@ export const IconContainer = styled.div`
   height: inherit;
   display: flex;
   align-items: center;
+
+  position: relative;
+  i {
+    position: absolute;
+    right: 0.86rem;
+  }
 `;
