@@ -5,11 +5,10 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Landing } from "./LandingPage";
 import { Login, Signup } from "./Authentication";
 import { Layout } from "./components/Layout";
-import Projects from "./pages/Projects";
-import CreateProject from "./pages/CreateProject";
+
 import { Dashboard } from "./Dashboard";
 import { ProviderInfo, ProvidersList } from "./Providers";
-import { page404 } from "./pages/page404/";
+import { page404 } from "./404";
 //Resources
 import { GlobalStyles } from "./styles/GlobalStyles";
 function App() {
@@ -33,12 +32,6 @@ function App() {
             setLogin={setLogin}
           />
           <Route exact path="/app" component={Dashboard} />
-          <Route exact path="/app/projects" component={Projects} />
-          <Route
-            exact
-            path="/app/projects/create"
-            component={CreateProject}
-          />
           <Route
             exact
             path="/app/providers/"
