@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {
   blackColorTransparent,
-  whiteColor
+  whiteColorLigth
 } from "../../styles/variables";
 import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 
@@ -16,23 +16,29 @@ export const Blur = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 2;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
   /* filter: blur(22px); */
 `;
 export const ModalContainer = styled.div`
-  min-width: 650px;
-  min-height: 500px;
-  background-color: ${whiteColor};
-  border-radius: 2rem;
+  min-width: 500px;
+  min-height: min-content;
+  box-sizing: border-box;
 
-  position: fixed;
-  top: 15%;
-  left: 25%;
-  right: 25%;
+  background-color: ${whiteColorLigth};
+  border-radius: 2rem;
 
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  padding: 1.5rem 4.5rem 2rem;
+  position: relative;
+  z-index: 3;
 `;
 export const CloseIcon = styled(MaterialIcon)`
 

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Container, ListContainer, List, Name } from "./styles";
 import { ProviderInfo } from "../ProviderInfo";
-import { ProductOrService } from "../ProductOrService";
+import { Income } from "../Income";
 import { AddButton } from "../../../global/components/AddButton";
-import { Modal } from "../../../global/components/Modal";
+import { AddIncome } from "../../modals/AddIncome";
 export const ProviderPage = () => {
   const [ addServiceIsOpen, setAddServiceIsOpen ] = useState(true); //Return this to false
 
@@ -17,7 +17,7 @@ export const ProviderPage = () => {
       <ListContainer>
         <Name>Servicios</Name>
         <List>
-          {[ 1, 2, 3, 4, 5 ].map(() => <ProductOrService />)}
+          {[ 1, 2, 3, 4, 5 ].map((value) => <Income key={value} />)}
         </List>
         <AddButton
           position="static"
@@ -30,7 +30,7 @@ export const ProviderPage = () => {
       <ListContainer>
         <Name>Productos</Name>
         <List>
-          {[ 1, 2, 3, 4, 5 ].map(() => <ProductOrService />)}
+          {[ 1, 2, 3, 4, 5 ].map((value) => <Income key={value} />)}
         </List>
         <AddButton position="static" />
       </ListContainer>
@@ -38,7 +38,7 @@ export const ProviderPage = () => {
 
       {
         /*---------Modals----*/
-        <Modal
+        <AddIncome
           closeModal={() => {
             setAddServiceIsOpen(false);
           }}

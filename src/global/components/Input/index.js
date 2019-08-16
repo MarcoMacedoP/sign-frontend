@@ -1,5 +1,5 @@
 import React from "react";
-import { Label, InputForm } from "./styles";
+import { Label, InputForm, Container } from "./styles";
 /*
     Author : Marco Macedo
     Descripción: Este componente recibe como props: 
@@ -10,7 +10,7 @@ import { Label, InputForm } from "./styles";
     */
 
 export const Input = ({ name, type, placeholder }) => (
-  <React.Fragment>
+  <Container>
     <Label for={name}>{name}</Label>
     <InputForm
       className="input"
@@ -18,5 +18,5 @@ export const Input = ({ name, type, placeholder }) => (
       placeholder={placeholder}
       name={name}
     />
-  </React.Fragment>
+  </Container>
 );

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
 import { Blur, ModalContainer, CloseIcon } from "./styles";
 
@@ -6,26 +6,27 @@ export const Modal = ({ closeModal, children, isOpen }) => {
   if (isOpen) {
     blurApp();
     return createPortal(
-      <Fragment>
-        <Blur onClick={() => handleClose(closeModal)} />
-        <ModalContainer>
+      <Blur onClick={() => handleClose(closeModal)}>
+        <ModalContainer
+          onClick={(e) =>
+            e.stopPropagation() /* Whithout this Modal closes click D: fix this. */}>
           <CloseIcon onClick={() => handleClose(closeModal)}>
             close
           </CloseIcon>
           {children}
         </ModalContainer>
-      </Fragment>,
+      </Blur>,
       document.getElementById("modal")
     );
   } else {
     return null;
   }
 };
-function handleClose(closeModal) {
+export function handleClose(closeModal) {
   blurApp(false);
   closeModal();
 }
-export function blurApp(blurStatus = true) {
+function blurApp(blurStatus = true) {
   let app = document.getElementById("root");
 
   if (!blurStatus && app) {

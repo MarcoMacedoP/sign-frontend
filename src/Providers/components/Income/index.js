@@ -1,5 +1,6 @@
 /*  @author: Marco Macedo
-    @description: This is the component that show a product or a service. OMG    
+    @description: This is the component that show an Income.
+    An income can be understanded as a product or service that the providers offers. OMG    
 */
 //Components
 import React from "react";
@@ -7,7 +8,7 @@ import React from "react";
 import { Container, P, Price, MoneyIcon, ArrowIcon } from "./styles";
 
 //The component
-export const ProductOrService = ({ name, description, price }) => (
+export const Income = ({ name, description, price }) => (
   <Container>
     <strong>{name || "Service"}</strong>
     <P>{description || "This is the service/product description"}</P>

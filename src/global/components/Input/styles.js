@@ -5,6 +5,8 @@ import {
   whiteColorDark
 } from "../../styles/variables";
 
+export const Container = styled.div`width: 100%;`;
+
 export const Label = styled.label`
   font-size: 12px;
   color: ${whiteColorDark};
@@ -19,4 +21,5 @@ export const InputForm = styled.input`
   background-color: transparent;
   font-family: ${fontBody};
   font-size: 1rem;
+  width: 100%;
 `;

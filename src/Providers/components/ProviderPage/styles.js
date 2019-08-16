@@ -2,12 +2,15 @@ import styled from "styled-components";
 import {
   appPadding,
   blackColorLigth,
-  fontTitle
+  fontTitle,
+  whiteColorLigth
 } from "../../../global/styles/variables";
 
 export const Container = styled.div`
   padding: ${appPadding};
+  background: ${whiteColorLigth};
   position: relative;
+  bottom: 4rem;
 `;
 export const ListContainer = styled.div`
   width: 100%;
