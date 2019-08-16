@@ -15,6 +15,7 @@ export const blackColorLigth = "#707070";
 export const blackColorTransparent = "rgba(112, 112, 112, 0.5)";
 
 export const positiveStatusColor = "#36c24d";
+export const errorColor = "#ff5151";
 
 export const fontTitle = "'Oswald', sans-serif";
 export const fontBody = "'Lato', sans-serif";

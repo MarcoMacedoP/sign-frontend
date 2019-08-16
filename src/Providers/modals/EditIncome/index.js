@@ -8,14 +8,15 @@ import { Switch } from "@material-ui/core";
 import { FormControlLabel, Title } from "../utils/styles";
 import {
   blackColorLigth,
-  positiveStatusColor
+  positiveStatusColor,
+  errorColor
 } from "../../../global/styles/variables";
 
 //Functions
 import { handleClose } from "../../../global/components/Modal/index";
 
 //The component
-export const AddIncome = ({ closeModal, isOpen, incomeName }) => {
+export const EditIncome = ({ closeModal, isOpen, incomeName }) => {
   const [ state, setState ] = React.useState({
     costPerHour : false
   });
@@ -23,10 +24,10 @@ export const AddIncome = ({ closeModal, isOpen, incomeName }) => {
   const handleChange = (name) => (event) => {
     setState({ ...state, [name]: event.target.checked });
   };
-  console.log(incomeName);
+
   return (
     <Modal closeModal={closeModal} isOpen={isOpen}>
-      <Title>Agregar {incomeName}</Title>
+      <Title>Editar {incomeName}</Title>
       <Input
         name="Nombre del servicio"
         placeholder="Reparación eléctrica"
@@ -51,7 +52,10 @@ export const AddIncome = ({ closeModal, isOpen, incomeName }) => {
         label="¿Costo por hora?"
       />
       <SecondaryButton borderColor={positiveStatusColor} width="80%">
-        Agregar
+        Guardar
+      </SecondaryButton>
+      <SecondaryButton borderColor={errorColor} width="80%">
+        Eliminar
       </SecondaryButton>
       <SecondaryButton
         borderColor={blackColorLigth}

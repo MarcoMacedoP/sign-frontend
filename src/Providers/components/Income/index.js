@@ -8,8 +8,8 @@ import React from "react";
 import { Container, P, Price, MoneyIcon, ArrowIcon } from "./styles";
 
 //The component
-export const Income = ({ name, description, price }) => (
-  <Container>
+export const Income = ({ name, description, price, onClick }) => (
+  <Container onClick={onClick}>
     <strong>{name || "Service"}</strong>
     <P>{description || "This is the service/product description"}</P>
     <Price>

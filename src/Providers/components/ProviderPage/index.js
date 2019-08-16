@@ -4,8 +4,19 @@ import { ProviderInfo } from "../ProviderInfo";
 import { Income } from "../Income";
 import { AddButton } from "../../../global/components/AddButton";
 import { AddIncome } from "../../modals/AddIncome";
+import { EditIncome } from "../../modals/EditIncome";
 export const ProviderPage = () => {
-  const [ addServiceIsOpen, setAddServiceIsOpen ] = useState(true); //Return this to false
+  //State
+  const [ state, setState ] = useState({
+    addProduct  : false,
+    editProduct : false,
+    addService  : false,
+    editService : false
+  });
+  //Handlers
+  const handleChange = (name, status) => {
+    setState({ ...state, [name]: status });
+  };
 
   return (
     <Container>
@@ -17,11 +28,20 @@ export const ProviderPage = () => {
       <ListContainer>
         <Name>Servicios</Name>
         <List>
-          {[ 1, 2, 3, 4, 5 ].map((value) => <Income key={value} />)}
+          {[ 1, 2, 3, 4, 5 ].map((value) => (
+            <Income
+              key={value}
+              onClick={() => {
+                handleChange("editService", true);
+              }}
+            />
+          ))}
         </List>
         <AddButton
           position="static"
-          onClick={() => setAddServiceIsOpen(true)}
+          onClick={() => {
+            handleChange("addService", true);
+          }}
         />
       </ListContainer>
       {/*--------------*/}
@@ -30,23 +50,52 @@ export const ProviderPage = () => {
       <ListContainer>
         <Name>Productos</Name>
         <List>
-          {[ 1, 2, 3, 4, 5 ].map((value) => <Income key={value} />)}
+          {[ 1, 2, 3, 4, 5 ].map((value) => (
+            <Income
+              key={value}
+              onClick={() => {
+                handleChange("editProduct", true);
+              }}
+            />
+          ))}
         </List>
-        <AddButton position="static" />
+        <AddButton
+          position="static"
+          onClick={() => {
+            handleChange("addProduct", true);
+          }}
+        />
       </ListContainer>
       {/*--------------*/}
 
+      {/*---------Modals----*/}
       {
-        /*---------Modals----*/
-        <AddIncome
-          closeModal={() => {
-            setAddServiceIsOpen(false);
-          }}
-          isOpen={addServiceIsOpen}
-        />
-
-        /*--------------*/
+        //services
       }
+      <AddIncome
+        closeModal={() => handleChange("addService", false)}
+        isOpen={state.addService}
+        incomeName="servicio"
+      />
+      <EditIncome
+        closeModal={() => handleChange("editService", false)}
+        isOpen={state.editService}
+        incomeName="servicio"
+      />
+      {
+        //products
+      }
+      <AddIncome
+        closeModal={() => handleChange("addProduct", false)}
+        isOpen={state.addProduct}
+        incomeName="producto"
+      />
+      <EditIncome
+        closeModal={() => handleChange("editProduct", false)}
+        isOpen={state.editProduct}
+        incomeName="producto"
+      />
+      {/*--------------*/}
     </Container>
   );
 };
