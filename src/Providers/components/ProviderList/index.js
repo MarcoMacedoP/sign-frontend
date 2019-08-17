@@ -14,27 +14,44 @@ import {
   Title
 } from "./styles";
 
-export const ProvidersList = () => (
-  <Container>
-    <Title>Proveedores</Title>
-    <SearchBarContainer>
-      <SearchBar />
-    </SearchBarContainer>
-    <BigProvidersList>
-      {[ 1, 2, 3, 4 ].map((actualValue) => (
-        <Link key={actualValue} to={`/app/providers/${actualValue}`}>
-          <PictureCard />
-        </Link>
-      ))}
-    </BigProvidersList>
+export const ProviderList = ({ data }) => {
+  let bigProviders = data.slice(0, 4);
+  let longProviders = data.slice(4);
 
-    <LongProvidersList>
-      {[ 1, 2, 3, 4 ].map((actualValue) => (
-        <Link key={actualValue} to={`/app/providers/${actualValue}`}>
-          <LongCard />
-        </Link>
-      ))}
-    </LongProvidersList>
-    <AddButton />
-  </Container>
-);
+  return (
+    <Container>
+      <Title>Proveedores</Title>
+      <SearchBarContainer>
+        <SearchBar />
+      </SearchBarContainer>
+      <BigProvidersList>
+        {bigProviders.map(
+          ({ id, name, lastname, image_url, about }) => (
+            <Link key={id} to={`/app/providers/${id}`}>
+              <PictureCard
+                title={`${name} ${lastname}`}
+                picture={image_url}
+                description={about}
+              />
+            </Link>
+          )
+        )}
+      </BigProvidersList>
+
+      <LongProvidersList>
+        {longProviders.map(
+          ({ id, name, lastname, image_url, about }) => (
+            <Link key={id} to={`/app/providers/${id}`}>
+              <LongCard
+                title={`${name} ${lastname}`}
+                picture={image_url}
+                description={about}
+              />
+            </Link>
+          )
+        )}
+      </LongProvidersList>
+      <AddButton />
+    </Container>
+  );
+};

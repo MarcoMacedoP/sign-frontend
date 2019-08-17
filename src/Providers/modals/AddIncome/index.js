@@ -23,7 +23,6 @@ export const AddIncome = ({ closeModal, isOpen, incomeName }) => {
   const handleChange = (name) => (event) => {
     setState({ ...state, [name]: event.target.checked });
   };
-  console.log(incomeName);
   return (
     <Modal closeModal={closeModal} isOpen={isOpen}>
       <Title>Agregar {incomeName}</Title>

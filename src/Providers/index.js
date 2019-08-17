@@ -4,5 +4,9 @@
 
 
 */
-export { ProviderPage } from "./components/ProviderPage";
-export { ProvidersList } from "./components/ProviderList";
+export {
+  ProviderPageContainer
+} from "./components/ProviderPageContainer";
+export {
+  ProviderListContainer
+} from "./components/ProviderListContainer";

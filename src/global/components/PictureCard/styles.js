@@ -49,6 +49,9 @@ export const Picture = styled.picture`
     props.url
       ? `background-image:url(${props.url})`
       : `background-color: ${secondaryColorLigth}`};
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 export const Description = styled.p`
   grid-column: 2/3;

@@ -7,7 +7,10 @@ import { Login, Signup } from "./Authentication";
 import { Layout } from "./Layout";
 
 import { Dashboard } from "./Dashboard";
-import { ProviderPage, ProvidersList } from "./Providers";
+import {
+  ProviderPageContainer,
+  ProviderListContainer
+} from "./Providers";
 import { page404 } from "./404";
 //Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
@@ -35,12 +38,12 @@ function App() {
           <Route
             exact
             path="/app/providers/"
-            component={ProvidersList}
+            component={ProviderListContainer}
           />
           <Route
             exact
             path="/app/providers/:providerId"
-            component={ProviderPage}
+            component={ProviderPageContainer}
           />
 
           <Route component={page404} />

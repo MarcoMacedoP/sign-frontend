@@ -7,9 +7,8 @@ import {
 import { MaterialIcon } from "../../styles/foundations/MaterialIcon";
 
 export const Container = styled.div`
-  min-width: 500px;
   width: 100%;
-  height: 70px;
+  min-height: 50px;
   box-sizing: border-box;
   box-shadow: 0 3px 6px 0 ${blackColorTransparent};
   background-color: ${whiteColor};
@@ -31,6 +30,10 @@ export const PictureContainer = styled.div`
 export const Picture = styled.picture`
   background: ${(props) =>
     props.image ? `url(${props.image})` : secondaryColorLigth};
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
@@ -39,12 +42,12 @@ export const Title = styled.p`
   font-size: 0.856rem;
   font-weight: bold;
   grid-column: 2/3;
-  grid-row: 1/2;
+  grid-row: 1/-1;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
-export const Description = styled.p`
-  grid-column: 2/3;
-  grid-row: 2/-1;
-`;
+
 export const Date = styled.p`
   height: 100%;
 
