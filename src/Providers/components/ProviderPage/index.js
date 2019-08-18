@@ -8,10 +8,10 @@ import { AddButton } from "../../../global/components/AddButton";
 import { AddIncome } from "../../modals/AddIncome";
 import { EditIncome } from "../../modals/EditIncome";
 
-export const ProviderPage = ({ state, handleChange }) => (
+export const ProviderPage = ({ state, handleChange, provider }) => (
   <Container>
     {/*---------Info about the provider---------*/}
-    <ProviderInfo />
+    <ProviderInfo {...provider} />
     {/*--------------*/}
 
     {/*---------Services----*/}

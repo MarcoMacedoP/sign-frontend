@@ -20,12 +20,15 @@ export const SearchBarContainer = styled.div`
 
   display: flex;
   justify-content: flex-end;
+  @media only screen and (max-width: 800px) {
+    margin-top: 2rem;
+  }
 `;
 export const BigProvidersList = styled.ul`
   width: 100%;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-template-rows: 1fr 1fr;
   gap: 1.5rem;
   * {

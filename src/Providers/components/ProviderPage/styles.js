@@ -15,7 +15,6 @@ export const Container = styled.div`
 export const ListContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
-  padding: 0 15vw;
 
   display: flex;
   flex-direction: column;
@@ -24,9 +23,10 @@ export const ListContainer = styled.div`
 `;
 export const List = styled.ul`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   column-gap: 2.5rem;
   row-gap: 2.5rem;
+  width: 100%;
 `;
 export const Name = styled.h3`
   font-size: 1.5rem;

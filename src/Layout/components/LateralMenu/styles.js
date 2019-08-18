@@ -18,7 +18,7 @@ export const Menu = styled.aside`
   padding: 2.5rem 0;
   height: 100%;
   width: 23.125vw;
-
+  min-width: 250px;
   max-width: 296px;
   box-sizing: border-box;
   display: flex;

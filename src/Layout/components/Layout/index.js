@@ -3,27 +3,32 @@ import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
 import { AppNavbar } from "../AppNavbar";
 import { LateralMenu } from "../LateralMenu";
+//MaterialUi libray customization
+
+import { ThemeProvider } from "@material-ui/styles";
+import { theme } from "../../MaterialUiTheme";
+
 export const Layout = ({ children, userLoged }) => {
   const [ menuStatus, setMenuStatus ] = useState(false);
 
   if (userLoged) {
     return (
-      <Fragment>
+      <ThemeProvider theme={theme}>
         <AppNavbar openMenu={() => setMenuStatus(true)} />
         <LateralMenu
           isShowed={menuStatus}
           closeMenu={() => setMenuStatus(false)}
         />
         {children}
-      </Fragment>
+      </ThemeProvider>
     );
   } else {
     return (
-      <Fragment>
+      <ThemeProvider theme={theme}>
         <Navbar />
         {children}
         <Footer />
-      </Fragment>
+      </ThemeProvider>
     );
   }
 };

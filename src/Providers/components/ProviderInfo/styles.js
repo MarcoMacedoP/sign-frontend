@@ -26,6 +26,7 @@ export const BiographyContainer = styled.div`
   grid-template-columns: min-content 1fr;
   column-gap: 2.5rem;
   padding: 0 3rem;
+  width: 80%;
 `;
 
 export const ProfilePicture = styled.div`
@@ -36,15 +37,15 @@ export const ProfilePicture = styled.div`
   height: var(--size);
   min-height: var(--min-width);
   border-radius: 50%;
+  overflow: hidden;
 
-  background-color: ${(props) =>
-    props.image ? "none" : secondaryColor};
+  background-color: ${secondaryColor};
 
   img {
     display: ${(props) => (props.image ? "block" : "none")};
     object-fit: cover;
+    object-position: center;
     width: 100%;
-    height: auto;
   }
 `;
 export const Biography = styled.p`
@@ -53,10 +54,16 @@ export const Biography = styled.p`
   align-items: center;
 `;
 export const ContactInfoContainer = styled.div`
+  margin-top: 1rem;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  flex-wrap: wrap;
+  @media only screen and (max-width: 500px) {
+    margin-top: 2rem;
+    justify-content: flex-start;
+  }
 `;
 export const ContactInfo = styled.div`
   display: flex;
@@ -64,5 +71,13 @@ export const ContactInfo = styled.div`
   margin: 0 1rem;
   & i {
     padding: 0 0.5rem;
+  }
+  @media only screen and (max-width: 500px) {
+    width: 100%;
+    & p {
+      width: 70%;
+      text-align: start;
+      margin: 0 auto;
+    }
   }
 `;

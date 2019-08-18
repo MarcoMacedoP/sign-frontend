@@ -1,21 +1,20 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { ProviderList } from "../ProviderList";
 import { providersApi } from "../../api/index";
-
+import { Loading } from "../../../global/components";
 export const ProviderListContainer = () => {
   //Hooks
   const [ loading, setLoading ] = useState(true);
   const [ error, setError ] = useState(null);
   const [ data, setData ] = useState(null);
-  // console.log("on render", data, error, loading);
 
   useEffect(() => {
     async function fetchData() {
-      setLoading(false);
       try {
         const providers = await providersApi.list();
         setData(providers);
         setError(null);
+        setLoading(false);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -23,11 +22,10 @@ export const ProviderListContainer = () => {
       }
     }
     fetchData();
-    // console.log("on useEffect", data, error, loading);
   });
   //Check the request status
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
   if (error) {
     return (

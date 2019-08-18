@@ -9,7 +9,7 @@ import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 export const Container = styled.div`
   min-width: 13rem;
   min-height: 9rem;
-  width: 18.25vw;
+  width: 100%;
   height: 20.875vh;
   margin: 0.5rem;
   padding: 1rem;

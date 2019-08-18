@@ -1,5 +1,5 @@
 /*  @author: Marco Macedo
-    @description: This is is the page that shows the information about a provider.
+    @about: This is is the page that shows the information about a provider.
     This page opens modals for CRUD actions with the provider.
     */
 
@@ -22,7 +22,7 @@ import {
 } from "./styles";
 
 export const ProviderInfo = withRouter(
-  ({ name, image, description, phone, email, history }) => {
+  ({ name, image_url, about, phone, email, history }) => {
     return (
       <About>
         <BackIcon
@@ -34,24 +34,30 @@ export const ProviderInfo = withRouter(
 
         <Name>{name || "Proveedor"}</Name>
         <BiographyContainer>
-          <ProfilePicture image={image}>
-            <img src={image} alt={`Profile of ${name || "name"}`} />
+          <ProfilePicture image={image_url}>
+            <img
+              src={image_url}
+              alt={`Profile of ${name || "name"}`}
+            />
           </ProfilePicture>
           <Biography>
-            {description ||
-              "Quiere la boca exhausta vid, kiwi, piña y fugaz jamón. Fabio me exige, sin tapujos, que añada cerveza al whisky. Jovencillo emponzoñado de whisky, ¡qué figurota exhibes! La cigüeña tocaba cada vez mejor el saxofón y el búho pedía kiwi y queso. El jefe buscó el éxtasis en un imprevisto baño de whisky y gozó como un duque. Exhíbanse "}
+            {about || "Acerca de este provedor..."}
           </Biography>
         </BiographyContainer>
 
         <ContactInfoContainer>
-          <ContactInfo>
-            <MaterialIcon>contact_phone</MaterialIcon>
-            {phone || "33256589"}
-          </ContactInfo>
-          <ContactInfo>
-            <MaterialIcon>email</MaterialIcon>
-            {email || "providder@example.com"}
-          </ContactInfo>
+          {phone && (
+            <ContactInfo>
+              <MaterialIcon>contact_phone</MaterialIcon>
+              <p>{phone}</p>
+            </ContactInfo>
+          )}
+          {email && (
+            <ContactInfo>
+              <MaterialIcon>email</MaterialIcon>
+              <p>{email}</p>
+            </ContactInfo>
+          )}
         </ContactInfoContainer>
       </About>
     );

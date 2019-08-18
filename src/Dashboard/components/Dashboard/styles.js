@@ -15,7 +15,7 @@ export const Container = styled.div`
   padding: 7%;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   column-gap: 2.5rem;
   row-gap: 2.5rem;
   grid-template-rows: repeat(3, minmax(15vh, min-content));

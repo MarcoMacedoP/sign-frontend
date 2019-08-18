@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ProviderPage } from "../ProviderPage";
 import { providersApi } from "../../api/index";
-export const ProviderPageContainer = () => {
+import { Loading } from "../../../global/components/";
+export const ProviderPageContainer = ({ match }) => {
   //State
   const [ state, setState ] = useState({
     addProduct  : false,
@@ -9,18 +10,42 @@ export const ProviderPageContainer = () => {
     addService  : false,
     editService : false
   });
-  //Life-cycle
+  const [ loading, setLoading ] = useState(true);
+  const [ error, setError ] = useState(null);
+  const [ data, setData ] = useState(null);
+  const providerId = match.params.providerId;
+
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await providersApi.read(providerId);
+        setData(data);
+        setError(null);
+        setLoading(false);
+        setLoading(false);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+        setError(err);
+      }
+    }
     fetchData();
   });
+
   //Handlers
   const handleChange = (name, status) => {
     setState({ ...state, [name]: status });
   };
-  async function fetchData() {
-    const data = await providersApi.read(1);
-    // console.log(data);
-  }
 
-  return <ProviderPage state={state} handleChange={handleChange} />;
+  if (loading) return <Loading />;
+
+  return (
+    <ProviderPage
+      state={state}
+      handleChange={handleChange}
+      provider={data}
+    />
+  );
 };
+
+//Api Hook

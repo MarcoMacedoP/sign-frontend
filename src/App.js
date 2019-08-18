@@ -14,6 +14,7 @@ import {
 import { page404 } from "./404";
 //Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
+
 function App() {
   const [ login, setLogin ] = React.useState(true);
   return (

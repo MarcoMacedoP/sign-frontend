@@ -5,6 +5,7 @@ export const Navbar = styled.nav`
   padding: 1rem 6.5625vw;
   box-sizing: border-box;
   max-height: 4rem;
+  min-height: 3rem;
   height: 8.75vw;
   display: flex;
   justify-content: space-between;
