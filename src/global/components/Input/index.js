@@ -14,8 +14,8 @@ export const Input = ({
   label,
   type,
   placeholder,
-  handleChange,
-  value
+  onChange,
+  value = ""
 }) => {
   const [ error, setError ] = useState(false);
   const [ active, setActive ] = useState(false);
@@ -40,7 +40,7 @@ export const Input = ({
           } else {
             setError(false);
           }
-          handleChange(e);
+          onChange(e);
         }}
         value={value.name}
         error={error}

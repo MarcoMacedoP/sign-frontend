@@ -3,7 +3,7 @@ import React, { useReducer } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 //Pages
 import { Landing } from "./LandingPage";
-import { LoginContainer, Signup } from "./Authentication";
+import { LoginContainer, SignupContainer } from "./Authentication";
 import { Layout } from "./Layout";
 import { Test } from "./Test";
 import { Dashboard } from "./Dashboard";
@@ -42,7 +42,7 @@ function App() {
             path="/login"
             component={() => <LoginContainer dispatch={dispatch} />}
           />
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/signup" component={SignupContainer} />
           <Route exact path="/app" component={Dashboard} />
           <Route
             exact

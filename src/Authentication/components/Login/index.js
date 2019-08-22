@@ -32,7 +32,7 @@ export const Login = ({
           label="Correo electronico"
           type="email"
           placeholder="example@email.com"
-          handleChange={handleChange}
+          onChange={handleChange}
           value={formValues}
         />
         <Input
@@ -40,7 +40,7 @@ export const Login = ({
           label="Contraseña"
           type="password"
           placeholder="*********"
-          handleChange={handleChange}
+          onChange={handleChange}
           value={formValues}
         />
 

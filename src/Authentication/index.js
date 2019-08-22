@@ -5,4 +5,4 @@
 
 */
 export { LoginContainer } from "./components/LoginContainer";
-export { Signup } from "./components/Signup";
+export { SignupContainer } from "./components/SignupContainer";

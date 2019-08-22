@@ -2,20 +2,11 @@ import { callApi } from "../../global/functions/callApi";
 import { Buffer } from "buffer";
 export const authApi = {
   async login({ user, password }) {
-    /*
-        1. Obtener credenciales del usuario.
-        2. Agregar a headers, basic auth.
-        3. Esperar respuesta del server
-        4.Todo ok?
-            4.1 Si? Set state login
-            4.2 No? Retornar error. 
-         
-         */
     const base64encodedData = Buffer.from(
       user + ":" + password
     ).toString("base64");
     const options = {
-      method  : "GET",
+      method  : "POST",
       headers : {
         Authorization : `Basic ${base64encodedData}`
       }
@@ -27,6 +18,20 @@ export const authApi = {
       throw new Error(
         "Contraseña erronea o usario inexistente 🤷🏽‍♂️ "
       );
+    }
+  },
+  async signup({ name, lastname, email, password }) {
+    const options = {
+      method : "POST",
+      body   : { name, lastname, email, password }
+    };
+
+    try {
+      const token = await callApi("/auth/signup", options);
+      console.log(token);
+      return true;
+    } catch (error) {
+      throw new Error(error);
     }
   }
 };

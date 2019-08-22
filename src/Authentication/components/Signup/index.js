@@ -1,5 +1,10 @@
+//Components
 import React from "react";
 import { Link } from "react-router-dom";
+import { Input } from "../../../global/components/Input";
+import { Button } from "../../../global/components/Button";
+import { ErrorToast } from "../../../global/components/ErrorToast";
+//Styled-components
 import {
   Container,
   LoginForm,
@@ -8,11 +13,17 @@ import {
   Form,
   Signup as Login
 } from "../Login/styles";
-import { Input } from "../../../global/components/Input";
 import { Subtitle } from "./styles";
-import { Button } from "../../../global/components/Button";
 
-export const Signup = (props) => (
+//The component
+export const Signup = ({
+  handleClick,
+  error,
+  loading,
+  setError,
+  handleChange,
+  formValues
+}) => (
   <Container>
     <Picture />
     <LoginForm>
@@ -22,37 +33,55 @@ export const Signup = (props) => (
       </Subtitle>
       <Form>
         <Input
-          name="Nombre (s)"
+          onChange={handleChange}
+          name="name"
+          label="Nombre (s)"
           type="text"
           placeholder="Marco Antonio"
+          value={formValues.name}
         />
         <Input
-          name="Apellido (s)"
+          onChange={handleChange}
+          name="lastname"
+          label="Apellido (s)"
           type="text"
           placeholder="Macedo Preciado"
+          value={formValues.lastname}
         />
         <Input
-          name="Correo electronico"
+          onChange={handleChange}
+          name="email"
+          label="Correo electronico"
           type="email"
           placeholder="example@email.com"
+          value={formValues.email}
         />
         <Input
-          name="Contraseña"
+          onChange={handleChange}
+          label="Contraseña"
+          name="password"
           type="password"
           placeholder="**********"
+          value={formValues.password}
         />
         <Input
-          name="Repetir contraseña"
+          onChange={handleChange}
+          name="password_repeat"
+          label="Repetir contraseña"
           type="password"
           placeholder="**********"
+          value={formValues.password_repeat}
         />
         <Link to="/help">Necesito ayuda para llenar un campo. </Link>
-        <Button>Registrate</Button>
+        <Button onClick={handleClick} loading={loading}>
+          Registrate
+        </Button>
         <Login>
           ¿Ya tienes una cuenta?{" "}
           <Link to="/login/">Inicia sesión</Link>
         </Login>
       </Form>
+      <ErrorToast error={error} handleClose={() => setError(null)} />
     </LoginForm>
   </Container>
 );
