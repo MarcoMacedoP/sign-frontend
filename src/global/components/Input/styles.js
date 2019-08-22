@@ -1,18 +1,23 @@
 import styled from "styled-components";
 import {
-  blackColor,
+  blackColorTransparent,
   fontBody,
-  whiteColorDark
+  whiteColorDark,
+  errorColorLigth,
+  blackColor
 } from "../../styles/variables";
 
 export const Container = styled.div`width: 100%;`;
 
 export const Label = styled.label`
   font-size: 12px;
-  color: ${whiteColorDark};
+  color: ${(props) => (props.active ? blackColor : whiteColorDark)};
 `;
 export const InputForm = styled.input`
-  border: 1px solid ${blackColor};
+  border: 1px solid ${blackColorTransparent};
+  ${(props) =>
+    props.error ? `border-color:${errorColorLigth};` : null};
+  ${(props) => (props.active ? `border-color:${blackColor};` : null)};
   border-top: none;
   border-right: none;
   border-left: none;

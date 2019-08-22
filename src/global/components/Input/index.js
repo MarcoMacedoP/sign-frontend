@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Label, InputForm, Container } from "./styles";
 /*
     Author : Marco Macedo
@@ -9,14 +9,42 @@ import { Label, InputForm, Container } from "./styles";
                   **placeholder: usado para el placeholder el input
     */
 
-export const Input = ({ name, type, placeholder }) => (
-  <Container>
-    <Label for={name}>{name}</Label>
-    <InputForm
-      className="input"
-      type={type}
-      placeholder={placeholder}
-      name={name}
-    />
-  </Container>
-);
+export const Input = ({
+  name,
+  label,
+  type,
+  placeholder,
+  handleChange,
+  value
+}) => {
+  const [ error, setError ] = useState(false);
+  const [ active, setActive ] = useState(false);
+  return (
+    <Container
+      onFocus={() => setActive(true)}
+      onBlur={() => setActive(false)}>
+      <Label for={name} active={active}>
+        {label || name}
+      </Label>
+      <InputForm
+        id={name}
+        className="input"
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        active={active}
+        onChange={(e) => {
+          const { value } = document.getElementById(name);
+          if (value.length < 3) {
+            setError(true);
+          } else {
+            setError(false);
+          }
+          handleChange(e);
+        }}
+        value={value.name}
+        error={error}
+      />
+    </Container>
+  );
+};

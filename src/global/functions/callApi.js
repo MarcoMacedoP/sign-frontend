@@ -1,7 +1,9 @@
-const BASE_URL = "http://localhost:3001";
+// const BASE_URL = "http://167.71.248.157:3001/api";
+const BASE_URL = "http://localhost:3001/api";
 
 export async function callApi(endpoint, options = {}) {
   options.headers = {
+    ...options.headers,
     "Content-Type" : "application/json",
     Accept         : "application/json"
   };
@@ -12,6 +14,5 @@ export async function callApi(endpoint, options = {}) {
   const url = BASE_URL + endpoint;
   const response = await fetch(url, options);
   const data = await response.json();
-
   return data;
 }

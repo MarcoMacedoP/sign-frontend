@@ -10,7 +10,9 @@ export const Container = styled.div`
   padding: ${appPadding};
   background: ${whiteColorLigth};
   position: relative;
-  bottom: 4rem;
+  top: 0;
+  z-index: 3;
+  height: min-content;
 `;
 export const ListContainer = styled.div`
   width: 100%;

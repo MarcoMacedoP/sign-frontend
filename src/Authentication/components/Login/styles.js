@@ -1,6 +1,7 @@
+//Components
 import styled from "styled-components";
+//Resources
 import LoginImage from "../../utils/images/LoginImage.png";
-import { setPrimaryButton } from "../../../global/styles/foundations/Buttons";
 import { setHeadlineText } from "../../../global/styles/foundations/Texts";
 import { whiteColorDark } from "../../../global/styles/variables";
 import {
@@ -37,14 +38,14 @@ export const LoginForm = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
+  & .MuiButtonBase-root {
+    width: 100%;
+    margin-top: 2rem;
+    height: 2.5rem;
+  }
 `;
 export const Title = styled.h1`${setHeadlineText({ size: "2rem" })};`;
-export const Button = styled.button`
-  ${setPrimaryButton()};
-  width: 100%;
-  margin-top: 2rem;
-  height: 2.5rem;
-`;
+
 export const Signup = styled.span`
   color: ${whiteColorDark};
   margin: 1rem auto;

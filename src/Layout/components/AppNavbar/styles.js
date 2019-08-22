@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { whiteColorLigth } from "../../../global/styles/variables";
 export const Navbar = styled.nav`
   max-width: 100vw;
   width: 100vw;
@@ -10,6 +11,9 @@ export const Navbar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 3px 7px 0 rgba(50, 54, 53, 0.3);
+  box-shadow: 0 -4px 13px 0 rgba(50, 54, 53, 0.3);
   z-index: 2;
+  position: sticky;
+  top: 0;
+  background: ${whiteColorLigth};
 `;

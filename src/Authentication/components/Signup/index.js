@@ -6,11 +6,11 @@ import {
   Picture,
   Title,
   Form,
-  Button,
   Signup as Login
 } from "../Login/styles";
 import { Input } from "../../../global/components/Input";
 import { Subtitle } from "./styles";
+import { Button } from "../../../global/components/Button";
 
 export const Signup = (props) => (
   <Container>

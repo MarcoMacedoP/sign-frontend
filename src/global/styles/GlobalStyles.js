@@ -3,7 +3,8 @@ import {
   fontBody,
   blackColor,
   whiteColorLigth,
-  mainColor
+  mainColor,
+  secondaryColor
 } from "./variables";
 export const GlobalStyles = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700|Oswald:300,400,500,700&display=swap');
@@ -21,7 +22,6 @@ export const GlobalStyles = createGlobalStyle`
 	border: none;
 	outline: none;
 	font-family: ${fontBody};
-	color: ${blackColor};
 }
 html{
     font-size: 16px;
@@ -37,6 +37,9 @@ a{
 	&:hover{
   		opacity: 0.6;
 	}
+}
+p, h1,h2,h3,h4,h5,h6 {
+	color: ${blackColor};
 }
 #root{
 	transition: filter 400ms ease-out 50ms;

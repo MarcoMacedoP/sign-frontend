@@ -8,11 +8,11 @@ import {
 } from "../../../global/styles/variables";
 export const Btn = styled(Button)`
     &&{
-        width: min-content;
         min-width: 10rem;
         padding: 0.5rem 1rem;
         border-radius: 2.5625rem;
-        background-color: ${mainColor};
+        background-color: ${(props) =>
+          props.disabled ? "rgba(0, 0, 0, 0.12)" : mainColor};
         cursor: pointer;
     &:hover,
     &:active {

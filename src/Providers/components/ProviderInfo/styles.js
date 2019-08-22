@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 import { setHeadlineText } from "../../../global/styles/foundations/Texts";
-import { secondaryColor } from "../../../global/styles/variables";
+import {
+  secondaryColor,
+  whiteColorLigth
+} from "../../../global/styles/variables";
 
 export const About = styled.div`
   display: flex;
@@ -9,18 +12,24 @@ export const About = styled.div`
   align-items: center;
   margin-bottom: 1rem;
 `;
-export const BackIcon = styled(MaterialIcon)`
- align-self: flex-start;
- `;
+export const Navigation = styled.nav`
+  width: 100%;
+  box-sizing: border-box;
+  height: 3rem;
+  display: flex;
+
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: ${whiteColorLigth};
+  z-index: 4;
+`;
 
 export const Name = styled.h1`
   ${setHeadlineText({ size: "3rem" })};
   margin-bottom: 2.5rem;
 `;
-export const MoreIcon = styled(MaterialIcon)`
-    align-self: flex-end;
-    position: absolute;
-`;
+
 export const BiographyContainer = styled.div`
   display: grid;
   grid-template-columns: min-content 1fr;

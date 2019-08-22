@@ -39,6 +39,10 @@ export const ModalContainer = styled.div`
   padding: 1.5rem 4.5rem 2rem;
   position: relative;
   z-index: 3;
+  @media only screen and (max-width: 600px) {
+    min-width: 80vw;
+    padding: 1.5rem 3rem 2rem;
+  }
 `;
 export const CloseIcon = styled(MaterialIcon)`
 

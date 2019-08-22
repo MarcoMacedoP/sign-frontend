@@ -11,8 +11,7 @@ import { withRouter } from "react-router-dom";
 import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 import {
   About,
-  BackIcon,
-  MoreIcon,
+  Navigation,
   Name,
   BiographyContainer,
   Biography,
@@ -25,12 +24,14 @@ export const ProviderInfo = withRouter(
   ({ name, image_url, about, phone, email, history }) => {
     return (
       <About>
-        <BackIcon
-          onClick={() =>
-            history ? history.goBack() : history.push("/app/")}>
-          arrow_back{" "}
-        </BackIcon>
-        <MoreIcon>more_vert</MoreIcon>
+        <Navigation>
+          <MaterialIcon
+            onClick={() =>
+              history ? history.goBack() : history.push("/app/")}>
+            arrow_back{" "}
+          </MaterialIcon>
+          <MaterialIcon>more_vert</MaterialIcon>
+        </Navigation>
 
         <Name>{name || "Proveedor"}</Name>
         <BiographyContainer>
