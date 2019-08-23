@@ -27,7 +27,7 @@ export const authApi = {
     };
 
     try {
-      const token = await callApi("/auth/signup", options);
+      const token = await callApi("/test/", options);
       console.log(token);
       return true;
     } catch (error) {

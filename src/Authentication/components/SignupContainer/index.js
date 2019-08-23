@@ -20,38 +20,31 @@ export const SignupContainer = ({ dispatch }) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const {
-      email,
-      password,
-      name,
-      lastname,
-      password_repeat
-    } = inputs;
+
     if (
-      !email ||
-      !password ||
-      !name ||
-      !lastname ||
-      !password_repeat
+      !inputs.email ||
+      !inputs.password ||
+      !inputs.name ||
+      !inputs.lastname ||
+      !inputs.password_repeat
     ) {
-      // prettier-ignore
       setLoading(false);
       setError({
         message : "Alguno de los campos está vacio 🙅🏻‍♂️"
       });
-    }
-    if (password != password_repeat) {
+    } else if (inputs.password !== inputs.password_repeat) {
       setLoading(false);
       setError({
         message : "Las contraseñas no coinciden 🤦‍♀️"
       });
     } else {
+      //Everthing in the rigth place
       try {
         await fetchSignup(inputs);
         setLoading(false);
       } catch (error) {
-        console.log(error);
-        // setError(error);
+        // console.log(error);
+        setError(error);
         setLoading(false);
       }
     }

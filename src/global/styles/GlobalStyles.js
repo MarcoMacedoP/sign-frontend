@@ -3,8 +3,7 @@ import {
   fontBody,
   blackColor,
   whiteColorLigth,
-  mainColor,
-  secondaryColor
+  mainColor
 } from "./variables";
 export const GlobalStyles = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700|Oswald:300,400,500,700&display=swap');

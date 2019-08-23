@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
 import { setHeadlineText } from "../../../global/styles/foundations/Texts";
 import {
   secondaryColor,

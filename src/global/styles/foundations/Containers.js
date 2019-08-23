@@ -1,4 +1,4 @@
-import  { css } from "styled-components";
+import { css } from "styled-components";
 
 export function setHalfScreenContainer() {
   return css`
@@ -9,6 +9,9 @@ export function setHalfScreenContainer() {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 1rem;
+    @media only screen and (max-width: 800px) {
+      padding: 3% 2%;
+    }
   `;
 }
 export function setChildContainer(
@@ -16,6 +19,7 @@ export function setChildContainer(
   gridRow = "1/2"
 ) {
   return css`
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
     grid-column: ${gridColumn};

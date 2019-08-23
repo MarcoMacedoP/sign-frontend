@@ -38,7 +38,18 @@ export const ProviderPageContainer = ({ match }) => {
   };
 
   if (loading) return <Loading />;
-
+  if (error)
+    return (
+      <div>
+        <h1>
+          Hubo un error{" "}
+          <span role="img" aria-label="Monkey">
+            🙊
+          </span>
+        </h1>
+        <p>{error.message}</p>
+      </div>
+    );
   return (
     <ProviderPage
       state={state}

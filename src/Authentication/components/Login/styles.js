@@ -10,40 +10,57 @@ import {
 } from "../../../global/styles/foundations/Containers";
 export const Container = styled.div`
   ${setHalfScreenContainer()};
-  position: relative;
+  /* position: relative; */
   overflow: hidden;
-`;
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-  box-sizing: border-box;
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-`;
-export const Picture = styled.picture`
-  ${setChildContainer("1/2", "1/2")};
-  height: 100vh;
-  position: absolute;
-  left: -12%;
-  background-image: url(${LoginImage});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 `;
 export const LoginForm = styled.div`
   ${setChildContainer("2/-1", "1/2")};
-  padding-top: 15%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 80%;
   & .MuiButtonBase-root {
     width: 100%;
     margin-top: 2rem;
     height: 2.5rem;
   }
+  @media (max-width: 800px) {
+    width: 95%;
+  }
+  @media (max-width: 560px) {
+    ${setChildContainer("1/-1", "1/2")};
+    padding: 20% 5%;
+  }
 `;
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 1rem;
+  box-sizing: border-box;
+  width: 70%;
+  @media (max-width: 800px) {
+    width: 100%;
+  }
+`;
+export const Picture = styled.picture`
+  /* ${setChildContainer("1/2", "1/2")}; */
+  height: 100%;
+  width: 50vw;
+  position: absolute;
+  left: -12%;
+  background-image: url(${LoginImage});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  @media (max-width: 800px) {
+    left: 0;
+  }
+  @media (max-width: 560px){
+    display: none;
+  }
+`;
+
 export const Title = styled.h1`${setHeadlineText({ size: "2rem" })};`;
 
 export const Signup = styled.span`
