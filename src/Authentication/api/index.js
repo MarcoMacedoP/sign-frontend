@@ -1,5 +1,8 @@
+//Functions and Classes
 import { callApi } from "../../global/functions/callApi";
 import { Buffer } from "buffer";
+import { saveToken } from "../../global/functions/saveToken";
+
 export const authApi = {
   async login({ user, password }) {
     const base64encodedData = Buffer.from(
@@ -23,12 +26,12 @@ export const authApi = {
   async signup({ name, lastname, email, password }) {
     const options = {
       method : "POST",
-      body   : { name, lastname, email, password }
+      body   : JSON.stringify({ name, lastname, email, password })
     };
 
     try {
-      const token = await callApi("/test/", options);
-      console.log(token);
+      const token = await callApi("/auth/signup", options);
+      saveToken(token);
       return true;
     } catch (error) {
       throw new Error(error);

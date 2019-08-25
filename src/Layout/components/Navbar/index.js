@@ -1,14 +1,19 @@
 //Esta es la barra de navegación de las páginas.
-import React from "react";
+import React, { useState } from "react";
 import {
   LoginButton,
   SignupButton,
   Header,
-  ButtonContainer
+  ButtonContainer,
+  MobileMenu
 } from "./styles";
 import { Logo } from "../../../global/styles/foundations/Logo";
 
 export const Navbar = () => {
+  // function handleClick(e) {
+  //   const [ menuDisplayed, setMenuDisplayed ] = useState(false);
+  // }
+  //The User Interface
   return (
     <Header className="nav-bar">
       <Logo to="/">SIGN</Logo>
@@ -16,6 +21,7 @@ export const Navbar = () => {
         <LoginButton to="/login">Iniciar sesión</LoginButton>
         <SignupButton to="/signup">Registrarse</SignupButton>
       </ButtonContainer>
+      {/* <MobileMenu onClick={handleClick}>menu</MobileMenu> */}
     </Header>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { authApi } from "../../api/";
 import { Login } from "../Login/";
-
+import { getToken } from "../../../global/functions/getToken";
 //Container component
 export const LoginContainer = ({ dispatch }) => {
   const [ loading, setLoading ] = useState(false);
@@ -19,6 +19,7 @@ export const LoginContainer = ({ dispatch }) => {
       });
     } else {
       //Everything ok
+
       getTokenFromRequest(email, password);
     }
   }

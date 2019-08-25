@@ -1,5 +1,9 @@
-const BASE_URL = "http://167.71.248.157:3001/api";
-// const BASE_URL = "http://localhost:3001/api";
+// const BASE_URL = "http://167.71.248.157:3001/api";
+const BASE_URL = "http://localhost:3001/api";
+
+//functions
+/* eslint-disable import/first */
+import { getToken } from "./getToken";
 
 export async function callApi(endpoint, options = {}) {
   options.headers = {
@@ -11,6 +15,15 @@ export async function callApi(endpoint, options = {}) {
   //función que obtenga el Token (¿guardado en caché?),
   //es importante hacer esto en cada petición, para actulizar el token (creo).
   //Ten bonito día y dile a Gaby que la amas.
+
+  const token = getToken();
+  if (token) {
+    // Add token to header 👌
+    options.headers = {
+      ...options.headers,
+      Authorization : `Bearer ${token}`
+    };
+  }
   const url = BASE_URL + endpoint;
   const response = await fetch(url, options);
   const data = await response.json();

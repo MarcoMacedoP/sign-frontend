@@ -17,7 +17,7 @@ export const LoginForm = styled.div`
   ${setChildContainer("2/-1", "1/2")};
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-top: 12.8vh;
   width: 80%;
   & .MuiButtonBase-root {
     width: 100%;
@@ -25,6 +25,8 @@ export const LoginForm = styled.div`
     height: 2.5rem;
   }
   @media (max-width: 800px) {
+    justify-content: center;
+    padding-top: 0;
     width: 95%;
   }
   @media (max-width: 560px) {
@@ -44,19 +46,17 @@ export const Form = styled.form`
   }
 `;
 export const Picture = styled.picture`
-  /* ${setChildContainer("1/2", "1/2")}; */
-  height: 100%;
+  ${setChildContainer("1/2", "1/2")};
+  min-height: 100vh;
   width: 50vw;
-  position: absolute;
+  position: relative;
   left: -12%;
   background-image: url(${LoginImage});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  @media (max-width: 800px) {
-    left: 0;
-  }
-  @media (max-width: 560px){
+
+  @media (max-width: 560px) {
     display: none;
   }
 `;

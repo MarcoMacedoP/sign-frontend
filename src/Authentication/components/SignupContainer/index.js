@@ -43,7 +43,6 @@ export const SignupContainer = ({ dispatch }) => {
         await fetchSignup(inputs);
         setLoading(false);
       } catch (error) {
-        // console.log(error);
         setError(error);
         setLoading(false);
       }
@@ -58,9 +57,7 @@ export const SignupContainer = ({ dispatch }) => {
   }
   async function fetchSignup(userData) {
     const userLoged = await authApi.signup(userData);
-    if (userLoged) {
-      alert("usuario loged");
-    }
+    console.log("The token", userLoged);
   }
 
   //The UI
