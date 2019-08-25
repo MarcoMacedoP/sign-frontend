@@ -16,7 +16,6 @@ import { page404 } from "./404";
 import { GlobalStyles } from "./global/styles/GlobalStyles";
 //functions
 function reducer(state, action) {
-  console.log("Soy el reducer", action);
   switch (action.type) {
     case "login":
       return { ...state, userLoged: true };
@@ -42,7 +41,11 @@ function App() {
             path="/login"
             component={() => <LoginContainer dispatch={dispatch} />}
           />
-          <Route exact path="/signup" component={SignupContainer} />
+          <Route
+            exact
+            path="/signup"
+            component={() => <SignupContainer dispatch={dispatch} />}
+          />
           <Route exact path="/app" component={Dashboard} />
           <Route
             exact

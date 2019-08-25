@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { authApi } from "../../api/";
 import { Signup } from "../Signup/";
-
+import { withRouter } from "react-router-dom";
 //Container component
-export const SignupContainer = ({ dispatch }) => {
+export const SignupContainer = withRouter(({ dispatch, history }) => {
   //Hooks
   const [ loading, setLoading ] = useState(false);
   const [ error, setError ] = useState(null);
@@ -56,8 +56,11 @@ export const SignupContainer = ({ dispatch }) => {
     });
   }
   async function fetchSignup(userData) {
-    const userLoged = await authApi.signup(userData);
-    console.log("The token", userLoged);
+    const userRegistered = await authApi.signup(userData);
+    if (userRegistered) {
+      dispatch({ type: "login" });
+      history.push("/app");
+    }
   }
 
   //The UI
@@ -71,4 +74,4 @@ export const SignupContainer = ({ dispatch }) => {
       formValues={inputs}
     />
   );
-};
+});

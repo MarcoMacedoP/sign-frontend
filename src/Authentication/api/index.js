@@ -15,8 +15,9 @@ export const authApi = {
       }
     };
     try {
-      const data = await callApi("/auth/login", options);
-      return data;
+      const token = await callApi("/auth/login", options);
+      saveToken(token);
+      return true;
     } catch (error) {
       throw new Error(
         "Contraseña erronea o usario inexistente 🤷🏽‍♂️ "

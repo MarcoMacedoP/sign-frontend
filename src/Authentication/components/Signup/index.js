@@ -72,7 +72,7 @@ export const Signup = ({
           placeholder="**********"
           value={formValues.password_repeat}
         />
-        <Link to="/help">Necesito ayuda para llenar un campo. </Link>
+
         <Button onClick={handleClick} loading={loading}>
           Registrate
         </Button>

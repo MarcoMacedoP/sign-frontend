@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { authApi } from "../../api/";
 import { Login } from "../Login/";
-import { getToken } from "../../../global/functions/getToken";
+import { withRouter } from "react-router-dom";
+
 //Container component
-export const LoginContainer = ({ dispatch }) => {
+export const LoginContainer = withRouter(({ dispatch, history }) => {
   const [ loading, setLoading ] = useState(false);
   const [ error, setError ] = useState(null);
   const [ formValues, setFormValues ] = useState({});
@@ -19,8 +20,7 @@ export const LoginContainer = ({ dispatch }) => {
       });
     } else {
       //Everything ok
-
-      getTokenFromRequest(email, password);
+      fetchLogin(email, password);
     }
   }
 
@@ -31,17 +31,17 @@ export const LoginContainer = ({ dispatch }) => {
     });
   }
 
-  async function getTokenFromRequest(email, password) {
+  async function fetchLogin(email, password) {
     try {
       setLoading(false);
       setError(null);
-      const token = await authApi.login({
+      const isToken = await authApi.login({
         user     : email,
         password : password
       });
-      if (token) {
+      if (isToken) {
+        history.push("/app");
         dispatch({ type: "login" });
-        // console.log(token);
       }
     } catch (error) {
       setLoading(false);
@@ -59,4 +59,4 @@ export const LoginContainer = ({ dispatch }) => {
       formValues={formValues}
     />
   );
-};
+});

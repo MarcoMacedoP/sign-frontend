@@ -17,7 +17,7 @@ export async function callApi(endpoint, options = {}) {
   //Ten bonito día y dile a Gaby que la amas.
 
   const token = getToken();
-  if (token) {
+  if (token && !options.headers.Authorization) {
     // Add token to header 👌
     options.headers = {
       ...options.headers,

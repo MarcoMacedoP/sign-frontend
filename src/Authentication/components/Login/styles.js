@@ -41,7 +41,7 @@ export const Form = styled.form`
   margin-top: 1rem;
   box-sizing: border-box;
   width: 70%;
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     width: 100%;
   }
 `;
