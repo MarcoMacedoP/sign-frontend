@@ -7,8 +7,12 @@ import {
   ArrowIcon,
   PictureContainer
 } from "./styles";
-export const LongCard = ({ title, date, picture }) => (
-  <Container>
+
+/**
+ * @description Makes a long card full size of the width
+ */
+export const LongCard = ({ title, date, picture, onClick }) => (
+  <Container onClick={onClick}>
     <PictureContainer>
       <Picture image={picture} />
     </PictureContainer>

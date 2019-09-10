@@ -2,15 +2,15 @@ import React from "react";
 import { createPortal } from "react-dom";
 import { Blur, ModalContainer, CloseIcon } from "./styles";
 
-export const Modal = ({ closeModal, children, isOpen }) => {
+export const Modal = ({ closeModal, children, isOpen, onClose }) => {
   if (isOpen) {
     blurApp();
     return createPortal(
-      <Blur onClick={() => handleClose(closeModal)}>
+      <Blur onClick={() => handleClose(closeModal || onClose)}>
         <ModalContainer
           onClick={(e) =>
             e.stopPropagation() /* Whithout this Modal closes click D: fix this. */}>
-          <CloseIcon onClick={() => handleClose(closeModal)}>
+          <CloseIcon onClick={() => handleClose(closeModal || onClose)}>
             close
           </CloseIcon>
           {children}

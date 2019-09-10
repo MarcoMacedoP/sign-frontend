@@ -5,12 +5,10 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Landing } from "./LandingPage";
 import { LoginContainer, SignupContainer } from "./Authentication";
 import { Layout } from "./Layout";
-import { Test } from "./Test";
+//import { Test } from "./Test";
 import { Dashboard } from "./Dashboard";
-import {
-  ProviderPageContainer,
-  ProviderListContainer
-} from "./Providers";
+import { ProviderPageContainer, ProviderListContainer} from "./Providers";
+import { ClientsList } from "./Clients/components/ClientsList"
 import { page404 } from "./404";
 //Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
@@ -27,7 +25,7 @@ function reducer(state, action) {
 }
 
 function App() {
-  const initialState = { userLoged: false };
+  const initialState = { userLoged: true };
   const [ state, dispatch ] = useReducer(reducer, initialState);
 
   return (
@@ -57,7 +55,7 @@ function App() {
             path="/app/providers/:providerId"
             component={ProviderPageContainer}
           />
-          <Route exact path="/test" component={Test} />
+          <Route exact path ="/app/clients/" component={ClientsList}/>
           <Route component={page404} />
         </Switch>
       </Layout>
