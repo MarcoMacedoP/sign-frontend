@@ -18,10 +18,12 @@ export function AddClientContainer (){
   const {state, handleChangeState, setState} =  useHandleState(initialState);
   //add projects to state
   function useAddProjectsToState ({id, name}) {
+    const projects = state.projects;
     setState({
       ...state,
-      projects : state.projects.push({id, name})
+      projects : projects.push({id, name})
     });
+    debugger
   }
   //handle value hook
   const {modalIsOpen, handleModal } = useModalState(false);
