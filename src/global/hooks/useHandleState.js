@@ -25,7 +25,6 @@ export const useHandleState = (initialState)=>{
      */
     function addArrayValueToState(array=[], arrayName = "", pushedItem){
         let newArray = array;
-        debugger
         newArray.push(pushedItem)
         
         setState({

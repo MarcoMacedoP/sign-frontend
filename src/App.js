@@ -5,7 +5,7 @@ import { Layout } from "./Layout";
 //Pages
 import { Landing } from "./LandingPage";
 import { LoginContainer, SignupContainer } from "./Authentication";
-import {AddClient, ClientsList} from "./Clients/components/"
+import {AddClient, ClientsList, ClientPage} from "./Clients/components/"
 import { Dashboard } from "./Dashboard";
 import { ProviderPageContainer, ProviderListContainer} from "./Providers";
 import { page404 } from "./404";
@@ -55,7 +55,8 @@ function App() {
             component={ProviderPageContainer}
           />
           <Route exact path ="/app/clients/" component={ClientsList}/>
-          <Route exact path= "/app/clients/:clientId" component = {AddClient}/>
+          <Route exact path ="/app/clients/add" component={AddClient}/>
+          <Route exact path= "/app/clients/:clientId" component = {ClientPage}/>
           <Route component={page404} />
         </Switch>
       </Layout>

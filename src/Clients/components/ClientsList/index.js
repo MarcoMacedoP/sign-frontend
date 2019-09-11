@@ -2,9 +2,11 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { LongCard, AddButton, SearchBar } from "../../../global/components"
-
+//hooks
+import { useRedirect } from "../../../global/hooks/useRedirect"
 
 export const ClientsList = ({match}) => {
+    const {setRedirect, renderRedirect} = useRedirect("/app/clients/add");
     return (
         <> 
             <h2>Lista de clientes</h2>
@@ -20,7 +22,8 @@ export const ClientsList = ({match}) => {
                     )
                 )}
             </ul>
-            <AddButton />
+            {renderRedirect()}
+            <AddButton onClick={()=>setRedirect(true)} />
         </>
     )
 };
