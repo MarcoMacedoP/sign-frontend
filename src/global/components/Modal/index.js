@@ -4,10 +4,7 @@ import { Blur, ModalContainer, CloseIcon } from "./styles";
 
 export const Modal = ({ closeModal, children, isOpen, onClose }) => {
   
-  function handleClose(closeModal) {
-    blurApp(false);
-    closeModal();
-  }
+ 
 
   if (isOpen) {
     blurApp();
@@ -28,6 +25,12 @@ export const Modal = ({ closeModal, children, isOpen, onClose }) => {
     return null;
   }
 };
+
+
+export function handleClose(closeModal) {
+  blurApp(false);
+  closeModal();
+}
 
 function blurApp(blurStatus = true) {
   let app = document.getElementById("root");

@@ -24,7 +24,7 @@ export const AddIncome = ({ closeModal, isOpen, incomeName }) => {
     setState({ ...state, [name]: event.target.checked });
   };
   return (
-    <Modal closeModal={closeModal} isOpen={isOpen}>
+    <Modal onClose={closeModal} isOpen={isOpen}>
       <Title>Agregar {incomeName}</Title>
       <Input
         name="Nombre del servicio"
