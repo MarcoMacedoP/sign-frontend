@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Label, InputForm, Container } from "./styles";
-/*
-    Author : Marco Macedo
-    Descripción: Este componente recibe como props: 
+/**
+    @author : Marco Macedo
+    @description: Este componente recibe como props: 
                   **name :  usado para el contenido de los labels y el name de los inputs, 
                   el label se relaciona con el input mediante el type.
                   **type:  usado para definir el tipo de input
@@ -29,7 +29,7 @@ export const Input = ({
       <InputForm
         id={name}
         className="input"
-        type={type}
+        type={type || "text"}
         placeholder={placeholder}
         name={name}
         active={active}

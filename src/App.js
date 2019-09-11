@@ -1,14 +1,13 @@
 //Components
 import React, { useReducer } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Layout } from "./Layout";
 //Pages
 import { Landing } from "./LandingPage";
 import { LoginContainer, SignupContainer } from "./Authentication";
-import { Layout } from "./Layout";
-//import { Test } from "./Test";
+import {AddClient, ClientsList} from "./Clients/components/"
 import { Dashboard } from "./Dashboard";
 import { ProviderPageContainer, ProviderListContainer} from "./Providers";
-import { ClientsList } from "./Clients/components/ClientsList"
 import { page404 } from "./404";
 //Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
@@ -56,6 +55,7 @@ function App() {
             component={ProviderPageContainer}
           />
           <Route exact path ="/app/clients/" component={ClientsList}/>
+          <Route exact path= "/app/clients/:clientId" component = {AddClient}/>
           <Route component={page404} />
         </Switch>
       </Layout>

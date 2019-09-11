@@ -1,25 +1,26 @@
 //Components
 import React from "react"
-import { LongCard, Modal } from "../../../global/components"
-//Hooks
-import { useModalState } from "../../../global/hooks/useModalState"
-import { ClientModal } from "../ClientModal"
+import { Link } from "react-router-dom"
+import { LongCard, AddButton, SearchBar } from "../../../global/components"
 
-export const ClientsList  = () => {
 
-    const { handleModal, modalIsOpen } = useModalState(false)
+export const ClientsList = ({match}) => {
     return (
         <> 
             <h2>Lista de clientes</h2>
+            <SearchBar />
             <ul>
-                {[1,2,3,4].map( value => (
-                    <li id={value}>
-                        <LongCard onClick={handleModal}/>
-                        <ClientModal onClose={handleModal} isOpen={modalIsOpen} />
+                {[1,2,3,4].map( id => (
+                    <li key={id}>
+                        <Link to={`${match.path}${id}`}>
+                            <LongCard />
+                        </Link>
+                        
                     </li>
                     )
                 )}
             </ul>
+            <AddButton />
         </>
     )
 };
