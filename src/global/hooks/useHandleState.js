@@ -5,11 +5,34 @@ export const useHandleState = (initialState)=>{
       ...initialState
     })
   
-    function handleChangeState(e){
+    function addFormValueToState(e){
       setState({
         ...state,
         [e.target.name] : e.target.value
       })
     }
-    return {state, handleChangeState, setState};
+    
+    function addValueToState(key ,value){
+        setState({
+          ...state,
+          [key] : value
+        })
+    }
+    /**
+     * @description Push into a state array value new element 
+     * @param {*} key the name of the state property
+     * @param {*} value the value of the element
+     */
+    function addArrayValueToState(array=[], arrayName = "", pushedItem){
+        let newArray = array;
+        debugger
+        newArray.push(pushedItem)
+        
+        setState({
+          ...state,
+          [arrayName] : newArray
+        })
+    }
+    
+    return {state, addFormValueToState, addValueToState, addArrayValueToState};
   }

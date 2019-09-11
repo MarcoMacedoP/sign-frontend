@@ -10,7 +10,7 @@ export const AddClient = ({
         state, 
         addProjects,
         modalIsOpen,
-        handleModal 
+        handleModal
     })=> (
         <div>
             <Input 
@@ -43,6 +43,12 @@ export const AddClient = ({
             onChange = {handleChange}
             type="number"
             />
+            {state.projects  
+                ? state.projects.map(
+                    ({name, id})=> <p key={id}>{name}</p>
+                    )
+                : null
+            }
             <div onClick={handleModal}>
                 <p>Agregar proyecto</p>
                 <MaterialIcon>add_circle_outline</MaterialIcon>
@@ -51,6 +57,7 @@ export const AddClient = ({
                 onClose={handleModal}
                 isOpen={modalIsOpen}
                 setSelectedItem={addProjects}
+                projectList= {state.projects}
             />
             <Button>Agregar cliente</Button>
         </div>

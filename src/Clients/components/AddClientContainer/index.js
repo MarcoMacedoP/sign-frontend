@@ -15,24 +15,16 @@ export function AddClientContainer (){
     projects : []
   };
 
-  const {state, handleChangeState, setState} =  useHandleState(initialState);
-  //add projects to state
-  function useAddProjectsToState ({id, name}) {
-    const projects = state.projects;
-    setState({
-      ...state,
-      projects : projects.push({id, name})
-    });
-    debugger
-  }
+  const {state, addFormValueToState, addArrayValueToState} =  useHandleState(initialState);
+  const addProjects = project => addArrayValueToState(state.projects, "projects", project)
   //handle value hook
   const {modalIsOpen, handleModal } = useModalState(false);
 
     return (
         <AddClient 
           state={state}
-          handleChange = {handleChangeState}
-          addProjects ={useAddProjectsToState}
+          handleChange = {addFormValueToState}
+          addProjects = {addProjects}
           modalIsOpen = {modalIsOpen}
           handleModal = {handleModal}
         />

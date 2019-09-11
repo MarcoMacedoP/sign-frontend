@@ -10,7 +10,7 @@ import { Modal, SearchBar, LongCard } from "../../../global/components/"
  */
 
 
-export function AddProjectModal ({onClose, isOpen, setSelectedItem}) {
+export function AddProjectModal ({onClose, isOpen, setSelectedItem, projectsList}) {
 
     const handleChoseProject = id => {
         setSelectedItem({id, name : "default name"});
