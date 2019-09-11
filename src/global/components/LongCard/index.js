@@ -16,7 +16,7 @@ export const LongCard = ({ title, date, picture, onClick }) => (
     <PictureContainer>
       <Picture image={picture} />
     </PictureContainer>
-    <Title>{title || "name"}</Title>
+    <Title>{title || "Nombre"}</Title>
 
     <Date>{date || "04/08/2000"}</Date>
     <ArrowIcon>arrow_forward_ios</ArrowIcon>

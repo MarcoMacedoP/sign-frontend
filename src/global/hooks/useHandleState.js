@@ -11,5 +11,5 @@ export const useHandleState = (initialState)=>{
         [e.target.name] : e.target.value
       })
     }
-    return {state, handleChangeState};
+    return {state, handleChangeState, setState};
   }

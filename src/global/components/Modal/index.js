@@ -3,6 +3,12 @@ import { createPortal } from "react-dom";
 import { Blur, ModalContainer, CloseIcon } from "./styles";
 
 export const Modal = ({ closeModal, children, isOpen, onClose }) => {
+  
+  function handleClose(closeModal) {
+    blurApp(false);
+    closeModal();
+  }
+
   if (isOpen) {
     blurApp();
     return createPortal(
@@ -22,10 +28,7 @@ export const Modal = ({ closeModal, children, isOpen, onClose }) => {
     return null;
   }
 };
-export function handleClose(closeModal) {
-  blurApp(false);
-  closeModal();
-}
+
 function blurApp(blurStatus = true) {
   let app = document.getElementById("root");
 
