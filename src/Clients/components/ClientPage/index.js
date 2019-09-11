@@ -1,9 +1,10 @@
 //components
 import React from 'react';
-import { LongCard } from '../../../global/components';
-import { Button } from '../../../global/components/Button';
-//styles
+import { LongCard, PersonInfo, Button } from '../../../global/components';
+
+//styled-components
 import { MaterialIcon } from '../../../global/styles/foundations/MaterialIcon';
+import { PageContainer } from '../../../global/styles/Containers';
 
 export const ClientPage = ({
 	name,
@@ -17,12 +18,14 @@ export const ClientPage = ({
 	handleChange,
 	addCommentHandler
 }) => (
-	<div>
-		<header>
-			<p>{`${name || 'Nombre'}  ${lastname || 'apellido'}`}</p>
-			<p>{email}</p>
-			<p>{phone}</p>
-		</header>
+	<PageContainer>
+		<PersonInfo
+			name={name}
+			imageIsShow={false}
+			about="Acerca del cliente"
+			phone={phone}
+			email={email}
+		/>
 
 		<section>
 			<h2>Seguimiento de cliente </h2>
@@ -62,5 +65,5 @@ export const ClientPage = ({
 			<h2>Lista de proyectos</h2>
 			<ul>{projects.map((id) => <LongCard key={id} />)}</ul>
 		</section>
-	</div>
+	</PageContainer>
 );
