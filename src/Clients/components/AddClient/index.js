@@ -43,7 +43,7 @@ export const AddClient = ({
             onChange = {handleChange}
             type="number"
             />
-            <div >
+            <div onClick={handleModal}>
                 <p>Agregar proyecto</p>
                 <MaterialIcon>add_circle_outline</MaterialIcon>
             </div>

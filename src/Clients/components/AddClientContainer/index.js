@@ -20,7 +20,7 @@ export function AddClientContainer (){
   function useAddProjectsToState ({id, name}) {
     setState({
       ...state,
-      projects : projects.push({id, name})
+      projects : state.projects.push({id, name})
     });
   }
   //handle value hook

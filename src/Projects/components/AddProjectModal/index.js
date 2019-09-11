@@ -14,7 +14,6 @@ export function AddProjectModal ({onClose, isOpen, setSelectedItem}) {
 
     const handleChoseProject = id => {
         setSelectedItem({id, name : "default name"});
-        onClose();
     };
 
     return (

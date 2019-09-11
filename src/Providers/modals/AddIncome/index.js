@@ -11,9 +11,6 @@ import {
   positiveStatusColor
 } from "../../../global/styles/variables";
 
-//Functions
-import { handleClose } from "../../../global/components/Modal/index";
-
 //The component
 export const AddIncome = ({ closeModal, isOpen, incomeName }) => {
   const [ state, setState ] = React.useState({
@@ -54,7 +51,7 @@ export const AddIncome = ({ closeModal, isOpen, incomeName }) => {
       </SecondaryButton>
       <SecondaryButton
         borderColor={blackColorLigth}
-        onClick={() => handleClose(closeModal)}
+        onClick={closeModal}
         width="80%">
         Cancelar
       </SecondaryButton>

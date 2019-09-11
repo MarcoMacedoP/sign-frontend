@@ -12,9 +12,6 @@ import {
   errorColor
 } from "../../../global/styles/variables";
 
-//Functions
-import { handleClose } from "../../../global/components/Modal/index";
-
 //The component
 export const EditIncome = ({ closeModal, isOpen, incomeName }) => {
   const [ state, setState ] = React.useState({
@@ -59,7 +56,7 @@ export const EditIncome = ({ closeModal, isOpen, incomeName }) => {
       </SecondaryButton>
       <SecondaryButton
         borderColor={blackColorLigth}
-        onClick={() => handleClose(closeModal)}
+        onClick={closeModal}
         width="80%">
         Cancelar
       </SecondaryButton>
