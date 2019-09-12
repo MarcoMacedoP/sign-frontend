@@ -12,7 +12,12 @@ import {
   Navigation,
   CloseIcon
 } from './styles'
-
+// Routes
+import {
+  appHomeRoute,
+  clientsRoute,
+  providersRoute
+} from '../../../global/utils/routes'
 export const LateralMenu = ({ isShowed, username, location, closeMenu }) => {
   if (isShowed) {
     return (
@@ -26,12 +31,32 @@ export const LateralMenu = ({ isShowed, username, location, closeMenu }) => {
         <Navigation>
           <LateralMenuItem
             name='Inicio'
-            direction='/app/'
+            direction={appHomeRoute}
             closeMenu={closeMenu}
           />
           <LateralMenuItem
             name='Proyectos'
-            direction='/app/projects'
+            direction='/404/'
+            closeMenu={closeMenu}
+          />
+          <LateralMenuItem
+            name={providersRoute}
+            direction='/404/'
+            closeMenu={closeMenu}
+          />
+          <LateralMenuItem
+            name='Clientes'
+            direction={clientsRoute}
+            closeMenu={closeMenu}
+          />
+          <LateralMenuItem
+            name='Colaboradores'
+            direction='/404/'
+            closeMenu={closeMenu}
+          />
+          <LateralMenuItem
+            name='Recordatorios'
+            direction='/404/'
             closeMenu={closeMenu}
           />
         </Navigation>
