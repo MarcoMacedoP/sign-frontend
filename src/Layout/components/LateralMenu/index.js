@@ -40,8 +40,8 @@ export const LateralMenu = ({ isShowed, username, location, closeMenu }) => {
             closeMenu={closeMenu}
           />
           <LateralMenuItem
-            name={providersRoute}
-            direction='/404/'
+            name='Proveedores'
+            direction={providersRoute}
             closeMenu={closeMenu}
           />
           <LateralMenuItem
