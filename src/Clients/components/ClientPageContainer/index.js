@@ -11,8 +11,8 @@ export function ClientPageContainer({ name, lastname, email, phone }) {
 		reminders: [],
 		actualComment: '',
 		id: '',
-		name: '',
-		lastname: '',
+		name: 'Nombre (s)',
+		lastname: 'Apellido (s)',
 		email: '',
 		phone: ''
 	};

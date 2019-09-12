@@ -7,3 +7,4 @@ export { Input } from './Input';
 export { Button } from './Button';
 export { SecondaryButton } from './SecondaryButton';
 export { PersonInfo } from './PersonInfo';
+export { SmallEmptyState } from './SmallEmptyState';
