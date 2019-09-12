@@ -9,7 +9,9 @@ export const DashboardItem = ({ icon, title, linkDirection, description }) => {
       onMouseOver={() => setCardStatus(true)}
       onMouseOut={() => setCardStatus(false)}
     >
-      <Icon src={icon} alt={`Icono de ${title}`} />
+      <Icon>
+        <img src={icon} alt={`Icono de ${title}`} />
+      </Icon>
       <Title>{title}</Title>
       <Description>{description}</Description>
       <MaterialArrowForward status={cardStatus}>
