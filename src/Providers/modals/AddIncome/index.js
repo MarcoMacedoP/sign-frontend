@@ -1,60 +1,61 @@
-//Components
-import React from "react";
-import { Modal } from "../../../global/components/Modal";
-import { Input } from "../../../global/components/Input";
-import { SecondaryButton } from "../../../global/components/SecondaryButton";
-import { Switch } from "@material-ui/core";
-//Styles
-import { FormControlLabel, Title } from "../utils/styles";
+// Components
+import React from 'react'
+import { Modal } from '../../../global/components/Modal'
+import { Input } from '../../../global/components/Input'
+import { SecondaryButton } from '../../../global/components/SecondaryButton'
+import { Switch } from '@material-ui/core'
+// Styles
+import { FormControlLabel, Title } from '../utils/styles'
 import {
   blackColorLigth,
   positiveStatusColor
-} from "../../../global/styles/variables";
+} from '../../../global/styles/variables'
 
-//The component
-export const AddIncome = ({ closeModal, isOpen, incomeName }) => {
-  const [ state, setState ] = React.useState({
-    costPerHour : false
-  });
+// The component
+export const AddIncome = ({ onClose, isOpen, incomeName }) => {
+  const [state, setState] = React.useState({
+    costPerHour: false
+  })
 
   const handleChange = (name) => (event) => {
-    setState({ ...state, [name]: event.target.checked });
-  };
+    setState({ ...state, [name]: event.target.checked })
+  }
   return (
-    <Modal onClose={closeModal} isOpen={isOpen}>
+    <Modal onClose={onClose} isOpen={isOpen}>
       <Title>Agregar {incomeName}</Title>
       <Input
-        name="Nombre del servicio"
-        placeholder="Reparación eléctrica"
-        type="text"
+        name='Nombre del servicio'
+        placeholder='Reparación eléctrica'
+        type='text'
       />
       <Input
-        name="Descripción"
-        placeholder="Está es la descripción"
-        type="text"
+        name='Descripción'
+        placeholder='Está es la descripción'
+        type='text'
       />
 
-      <Input name="Costo" placeholder="800" type="text" />
+      <Input name='Costo' placeholder='800' type='text' />
       <FormControlLabel
         control={
           <Switch
             checked={state.costPerHour}
-            onChange={handleChange("costPerHour")}
-            value="costPerHour"
-            color="primary"
+            onChange={handleChange('costPerHour')}
+            value='costPerHour'
+            color='primary'
           />
         }
-        label="¿Costo por hora?"
+        label='¿Costo por hora?'
       />
-      <SecondaryButton borderColor={positiveStatusColor} width="80%">
+      <SecondaryButton borderColor={positiveStatusColor} width='80%'>
         Agregar
       </SecondaryButton>
       <SecondaryButton
         borderColor={blackColorLigth}
-        onClick={closeModal}
-        width="80%">
+        onClick={onClose}
+        width='80%'
+      >
         Cancelar
       </SecondaryButton>
     </Modal>
-  );
-};
+  )
+}

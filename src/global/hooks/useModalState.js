@@ -1,22 +1,20 @@
+import { useState } from 'react'
+// functions
+import { blurApp } from '../functions/blurApp'
+export function useModalState (initialModalState = false) {
+  const [modalIsOpen, setModalIsOpen] = useState(initialModalState)
 
-import { useState } from "react"
-//functions
-import {blurApp} from "../functions/blurApp"
-export function useModalState (initialModalState){
-    const [modalIsOpen, setModalIsOpen] = useState (initialModalState)
-
-    function handleModal() {
-        if(modalIsOpen){ 
-           //close modal
-            setModalIsOpen(false)
-            blurApp(false)
-           
-        }else{
-            //open modal
-            setModalIsOpen(true)
-            blurApp(true)
-        }
+  function handleModal () {
+    if (modalIsOpen) {
+      // close modal
+      setModalIsOpen(false)
+      blurApp(false)
+    } else {
+      // open modal
+      setModalIsOpen(true)
+      blurApp(true)
     }
+  }
 
-    return {modalIsOpen, handleModal , setModalIsOpen}
+  return { modalIsOpen, handleModal, setModalIsOpen }
 }
