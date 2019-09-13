@@ -8,7 +8,7 @@ import { LoginContainer, SignupContainer } from './Authentication'
 import { AddClient, ClientsList, ClientPage } from './Clients/components/'
 import { Dashboard } from './Dashboard'
 import { ProviderPageContainer, ProviderListContainer } from './Providers'
-import { page404 } from './404'
+import { PageNotFound } from './global/components/PageNotFound'
 // Routes
 import {
   landingRoute,
@@ -69,7 +69,7 @@ function App () {
           <Route exact path={clientsRoute} component={ClientsList} />
           <Route exact path={addClientRoute} component={AddClient} />
           <Route exact path={clientPageRoute} component={ClientPage} />
-          <Route component={page404} />
+          <Route component={PageNotFound} />
         </Switch>
       </Layout>
     </BrowserRouter>
