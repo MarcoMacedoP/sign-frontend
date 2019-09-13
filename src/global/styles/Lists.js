@@ -10,9 +10,9 @@ export const BigList = styled.ul`
   * {
     text-decoration: none;
   }
+  margin-bottom: 3rem;
 `
 export const LongList = styled.ul`
-  margin-top: 3rem;
   width: 100%;
 
   display: flex;
