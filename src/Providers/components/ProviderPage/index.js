@@ -8,6 +8,8 @@ import { EditIncome } from '../../modals/EditIncome'
 
 export const ProviderPage = ({
   provider,
+  onChange,
+  formValues,
   addServiceIsOpen,
   handleAddService,
   editServiceIsOpen,
@@ -54,11 +56,15 @@ export const ProviderPage = ({
       onClose={handleAddService}
       isOpen={addServiceIsOpen}
       incomeName='servicio'
+      onChange={onChange}
+      formValues={formValues}
     />
     <EditIncome
       onClose={handleEditService}
       isOpen={editServiceIsOpen}
       incomeName='servicio'
+      onChange={onChange}
+      formValues={formValues}
     />
     {
       // products modals
@@ -67,11 +73,15 @@ export const ProviderPage = ({
       onClose={handleAddProduct}
       isOpen={addProductIsOpen}
       incomeName='producto'
+      onChange={onChange}
+      formValues={formValues}
     />
     <EditIncome
       onClose={handleEditProduct}
       isOpen={editProductIsOpen}
       incomeName='producto'
+      onChange={onChange}
+      formValues={formValues}
     />
     {/* -------------- */}
   </Container>

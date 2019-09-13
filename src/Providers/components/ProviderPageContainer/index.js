@@ -4,7 +4,10 @@ import { providersApi } from '../../api/index'
 import { Loading } from '../../../global/components/'
 // hooks
 import { useModalState } from '../../../global/hooks/useModalState'
-export const ProviderPageContainer = ({ match }) => {
+import { useHandleState } from '../../../global/hooks/useHandleState'
+
+// component
+export function ProviderPageContainer ({ match }) {
   // modals
   const {
     modalIsOpen: addServiceIsOpen,
@@ -24,10 +27,12 @@ export const ProviderPageContainer = ({ match }) => {
     handleModal: handleEditProduct
   } = useModalState()
 
-  // State
+  // States
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
+  // Form values of AddIncome and EditIncome
+  const { state, addFormValueToState } = useHandleState({})
 
   const providerId = match.params.providerId
 
@@ -65,6 +70,8 @@ export const ProviderPageContainer = ({ match }) => {
   return (
     <ProviderPage
       provider={data}
+      formValues={state}
+      onChange={addFormValueToState}
       addServiceIsOpen={addServiceIsOpen}
       handleAddService={handleAddService}
       editServiceIsOpen={editServiceIsOpen}
