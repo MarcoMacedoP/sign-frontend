@@ -8,7 +8,7 @@ import { LoginContainer, SignupContainer } from "./Authentication";
 import { AddClient, ClientsList, ClientPage } from "./Clients/components/";
 import { Dashboard } from "./Dashboard";
 import { ProviderPageContainer, ProviderListContainer } from "./Providers";
-import { RemindersList } from "./Reminders";
+import { RemindersList, ReminderPage } from "./Reminders";
 import { page404 } from "./404";
 // Routes
 import {
@@ -21,7 +21,8 @@ import {
   clientsRoute,
   addClientRoute,
   clientPageRoute,
-  remindersRoute
+  remindersRoute,
+  reminderPageRoute
 } from "./global/utils/routes";
 // Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
@@ -71,7 +72,8 @@ function App() {
           <Route exact path={clientsRoute} component={ClientsList} />
           <Route exact path={addClientRoute} component={AddClient} />
           <Route exact path={clientPageRoute} component={ClientPage} />
-          <Route exact path={remindersRoute} component={RemindersList}></Route>
+          <Route exact path={remindersRoute} component={RemindersList} />
+          <Route exact path={reminderPageRoute} component={ReminderPage} />
           <Route component={page404} />
         </Switch>
       </Layout>

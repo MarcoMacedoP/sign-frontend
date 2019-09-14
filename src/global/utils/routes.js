@@ -12,3 +12,4 @@ export const addClientRoute = `${clientsRoute}add`;
 export const clientPageRoute = `${clientsRoute}:clientId`;
 //reminders
 export const remindersRoute = `${appHomeRoute}/reminders/`;
+export const reminderPageRoute = `${remindersRoute}:reminderId`;
