@@ -12,9 +12,11 @@ import { useModalState } from "../../../global/hooks/useModalState";
  * @param {*} small Boolean,use it for make the layout
  *  small for used into other components
  */
-export function RemindersListContainer({ small = false }) {
+export function RemindersListContainer({ small = false, reminders }) {
   //state
-  const { state, addValueToState } = useHandleState({ reminders: [] });
+  const { state, addValueToState } = useHandleState({
+    reminders: reminders || []
+  });
   const addReminder = () => {
     addValueToState("reminders", [
       ...state.reminders,
