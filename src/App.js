@@ -73,7 +73,6 @@ function App() {
           <Route exact path={addClientRoute} component={AddClient} />
           <Route exact path={clientPageRoute} component={ClientPage} />
           <Route exact path={remindersRoute} component={RemindersList} />
-          <Route exact path={reminderPageRoute} component={ReminderPage} />
           <Route component={page404} />
         </Switch>
       </Layout>

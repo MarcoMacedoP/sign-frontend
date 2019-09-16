@@ -2,8 +2,10 @@
 import React from "react";
 import { RemindersList } from "../RemindersList";
 import { EmptyReminders } from "../EmptyReminders";
+
 //hooks
 import { useHandleState } from "../../../global/hooks/useHandleState";
+import { useModalState } from "../../../global/hooks/useModalState";
 
 /**The container of RemindersList. Contains all the logic.
  *
@@ -11,6 +13,7 @@ import { useHandleState } from "../../../global/hooks/useHandleState";
  *  small for used into other components
  */
 export function RemindersListContainer({ small = false }) {
+  //state
   const { state, addValueToState } = useHandleState({ reminders: [] });
   const addReminder = () => {
     addValueToState("reminders", [
@@ -18,6 +21,8 @@ export function RemindersListContainer({ small = false }) {
       { title: "nuevo recordatorio" }
     ]);
   };
+  //modals
+  const { handleModal, modalIsOpen } = useModalState();
 
   //return main component
   if (state.reminders.length === 0) {
@@ -30,6 +35,8 @@ export function RemindersListContainer({ small = false }) {
         handleAddReminder={addReminder}
         reminders={state.reminders}
         small={small}
+        modalIsOpen={modalIsOpen}
+        handleModal={handleModal}
       />
     );
   }
