@@ -1,7 +1,8 @@
 // Components
-import React, { useReducer } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Layout } from "./Layout";
+import Layout from "./Layout";
+import { Provider } from "react-redux";
 // Pages
 import { Landing } from "./LandingPage";
 import { LoginContainer, SignupContainer } from "./Authentication";
@@ -25,57 +26,39 @@ import {
 } from "./global/utils/routes";
 // Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
-// functions TODO put this in a single file
-function reducer(state, action) {
-  switch (action.type) {
-    case "login":
-      return { ...state, userLoged: true };
-    case "logout":
-      return { ...state, userLoged: false };
-    default:
-      throw new Error("Something happenend on global state 😧");
-  }
-}
+//redux
+import store from "./global/redux/store";
 
 function App() {
-  const initialState = { userLoged: true };
-  const [state, dispatch] = useReducer(reducer, initialState);
-
   return (
-    <BrowserRouter>
-      <GlobalStyles />
-      <Layout userLoged={state.userLoged}>
-        <Switch>
-          <Route exact path={landingRoute} component={Landing} />
-          <Route
-            exact
-            path={loginRoute}
-            component={() => <LoginContainer dispatch={dispatch} />}
-          />
-          <Route
-            exact
-            path={signupRoute}
-            component={() => <SignupContainer dispatch={dispatch} />}
-          />
-          <Route exact path={appHomeRoute} component={Dashboard} />
-          <Route
-            exact
-            path={providersRoute}
-            component={ProviderListContainer}
-          />
-          <Route
-            exact
-            path={providerPageRoute}
-            component={ProviderPageContainer}
-          />
-          <Route exact path={clientsRoute} component={ClientsList} />
-          <Route exact path={addClientRoute} component={AddClient} />
-          <Route exact path={clientPageRoute} component={ClientPage} />
-          <Route exact path={remindersRoute} component={RemindersList} />
-          <Route component={PageNotFound} />
-        </Switch>
-      </Layout>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyles />
+        <Layout>
+          <Switch>
+            <Route exact path={landingRoute} component={Landing} />
+            <Route exact path={loginRoute} component={LoginContainer} />
+            <Route exact path={signupRoute} component={SignupContainer} />
+            <Route exact path={appHomeRoute} component={Dashboard} />
+            <Route
+              exact
+              path={providersRoute}
+              component={ProviderListContainer}
+            />
+            <Route
+              exact
+              path={providerPageRoute}
+              component={ProviderPageContainer}
+            />
+            <Route exact path={clientsRoute} component={ClientsList} />
+            <Route exact path={addClientRoute} component={AddClient} />
+            <Route exact path={clientPageRoute} component={ClientPage} />
+            <Route exact path={remindersRoute} component={RemindersList} />
+            <Route component={PageNotFound} />
+          </Switch>
+        </Layout>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

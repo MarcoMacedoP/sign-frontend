@@ -3,15 +3,18 @@ import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
 import { AppNavbar } from "../AppNavbar";
 import { LateralMenu } from "../LateralMenu";
+//redux
+import { connect } from "react-redux";
 //MaterialUi libray customization
 
 import { ThemeProvider } from "@material-ui/styles";
 import { theme } from "../../MaterialUiTheme";
 
-export const Layout = ({ children, userLoged }) => {
-  const [ menuStatus, setMenuStatus ] = useState(false);
+function Layout(props) {
+  const { children, user } = props;
+  const [menuStatus, setMenuStatus] = useState(false);
 
-  if (userLoged) {
+  if (user.isLoged) {
     return (
       <ThemeProvider theme={theme}>
         <AppNavbar openMenu={() => setMenuStatus(true)} />
@@ -31,4 +34,13 @@ export const Layout = ({ children, userLoged }) => {
       </ThemeProvider>
     );
   }
+}
+
+const mapStateToProps = state => {
+  return { user: state.user };
 };
+
+export default connect(
+  mapStateToProps,
+  null
+)(Layout);
