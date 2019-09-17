@@ -11,6 +11,7 @@ import { Dashboard } from "./Dashboard";
 import { ProviderPageContainer, ProviderListContainer } from "./Providers";
 import { RemindersList } from "./Reminders";
 import ProjectListContainer from "./Projects/components/ProjectListContainer";
+import AddProjectPage from "./Projects/components/AddProjectPageContainer";
 import { PageNotFound } from "./global/components/PageNotFound";
 // Routes
 import {
@@ -24,7 +25,8 @@ import {
   REMINDERS_ROUTE,
   SIGNUP_ROUTE,
   PROVIDER_PAGE_ROUTE,
-  CLIENT_PAGE_ROUTE
+  CLIENT_PAGE_ROUTE,
+  ADD_PROJECTS_ROUTE
 } from "./global/utils/routes";
 // Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
@@ -61,7 +63,7 @@ function App() {
               path={PROJECTS_ROUTE}
               component={ProjectListContainer}
             />
-
+            <Route exact path={ADD_PROJECTS_ROUTE} component={AddProjectPage} />
             <Route component={PageNotFound} />
           </Switch>
         </Layout>

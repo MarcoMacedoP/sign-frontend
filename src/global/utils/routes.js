@@ -14,3 +14,4 @@ export const CLIENT_PAGE_ROUTE = `${CLIENTS_ROUTE}:clientId`;
 export const REMINDERS_ROUTE = `${APP_HOME_ROUTE}/reminders/`;
 //projects
 export const PROJECTS_ROUTE = `${APP_HOME_ROUTE}/projects/`;
+export const ADD_PROJECTS_ROUTE = `${PROJECTS_ROUTE}add/`;
