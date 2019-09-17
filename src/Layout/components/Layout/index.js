@@ -10,8 +10,7 @@ import { connect } from "react-redux";
 import { ThemeProvider } from "@material-ui/styles";
 import { theme } from "../../MaterialUiTheme";
 
-function Layout(props) {
-  const { children, user } = props;
+function Layout({ children, user }) {
   const [menuStatus, setMenuStatus] = useState(false);
 
   if (user.isLoged) {
@@ -36,9 +35,7 @@ function Layout(props) {
   }
 }
 
-const mapStateToProps = state => {
-  return { user: state.user };
-};
+const mapStateToProps = state => ({ user: state.user });
 
 export default connect(
   mapStateToProps,

@@ -1,2 +1,5 @@
+//Auth
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
+//Projects
+export const ADD_PROJECT = "ADD_PROJECT";

@@ -5,13 +5,13 @@ import { Container, SearchBarContainer, Title } from "./styles";
 /**
  * Shows a list of a determinate React-Component
  */
-export const List = ({ title, children, onClick }) => (
+export const List = ({ title, children, onAddButtonClick }) => (
   <Container>
     <Title>{title}</Title>
     <SearchBarContainer>
       <SearchBar />
     </SearchBarContainer>
     {children}
-    <AddButton onClick={onClick} />
+    <AddButton onClick={onAddButtonClick} />
   </Container>
 );
