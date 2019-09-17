@@ -1,11 +1,11 @@
-import React from 'react'
-import { SearchBar, AddButton } from '../'
+import React from "react";
+import { SearchBar, AddButton } from "..";
 // styled-components
-import { Container, SearchBarContainer, Title } from './styles'
+import { Container, SearchBarContainer, Title } from "./styles";
 /**
  * Shows a list of a determinate React-Component
  */
-export const ComponentList = ({ title, children, onClick }) => (
+export const List = ({ title, children, onClick }) => (
   <Container>
     <Title>{title}</Title>
     <SearchBarContainer>
@@ -14,4 +14,4 @@ export const ComponentList = ({ title, children, onClick }) => (
     {children}
     <AddButton onClick={onClick} />
   </Container>
-)
+);

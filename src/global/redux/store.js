@@ -3,7 +3,7 @@ import rootReducer from "./reducers";
 
 const initialState = {
   user: {
-    isLoged: false
+    isLoged: true
   }
 };
 export default createStore(rootReducer, initialState);

@@ -1,22 +1,18 @@
-import React from 'react'
+import React from "react";
 // Components
 
-import {
-  LongCard,
-  PictureCard,
-  ComponentList
-} from '../../../global/components/'
+import { LongCard, PictureCard, List } from "../../../global/components/";
 
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 // Styled Components
-import { BigList, LongList } from '../../../global/styles/Lists'
+import { BigList, LongList } from "../../../global/styles/Lists";
 
 export const ProviderList = ({ data }) => {
-  let bigProviders = data.slice(0, 4)
-  let longProviders = data.slice(4)
-  const onClick = () => console.log('Add provider')
+  let bigProviders = data.slice(0, 4);
+  let longProviders = data.slice(4);
+  const onClick = () => console.log("Add provider");
   return (
-    <ComponentList title='Proveedores' onClick={onClick}>
+    <List title="Proveedores" onClick={onClick}>
       <BigList>
         {bigProviders.map(({ id, name, lastname, image_url, about }) => (
           <Link key={id} to={`/app/providers/${id}`}>
@@ -40,6 +36,6 @@ export const ProviderList = ({ data }) => {
           </Link>
         ))}
       </LongList>
-    </ComponentList>
-  )
-}
+    </List>
+  );
+};
