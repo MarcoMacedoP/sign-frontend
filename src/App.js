@@ -10,19 +10,21 @@ import { AddClient, ClientsList, ClientPage } from "./Clients/components/";
 import { Dashboard } from "./Dashboard";
 import { ProviderPageContainer, ProviderListContainer } from "./Providers";
 import { RemindersList } from "./Reminders";
+import ProjectListContainer from "./Projects/components/ProjectListContainer";
 import { PageNotFound } from "./global/components/PageNotFound";
 // Routes
 import {
-  landingRoute,
-  loginRoute,
-  signupRoute,
-  appHomeRoute,
-  providersRoute,
-  providerPageRoute,
-  clientsRoute,
-  addClientRoute,
-  clientPageRoute,
-  remindersRoute
+  ADD_CLIENT_ROUTE,
+  APP_HOME_ROUTE,
+  CLIENTS_ROUTE,
+  LANDING_ROUTE,
+  LOGIN_ROUTE,
+  PROJECTS_ROUTE,
+  PROVIDERS_ROUTE,
+  REMINDERS_ROUTE,
+  SIGNUP_ROUTE,
+  PROVIDER_PAGE_ROUTE,
+  CLIENT_PAGE_ROUTE
 } from "./global/utils/routes";
 // Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
@@ -36,24 +38,30 @@ function App() {
         <GlobalStyles />
         <Layout>
           <Switch>
-            <Route exact path={landingRoute} component={Landing} />
-            <Route exact path={loginRoute} component={LoginContainer} />
-            <Route exact path={signupRoute} component={SignupContainer} />
-            <Route exact path={appHomeRoute} component={Dashboard} />
+            <Route exact path={LANDING_ROUTE} component={Landing} />
+            <Route exact path={LOGIN_ROUTE} component={LoginContainer} />
+            <Route exact path={SIGNUP_ROUTE} component={SignupContainer} />
+            <Route exact path={APP_HOME_ROUTE} component={Dashboard} />
             <Route
               exact
-              path={providersRoute}
+              path={PROVIDERS_ROUTE}
               component={ProviderListContainer}
             />
             <Route
               exact
-              path={providerPageRoute}
+              path={PROVIDER_PAGE_ROUTE}
               component={ProviderPageContainer}
             />
-            <Route exact path={clientsRoute} component={ClientsList} />
-            <Route exact path={addClientRoute} component={AddClient} />
-            <Route exact path={clientPageRoute} component={ClientPage} />
-            <Route exact path={remindersRoute} component={RemindersList} />
+            <Route exact path={CLIENTS_ROUTE} component={ClientsList} />
+            <Route exact path={ADD_CLIENT_ROUTE} component={AddClient} />
+            <Route exact path={CLIENT_PAGE_ROUTE} component={ClientPage} />
+            <Route exact path={REMINDERS_ROUTE} component={RemindersList} />
+            <Route
+              exact
+              path={PROJECTS_ROUTE}
+              component={ProjectListContainer}
+            />
+
             <Route component={PageNotFound} />
           </Switch>
         </Layout>

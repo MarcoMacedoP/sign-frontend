@@ -1,14 +1,16 @@
-export const landingRoute = "/";
-export const loginRoute = "/login";
-export const signupRoute = "/signup";
+export const LANDING_ROUTE = "/";
+export const LOGIN_ROUTE = "/login";
+export const SIGNUP_ROUTE = "/signup";
 
-export const appHomeRoute = "/app";
+export const APP_HOME_ROUTE = "/app";
 //providers
-export const providersRoute = `${appHomeRoute}/providers/`;
-export const providerPageRoute = `${providersRoute}:providerId`;
+export const PROVIDERS_ROUTE = `${APP_HOME_ROUTE}/providers/`;
+export const PROVIDER_PAGE_ROUTE = `${PROVIDERS_ROUTE}:providerId`;
 //clients
-export const clientsRoute = `${appHomeRoute}/clients/`;
-export const addClientRoute = `${clientsRoute}add`;
-export const clientPageRoute = `${clientsRoute}:clientId`;
+export const CLIENTS_ROUTE = `${APP_HOME_ROUTE}/clients/`;
+export const ADD_CLIENT_ROUTE = `${CLIENTS_ROUTE}add`;
+export const CLIENT_PAGE_ROUTE = `${CLIENTS_ROUTE}:clientId`;
 //reminders
-export const remindersRoute = `${appHomeRoute}/reminders/`;
+export const REMINDERS_ROUTE = `${APP_HOME_ROUTE}/reminders/`;
+//projects
+export const PROJECTS_ROUTE = `${APP_HOME_ROUTE}/projects/`;
