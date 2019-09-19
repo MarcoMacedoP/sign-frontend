@@ -4,11 +4,11 @@ import { DashboardItem } from "../DashboardItem";
 // styled-components
 import { Container } from "./styles";
 // static
-import iconClient from "../../static/icons/Clients.svg";
-import iconProjects from "../../static/icons/Projects.svg";
-import iconProviders from "../../static/icons/Providers.svg";
-import iconReminders from "../../static/icons/Reminders.svg";
-import iconTeams from "../../static/icons/Teams.svg";
+import iconClient from "../../../global/static/icons/Clients.svg";
+import iconProjects from "../../../global/static/icons/Projects.svg";
+import iconProviders from "../../../global/static/icons/Providers.svg";
+import iconReminders from "../../../global/static/icons/Reminders.svg";
+import iconTeams from "../../../global/static/icons/Teams.svg";
 //routes
 import {
   CLIENTS_ROUTE,
