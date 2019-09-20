@@ -5,8 +5,9 @@ import {
   blackColorTransparent
 } from "../variables";
 
+/**DECAPRETADED AVOID, USE INSTEAD Icon component */
 export const MaterialIcon = styled.i`
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -17,7 +18,7 @@ export const MaterialIcon = styled.i`
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  -moz-font-feature-settings: 'liga';
+  -moz-font-feature-settings: "liga";
   -moz-osx-font-smoothing: grayscale;
   padding: 0.5rem;
   cursor: pointer;
