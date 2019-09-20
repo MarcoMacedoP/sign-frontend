@@ -3,7 +3,7 @@ const initialState = [
   {
     name: "mock",
     description: "Small desc",
-    cutDate: new Date(),
+    dueDate: new Date().toDateString(),
     id: 1,
     expenses: {
       name: "expense_1",
@@ -14,6 +14,26 @@ const initialState = [
       name: "income_1",
       description: "desc_2",
       value: 900
+    },
+    activities: {
+      pending: [
+        {
+          name: "Actividad pendiente",
+          dueDate: "11/09/2019"
+        }
+      ],
+      inProgress: [
+        {
+          name: "Actividad en progreso",
+          dueDate: "11/09/2019"
+        }
+      ],
+      doned: [
+        {
+          name: "Actividad terminada",
+          dueDate: "11/09/2019"
+        }
+      ]
     }
   }
 ];
