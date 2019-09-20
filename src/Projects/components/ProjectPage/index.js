@@ -5,7 +5,8 @@ import { ActivitieList } from "../ActivitieList";
 import { InformationHeader } from "../../../global/components/InformationHeader";
 //styled-components
 import { PageContainer } from "../../../global/styles/Containers";
-import { Activities, Title, ActivitiesContainer } from "./styles";
+import { Activities, ActivitiesContainer } from "./styles";
+import { H3 } from "../../../global/styles/texts";
 //main
 function ProjectPage(props) {
   //debugger;
@@ -14,11 +15,11 @@ function ProjectPage(props) {
     <PageContainer>
       <InformationHeader title={name} imageIsShow={false} about={description} />
       <Activities>
-        <Title>Actividades del proyecto</Title>
+        <H3>Actividades del proyecto</H3>
         <ActivitiesContainer>
-          <ActivitieList activities={activities.pending} />
-          <ActivitieList activities={activities.inProgress} />
-          <ActivitieList activities={activities.doned} />
+          <ActivitieList activities={activities.pending} title="Pendientes" />
+          <ActivitieList activities={activities.inProgress} title="En curso" />
+          <ActivitieList activities={activities.doned} title="Terminadas" />
         </ActivitiesContainer>
       </Activities>
     </PageContainer>

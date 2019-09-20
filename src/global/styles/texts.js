@@ -13,18 +13,17 @@ function setHeadlineText({
     color: ${color};
   `;
 }
-//TODO: NORMALIZE TEXTS
 
 export const H1 = styled.h1`
   ${setHeadlineText({ size: "3rem" })}
 `;
 export const H2 = styled.h2`
-  ${setHeadlineText({ size: "2rem" })}
+  ${setHeadlineText({ size: "2rem", weigth: "500" })}
 `;
 export const H3 = styled.h3`
   ${setHeadlineText({
     size: "1.5rem",
     color: blackColorLigth,
-    weigth: "300"
+    weigth: "500"
   })};
 `;
