@@ -2,7 +2,6 @@
 import styled from "styled-components";
 //Resources
 import LoginImage from "../../utils/images/LoginImage.png";
-import { setHeadlineText } from "../../../global/styles/foundations/Texts";
 import { whiteColorDark } from "../../../global/styles/variables";
 import {
   setHalfScreenContainer,
@@ -60,8 +59,6 @@ export const Picture = styled.picture`
     display: none;
   }
 `;
-
-export const Title = styled.h1`${setHeadlineText({ size: "2rem" })};`;
 
 export const Signup = styled.span`
   color: ${whiteColorDark};

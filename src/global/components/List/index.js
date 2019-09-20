@@ -1,13 +1,14 @@
 import React from "react";
 import { SearchBar, AddButton } from "..";
 // styled-components
-import { Container, SearchBarContainer, Title } from "./styles";
+import { Container, SearchBarContainer } from "./styles";
+import { H1 } from "../../styles/texts";
 /**
  * Shows a list of a determinate React-Component
  */
 export const List = ({ title, children, onAddButtonClick }) => (
   <Container>
-    <Title>{title}</Title>
+    <H1>{title}</H1>
     <SearchBarContainer>
       <SearchBar />
     </SearchBarContainer>

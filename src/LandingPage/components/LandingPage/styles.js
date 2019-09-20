@@ -1,11 +1,7 @@
 import styled from "styled-components";
-import {
-  whiteColorLigth,
-  blackColorLigth
-} from "../../../global/styles/variables";
-import { setHeadlineText } from "../../../global/styles/foundations/Texts";
+import { whiteColorLigth } from "../../../global/styles/variables";
 import { Button as BaseButton } from "../../../global/styles/foundations/Buttons";
-
+import { H3 } from "../../../global/styles/texts";
 export const Main = styled.main`
   box-sizing: border-box;
   background-color: ${whiteColorLigth};
@@ -45,14 +41,7 @@ export const Button = styled(BaseButton)`
     box-shadow: 0px 0px 30px 5px rgba(202, 80, 187, 0.6);
   }
 `;
-export const Title = styled.h1`
-  ${setHeadlineText({ size: "3rem" })};
-`;
-export const Subtitle = styled.h2`
+
+export const Subtitle = styled(H3)`
   margin-top: 2rem;
-  ${setHeadlineText({
-    size: "1.5rem",
-    color: blackColorLigth,
-    weigth: "500"
-  })};
 `;

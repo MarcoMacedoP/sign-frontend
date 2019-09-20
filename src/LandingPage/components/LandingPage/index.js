@@ -1,15 +1,17 @@
 import React from "react";
-import { Main, Title, Subtitle, Button } from "./styles";
 // functions
 import { redirecToAppIfUserIsLoged } from "../../../global/functions/redirectToApp";
 //static
 import landingImage from "../../../global/static/img/background.svg";
+//styled-components
+import { Main, Subtitle, Button } from "./styles";
+import { H1 } from "../../../global/styles/texts";
 
 export const Landing = () => (
   <>
     {redirecToAppIfUserIsLoged()}
     <Main backgroundImage={landingImage}>
-      <Title>Cambia la manera en que trabajas.</Title>
+      <H1>Cambia la manera en que trabajas.</H1>
       <Subtitle>
         SIGN es la manera más eficaz de <br /> mejorar la calidad de tu trabajo.
       </Subtitle>
