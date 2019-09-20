@@ -4,6 +4,7 @@ const initialState = [
     name: "mock",
     description: "Small desc",
     cutDate: new Date(),
+    id: 1,
     expenses: {
       name: "expense_1",
       description: "desc_1",
