@@ -12,7 +12,7 @@ export function Comments({
 	handleChange
 }) {
 	if (comments.length !== 0) {
-		debugger;
+		//debugger;
 		return (
 			<Fragment>
 				<h3>Comentarios</h3>

@@ -1,6 +1,6 @@
 import React from "react";
 import { List } from "../../../global/components";
-import { Projects } from "../Projects";
+import { Project } from "../Project";
 
 export const ProjectsList = ({
   projects,
@@ -9,7 +9,7 @@ export const ProjectsList = ({
 }) => (
   <List title="Proyectos" onAddButtonClick={handleAddProject}>
     {projects.map(project => (
-      <Projects {...project} onClick={() => onProjectClick(project.id)} />
+      <Project {...project} onClick={() => onProjectClick(project.id)} />
     ))}
   </List>
 );

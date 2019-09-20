@@ -1,11 +1,11 @@
 //components
 import React from "react";
-import { LongCard, PersonInfo } from "../../../global/components";
+import { LongCard, InformationHeader } from "../../../global/components";
 import { Comments } from "../Comments";
 import { RemindersListContainer } from "../../../Reminders/components/RemindersListContainer";
 //styled-components
-import { Article, Section, Container } from "./styles";
-
+import { Article, Section } from "./styles";
+import { PageContainer } from "../../../global/styles/Containers";
 export const ClientPage = ({
   name,
   lastname,
@@ -19,8 +19,8 @@ export const ClientPage = ({
   addCommentHandler
 }) => {
   return (
-    <Container>
-      <PersonInfo
+    <PageContainer>
+      <InformationHeader
         name={`${name} ${lastname}`}
         imageIsShow={false}
         about="Acerca del cliente"
@@ -54,6 +54,6 @@ export const ClientPage = ({
           ))}
         </ul>
       </Article>
-    </Container>
+    </PageContainer>
   );
 };

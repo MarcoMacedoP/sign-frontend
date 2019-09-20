@@ -1,25 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
 //components
-import { ActivitiesList } from "../ActivitiesList";
+import { ActivitieList } from "../ActivitieList";
+import { InformationHeader } from "../../../global/components/InformationHeader";
+//styled-components
+import { PageContainer } from "../../../global/styles/Containers";
+import { Activities, Title, ActivitiesContainer } from "./styles";
+//main
 function ProjectPage(props) {
-  debugger;
+  //debugger;
   const { name, description, dueDate, activities } = props;
   return (
-    <div>
-      <header>
-        <h1>{name}</h1>
-        <p>{description}</p>
-        <p>Fecha de entrega: {dueDate}</p>
-      </header>
-      <article>
-        <ActivitiesList activities={activities.pending} />
-        <ActivitiesList activities={activities.inProgress} />
-        <ActivitiesList activities={activities.doned} />
-      </article>
-    </div>
+    <PageContainer>
+      <InformationHeader title={name} imageIsShow={false} about={description} />
+      <Activities>
+        <Title>Actividades del proyecto</Title>
+        <ActivitiesContainer>
+          <ActivitieList activities={activities.pending} />
+          <ActivitieList activities={activities.inProgress} />
+          <ActivitieList activities={activities.doned} />
+        </ActivitiesContainer>
+      </Activities>
+    </PageContainer>
   );
 }
+//redux
 const mapStateToProps = (state, props) => {
   const { projectId } = props.match.params;
   const normalizedId = parseInt(projectId);

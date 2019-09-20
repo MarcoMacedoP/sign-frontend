@@ -7,6 +7,6 @@ export { SearchBar } from "./SearchBar";
 export { Input } from "./Input";
 export { Button } from "./Button";
 export { SecondaryButton } from "./SecondaryButton";
-export { PersonInfo } from "./PersonInfo";
+export { InformationHeader } from "./InformationHeader";
 export { SmallEmptyState } from "./SmallEmptyState";
 export { List } from "./List";

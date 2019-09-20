@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, ListContainer, List, Name } from './styles'
-import { PersonInfo } from '../../../global/components'
+import { InformationHeader } from '../../../global/components'
 import { Income } from '../Income'
 import { AddButton } from '../../../global/components/AddButton'
 import { AddIncome } from '../../modals/AddIncome'
@@ -21,7 +21,7 @@ export const ProviderPage = ({
 }) => (
   <Container>
     {/* ---------Info about the provider--------- */}
-    <PersonInfo {...provider} />
+    <InformationHeader {...provider} />
     {/* -------------- */}
 
     {/* ---------Services---- */}
