@@ -1,5 +1,7 @@
 import React from "react";
 import { Activitie } from "../Activitie";
+//styled-components
+import { ContainerCard } from "./styles";
 
 export function ActivitieList({ activities = [] }) {
   //no activities, show empty state
@@ -7,10 +9,10 @@ export function ActivitieList({ activities = [] }) {
   //else show activities
   else
     return (
-      <li>
+      <ContainerCard>
         {activities.map(activitie => (
           <Activitie {...activitie} />
         ))}
-      </li>
+      </ContainerCard>
     );
 }
