@@ -1,9 +1,9 @@
 import React from "react";
 //styled-components
-import { Container } from "./styles";
+import { Container, Title, Date } from "./styles";
 export const Activitie = ({ name, dueDate }) => (
   <Container>
-    <p>{name || "activitie name"}</p>
-    <p>{dueDate || "due date"}</p>
+    <Title>{name || "activitie name"}</Title>
+    <Date>{dueDate || "due date"}</Date>
   </Container>
 );
