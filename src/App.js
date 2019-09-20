@@ -10,8 +10,6 @@ import { AddClient, ClientsList, ClientPage } from "./Clients/components/";
 import { Dashboard } from "./Dashboard";
 import { ProviderPageContainer, ProviderListContainer } from "./Providers";
 import { RemindersList } from "./Reminders";
-import ProjectListContainer from "./Projects/components/ProjectListContainer";
-import AddProjectPage from "./Projects/components/AddProjectPageContainer";
 import { PageNotFound } from "./global/components/PageNotFound";
 // Routes
 import {
@@ -20,14 +18,13 @@ import {
   CLIENTS_ROUTE,
   LANDING_ROUTE,
   LOGIN_ROUTE,
-  PROJECTS_ROUTE,
   PROVIDERS_ROUTE,
   REMINDERS_ROUTE,
   SIGNUP_ROUTE,
   PROVIDER_PAGE_ROUTE,
-  CLIENT_PAGE_ROUTE,
-  ADD_PROJECTS_ROUTE
+  CLIENT_PAGE_ROUTE
 } from "./global/utils/routes";
+import ProjectsRoutes from "./Projects/routes";
 // Resources
 import { GlobalStyles } from "./global/styles/GlobalStyles";
 //redux
@@ -58,12 +55,7 @@ function App() {
             <Route exact path={ADD_CLIENT_ROUTE} component={AddClient} />
             <Route exact path={CLIENT_PAGE_ROUTE} component={ClientPage} />
             <Route exact path={REMINDERS_ROUTE} component={RemindersList} />
-            <Route
-              exact
-              path={PROJECTS_ROUTE}
-              component={ProjectListContainer}
-            />
-            <Route exact path={ADD_PROJECTS_ROUTE} component={AddProjectPage} />
+            <ProjectsRoutes />
             <Route component={PageNotFound} />
           </Switch>
         </Layout>
