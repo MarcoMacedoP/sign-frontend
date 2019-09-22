@@ -8,6 +8,7 @@ const config = require("./config");
 const app = express();
 //routes
 const authRoute = require("./routes/auth");
+const tokenRoute = require("./routes/token");
 //refreshtokens list
 global.refreshTokens = [];
 
@@ -17,6 +18,7 @@ app.use(cookieParser(config.cookie.secret));
 
 //router-middlewares
 app.use("/api", authRoute);
+app.use("/api/token", tokenRoute);
 
 //initialize server
 app.listen(config.server.port, () => {

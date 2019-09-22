@@ -10,11 +10,12 @@ const {
   sendBadResponse,
   sendGoodResponse
 } = require("../utils/responses");
+const {addTokenToCookies} = require("../utils/addTokenToCookies");
 //routes
 router.post("/login/", async (req, res) => {
   try {
     const encodedUser = encodeUserData(req.body);
-    const {data, statusCode} = await axios(
+    const {data: body, statusCode} = await axios(
       `${apiRoute}/auth/login/`,
       {
         method: "post",
@@ -23,12 +24,12 @@ router.post("/login/", async (req, res) => {
         }
       }
     );
-    addTokenToCookies(data.accesToken, res);
+    const {data} = body;
+    addTokenToCookies(data.token, res);
     sendGoodResponse({
       response: res,
-      message: "User loged successfully",
-      statusCode,
-      data
+      message: body.message,
+      statusCode
     });
   } catch (error) {
     sendBadResponse({response: res, message: "Not authorized"});
@@ -37,17 +38,18 @@ router.post("/login/", async (req, res) => {
 
 router.post("/signup/", async (req, res) => {
   try {
-    const {data, statusCode} = await axios(
+    const {data: body, statusCode} = await axios(
       `${apiRoute}/auth/signup/`,
       {
         method: "post",
         data: req.body
       }
     );
-    addTokenToCookies(data.accesToken, res);
+    const {data} = body;
+    addTokenToCookies(data.token, res);
     sendGoodResponse({
       response: res,
-      message: "User signed successfully",
+      message: body.message,
       statusCode
     });
   } catch (error) {
@@ -61,11 +63,6 @@ function encodeUserData(userData) {
   const {user, password} = userData;
   return Buffer.from(user + ":" + password).toString("base64");
 }
-function addTokenToCookies(token, response) {
-  response.cookie("token", token, {
-    httpOnly: !config.dev,
-    secure: !config.dev
-  });
-}
+
 //exports
 module.exports = router;
