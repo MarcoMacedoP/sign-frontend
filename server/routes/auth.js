@@ -11,7 +11,7 @@ const {
   sendGoodResponse
 } = require("../utils/responses");
 //routes
-router.post("/login/", async (req, res, next) => {
+router.post("/login/", async (req, res) => {
   try {
     const encodedUser = encodeUserData(req.body);
     const {data, statusCode} = await axios(
@@ -23,12 +23,34 @@ router.post("/login/", async (req, res, next) => {
         }
       }
     );
-    sendGoodResponse(res, "User loged successfully", 200, data);
+    sendGoodResponse({
+      response: res,
+      message: "User loged successfully",
+      statusCode,
+      data
+    });
   } catch (error) {
-    sendBadResponse(res, "Not authorized");
+    sendBadResponse({response: res, message: "Not authorized"});
   }
 });
-//functions
+
+router.post("/signup/", async (req, res) => {
+  try {
+    const user = await axios(`${apiRoute}/auth/signup/`, {
+      method: "post",
+      data: req.body
+    });
+    console.log(user);
+    sendGoodResponse({
+      response: res,
+      message: "User signed successfully"
+    });
+  } catch (error) {
+    console.log(error);
+    sendBadResponse({response: res, message: "Not authorized"});
+  }
+});
+
 /**This function encode the user data to put it into Auth header */
 function encodeUserData(userData) {
   const {user, password} = userData;
