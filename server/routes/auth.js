@@ -23,6 +23,7 @@ router.post("/login/", async (req, res) => {
         }
       }
     );
+    addTokenToCookies(data.accesToken, res);
     sendGoodResponse({
       response: res,
       message: "User loged successfully",
@@ -36,14 +37,18 @@ router.post("/login/", async (req, res) => {
 
 router.post("/signup/", async (req, res) => {
   try {
-    const user = await axios(`${apiRoute}/auth/signup/`, {
-      method: "post",
-      data: req.body
-    });
-    console.log(user);
+    const {data, statusCode} = await axios(
+      `${apiRoute}/auth/signup/`,
+      {
+        method: "post",
+        data: req.body
+      }
+    );
+    addTokenToCookies(data.accesToken, res);
     sendGoodResponse({
       response: res,
-      message: "User signed successfully"
+      message: "User signed successfully",
+      statusCode
     });
   } catch (error) {
     console.log(error);
@@ -55,6 +60,12 @@ router.post("/signup/", async (req, res) => {
 function encodeUserData(userData) {
   const {user, password} = userData;
   return Buffer.from(user + ":" + password).toString("base64");
+}
+function addTokenToCookies(token, response) {
+  response.cookie("token", token, {
+    httpOnly: !config.dev,
+    secure: !config.dev
+  });
 }
 //exports
 module.exports = router;
