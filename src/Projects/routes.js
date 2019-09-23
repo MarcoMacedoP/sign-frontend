@@ -1,21 +1,33 @@
 //libs
 import React from "react";
-import { Route } from "react-router-dom";
+import {Route} from "react-router-dom";
 //components
-import ProjectPage from "./components/ProjectPage";
+import ProjectPageContainer from "./components/ProjectPageContainer";
 import ProjectListContainer from "./components/ProjectListContainer";
-import AddProjectPage from "./components/AddProjectPageContainer";
 //routes
 import {
   PROJECTS_PAGE_ROUTE,
   PROJECTS_ROUTE,
   ADD_PROJECTS_ROUTE
 } from "../global/utils/routes";
+import AddProjectPageContainer from "./components/AddProjectPageContainer";
 
 export default () => (
   <>
-    <Route exact path={PROJECTS_PAGE_ROUTE} component={ProjectPage} />
-    <Route exact path={PROJECTS_ROUTE} component={ProjectListContainer} />
-    <Route exact path={ADD_PROJECTS_ROUTE} component={AddProjectPage} />
+    <Route
+      exact
+      path={PROJECTS_PAGE_ROUTE}
+      component={ProjectPageContainer}
+    />
+    <Route
+      exact
+      path={PROJECTS_ROUTE}
+      component={ProjectListContainer}
+    />
+    <Route
+      exact
+      path={ADD_PROJECTS_ROUTE}
+      component={AddProjectPageContainer}
+    />
   </>
 );
