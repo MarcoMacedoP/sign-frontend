@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import {createGlobalStyle} from "styled-components";
 import {
   fontBody,
   blackColor,
@@ -37,8 +37,10 @@ a{
   		opacity: 0.6;
 	}
 }
-p, h1,h2,h3,h4,h5,h6 {
+p, h1,h2,h3,h4,h5,h6, span , label{
 	color: ${blackColor};
+	line-height: 1.19;
+	letter-spacing: normal;
 }
 #root{
 	transition: filter 400ms ease-out 50ms;

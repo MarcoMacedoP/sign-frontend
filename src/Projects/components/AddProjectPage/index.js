@@ -5,6 +5,7 @@ import {Button, Input, InfoLayout} from "../../../global/components";
 
 //styled-components
 import {H1} from "./styles";
+import {BaseForm} from "../../../global/styles/Forms";
 
 export const AddProjectPage = ({
   state,
@@ -20,7 +21,7 @@ export const AddProjectPage = ({
           proyectos cuya duración puede extenderse por un periodo de
           considerable de tiempo."
     >
-      <form>
+      <BaseForm>
         <Input
           name="name"
           label="Nombre del proyecto"
@@ -43,7 +44,7 @@ export const AddProjectPage = ({
           value={state.date}
         />
         <Button onClick={handleSubmit}>Crear proyecto</Button>
-      </form>
+      </BaseForm>
     </InfoLayout>
   </>
 );

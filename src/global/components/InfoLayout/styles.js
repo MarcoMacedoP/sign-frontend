@@ -7,8 +7,9 @@ import {appPadding} from "../../styles/variables";
 export const Article = styled.article`
   display: grid;
   grid-template-columns: 35vw 1fr;
-  gap: 1rem;
+  gap: 2rem;
   padding: ${appPadding};
+  margin-top: 2rem;
 `;
 /**Here will be contained the information */
 export const Section = styled.section`
