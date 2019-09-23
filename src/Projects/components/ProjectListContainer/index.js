@@ -1,15 +1,38 @@
 //components
 import React from "react";
-import { ProjectsList } from "../ProjectsList";
-import { EmptyProjectsState } from "../EmptyProjectsState";
+import {ProjectsList} from "../ProjectsList";
+import {Redirect} from "react-router-dom";
+import {EmptyProjectsState} from "../EmptyProjectsState";
 //redux
-import { connect } from "react-redux";
-import { addProject } from "../../../global/redux/actions/projects";
+import {connect} from "react-redux";
+import {addProject} from "../../../global/redux/actions/projects";
 //routes
-import { PROJECTS_ROUTE } from "../../../global/utils/routes";
+import {
+  PROJECTS_ROUTE,
+  ADD_PROJECTS_ROUTE
+} from "../../../global/utils/routes";
 
-function ProjectListContainer(props) {
-  const { projects = [], addProject, history } = props;
+//hooks
+import {useState} from "react";
+const useRedirect = () => {
+  const [isRedirect, setRedirect] = useState(false);
+  const [route, setRoute] = useState("");
+
+  function toggleRedirect(route) {
+    setRoute(route);
+    if (isRedirect) {
+      setRedirect(false);
+    } else {
+      setRedirect(true);
+    }
+  }
+  return [isRedirect, route, toggleRedirect];
+};
+//main
+
+function ProjectListContainer({projects = [], addProject}) {
+  const [isRedirect, route, toggleRedirect] = useRedirect();
+  //handles
   const handleAddProject = () => {
     addProject({
       name: "Projecto_2",
@@ -18,7 +41,9 @@ function ProjectListContainer(props) {
       id: 1
     });
   };
-  const handleProjectClick = id => history.push(`${PROJECTS_ROUTE}${id}`);
+  const handleAddClick = () => toggleRedirect(ADD_PROJECTS_ROUTE);
+  const handleProjectClick = id =>
+    toggleRedirect(`${PROJECTS_ROUTE}${id}`);
   //main component
   if (projects.length === 0) {
     //no projects
@@ -26,11 +51,15 @@ function ProjectListContainer(props) {
   } else {
     //return projects
     return (
-      <ProjectsList
-        projects={projects}
-        handleAddProject={handleAddProject}
-        onProjectClick={handleProjectClick}
-      />
+      <>
+        {isRedirect && <Redirect to={route} />}
+        <ProjectsList
+          projects={projects}
+          handleAddProject={handleAddProject}
+          onProjectClick={handleProjectClick}
+          handleAddClick={handleAddClick}
+        />
+      </>
     );
   }
 }
@@ -41,5 +70,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addProject }
+  {addProject}
 )(ProjectListContainer);

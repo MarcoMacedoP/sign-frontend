@@ -11,7 +11,8 @@ export const ProjectPage = ({
   name,
   description,
   dueDate,
-  activities
+  activities,
+  handleRedirect
 }) => (
   <PageContainer>
     <InformationHeader

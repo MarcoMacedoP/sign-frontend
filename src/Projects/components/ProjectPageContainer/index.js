@@ -5,8 +5,13 @@ import {connect} from "react-redux";
 import {ProjectPage} from "../ProjectPage";
 
 function ProjectPageContainer({project}) {
-  return <ProjectPage {...project} />;
+  return (
+    <>
+      <ProjectPage {...project} />
+    </>
+  );
 }
+
 //redux
 const mapStateToProps = (state, props) => {
   const {projectId} = props.match.params;
