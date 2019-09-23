@@ -11,6 +11,7 @@ export const ProjectsList = ({
   <List title="Proyectos" onAddButtonClick={handleAddClick}>
     {projects.map(project => (
       <Project
+        key={project.id}
         {...project}
         onClick={() => onProjectClick(project.id)}
       />

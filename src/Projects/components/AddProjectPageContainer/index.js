@@ -13,17 +13,18 @@ import {Redirect} from "react-router-dom";
 import {PROJECTS_ROUTE} from "../../../global/utils/routes";
 
 function AddProjectPageContainer({addProject, lastAddedProjectId}) {
+  debugger;
   const initialState = {
     name: "",
     description: "",
     cutDate: "",
-    id: lastAddedProjectId++
+    id: lastAddedProjectId + 1
   };
   const {state, addFormValueToState} = useHandleState(initialState);
   const [isRedirect, route, toggleRedirect] = useRedirect();
   const handleSumbit = () => {
     addProject(state);
-    toggleRedirect(`${PROJECTS_ROUTE}${lastAddedProjectId}`);
+    toggleRedirect(`${PROJECTS_ROUTE}${state.id}`);
   };
   //component
   return (
@@ -45,7 +46,7 @@ const mapStateToProps = state => {
     return {
       lastAddedProjectId: id
     };
-  } else return null;
+  } else return {};
 };
 
 export default connect(

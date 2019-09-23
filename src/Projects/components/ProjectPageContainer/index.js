@@ -15,7 +15,7 @@ const mapStateToProps = (state, props) => {
   const project = state.projects.find(
     project => project.id === normalizedId
   );
-  return project;
+  return {project};
 };
 export default connect(
   mapStateToProps,
