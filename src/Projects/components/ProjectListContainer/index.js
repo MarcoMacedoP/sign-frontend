@@ -48,18 +48,18 @@ function ProjectListContainer({projects = [], addProject}) {
   if (projects.length === 0) {
     //no projects
     return <EmptyProjectsState addProject={handleAddProject} />;
+  }
+  if (isRedirect) {
+    return <Redirect to={route} />;
   } else {
     //return projects
     return (
-      <>
-        {isRedirect && <Redirect to={route} />}
-        <ProjectsList
-          projects={projects}
-          handleAddProject={handleAddProject}
-          onProjectClick={handleProjectClick}
-          handleAddClick={handleAddClick}
-        />
-      </>
+      <ProjectsList
+        projects={projects}
+        handleAddProject={handleAddProject}
+        onProjectClick={handleProjectClick}
+        handleAddClick={handleAddClick}
+      />
     );
   }
 }

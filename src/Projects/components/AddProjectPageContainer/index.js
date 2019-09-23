@@ -1,20 +1,21 @@
 //libs
 import React from "react";
 //redux
-import { connect } from "react-redux";
-import { addProject } from "../../../global/redux/actions/projects";
+import {connect} from "react-redux";
+import {addProject} from "../../../global/redux/actions/projects";
 //hooks
-import { useHandleState } from "../../../global/hooks/useHandleState";
+import {useHandleState} from "../../../global/hooks/useHandleState";
 //components
-import { AddProjectPage } from "../AddProjectPage";
+import {AddProjectPage} from "../AddProjectPage";
 
-function AddProjectPageContainer(props) {
+function AddProjectPageContainer({addProject}) {
+  debugger;
   const initialState = {
     name: "",
     description: "",
     cutDate: ""
   };
-  const { state, addFormValueToState } = useHandleState(initialState);
+  const {state, addFormValueToState} = useHandleState(initialState);
   const handleSumbit = () => addProject(state);
   //component
   return (
@@ -28,5 +29,5 @@ function AddProjectPageContainer(props) {
 
 export default connect(
   null,
-  { addProject }
+  {addProject}
 )(AddProjectPageContainer);

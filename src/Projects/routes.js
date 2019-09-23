@@ -1,6 +1,6 @@
 //libs
 import React from "react";
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 //components
 import ProjectPageContainer from "./components/ProjectPageContainer";
 import ProjectListContainer from "./components/ProjectListContainer";
@@ -13,21 +13,22 @@ import {
 import AddProjectPageContainer from "./components/AddProjectPageContainer";
 
 export default () => (
-  <>
-    <Route
-      exact
-      path={PROJECTS_PAGE_ROUTE}
-      component={ProjectPageContainer}
-    />
+  <Switch>
     <Route
       exact
       path={PROJECTS_ROUTE}
       component={ProjectListContainer}
     />
+
     <Route
       exact
       path={ADD_PROJECTS_ROUTE}
       component={AddProjectPageContainer}
     />
-  </>
+    <Route
+      exact
+      path={PROJECTS_PAGE_ROUTE}
+      component={ProjectPageContainer}
+    />
+  </Switch>
 );

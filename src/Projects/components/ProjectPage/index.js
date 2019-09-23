@@ -11,8 +11,7 @@ export const ProjectPage = ({
   name,
   description,
   dueDate,
-  activities,
-  handleRedirect
+  activities = {}
 }) => (
   <PageContainer>
     <InformationHeader
@@ -24,15 +23,15 @@ export const ProjectPage = ({
       <H3>Actividades del proyecto</H3>
       <ActivitiesContainer>
         <ActivitieList
-          activities={activities.pending}
+          activities={activities.pending || []}
           title="Pendientes"
         />
         <ActivitieList
-          activities={activities.inProgress}
+          activities={activities.inProgress || []}
           title="En curso"
         />
         <ActivitieList
-          activities={activities.doned}
+          activities={activities.doned || []}
           title="Terminadas"
         />
       </ActivitiesContainer>
