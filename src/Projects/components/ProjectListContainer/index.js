@@ -13,21 +13,7 @@ import {
 } from "../../../global/utils/routes";
 
 //hooks
-import {useState} from "react";
-const useRedirect = () => {
-  const [isRedirect, setRedirect] = useState(false);
-  const [route, setRoute] = useState("");
-
-  function toggleRedirect(route) {
-    setRoute(route);
-    if (isRedirect) {
-      setRedirect(false);
-    } else {
-      setRedirect(true);
-    }
-  }
-  return [isRedirect, route, toggleRedirect];
-};
+import {useRedirect} from "../../../global/hooks/useRedirect";
 //main
 
 function ProjectListContainer({projects = [], addProject}) {

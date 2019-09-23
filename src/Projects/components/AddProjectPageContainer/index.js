@@ -5,29 +5,50 @@ import {connect} from "react-redux";
 import {addProject} from "../../../global/redux/actions/projects";
 //hooks
 import {useHandleState} from "../../../global/hooks/useHandleState";
+import {useRedirect} from "../../../global/hooks/useRedirect";
 //components
 import {AddProjectPage} from "../AddProjectPage";
+import {Redirect} from "react-router-dom";
+//utils
+import {PROJECTS_ROUTE} from "../../../global/utils/routes";
 
-function AddProjectPageContainer({addProject}) {
-  debugger;
+function AddProjectPageContainer({addProject, lastAddedProjectId}) {
   const initialState = {
     name: "",
     description: "",
-    cutDate: ""
+    cutDate: "",
+    id: lastAddedProjectId++
   };
   const {state, addFormValueToState} = useHandleState(initialState);
-  const handleSumbit = () => addProject(state);
+  const [isRedirect, route, toggleRedirect] = useRedirect();
+  const handleSumbit = () => {
+    addProject(state);
+    toggleRedirect(`${PROJECTS_ROUTE}${lastAddedProjectId}`);
+  };
   //component
   return (
-    <AddProjectPage
-      state={state}
-      handleSubmit={handleSumbit}
-      handleChange={addFormValueToState}
-    />
+    <>
+      {isRedirect && <Redirect to={route} />}
+      <AddProjectPage
+        state={state}
+        handleSubmit={handleSumbit}
+        handleChange={addFormValueToState}
+      />
+    </>
   );
 }
 
+const mapStateToProps = state => {
+  const projects = state.projects || [];
+  if (state.projects.length !== 0) {
+    const {id} = projects[projects.length - 1];
+    return {
+      lastAddedProjectId: id
+    };
+  } else return null;
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   {addProject}
 )(AddProjectPageContainer);
