@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Label, InputForm, Container } from "./styles";
+import React, {useState} from "react";
+import {Label, InputForm, Container} from "./styles";
 /**
     @author : Marco Macedo
     @description: Este componente recibe como props: 
@@ -17,13 +17,14 @@ export const Input = ({
   onChange,
   value = ""
 }) => {
-  const [ error, setError ] = useState(false);
-  const [ active, setActive ] = useState(false);
+  const [error, setError] = useState(false);
+  const [active, setActive] = useState(false);
   return (
     <Container
       onFocus={() => setActive(true)}
-      onBlur={() => setActive(false)}>
-      <Label for={name} active={active}>
+      onBlur={() => setActive(false)}
+    >
+      <Label htmlFor={name} active={active}>
         {label || name}
       </Label>
       <InputForm
@@ -33,8 +34,8 @@ export const Input = ({
         placeholder={placeholder}
         name={name}
         active={active}
-        onChange={(e) => {
-          const { value } = document.getElementById(name);
+        onChange={e => {
+          const {value} = document.getElementById(name);
           if (value.length < 3) {
             setError(true);
           } else {

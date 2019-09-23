@@ -19,7 +19,6 @@ export default () => (
       path={PROJECTS_ROUTE}
       component={ProjectListContainer}
     />
-
     <Route
       exact
       path={ADD_PROJECTS_ROUTE}
