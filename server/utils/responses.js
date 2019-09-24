@@ -1,10 +1,16 @@
+const debug = require("debug")("app:responses");
+
 function sendBadResponse({
   response,
   message,
   statusCode = 500,
-  data = []
+  data = [],
+  error = ""
 }) {
-  response.status(statusCode).json({message, data, statusCode});
+  debug(`error: ${error}`);
+  response
+    .status(statusCode)
+    .json({message, data, statusCode, error});
 }
 function sendGoodResponse({
   response,

@@ -34,7 +34,11 @@ router.post("/login/", async (req, res) => {
       statusCode
     });
   } catch (error) {
-    sendBadResponse({response: res, message: "Not authorized"});
+    sendBadResponse({
+      response: res,
+      message: "Not authorized",
+      error
+    });
   }
 });
 
