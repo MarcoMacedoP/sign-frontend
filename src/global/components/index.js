@@ -11,3 +11,4 @@ export {InformationHeader} from "./InformationHeader";
 export {SmallEmptyState} from "./SmallEmptyState";
 export {List} from "./List";
 export {InfoLayout} from "./InfoLayout";
+export {ErrorMessage} from "./ErrorMessage";
