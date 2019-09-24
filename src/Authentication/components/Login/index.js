@@ -1,15 +1,16 @@
 import React from "react";
 
-import { Input } from "../../../global/components/Input/";
-import { Link } from "react-router-dom";
-import { Button } from "../../../global/components/Button";
-import { ErrorToast } from "../../../global/components/ErrorToast";
-
+import {Link} from "react-router-dom";
+import {
+  Button,
+  ErrorMessage,
+  Input
+} from "../../../global/components/";
 //styled-components
-import { Form, Container, Picture, LoginForm, Signup } from "./styles";
-import { H2 } from "../../../global/styles/texts";
+import {Form, Container, Picture, LoginForm, Signup} from "./styles";
+import {H2} from "../../../global/styles/texts";
 // functions
-import { redirecToAppIfUserIsLoged } from "../../../global/functions/redirectToApp";
+import {redirecToAppIfUserIsLoged} from "../../../global/functions/redirectToApp";
 // UI component
 export const Login = ({
   handleClick,
@@ -43,14 +44,22 @@ export const Login = ({
             value={formValues}
           />
 
-          <Button onClick={handleClick} loading={loading} color="secondary">
+          <ErrorMessage
+            error={error}
+            handleClose={() => setError(null)}
+          />
+          <Button
+            onClick={handleClick}
+            loading={loading}
+            color="secondary"
+          >
             Iniciar sesión
           </Button>
           <Signup>
-            ¿Aún no tienes una cuenta? <Link to="/signup">Registrate</Link>
+            ¿Aún no tienes una cuenta?{" "}
+            <Link to="/signup">Registrate</Link>
           </Signup>
         </Form>
-        <ErrorToast error={error} handleClose={() => setError(null)} />
       </LoginForm>
     </Container>
   </>
