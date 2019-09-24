@@ -3,14 +3,17 @@ const debug = require("debug")("app:responses");
 function sendBadResponse({
   response,
   message,
+  error = "",
   statusCode = 500,
-  data = [],
-  error = ""
+  data = []
 }) {
   debug(`error: ${error}`);
-  response
-    .status(statusCode)
-    .json({message, data, statusCode, error});
+  response.status(statusCode).json({
+    message,
+    data,
+    statusCode: statusCode,
+    error
+  });
 }
 function sendGoodResponse({
   response,

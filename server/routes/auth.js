@@ -34,9 +34,11 @@ router.post("/login/", async (req, res) => {
       statusCode
     });
   } catch (error) {
+    debug(error.response.status);
     sendBadResponse({
       response: res,
-      message: "Not authorized",
+      message: error.message,
+      statusCode: error.response.status,
       error
     });
   }
@@ -59,7 +61,6 @@ router.post("/signup/", async (req, res) => {
       statusCode
     });
   } catch (error) {
-    console.log(error);
     sendBadResponse({response: res, message: "Not authorized"});
   }
 });

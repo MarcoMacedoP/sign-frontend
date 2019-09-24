@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 //config
 const config = require("./config");
 //initialize app
@@ -13,6 +14,7 @@ const tokenRoute = require("./routes/token");
 global.refreshTokens = [];
 
 //middlewares
+app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser(config.cookie.secret));
 
