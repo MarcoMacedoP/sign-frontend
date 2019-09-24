@@ -1,6 +1,7 @@
 //libs
 const express = require("express");
 const axios = require("axios");
+const debug = require("debug")("app:routes:auth");
 //init
 const router = express.Router();
 const config = require("../config");
@@ -14,6 +15,7 @@ const {addTokenToCookies} = require("../utils/addTokenToCookies");
 //routes
 router.post("/login/", async (req, res) => {
   try {
+    debug(req.body);
     const encodedUser = encodeUserData(req.body);
     const {data: body, statusCode} = await axios(
       `${apiRoute}/auth/login/`,
