@@ -2,7 +2,6 @@
 import React from "react";
 //components
 import {Button, Input, InfoLayout} from "../../../global/components";
-
 //styled-components
 import {H1} from "./styles";
 import {BaseForm} from "../../../global/styles/Forms";
@@ -19,7 +18,7 @@ export const AddProjectPage = ({
       info=" La herramienta de proyectos permite, de manera sencilla,
           organizar y administrar proyectos de gran escala, es decir
           proyectos cuya duración puede extenderse por un periodo de
-          considerable de tiempo."
+          considerable de tiempo. :p"
     >
       <BaseForm>
         <Input
@@ -38,6 +37,7 @@ export const AddProjectPage = ({
         />
         <Input
           name="date"
+          type="date"
           label="Fecha de entrega"
           placeholder="11-08-2019"
           onChange={handleChange}

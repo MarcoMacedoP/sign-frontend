@@ -17,7 +17,7 @@ function AddProjectPageContainer({addProject, lastAddedProjectId}) {
   const initialState = {
     name: "",
     description: "",
-    cutDate: "",
+    date: "",
     id: lastAddedProjectId + 1
   };
   const {state, addFormValueToState} = useHandleState(initialState);
