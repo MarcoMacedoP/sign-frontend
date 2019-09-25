@@ -1,9 +1,9 @@
 //Components
 import React from "react";
-import { withRouter } from "react-router-dom";
-
+import {withRouter} from "react-router-dom";
+import {Icon} from "../Icon";
 //Styled components
-import { MaterialIcon } from "../../styles/foundations/MaterialIcon";
+import {MaterialIcon} from "../../styles/foundations/MaterialIcon";
 import {
   About,
   Navigation,
@@ -12,7 +12,9 @@ import {
   Biography,
   ProfilePicture,
   ContactInfoContainer,
-  ContactInfo
+  ContactInfo,
+  Date,
+  DateContainer
 } from "./styles";
 /**
  * @description This component show a header with information about something like a provider, client or a project.
@@ -27,13 +29,16 @@ export const InformationHeader = withRouter(
     about,
     phone,
     email,
+    date,
     history
   }) => {
     return (
       <About>
         <Navigation>
           <MaterialIcon
-            onClick={() => (history ? history.goBack() : history.push("/app/"))}
+            onClick={() =>
+              history ? history.goBack() : history.push("/app/")
+            }
           >
             arrow_back{" "}
           </MaterialIcon>
@@ -42,7 +47,10 @@ export const InformationHeader = withRouter(
 
         <Name>{title || "title"}</Name>
         <BiographyContainer>
-          <ProfilePicture image={imageUrl || image_url} isShowed={imageIsShow}>
+          <ProfilePicture
+            image={imageUrl || image_url}
+            isShowed={imageIsShow}
+          >
             <img
               src={imageUrl || image_url}
               alt={`Profile of ${title || "name"}`}
@@ -65,6 +73,12 @@ export const InformationHeader = withRouter(
               <MaterialIcon>email</MaterialIcon>
               <p>{email}</p>
             </ContactInfo>
+          )}
+          {date && (
+            <DateContainer>
+              <Icon hasAnimatedClick={false} icon="timer" />
+              <Date>{date}</Date>
+            </DateContainer>
           )}
         </ContactInfoContainer>
       </About>

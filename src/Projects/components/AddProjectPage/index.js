@@ -36,7 +36,7 @@ export const AddProjectPage = ({
           value={state.description}
         />
         <Input
-          name="date"
+          name="dueDate"
           type="date"
           label="Fecha de entrega"
           placeholder="11-08-2019"

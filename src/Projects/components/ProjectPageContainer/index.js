@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {ProjectPage} from "../ProjectPage";
 
 function ProjectPageContainer({project}) {
+  console.log(project);
   return <ProjectPage {...project} />;
 }
 

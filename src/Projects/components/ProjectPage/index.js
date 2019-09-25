@@ -18,6 +18,7 @@ export const ProjectPage = ({
       title={name}
       imageIsShow={false}
       about={description}
+      date={dueDate}
     />
     <Activities>
       <H3>Actividades del proyecto</H3>

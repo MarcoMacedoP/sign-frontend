@@ -1,7 +1,11 @@
 import styled from "styled-components";
-import { H1 } from "../../styles/texts";
-import { secondaryColor, whiteColorLigth } from "../../styles/variables";
-import { cellphoneMediaQuery } from "../../styles/mediaQuerys";
+import {H1} from "../../styles/texts";
+import {
+  secondaryColor,
+  whiteColorLigth,
+  blackColorTransparent
+} from "../../styles/variables";
+import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
 export const About = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,7 +64,8 @@ export const Biography = styled.p`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: ${props => (props.imageIsShow ? "flex-start" : "center")};
+  justify-content: ${props =>
+    props.imageIsShow ? "flex-start" : "center"};
 `;
 export const ContactInfoContainer = styled.div`
   margin-top: 1rem;
@@ -89,4 +94,36 @@ export const ContactInfo = styled.div`
       margin: 0 auto;
     }
   }
+`;
+export const Date = styled.span`
+  position: relative;
+  :hover,
+  :active {
+    ::after {
+      display: block;
+    }
+  }
+  ::after {
+    content: "Está es la fecha de entrega";
+    padding: 0.5rem;
+    display: none;
+    background-color: ${blackColorTransparent};
+
+    position: absolute;
+    bottom: 0;
+    left: 9rem;
+
+    min-width: 50px;
+    width: min-content;
+    white-space: nowrap;
+
+    border-radius: 0.5rem;
+  }
+`;
+export const DateContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 1rem;
 `;

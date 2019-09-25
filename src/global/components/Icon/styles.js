@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components";
+import styled, {css} from "styled-components";
 import {
   mainColorLight,
   whiteColorLigth,
   blackColorTransparent
-} from "../variables";
+} from "../../styles/variables";
 
 const iconAnimation = () => css`
   --duration: 140ms;
