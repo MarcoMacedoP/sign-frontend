@@ -1,17 +1,16 @@
+import {useState} from "react";
 
-import React, {useState} from "react"
-import {Redirect } from "react-router-dom"
+export const useRedirect = () => {
+  const [isRedirect, setRedirect] = useState(false);
+  const [route, setRoute] = useState("");
 
-export function useRedirect(direction){
-    const [redirect, setRedirect] = useState(false);
-    
-    function renderRedirect(){
-        if(redirect){
-            return <Redirect to={direction}/>
-        }else{
-            return null;
-        }
+  function toggleRedirect(route) {
+    setRoute(route);
+    if (isRedirect) {
+      setRedirect(false);
+    } else {
+      setRedirect(true);
     }
-    
-    return {redirect, setRedirect, renderRedirect}
-}
+  }
+  return [isRedirect, route, toggleRedirect];
+};

@@ -24,3 +24,4 @@ export const fontTitle = "'Oswald', sans-serif";
 export const fontBody = "'Lato', sans-serif";
 
 export const appPadding = "1.4rem 6.5625vw";
+export const webPadding = "5rem 3rem";

@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { H3 } from "../../../global/styles/texts";
-import { blackColorLigth } from "../../../global/styles/variables";
+
 export const Activities = styled.article`
   margin-top: 3.5rem;
   display: flex;

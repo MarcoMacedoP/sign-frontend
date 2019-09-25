@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT } from "../actionTypes";
+import {LOG_IN, LOG_OUT} from "../actionTypes";
 
 const initialState = {
   isLoged: true

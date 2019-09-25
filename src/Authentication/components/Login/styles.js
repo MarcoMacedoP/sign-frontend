@@ -2,10 +2,10 @@
 import styled from "styled-components";
 //Resources
 import LoginImage from "../../../global/static/img/auth.svg";
-import { whiteColorDark } from "../../../global/styles/variables";
-import { appPadding } from "../../../global/styles/variables";
+import {whiteColorDark} from "../../../global/styles/variables";
+import {webPadding} from "../../../global/styles/variables";
 export const Container = styled.div`
-  padding: ${appPadding};
+  padding: ${webPadding};
   padding-bottom: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;

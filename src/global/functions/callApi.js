@@ -1,30 +1,24 @@
-//functions
-import { getToken } from './getToken';
+const BASE_URL = "http://localhost:8080/api";
 
-// const BASE_URL = "http://167.71.248.157:3001/api";
-const BASE_URL = 'http://localhost:3001/api';
+/**Makes a http request to usign fetch
+ * @param endpoint the api endpoint to be called,
+ * 						BASE_URL=http://localhost:8080/api
+ *@param options the options to be used like method: 'post'
+ */
 export async function callApi(endpoint, options = {}) {
-	options.headers = {
-		...options.headers,
-		'Content-Type': 'application/json',
-		Accept: 'application/json'
-	};
-	//Marco del futuro, aquí deberias de crear una
-	//función que obtenga el Token (¿guardado en caché?),
-	//es importante hacer esto en cada petición, para actulizar el token (creo).
-	//Ten bonito día y dile a Gaby que la amas.
-
-	const token = getToken();
-	if (token && !options.headers.Authorization) {
-		// Add token to header 👌
-		options.headers = {
-			...options.headers,
-			Authorization: `Bearer ${token}`
-		};
-	}
-	const url = BASE_URL + endpoint;
-	const response = await fetch(url, options);
-	const data = await response.json();
-
-	return data;
+  options.headers = {
+    ...options.headers,
+    "Content-Type": "application/json",
+    Accept: "application/json"
+  };
+  const url = BASE_URL + endpoint;
+  const response = await fetch(url, options);
+  const data = await response.json();
+  if (data.statusCode >= 200 && data.statusCode < 300) {
+    console.log("Buena respuesta");
+    return data;
+  } else {
+    console.log("malo");
+    throw data.message;
+  }
 }

@@ -1,15 +1,25 @@
 //components
 import React from "react";
-import { ProjectsList } from "../ProjectsList";
-import { EmptyProjectsState } from "../EmptyProjectsState";
+import {ProjectsList} from "../ProjectsList";
+import {Redirect} from "react-router-dom";
+import {EmptyProjectsState} from "../EmptyProjectsState";
 //redux
-import { connect } from "react-redux";
-import { addProject } from "../../../global/redux/actions/projects";
+import {connect} from "react-redux";
+import {addProject} from "../../../global/redux/actions/projects";
 //routes
-import { PROJECTS_ROUTE } from "../../../global/utils/routes";
+import {
+  PROJECTS_ROUTE,
+  ADD_PROJECTS_ROUTE
+} from "../../../global/utils/routes";
 
-function ProjectListContainer(props) {
-  const { projects = [], addProject, history } = props;
+//hooks
+import {useRedirect} from "../../../global/hooks/useRedirect";
+//main
+
+function ProjectListContainer({projects = [], addProject}) {
+  //debugger;
+  const [isRedirect, route, toggleRedirect] = useRedirect();
+  //handles
   const handleAddProject = () => {
     addProject({
       name: "Projecto_2",
@@ -18,11 +28,16 @@ function ProjectListContainer(props) {
       id: 1
     });
   };
-  const handleProjectClick = id => history.push(`${PROJECTS_ROUTE}${id}`);
+  const handleAddClick = () => toggleRedirect(ADD_PROJECTS_ROUTE);
+  const handleProjectClick = id =>
+    toggleRedirect(`${PROJECTS_ROUTE}${id}`);
   //main component
   if (projects.length === 0) {
     //no projects
     return <EmptyProjectsState addProject={handleAddProject} />;
+  }
+  if (isRedirect) {
+    return <Redirect to={route} />;
   } else {
     //return projects
     return (
@@ -30,6 +45,7 @@ function ProjectListContainer(props) {
         projects={projects}
         handleAddProject={handleAddProject}
         onProjectClick={handleProjectClick}
+        handleAddClick={handleAddClick}
       />
     );
   }
@@ -41,5 +57,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addProject }
+  {addProject}
 )(ProjectListContainer);
