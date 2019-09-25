@@ -3,6 +3,7 @@ import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Layout from "./Layout";
 import {Provider} from "react-redux";
+import {LastLocationProvider} from "react-router-last-location";
 // Pages
 import {Landing} from "./LandingPage";
 import {LoginContainer, SignupContainer} from "./Authentication";
@@ -42,60 +43,62 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <GlobalStyles />
-        <Layout>
-          <Switch>
-            <Route exact path={LANDING_ROUTE} component={Landing} />
-            <Route
-              exact
-              path={LOGIN_ROUTE}
-              component={LoginContainer}
-            />
-            <Route
-              exact
-              path={SIGNUP_ROUTE}
-              component={SignupContainer}
-            />
-            <Route
-              exact
-              path={APP_HOME_ROUTE}
-              component={Dashboard}
-            />
-            <Route
-              exact
-              path={PROVIDERS_ROUTE}
-              component={ProviderListContainer}
-            />
-            <Route
-              exact
-              path={PROVIDER_PAGE_ROUTE}
-              component={ProviderPageContainer}
-            />
-            <Route
-              exact
-              path={CLIENTS_ROUTE}
-              component={ClientsList}
-            />
-            <Route
-              exact
-              path={ADD_CLIENT_ROUTE}
-              component={AddClient}
-            />
-            <Route
-              exact
-              path={CLIENT_PAGE_ROUTE}
-              component={ClientPage}
-            />
-            <Route
-              exact
-              path={REMINDERS_ROUTE}
-              component={RemindersList}
-            />
-            <ProjectsRoutes />
-            <Route component={Test} exact path="/test/"></Route>
-            <Route component={PageNotFound} />
-          </Switch>
-        </Layout>
+        <LastLocationProvider>
+          <GlobalStyles />
+          <Layout>
+            <Switch>
+              <Route exact path={LANDING_ROUTE} component={Landing} />
+              <Route
+                exact
+                path={LOGIN_ROUTE}
+                component={LoginContainer}
+              />
+              <Route
+                exact
+                path={SIGNUP_ROUTE}
+                component={SignupContainer}
+              />
+              <Route
+                exact
+                path={APP_HOME_ROUTE}
+                component={Dashboard}
+              />
+              <Route
+                exact
+                path={PROVIDERS_ROUTE}
+                component={ProviderListContainer}
+              />
+              <Route
+                exact
+                path={PROVIDER_PAGE_ROUTE}
+                component={ProviderPageContainer}
+              />
+              <Route
+                exact
+                path={CLIENTS_ROUTE}
+                component={ClientsList}
+              />
+              <Route
+                exact
+                path={ADD_CLIENT_ROUTE}
+                component={AddClient}
+              />
+              <Route
+                exact
+                path={CLIENT_PAGE_ROUTE}
+                component={ClientPage}
+              />
+              <Route
+                exact
+                path={REMINDERS_ROUTE}
+                component={RemindersList}
+              />
+              <ProjectsRoutes />
+              <Route component={Test} exact path="/test/"></Route>
+              <Route component={PageNotFound} />
+            </Switch>
+          </Layout>
+        </LastLocationProvider>
       </BrowserRouter>
     </Provider>
   );

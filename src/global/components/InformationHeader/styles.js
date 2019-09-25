@@ -104,14 +104,14 @@ export const Date = styled.span`
     }
   }
   ::after {
-    content: "Está es la fecha de entrega";
+    content: "Está es la fecha de entrega.";
     padding: 0.5rem;
     display: none;
     background-color: ${blackColorTransparent};
 
     position: absolute;
-    bottom: 0;
-    left: 9rem;
+    top: 1.5rem;
+    left: 0;
 
     min-width: 50px;
     width: min-content;
