@@ -1,5 +1,5 @@
 import React from "react";
-import {Article, Section} from "./styles";
+import {Article, Section, Children} from "./styles";
 import {H3} from "../../styles/texts";
 
 export const InfoLayout = ({children, title, info}) => (
@@ -8,6 +8,6 @@ export const InfoLayout = ({children, title, info}) => (
       <H3>{title}</H3>
       <p>{info}</p>
     </Section>
-    {children}
+    <Children>{children}</Children>
   </Article>
 );
