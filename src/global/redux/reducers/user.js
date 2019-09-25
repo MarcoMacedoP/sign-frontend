@@ -1,7 +1,7 @@
 import {LOG_IN, LOG_OUT} from "../actionTypes";
 
 const initialState = {
-  isLoged: false
+  isLoged: true
 };
 
 export default function(state = initialState, action) {

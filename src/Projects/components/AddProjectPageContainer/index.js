@@ -13,7 +13,7 @@ import {Redirect} from "react-router-dom";
 import {PROJECTS_ROUTE} from "../../../global/utils/routes";
 
 function AddProjectPageContainer({addProject, lastAddedProjectId}) {
-  debugger;
+  //debugger;
   const initialState = {
     name: "",
     description: "",

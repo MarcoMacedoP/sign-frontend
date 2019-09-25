@@ -17,7 +17,7 @@ import {useRedirect} from "../../../global/hooks/useRedirect";
 //main
 
 function ProjectListContainer({projects = [], addProject}) {
-  debugger;
+  //debugger;
   const [isRedirect, route, toggleRedirect] = useRedirect();
   //handles
   const handleAddProject = () => {
