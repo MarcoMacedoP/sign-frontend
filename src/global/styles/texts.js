@@ -1,6 +1,10 @@
 import styled from "styled-components";
-import { blackColor, fontTitle, blackColorLigth } from "./variables";
-import { css } from "styled-components";
+import {blackColor, fontTitle, blackColorLigth} from "./variables";
+import {css} from "styled-components";
+
+//media-querys
+import {cellphoneMediaQuery} from "./mediaQuerys";
+
 function setHeadlineText({
   size = "6rem",
   weigth = "normal",
@@ -15,10 +19,16 @@ function setHeadlineText({
 }
 
 export const H1 = styled.h1`
-  ${setHeadlineText({ size: "3rem" })}
+  ${setHeadlineText({size: "3rem"})}
+  @media ${cellphoneMediaQuery}{
+      font-size: 2rem;
+  }
 `;
 export const H2 = styled.h2`
-  ${setHeadlineText({ size: "2rem", weigth: "500" })}
+  ${setHeadlineText({size: "2rem", weigth: "500"})}
+  @media ${cellphoneMediaQuery}{
+      font-size: 1.5rem;
+  }
 `;
 export const H3 = styled.h3`
   ${setHeadlineText({
@@ -26,4 +36,7 @@ export const H3 = styled.h3`
     color: blackColorLigth,
     weigth: "500"
   })};
+  @media ${cellphoneMediaQuery} {
+    font-size: 1.5rem;
+  }
 `;
