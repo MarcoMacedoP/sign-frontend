@@ -15,7 +15,6 @@ const {addTokenToCookies} = require("../utils/addTokenToCookies");
 //routes
 router.post("/login/", async (req, res) => {
   try {
-    debug(req.body);
     const encodedUser = encodeUserData(req.body);
     const {data: body, statusCode} = await axios(
       `${apiRoute}/auth/login/`,
@@ -27,14 +26,16 @@ router.post("/login/", async (req, res) => {
       }
     );
     const {data} = body;
+    debug(data);
     addTokenToCookies(data.token, res);
     sendGoodResponse({
       response: res,
       message: body.message,
+      data: {user: data.user},
       statusCode
     });
   } catch (error) {
-    debug(error.response.status);
+    debug(error);
     sendBadResponse({
       response: res,
       message: error.message,
@@ -67,8 +68,9 @@ router.post("/signup/", async (req, res) => {
 
 /**This function encode the user data to put it into Auth header */
 function encodeUserData(userData) {
-  const {user, password} = userData;
-  return Buffer.from(user + ":" + password).toString("base64");
+  console.log(userData);
+  const {email, password} = userData;
+  return Buffer.from(email + ":" + password).toString("base64");
 }
 
 //exports
