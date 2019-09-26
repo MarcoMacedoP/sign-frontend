@@ -1,9 +1,8 @@
 import {useState} from "react";
 
 import {callApi} from "../functions/callApi";
-/**Custom hook to call an API.
- *
- */
+
+/**Custom hook to call an API.*/
 export function useCallApi({endpoint = "", options = {}}) {
   const [state, setState] = useState({
     loading: false,

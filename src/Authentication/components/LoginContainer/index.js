@@ -18,14 +18,13 @@ export const LoginContainer = () => {
     endpoint: "/login/"
   });
   console.log(data);
+  const handleOnErrorClose = () => setError(null);
   async function handleClick(e) {
     e.preventDefault();
 
     if (!state.email || !state.password) {
-      setError("No hay emial o password");
-      console.log("no emial or password");
+      setError("Campos vacios");
     } else {
-      debugger;
       //Everything ok
       await fetchData();
     }
@@ -35,9 +34,9 @@ export const LoginContainer = () => {
     <Login
       handleClick={handleClick}
       handleChange={addFormValueToState}
+      handleOnErrorClose={handleOnErrorClose}
       loading={loading}
       error={error}
-      setError={() => console.log("set error called")}
       formValues={state}
     />
   );
