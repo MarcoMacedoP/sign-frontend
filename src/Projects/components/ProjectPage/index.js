@@ -1,7 +1,11 @@
 import React from "react";
 //components
 import {ActivitieList} from "../ActivitieList";
-import {InformationHeader} from "../../../global/components/InformationHeader";
+import {
+  InformationHeader,
+  SmallEmptyState,
+  Button
+} from "../../../global/components/";
 //styled-components
 import {PageContainer} from "../../../global/styles/Containers";
 import {Activities, ActivitiesContainer} from "./styles";
@@ -23,18 +27,35 @@ export const ProjectPage = ({
     <Activities>
       <H3>Actividades del proyecto</H3>
       <ActivitiesContainer>
-        <ActivitieList
-          activities={activities.pending || []}
-          title="Pendientes"
-        />
-        <ActivitieList
-          activities={activities.inProgress || []}
-          title="En curso"
-        />
-        <ActivitieList
-          activities={activities.doned || []}
-          title="Terminadas"
-        />
+        {!activities.pending &&
+        !activities.inProgress &&
+        !activities.doned ? (
+          <SmallEmptyState
+            message={[
+              "Parece que aún no tienes actividades...",
+              "Las actividades permiten mantener el flujo de trabajo de tu proyecto para sacarle el máximo potencial a tú tiempo."
+            ]}
+          >
+            <Button size="medium" onClick={() => console.log("x")}>
+              Agrega una actividad
+            </Button>
+          </SmallEmptyState>
+        ) : (
+          <>
+            <ActivitieList
+              activities={activities.pending || []}
+              title="Pendientes"
+            />
+            <ActivitieList
+              activities={activities.inProgress || []}
+              title="En curso"
+            />
+            <ActivitieList
+              activities={activities.doned || []}
+              title="Terminadas"
+            />
+          </>
+        )}
       </ActivitiesContainer>
     </Activities>
   </PageContainer>
