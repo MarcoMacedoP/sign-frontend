@@ -5,7 +5,6 @@ import {Redirect} from "react-router-dom";
 import {useLastLocation} from "react-router-last-location";
 import {Icon} from "../Icon";
 //Styled components
-import {MaterialIcon} from "../../styles/foundations/MaterialIcon";
 import {
   About,
   Navigation,
@@ -18,6 +17,9 @@ import {
   Date,
   DateContainer
 } from "./styles";
+//routes
+import {APP_HOME_ROUTE} from "../../utils/routes";
+
 /**
  * @description This component show a header with information about something like a provider, client or a project.
  * Provides back navigation and options menu
@@ -30,19 +32,16 @@ export const InformationHeader = ({
   about,
   phone,
   email,
-  date,
-  history
+  date
 }) => {
   const [goBack, setGoBack] = useState(false);
-  const lastLocation = useLastLocation();
+  const lastLocation = useLastLocation() || APP_HOME_ROUTE;
   return (
     <About>
       {goBack && <Redirect to={lastLocation} />}
       <Navigation>
-        <MaterialIcon onClick={() => setGoBack(true)}>
-          arrow_back{" "}
-        </MaterialIcon>
-        <MaterialIcon>more_vert</MaterialIcon>
+        <Icon icon="arrow_back" onClick={() => setGoBack(true)} />
+        <Icon icon="more_vert" />
       </Navigation>
 
       <Name>{title || "title"}</Name>
@@ -64,13 +63,13 @@ export const InformationHeader = ({
       <ContactInfoContainer>
         {phone && (
           <ContactInfo>
-            <MaterialIcon>contact_phone</MaterialIcon>
+            <Icon icon="contact_phone" hasAnimatedClick={false} />
             <p>{phone}</p>
           </ContactInfo>
         )}
         {email && (
           <ContactInfo>
-            <MaterialIcon>email</MaterialIcon>
+            <Icon icon="email" hasAnimatedClick={false} />
             <p>{email}</p>
           </ContactInfo>
         )}
