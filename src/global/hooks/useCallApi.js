@@ -14,15 +14,12 @@ export function useCallApi({endpoint = "", options = {}}) {
   const fetchData = async () => {
     try {
       const response = await callApi(endpoint, options);
-      console.log("response:", response);
       setState({
         ...state,
         loading: false,
         data: response
       });
     } catch (error) {
-      console.log("Error en el hook", error);
-
       setState({
         loading: false,
         error: setErrorFromStatusCode(error.statusCode)
