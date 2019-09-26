@@ -5,7 +5,7 @@ import {Error, Icon} from "./styles";
 export const ErrorMessage = ({error = false, onClose}) => {
   return (
     <>
-      {isError && (
+      {error && (
         <Error>
           {error}
           <Icon icon="close" onClick={onClose} />
