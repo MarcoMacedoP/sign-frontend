@@ -6,7 +6,8 @@ import {Provider} from "react-redux";
 import {LastLocationProvider} from "react-router-last-location";
 // Pages
 import {Landing} from "./LandingPage";
-import {LoginContainer, SignupContainer} from "./Authentication";
+import {SignupContainer} from "./Authentication";
+import LoginContainer from "./Authentication/components/LoginContainer";
 import {
   AddClient,
   ClientsList,

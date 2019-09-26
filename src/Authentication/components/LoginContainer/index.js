@@ -1,11 +1,15 @@
 import React from "react";
 import {Login} from "../Login/";
-
 //hooks
 import {useHandleState} from "../../../global/hooks/useHandleState";
 import {useCallApi} from "../../../global/hooks/useCallApi";
+//redux
+import {connect} from "react-redux";
+import {login} from "../../../global/redux/actions/users";
+
 //Container component
-export const LoginContainer = () => {
+function LoginContainer(props) {
+  const {login} = props;
   //state handlers
   const {state, addFormValueToState} = useHandleState({
     email: "",
@@ -26,7 +30,12 @@ export const LoginContainer = () => {
       setError("Campos vacios");
     } else {
       //Everything ok
-      await fetchData();
+      try {
+        await fetchData();
+        login(data.user);
+      } catch (error) {
+        setError(error.message);
+      }
     }
   }
 
@@ -40,4 +49,8 @@ export const LoginContainer = () => {
       formValues={state}
     />
   );
-};
+}
+export default connect(
+  null,
+  {login}
+)(LoginContainer);
