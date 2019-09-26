@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 
 //components
 import {ProjectPage} from "../ProjectPage";
-import {AddActivitie} from "../AddActivitie";
 //hooks
 import {useModalState} from "../../../global/hooks/useModalState";
 function ProjectPageContainer({project}) {

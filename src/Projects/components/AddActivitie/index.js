@@ -4,7 +4,7 @@ import React from "react";
 import {Modal} from "../../../global/components/";
 
 export function AddActivitie({projectId, isShowed, onClose}) {
-  const handleAddActivie = () => console.log("hello");
+  // const handleAddActivie = () => console.log("hello");
 
   return (
     <Modal isOpen={isShowed} onClose={onClose}>

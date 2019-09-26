@@ -2,7 +2,6 @@ import styled from "styled-components";
 import {Icon as BaseIcon} from "../Icon";
 //vars
 import {errorColor, whiteColorLigth} from "../../styles/variables";
-import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
 export const Error = styled.div`
   padding: 0.5rem 1rem;
   margin-top: 1rem;
