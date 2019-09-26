@@ -1,6 +1,7 @@
 import React from "react";
 //components
 import {ActivitieList} from "../ActivitieList";
+import {AddActivitie} from "../AddActivitie";
 import {
   InformationHeader,
   SmallEmptyState,
@@ -15,7 +16,9 @@ export const ProjectPage = ({
   name,
   description,
   dueDate,
-  activities = {}
+  activities = {},
+  modalIsOpen,
+  handleModal
 }) => (
   <PageContainer>
     <InformationHeader
@@ -36,7 +39,7 @@ export const ProjectPage = ({
               "Las actividades permiten mantener el flujo de trabajo de tu proyecto para sacarle el máximo potencial a tú tiempo."
             ]}
           >
-            <Button size="medium" onClick={() => console.log("x")}>
+            <Button size="medium" onClick={handleModal}>
               Agrega una actividad
             </Button>
           </SmallEmptyState>
@@ -58,5 +61,7 @@ export const ProjectPage = ({
         )}
       </ActivitiesContainer>
     </Activities>
+    {/*-------------- modals---------- */}
+    <AddActivitie isShowed={modalIsOpen} onClose={handleModal} />
   </PageContainer>
 );
