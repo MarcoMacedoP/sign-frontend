@@ -30,10 +30,15 @@ export const BaseIcon = styled.i`
   border-radius: 50%;
   padding: 0.5rem;
   font-size: 24px;
+  cursor: pointer;
+
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   /*----conditionals---- */
   font-size: ${props => props.size};
   max-width: ${props => `${props.size + 8}px`};
   max-height: ${props => `${props.size + 8}px`};
   ${props => props.hasAnimatedClick && iconAnimation()};
-  cursor: ${props => (props.hasAction ? "pointer" : "auto")};
 `;
