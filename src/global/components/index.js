@@ -12,3 +12,6 @@ export {SmallEmptyState} from "./SmallEmptyState";
 export {List} from "./List";
 export {InfoLayout} from "./InfoLayout";
 export {ErrorMessage} from "./ErrorMessage";
+//Routes Component
+export {PrivateRoute} from "./PrivateRoute";
+export {PublicRoute} from "./PublicRoute";
