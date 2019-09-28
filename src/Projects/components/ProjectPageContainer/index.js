@@ -26,7 +26,25 @@ const mapStateToProps = (state, props) => {
   const project = state.projects.find(
     project => project.id === normalizedId
   );
-  return {project};
+  const pendingActivities = project.activities.find(
+    activitie => activitie.type === "PENDING"
+  );
+  const inProgressActivities = project.activities.find(
+    activitie => activitie.type === "IN_PROGRESS"
+  );
+  const donedActivities = project.activities.find(
+    activitie => activitie.type === "DONED"
+  );
+  return {
+    project: {
+      ...project,
+      activities: {
+        pending: pendingActivities || [],
+        inProgress: inProgressActivities || [],
+        doned: donedActivities || []
+      }
+    }
+  };
 };
 export default connect(
   mapStateToProps,

@@ -1,4 +1,4 @@
-import { ADD_PROJECT } from "../actionTypes";
+import {ADD_PROJECT, ADD_ACTIVITE} from "../actionTypes";
 const initialState = [
   {
     name: "mock",
@@ -15,35 +15,40 @@ const initialState = [
       description: "desc_2",
       value: 900
     },
-    activities: {
-      pending: [
-        {
-          name: "Actividad pendiente",
-          dueDate: "11/09/2019"
-        }
-      ],
-      inProgress: [
-        {
-          name: "Actividad en progreso",
-          dueDate: "11/09/2019"
-        }
-      ],
-      doned: [
-        {
-          name: "Actividad terminada",
-          dueDate: "11/09/2019"
-        }
-      ]
-    }
+    activities: [
+      {
+        type: "PENDING",
+        name: "Actividad pendiente",
+        dueDate: "11/09/2019"
+      },
+      {
+        type: "IN_PROGRESS",
+        name: "Actividad en progreso",
+        dueDate: "11/09/2019"
+      },
+      {
+        type: "DONED",
+        name: "Actividad terminada",
+        dueDate: "11/09/2019"
+      }
+    ]
   }
 ];
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ADD_PROJECT: {
-      const { project } = action.payload;
-      return [...state, project];
-    }
+    case ADD_PROJECT:
+      const {project: addedProject} = action.payload;
+      return [...state, addedProject];
+
+    case ADD_ACTIVITE:
+      const {project, activite} = action.payload;
+      const updatedProject = {
+        ...project,
+        activities: [...project.activities, activite]
+      };
+      return [...state, updatedProject];
+
     default:
       return state;
   }
