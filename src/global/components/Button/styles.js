@@ -8,6 +8,7 @@ import {
 } from "../../../global/styles/variables";
 export const Btn = styled(Button)`
   && {
+    width: ${props => (props.height ? props.height : "100%")};
     box-sizing: border-box;
     min-height: 2.5rem;
     height: ${props => (props.height ? props.height : "initial")};
