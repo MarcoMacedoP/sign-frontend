@@ -42,12 +42,16 @@ export default (state = initialState, action) => {
       return [...state, addedProject];
 
     case ADD_ACTIVITE:
-      const {project, activite} = action.payload;
+      const {project, activitie} = action.payload;
+      const {activities = []} = project;
       const updatedProject = {
         ...project,
-        activities: [...project.activities, activite]
+        activities: [...activities, activitie]
       };
-      return [...state, updatedProject];
+      //It works but it's kinda ugly, maybe needs some fix
+      const actualProjectPosition = state.indexOf(project) - 1;
+      const updatedState = state.slice(actualProjectPosition, 1);
+      return [...updatedState, updatedProject];
 
     default:
       return state;

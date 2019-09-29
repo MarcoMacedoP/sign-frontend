@@ -8,13 +8,17 @@ import {
 } from "../../../global/components/";
 //hooks
 import {useHandleState} from "../../../global/hooks/";
+//redux
+import {connect} from "react-redux";
+import {addActivite} from "../../../global/redux/actions/projects";
 //styled components
 import {Title, BaseForm} from "../../../global/styles/Forms";
 import {
   positiveStatusColor,
   blackColorLigth
 } from "../../../global/styles/variables";
-export function AddActivitie({isShowed, onClose}) {
+//component
+function AddActivitie({isShowed, onClose, project, addActivite}) {
   //handles
   const {state, addFormValueToState} = useHandleState({
     name: "",
@@ -24,6 +28,9 @@ export function AddActivitie({isShowed, onClose}) {
 
   const handleAddActivie = e => {
     e.preventDefault();
+    debugger;
+    addActivite({project, activitie: {...state, type: "PENDING"}});
+    onClose();
   };
 
   return (
@@ -52,7 +59,10 @@ export function AddActivitie({isShowed, onClose}) {
           name="date"
           type="date"
         />
-        <SecondaryButton borderColor={positiveStatusColor}>
+        <SecondaryButton
+          borderColor={positiveStatusColor}
+          onClick={handleAddActivie}
+        >
           Agregar
         </SecondaryButton>
         <SecondaryButton
@@ -65,3 +75,7 @@ export function AddActivitie({isShowed, onClose}) {
     </Modal>
   );
 }
+export default connect(
+  null,
+  {addActivite}
+)(AddActivitie);

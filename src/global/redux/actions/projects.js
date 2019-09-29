@@ -4,7 +4,7 @@ export const addProject = project => ({
   type: ADD_PROJECT,
   payload: {project}
 });
-export const addActivite = ({project, activie}) => ({
+export const addActivite = ({project, activitie}) => ({
   type: ADD_ACTIVITE,
-  payload: {project, activie}
+  payload: {project, activitie}
 });
