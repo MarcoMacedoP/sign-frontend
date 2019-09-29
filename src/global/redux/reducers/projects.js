@@ -1,9 +1,10 @@
-import {ADD_PROJECT, ADD_ACTIVITE} from "../actionTypes";
+import {ADD_PROJECT, ADD_ACTIVITE, ADD_COMMENT} from "../actionTypes";
 const initialState = [
   {
-    name: "mock",
-    description: "Small desc",
-    dueDate: new Date().toDateString(),
+    name: "Responsive web site",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec magna a nulla varius tempor eget quis arcu. Aliquam at magna ornare, imperdiet nunc accumsan, commodo lorem. Morbi accumsan lobortis augue.",
+    dueDate: new Date().toLocaleDateString,
     id: 1,
     expenses: {
       name: "expense_1",
@@ -17,16 +18,27 @@ const initialState = [
     },
     activities: [
       {
+        id: 1,
         type: "PENDING",
         name: "Actividad pendiente",
-        dueDate: "11/09/2019"
+        dueDate: "11/09/2019",
+        comments: [
+          {
+            date: new Date().toISOString(),
+            id: 1,
+            userId: 1,
+            content: "This is a comment example from the mock."
+          }
+        ]
       },
       {
+        id: 2,
         type: "IN_PROGRESS",
         name: "Actividad en progreso",
         dueDate: "11/09/2019"
       },
       {
+        id: 3,
         type: "DONED",
         name: "Actividad terminada",
         dueDate: "11/09/2019"
@@ -35,8 +47,10 @@ const initialState = [
   }
 ];
 
-export default (state = initialState, action) => {
-  switch (action.type) {
+function projectReducer(state = initialState, action) {
+  const {payload, type} = action;
+
+  switch (type) {
     case ADD_PROJECT:
       const {project: addedProject} = action.payload;
       return [...state, addedProject];
@@ -53,7 +67,26 @@ export default (state = initialState, action) => {
       const updatedState = state.slice(actualProjectPosition, 1);
       return [...updatedState, updatedProject];
 
+    case ADD_COMMENT:
+      const updatedActivitie = {
+        ...payload.activitie,
+        comments: [...payload.activitie.comments, payload.comment]
+      };
+      const activitieId = payload.activitie.id;
+
+      return state.map(project => ({
+        ...project,
+        //map activite and update activitie where id equals payload activitie
+        activities: project.activities.map(iterableActivitie =>
+          iterableActivitie.id === activitieId
+            ? updatedActivitie
+            : iterableActivitie
+        )
+      }));
+
     default:
       return state;
   }
-};
+}
+
+export default projectReducer;

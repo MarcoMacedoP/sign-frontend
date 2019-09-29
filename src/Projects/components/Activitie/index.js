@@ -1,7 +1,7 @@
 import React from "react";
 //components
 import {Icon} from "../../../global/components/";
-import {ActivitieModal} from "../ActivitieModal";
+import ActivitieModal from "../ActivitieModal";
 //hooks
 import {useModalState} from "../../../global/hooks/";
 //styled-components
@@ -21,7 +21,7 @@ export const Activitie = props => {
   return (
     <>
       <ActivitieModal
-        {...props}
+        activitie={props}
         isOpen={modalIsOpen}
         onClose={handleModal}
       />
