@@ -1,11 +1,14 @@
 //components
 import React from "react";
-import { LongCard, InformationHeader } from "../../../global/components";
-import { Comments } from "../Comments";
-import { RemindersListContainer } from "../../../Reminders/components/RemindersListContainer";
+import {
+  LongCard,
+  InformationHeader,
+  Comments
+} from "../../../global/components";
+import {RemindersListContainer} from "../../../Reminders/components/RemindersListContainer";
 //styled-components
-import { Article, Section } from "./styles";
-import { PageContainer } from "../../../global/styles/Containers";
+import {Article, Section} from "./styles";
+import {PageContainer} from "../../../global/styles/Containers";
 export const ClientPage = ({
   name,
   lastname,

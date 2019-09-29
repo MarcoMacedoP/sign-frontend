@@ -1,10 +1,18 @@
 import React, {Fragment} from "react";
-import {SmallEmptyState} from "../../../global/components";
+import {SmallEmptyState} from "../SmallEmptyState";
+import {Icon} from "../Icon";
+import {Button} from "../Button";
 //styled-components
-import {Button} from "../../../global/components";
-import {MaterialIcon} from "../../../global/styles/foundations/MaterialIcon";
 import {CommentBox} from "./styles";
-
+/**
+ * 
+ * Shows a list of comments
+ * 
+ * @param {*} comments  [] an array with the comments to show.
+ * @param {*}  addCommentHandler the function that adds comments.
+ * @param {*} handleChange handle changes on CommentBox
+   @param {*} actualComment the state value of the actual comment
+ */
 export function Comments({
   comments = [],
   actualComment,
@@ -16,7 +24,7 @@ export function Comments({
     return (
       <Fragment>
         <h3>Comentarios</h3>
-        <MaterialIcon>search</MaterialIcon>
+        <Icon icon="search" />
         <h4>Comentarios recientes...</h4>
         {comments.map(comment => (
           <div>
