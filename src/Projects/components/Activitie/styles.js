@@ -9,6 +9,7 @@ import {Icon} from "../../../global/components/";
 
 export const Container = styled.div`
   border-radius: 0.5rem;
+  margin: 0.5rem 0;
   padding: 0.5rem 1rem;
   background-color: ${whiteColorLigth};
 

@@ -1,4 +1,11 @@
-import {ADD_PROJECT, ADD_ACTIVITE, ADD_COMMENT} from "../actionTypes";
+import {
+  ADD_PROJECT,
+  ADD_ACTIVITE,
+  ADD_COMMENT,
+  CHANGE_ACTIVITY_TYPE
+} from "../actionTypes";
+import {DONED, PENDING, IN_PROGRESS} from "../types/activitieTypes";
+
 const initialState = [
   {
     name: "Responsive web site",
@@ -19,9 +26,11 @@ const initialState = [
     activities: [
       {
         id: 1,
-        type: "PENDING",
+        type: PENDING,
         name: "Actividad pendiente",
         dueDate: "11/09/2019",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec magna a nulla varius tempor eget quis arcu. ",
         comments: [
           {
             date: new Date().toISOString(),
@@ -33,13 +42,13 @@ const initialState = [
       },
       {
         id: 2,
-        type: "IN_PROGRESS",
+        type: IN_PROGRESS,
         name: "Actividad en progreso",
         dueDate: "11/09/2019"
       },
       {
         id: 3,
-        type: "DONED",
+        type: DONED,
         name: "Actividad terminada",
         dueDate: "11/09/2019"
       }
@@ -83,6 +92,25 @@ function projectReducer(state = initialState, action) {
             : iterableActivitie
         )
       }));
+
+    //Change the activitie.type depending on wich section it's dropped
+    case CHANGE_ACTIVITY_TYPE:
+      const changedTypeActivitie = {
+        ...payload.activitie,
+        type: payload.newType
+      };
+      return state.map(project => {
+        debugger;
+        return {
+          ...project,
+          //map activities and update selected activitie
+          activities: project.activities.map(activitie =>
+            activitie.id === payload.activitie.id
+              ? changedTypeActivitie
+              : activitie
+          )
+        };
+      });
 
     default:
       return state;

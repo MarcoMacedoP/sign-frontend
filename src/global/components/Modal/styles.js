@@ -3,7 +3,7 @@ import {
   blackColorTransparent,
   whiteColorLigth
 } from "../../styles/variables";
-import { MaterialIcon } from "../../../global/styles/foundations/MaterialIcon";
+import {MaterialIcon} from "../../../global/styles/foundations/MaterialIcon";
 
 export const Blur = styled.div`
   width: 100vw;
@@ -25,6 +25,7 @@ export const Blur = styled.div`
 `;
 export const ModalContainer = styled.div`
   min-width: 500px;
+  max-width: 70vw;
   min-height: min-content;
   box-sizing: border-box;
 
@@ -45,8 +46,7 @@ export const ModalContainer = styled.div`
   }
 `;
 export const CloseIcon = styled(MaterialIcon)`
-
-position: absolute; 
-top: 1rem;
-right: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 `;

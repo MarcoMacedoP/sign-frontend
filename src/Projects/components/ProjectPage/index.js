@@ -1,6 +1,6 @@
 import React from "react";
 //components
-import {ActivitieList} from "../ActivitieList";
+import ActivitieList from "../ActivitieList";
 import AddActivitie from "../AddActivitie";
 import {
   InformationHeader,
@@ -11,7 +11,13 @@ import {
 import {PageContainer} from "../../../global/styles/Containers";
 import {Activities, ActivitiesContainer} from "./styles";
 import {H3} from "../../../global/styles/texts";
-//main
+//utils
+import {
+  DONED,
+  IN_PROGRESS,
+  PENDING
+} from "../../../global/redux/types/activitieTypes";
+//component
 export const ProjectPage = ({project, modalIsOpen, handleModal}) => {
   const {name, description, dueDate, activities = {}} = project;
   debugger;
@@ -45,19 +51,26 @@ export const ProjectPage = ({project, modalIsOpen, handleModal}) => {
               <ActivitieList
                 activities={activities.pending || []}
                 title="Pendientes"
+                activitieType={PENDING}
+                project={project}
               />
               <ActivitieList
                 activities={activities.inProgress || []}
                 title="En curso"
+                activitieType={IN_PROGRESS}
+                project={project}
               />
               <ActivitieList
                 activities={activities.doned || []}
                 title="Terminadas"
+                activitieType={DONED}
+                project={project}
               />
             </>
           )}
         </ActivitiesContainer>
       </Activities>
+
       {/*-------------- modals---------- */}
       <AddActivitie
         isShowed={modalIsOpen}

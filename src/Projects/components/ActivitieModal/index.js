@@ -1,6 +1,6 @@
 import React from "react";
 //components
-import {Modal, Comments} from "../../../global/components";
+import {Modal, Comments, Icon} from "../../../global/components";
 //redux
 import {connect} from "react-redux";
 import {addCommentToActivitie} from "../../../global/redux/actions/projects";
@@ -8,6 +8,7 @@ import {addCommentToActivitie} from "../../../global/redux/actions/projects";
 import {useHandleState} from "../../../global/hooks/useHandleState";
 //styled-components
 import {H3} from "../../../global/styles/texts";
+import {Description, Date} from "./styles";
 
 /**Modal for an Activitie
  *
@@ -53,8 +54,11 @@ function ActivitieModal(props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <H3>{name}</H3>
-      <p>{description}</p>
-      <p>{dueDate}</p>
+      <Description>{description}</Description>
+      <Date>
+        <Icon size={12} icon="access_time" hasAnimatedClick={false} />
+        {` ${dueDate}`}
+      </Date>
       <Comments
         comments={comments}
         handleChange={addFormValueToState}
