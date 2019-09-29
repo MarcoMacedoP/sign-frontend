@@ -28,7 +28,7 @@ export const useHandleState = initialState => {
   function addValueToState(key, value) {
     setState({
       ...state,
-      [key]: value
+      [key]: value.trim()
     });
   }
   /**
@@ -55,6 +55,7 @@ export const useHandleState = initialState => {
     addFormValueToState,
     addValueToState,
     addArrayValueToState,
-    handleSwitchChange
+    handleSwitchChange,
+    setState
   };
 };

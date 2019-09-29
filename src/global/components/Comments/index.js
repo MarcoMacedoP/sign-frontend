@@ -1,9 +1,17 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {SmallEmptyState} from "../SmallEmptyState";
-import {Icon} from "../Icon";
 import {Button} from "../Button";
 //styled-components
-import {CommentBox} from "./styles";
+import {
+  CommentBox,
+  Container,
+  CommentImage,
+  CommentsList,
+  Comment,
+  CommentContent,
+  CommentDate
+} from "./styles";
+import {Subtitle} from "../../styles/texts";
 /**
  * 
  * Shows a list of comments
@@ -19,28 +27,38 @@ export function Comments({
   addCommentHandler,
   handleChange
 }) {
+  const commentsList = React.createRef();
+  const handlePressKey = event => {
+    console.log("key pressed", event.key);
+    if (event.key === "Enter") {
+      addCommentHandler();
+    }
+  };
+
   if (comments.length !== 0) {
-    ////debugger;
     return (
-      <Fragment>
-        <h3>Comentarios</h3>
-        <Icon icon="search" />
-        <h4>Comentarios recientes...</h4>
-        {comments.map(comment => (
-          <div>
-            <p>{comment.content}</p>
-            <span>{`Publicado el :${comment.date}`}</span>
-          </div>
-        ))}
-        <label htmlFor="actualComment">Agregar un comentario</label>
+      <Container>
+        <Subtitle>Comentarios recientes...</Subtitle>
+        <CommentsList ref={commentsList}>
+          {comments.map(comment => (
+            <Comment>
+              <CommentImage />
+              <CommentContent>
+                {comment.content}
+
+                <CommentDate>{`Publicado el ${comment.date}`}</CommentDate>
+              </CommentContent>
+            </Comment>
+          ))}
+        </CommentsList>
         <CommentBox
           name="actualComment"
           placeholder="Agrega un comentario"
           value={actualComment}
           onChange={handleChange}
+          onKeyPress={handlePressKey}
         />
-        <Button onClick={addCommentHandler}>GUARDAR</Button>
-      </Fragment>
+      </Container>
     );
   } else {
     return (

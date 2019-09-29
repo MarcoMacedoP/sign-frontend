@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import {blackColor, fontTitle, blackColorLigth} from "./variables";
+import {
+  blackColor,
+  fontTitle,
+  blackColorLigth,
+  fontBody,
+  whiteColorDark
+} from "./variables";
 import {css} from "styled-components";
 
 //media-querys
@@ -39,4 +45,15 @@ export const H3 = styled.h3`
   @media ${cellphoneMediaQuery} {
     font-size: 1.5rem;
   }
+`;
+
+export const Subtitle = styled.p`
+  font-size: 1rem;
+  color: ${blackColorLigth};
+  font-family: ${fontBody};
+`;
+export const Caption = styled.caption`
+  font-size: 0.85rem;
+  color: ${whiteColorDark};
+  text-align: initial;
 `;

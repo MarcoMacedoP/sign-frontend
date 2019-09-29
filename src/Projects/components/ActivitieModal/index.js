@@ -28,11 +28,15 @@ function ActivitieModal(props) {
     addCommentToActivitie
   } = props;
   const {name, description, dueDate, comments} = activitie;
-
-  const {state, addFormValueToState} = useHandleState({
+  const initialState = {
     actualComment: ""
-  });
-  const handleAddComment = () =>
+  };
+  const {
+    state,
+    addFormValueToState,
+    addValueToState
+  } = useHandleState(initialState);
+  const handleAddComment = () => {
     addCommentToActivitie({
       project,
       activitie,
@@ -42,6 +46,10 @@ function ActivitieModal(props) {
         content: state.actualComment
       }
     });
+    addValueToState("actualComment", "");
+    debugger;
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <H3>{name}</H3>
