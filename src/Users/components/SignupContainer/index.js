@@ -1,9 +1,9 @@
 import React from "react";
-import {Signup} from "../Signup/";
+import {Signup} from "../Signup";
 //hooks
-import {useHandleState, useCallApi} from "../../../global/hooks/";
+import {useHandleState, useCallApi} from "../../../global/hooks";
 //Container component
-export const SignupContainer = () => {
+export const SignupContainer = ({match}) => {
   //Hooks
   const {state, addFormValueToState} = useHandleState({
     name: "",

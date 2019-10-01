@@ -6,8 +6,9 @@ import {PrivateRoute, PublicRoute} from "./global/components";
 import {LastLocationProvider} from "react-router-last-location";
 // Pages
 import {Landing} from "./LandingPage";
-import {SignupContainer} from "./Authentication";
-import LoginContainer from "./Authentication/components/LoginContainer";
+import {SignupContainer} from "./Users";
+import UserPage from "./Users/components/UserPage";
+import LoginContainer from "./Users/components/LoginContainer";
 import {
   AddClient,
   ClientsList,
@@ -31,7 +32,8 @@ import {
   REMINDERS_ROUTE,
   SIGNUP_ROUTE,
   PROVIDER_PAGE_ROUTE,
-  CLIENT_PAGE_ROUTE
+  CLIENT_PAGE_ROUTE,
+  USER_PAGE
 } from "./global/utils/routes";
 import ProjectsRoutes from "./Projects/routes";
 // Resources
@@ -66,7 +68,12 @@ function App({user}) {
               path={SIGNUP_ROUTE}
               component={SignupContainer}
             />
-
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={USER_PAGE}
+              component={UserPage}
+            />
             <PrivateRoute
               userIsLoged={user.isLoged}
               exact

@@ -1,8 +1,9 @@
 export const LANDING_ROUTE = "/";
+export const APP_HOME_ROUTE = "/app";
+//Users
 export const LOGIN_ROUTE = "/login";
 export const SIGNUP_ROUTE = "/signup";
-
-export const APP_HOME_ROUTE = "/app";
+export const USER_PAGE = `${APP_HOME_ROUTE}/user/`;
 //providers
 export const PROVIDERS_ROUTE = `${APP_HOME_ROUTE}/providers/`;
 export const PROVIDER_PAGE_ROUTE = `${PROVIDERS_ROUTE}:providerId`;

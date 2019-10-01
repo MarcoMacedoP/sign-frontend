@@ -5,7 +5,7 @@ import {
   Input,
   Button,
   ErrorMessage
-} from "../../../global/components/";
+} from "../../../global/components";
 // Styled-components
 import {
   Container,
