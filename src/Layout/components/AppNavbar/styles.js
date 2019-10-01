@@ -28,8 +28,15 @@ export const Picture = styled.picture`
   height: 24px;
   border-radius: 50%;
   background-color: ${blackColorTransparent};
+  overflow: hidden;
 
   cursor: pointer;
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+  }
 `;
 export const Menu = styled.ul`
   display: flex;
