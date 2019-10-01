@@ -19,6 +19,6 @@ export async function callApi(endpoint, options = {}) {
     return data;
   } else {
     console.log("malo");
-    throw data.message;
+    throw data;
   }
 }

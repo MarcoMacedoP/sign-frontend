@@ -18,11 +18,11 @@ export const Icon = ({
   className
 }) => (
   <BaseIcon
+    className={className}
     onClick={onClick}
     hasAnimatedClick={hasAnimatedClick}
     hasAction={onClick ? true : false}
     size={size}
-    className={className}
   >
     {icon}
   </BaseIcon>

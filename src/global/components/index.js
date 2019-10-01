@@ -14,3 +14,6 @@ export {InfoLayout} from "./InfoLayout";
 export {ErrorMessage} from "./ErrorMessage";
 export {Icon} from "./Icon";
 export {Comments} from "./Comments";
+//Routes Component
+export {PrivateRoute} from "./PrivateRoute";
+export {PublicRoute} from "./PublicRoute";

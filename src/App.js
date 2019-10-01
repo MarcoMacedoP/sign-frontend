@@ -2,11 +2,12 @@
 import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Layout from "./Layout";
-import {Provider} from "react-redux";
+import {PrivateRoute, PublicRoute} from "./global/components";
 import {LastLocationProvider} from "react-router-last-location";
 // Pages
 import {Landing} from "./LandingPage";
-import {LoginContainer, SignupContainer} from "./Authentication";
+import {SignupContainer} from "./Authentication";
+import LoginContainer from "./Authentication/components/LoginContainer";
 import {
   AddClient,
   ClientsList,
@@ -36,72 +37,99 @@ import ProjectsRoutes from "./Projects/routes";
 // Resources
 import {GlobalStyles} from "./global/styles/GlobalStyles";
 //redux
-import store from "./global/redux/store";
+import {connect} from "react-redux";
+
 import {Test} from "./Test";
 
-function App() {
+function App({user}) {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <LastLocationProvider>
-          <GlobalStyles />
-          <Layout>
-            <Switch>
-              <Route exact path={LANDING_ROUTE} component={Landing} />
-              <Route
-                exact
-                path={LOGIN_ROUTE}
-                component={LoginContainer}
-              />
-              <Route
-                exact
-                path={SIGNUP_ROUTE}
-                component={SignupContainer}
-              />
-              <Route
-                exact
-                path={APP_HOME_ROUTE}
-                component={Dashboard}
-              />
-              <Route
-                exact
-                path={PROVIDERS_ROUTE}
-                component={ProviderListContainer}
-              />
-              <Route
-                exact
-                path={PROVIDER_PAGE_ROUTE}
-                component={ProviderPageContainer}
-              />
-              <Route
-                exact
-                path={CLIENTS_ROUTE}
-                component={ClientsList}
-              />
-              <Route
-                exact
-                path={ADD_CLIENT_ROUTE}
-                component={AddClient}
-              />
-              <Route
-                exact
-                path={CLIENT_PAGE_ROUTE}
-                component={ClientPage}
-              />
-              <Route
-                exact
-                path={REMINDERS_ROUTE}
-                component={RemindersList}
-              />
-              <ProjectsRoutes />
-              <Route component={Test} exact path="/test/"></Route>
-              <Route component={PageNotFound} />
-            </Switch>
-          </Layout>
-        </LastLocationProvider>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <LastLocationProvider>
+        <GlobalStyles />
+        <Layout>
+          <Switch>
+            <PublicRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={LANDING_ROUTE}
+              component={Landing}
+            />
+            <PublicRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={LOGIN_ROUTE}
+              component={LoginContainer}
+            />
+            <PublicRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={SIGNUP_ROUTE}
+              component={SignupContainer}
+            />
+
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={APP_HOME_ROUTE}
+              component={Dashboard}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={PROVIDERS_ROUTE}
+              component={ProviderListContainer}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={PROVIDER_PAGE_ROUTE}
+              component={ProviderPageContainer}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={CLIENTS_ROUTE}
+              component={ClientsList}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={ADD_CLIENT_ROUTE}
+              component={AddClient}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={CLIENT_PAGE_ROUTE}
+              component={ClientPage}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={REMINDERS_ROUTE}
+              component={RemindersList}
+            />
+            <ProjectsRoutes />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              component={Test}
+              exact
+              path="/test/"
+            />
+            <Route component={PageNotFound} />
+          </Switch>
+        </Layout>
+      </LastLocationProvider>
+    </BrowserRouter>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  debugger;
+  return {user: state.user};
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(App);
