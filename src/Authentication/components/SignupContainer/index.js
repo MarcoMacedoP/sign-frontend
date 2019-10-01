@@ -1,77 +1,57 @@
-import React, { useState } from "react";
-import { authApi } from "../../api/";
-import { Signup } from "../Signup/";
-import { withRouter } from "react-router-dom";
+import React from "react";
+import {Signup} from "../Signup/";
+//hooks
+import {useHandleState, useCallApi} from "../../../global/hooks/";
 //Container component
-export const SignupContainer = withRouter(({ dispatch, history }) => {
+export const SignupContainer = () => {
   //Hooks
-  const [ loading, setLoading ] = useState(false);
-  const [ error, setError ] = useState(null);
-  const [ inputs, setInputs ] = useState({
-    name            : "",
-    lastname        : "",
-    email           : "",
-    password        : "",
-    password_repeat : ""
+  const {state, addFormValueToState} = useHandleState({
+    name: "",
+    lastname: "",
+    email: "",
+    password: "",
+    password_repeat: ""
+  });
+  const {loading, error, setError, fetchData} = useCallApi({
+    endpoint: "/signup/",
+    options: {method: "post", body: JSON.stringify(state)}
   });
 
   //handlers
   async function handleClick(e) {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-
     if (
-      !inputs.email ||
-      !inputs.password ||
-      !inputs.name ||
-      !inputs.lastname ||
-      !inputs.password_repeat
+      !state.email ||
+      !state.password ||
+      !state.name ||
+      !state.lastname ||
+      !state.password_repeat
     ) {
-      setLoading(false);
-      setError({
-        message : "Alguno de los campos está vacio 🙅🏻‍♂️"
-      });
-    } else if (inputs.password !== inputs.password_repeat) {
-      setLoading(false);
-      setError({
-        message : "Las contraseñas no coinciden 🤦‍♀️"
-      });
+      setError("Alguno de los campos está vacio 🙅🏻‍♂️");
+    } else if (state.password !== state.password_repeat) {
+      setError("Las contraseñas no coinciden 🤦‍♀️");
     } else {
       //Everthing in the rigth place
       try {
-        await fetchSignup(inputs);
-        setLoading(false);
+        debugger;
+        const {data: user} = await fetchData();
       } catch (error) {
-        setError(error);
-        setLoading(false);
+        console.log(error);
+        setError(error.message);
       }
     }
   }
-
-  function handleChange(e) {
-    setInputs({
-      ...inputs,
-      [e.target.name]: e.target.value
-    });
-  }
-  async function fetchSignup(userData) {
-    const userRegistered = await authApi.signup(userData);
-    if (userRegistered) {
-      dispatch({ type: "login" });
-      history.push("/app");
-    }
-  }
+  const handleErrorClose = () => setError(null);
 
   //The UI
   return (
     <Signup
       handleClick={handleClick}
-      handleChange={handleChange}
+      handleChange={addFormValueToState}
       loading={loading}
       error={error}
-      setError={setError}
-      formValues={inputs}
+      formValues={state}
+      onErrorClose={handleErrorClose}
     />
   );
-});
+};

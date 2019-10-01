@@ -47,14 +47,12 @@ router.post("/login/", async (req, res) => {
 
 router.post("/signup/", async (req, res) => {
   try {
-    const {data: body, statusCode} = await axios(
-      `${apiRoute}/auth/signup/`,
-      {
-        method: "post",
-        data: req.body
-      }
-    );
-    const {data} = body;
+    const response = await axios(`${apiRoute}/auth/signup/`, {
+      method: "post",
+      data: req.body
+    });
+    const {body} = response;
+    debug(response);
     addTokenToCookies(data.token, res);
     sendGoodResponse({
       response: res,
@@ -62,7 +60,11 @@ router.post("/signup/", async (req, res) => {
       statusCode
     });
   } catch (error) {
-    sendBadResponse({response: res, message: "Not authorized"});
+    sendBadResponse({
+      response: res,
+      message: "Not authorized",
+      error
+    });
   }
 });
 

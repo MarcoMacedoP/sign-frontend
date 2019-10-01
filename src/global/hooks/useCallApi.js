@@ -22,17 +22,17 @@ export function useCallApi({endpoint = "", options = {}}) {
     }
   };
 
-  const setData = data =>
-    setState({
-      ...state,
-      data
-    });
+  /**Sets an error to the state
+   * @param {*} error the error to be setted
+   */
+  const setError = error => {
+    setState({...state, error});
+  };
 
   return {
-    setError: error => setState({...state, error}),
+    setError,
     loading: state.loading,
     data: state.data,
-    setData,
     error: state.error,
     fetchData
   };
