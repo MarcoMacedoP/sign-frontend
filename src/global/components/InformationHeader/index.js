@@ -1,9 +1,11 @@
 //Components
 import React, {useState} from "react";
 import {Redirect} from "react-router-dom";
+import {ToastMenu} from "../ToastMenu";
+import {Icon} from "../Icon";
 //hooks
 import {useLastLocation} from "react-router-last-location";
-import {Icon} from "../Icon";
+import {useHandleState} from "../../hooks/useHandleState";
 //Styled components
 import {
   About,
@@ -30,6 +32,7 @@ import {APP_HOME_ROUTE} from "../../utils/routes";
  * @param {*} phone show a phone number with an icon
  * @param {*}email,show an email direction with an icon
  * @param {*}date shows the current date with an icon
+ * @param {*} options an array of options to be displayed on ToastMenu when user click more icon
  */
 export const InformationHeader = ({
   title,
@@ -39,16 +42,34 @@ export const InformationHeader = ({
   about,
   phone,
   email,
-  date
+  date,
+  options = [
+    {
+      onClick: function() {},
+      title: "",
+      icon: ""
+    }
+  ]
 }) => {
-  const [goBack, setGoBack] = useState(false);
+  const {state, toggleStateValue} = useHandleState({
+    goBack: false,
+    toastMenuIsShowed: false
+  });
+  const goLastPage = () => toggleStateValue("goBack");
+  const toggleToastMenu = () => toggleStateValue("toastMenuIsShowed");
+
   const lastLocation = useLastLocation() || APP_HOME_ROUTE;
   return (
     <About>
-      {goBack && <Redirect to={lastLocation} />}
+      {state.goBack && <Redirect to={lastLocation} />}
       <Navigation>
-        <Icon icon="arrow_back" onClick={() => setGoBack(true)} />
-        <Icon icon="more_vert" />
+        <Icon icon="arrow_back" onClick={goLastPage} />
+        <Icon icon="more_vert" onClick={toggleToastMenu} />
+        <ToastMenu
+          isShowed={state.toastMenuIsShowed}
+          onClose={toggleToastMenu}
+          menuItems={options || []}
+        />
       </Navigation>
 
       <Name>{title || "title"}</Name>

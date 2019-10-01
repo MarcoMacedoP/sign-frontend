@@ -10,7 +10,7 @@ export const useHandleState = initialState => {
    * @param {*} key the key in the state to be toggled
    *
    */
-  function toggleState(key) {
+  function toggleStateValue(key) {
     if (state[key] === true) {
       addValueToState(key, false);
     } else {
@@ -70,7 +70,7 @@ export const useHandleState = initialState => {
     addValueToState,
     addArrayValueToState,
     handleSwitchChange,
-    toggleState,
+    toggleStateValue,
     setState
   };
 };
