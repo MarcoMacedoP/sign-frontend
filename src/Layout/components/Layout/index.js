@@ -1,25 +1,29 @@
-import React, { useState } from "react";
-import { Navbar } from "../Navbar";
-import { Footer } from "../Footer";
-import { AppNavbar } from "../AppNavbar";
-import { LateralMenu } from "../LateralMenu";
+import React, {useState} from "react";
+import {Navbar} from "../Navbar";
+import {Footer} from "../Footer";
+import {AppNavbar} from "../AppNavbar";
+import {LateralMenu} from "../LateralMenu";
 //redux
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 //MaterialUi libray customization
 
-import { ThemeProvider } from "@material-ui/styles";
-import { theme } from "../../MaterialUiTheme";
+import {ThemeProvider} from "@material-ui/styles";
+import {theme} from "../../MaterialUiTheme";
 
-function Layout({ children, user }) {
+function Layout({children, user}) {
   const [menuStatus, setMenuStatus] = useState(false);
 
   if (user.isLoged) {
     return (
       <ThemeProvider theme={theme}>
-        <AppNavbar openMenu={() => setMenuStatus(true)} />
+        <AppNavbar
+          openMenu={() => setMenuStatus(true)}
+          profilePicture={user.profilePicture}
+        />
         <LateralMenu
           isShowed={menuStatus}
           closeMenu={() => setMenuStatus(false)}
+          user={user}
         />
         {children}
       </ThemeProvider>
@@ -35,7 +39,7 @@ function Layout({ children, user }) {
   }
 }
 
-const mapStateToProps = state => ({ user: state.user });
+const mapStateToProps = state => ({user: state.user});
 
 export default connect(
   mapStateToProps,

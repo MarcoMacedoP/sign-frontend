@@ -1,12 +1,12 @@
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { MaterialIcon } from '../../../global/styles/foundations/MaterialIcon'
+import styled from "styled-components";
+import {Link} from "react-router-dom";
+import {MaterialIcon} from "../../../global/styles/foundations/MaterialIcon";
 
 import {
   whiteColorLigth,
   blackColorTransparent,
   mainColor
-} from '../../../global/styles/variables'
+} from "../../../global/styles/variables";
 
 export const NavigationItem = styled(Link)`
   width: 100%;
@@ -22,24 +22,24 @@ export const NavigationItem = styled(Link)`
   text-decoration: none;
   cursor: pointer;
   position: relative;
-  &:hover {
+  :hover {
     background-color: ${mainColor};
     opacity: 1;
     * {
       color: ${whiteColorLigth};
     }
   }
-`
+`;
 export const NavigationItemTitle = styled.p`
   padding: 0.5rem;
   text-decoration: none;
   opacity: 1;
   color: ${blackColorTransparent};
   transition: color 120ms ease-out;
-`
+`;
 export const Navicon = styled(MaterialIcon)`
   &:last-child {
     position: absolute;
     right: 0;
   }
-`
+`;

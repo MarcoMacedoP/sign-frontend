@@ -1,7 +1,7 @@
 // Modules
 import React from "react";
 // Components
-import { LateralMenuItem } from "../LateralMenuItem";
+import {LateralMenuItem} from "../LateralMenuItem";
 // Styled Components
 import {
   Menu,
@@ -18,15 +18,15 @@ import {
   CLIENTS_ROUTE,
   PROVIDERS_ROUTE
 } from "../../../global/utils/routes";
-export const LateralMenu = ({ isShowed, username, location, closeMenu }) => {
+export const LateralMenu = ({isShowed, user = {}, closeMenu}) => {
   if (isShowed) {
     return (
       <Menu>
         <CloseIcon onClick={closeMenu}>close</CloseIcon>
         <Header>
           <ProfileImage />
-          <Username>{username || "Username"}</Username>
-          <Location>{location || "Job title"}</Location>
+          <Username>{user.name || "Username"}</Username>
+          <Location>{user.jobType || "Job title"}</Location>
         </Header>
         <Navigation>
           <LateralMenuItem

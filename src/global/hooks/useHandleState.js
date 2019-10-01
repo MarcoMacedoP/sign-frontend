@@ -4,6 +4,20 @@ export const useHandleState = initialState => {
   const [state, setState] = useState({
     ...initialState
   });
+
+  /**Toggles a boolean key of the state
+   *
+   * @param {*} key the key in the state to be toggled
+   *
+   */
+  function toggleState(key) {
+    if (state[key] === true) {
+      addValueToState(key, false);
+    } else {
+      addValueToState(key, true);
+    }
+    return state[key];
+  }
   /**Adds a form value to the state
    * @param {*} e the onSubmit event
    */
@@ -28,7 +42,7 @@ export const useHandleState = initialState => {
   function addValueToState(key, value) {
     setState({
       ...state,
-      [key]: value.trim()
+      [key]: value
     });
   }
   /**
@@ -56,6 +70,7 @@ export const useHandleState = initialState => {
     addValueToState,
     addArrayValueToState,
     handleSwitchChange,
+    toggleState,
     setState
   };
 };

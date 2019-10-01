@@ -26,3 +26,4 @@ export const fontBody = "'Lato', sans-serif";
 
 export const appPadding = "1.4rem 6.5625vw";
 export const webPadding = "5rem 3rem";
+export const appShadow = "0 -4px 13px 0 rgba(50, 54, 53, 0.3)";
