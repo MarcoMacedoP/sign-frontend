@@ -12,13 +12,14 @@ import {theme} from "../../MaterialUiTheme";
 
 function Layout({children, user}) {
   const [menuStatus, setMenuStatus] = useState(false);
+  console.log(user);
 
   if (user.isLoged) {
     return (
       <ThemeProvider theme={theme}>
         <AppNavbar
           openMenu={() => setMenuStatus(true)}
-          profilePicture={user.profilePicture}
+          profilePicture={user.picture}
         />
         <LateralMenu
           isShowed={menuStatus}

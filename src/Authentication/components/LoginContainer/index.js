@@ -11,28 +11,27 @@ import {login} from "../../../global/redux/actions/users";
 function LoginContainer(props) {
   const {login} = props;
   //state handlers
-  const {state, addFormValueToState} = useHandleState({
+  const {state: formValues, addFormValueToState} = useHandleState({
     email: "",
     password: ""
   });
 
   //api
-  const {loading, data, error, fetchData, setError} = useCallApi({
-    options: {method: "post", body: JSON.stringify(state)},
+  const {loading, error, fetchData, setError} = useCallApi({
+    options: {method: "post", body: JSON.stringify(formValues)},
     endpoint: "/login/"
   });
-  console.log(data);
   const handleOnErrorClose = () => setError(null);
   async function handleClick(e) {
     e.preventDefault();
 
-    if (!state.email || !state.password) {
+    if (!formValues.email || !formValues.password) {
       setError("Campos vacios");
     } else {
       //Everything ok
       try {
-        await fetchData();
-        login(data.user);
+        const {data: fetchedData} = await fetchData();
+        login(fetchedData.user);
       } catch (error) {
         setError(error.message);
       }
@@ -46,7 +45,7 @@ function LoginContainer(props) {
       handleOnErrorClose={handleOnErrorClose}
       loading={loading}
       error={error}
-      formValues={state}
+      formValues={formValues}
     />
   );
 }

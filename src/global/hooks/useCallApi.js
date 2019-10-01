@@ -13,11 +13,7 @@ export function useCallApi({endpoint = "", options = {}}) {
   const fetchData = async () => {
     try {
       const response = await callApi(endpoint, options);
-      setState({
-        ...state,
-        loading: false,
-        data: response
-      });
+      return response;
     } catch (error) {
       setState({
         loading: false,
@@ -26,10 +22,17 @@ export function useCallApi({endpoint = "", options = {}}) {
     }
   };
 
+  const setData = data =>
+    setState({
+      ...state,
+      data
+    });
+
   return {
     setError: error => setState({...state, error}),
     loading: state.loading,
     data: state.data,
+    setData,
     error: state.error,
     fetchData
   };

@@ -26,7 +26,7 @@ export const LateralMenu = ({isShowed, user = {}, closeMenu}) => {
         <Header>
           <ProfileImage />
           <Username>{user.name || "Username"}</Username>
-          <Location>{user.jobType || "Job title"}</Location>
+          <Location>{user.job || "Job title"}</Location>
         </Header>
         <Navigation>
           <LateralMenuItem

@@ -13,8 +13,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case LOG_IN: {
       const {user} = action.payload;
+      debugger;
       return {
-        ...state,
         ...user,
         isLoged: true
       };
