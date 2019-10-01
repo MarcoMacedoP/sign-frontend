@@ -8,7 +8,12 @@ import {Navbar, Picture, Menu, MenuItem} from "./styles";
 //hooks
 import {useHandleState} from "../../../global/hooks/useHandleState";
 
-export const AppNavbar = ({openMenu, profilePicture, username}) => {
+export const AppNavbar = ({
+  openMenu,
+  profilePicture,
+  onLogout,
+  username
+}) => {
   const menuRef = React.createRef();
   const {state, toggleState} = useHandleState({
     menuShowed: false
@@ -33,8 +38,8 @@ export const AppNavbar = ({openMenu, profilePicture, username}) => {
           <Link to="/404/">{username || "username"}</Link>
           <Icon icon="person" hasAnimatedClick={false} />
         </MenuItem>
-        <MenuItem isShowed={state.menuShowed} onClick={toggleMenu}>
-          <Link to="/404/">Configuración</Link>
+        <MenuItem isShowed={state.menuShowed} onClick={onLogout}>
+          <Link to="/404/">Cerrar sesión</Link>
           <Icon icon="settings" hasAnimatedClick={false} />
         </MenuItem>
       </Menu>

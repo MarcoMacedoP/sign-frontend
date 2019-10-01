@@ -5,12 +5,13 @@ import {AppNavbar} from "../AppNavbar";
 import {LateralMenu} from "../LateralMenu";
 //redux
 import {connect} from "react-redux";
+import {logout} from "../../../global/redux/actions/users";
 //MaterialUi libray customization
 
 import {ThemeProvider} from "@material-ui/styles";
 import {theme} from "../../MaterialUiTheme";
 
-function Layout({children, user}) {
+function Layout({children, user, logout}) {
   const [menuStatus, setMenuStatus] = useState(false);
   console.log(user);
 
@@ -20,6 +21,7 @@ function Layout({children, user}) {
         <AppNavbar
           openMenu={() => setMenuStatus(true)}
           profilePicture={user.picture}
+          onLogout={logout}
         />
         <LateralMenu
           isShowed={menuStatus}
@@ -44,5 +46,5 @@ const mapStateToProps = state => ({user: state.user});
 
 export default connect(
   mapStateToProps,
-  null
+  {logout}
 )(Layout);
