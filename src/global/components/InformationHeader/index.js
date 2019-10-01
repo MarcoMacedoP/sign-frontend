@@ -32,6 +32,8 @@ import {APP_HOME_ROUTE} from "../../utils/routes";
  * @param {*} phone show a phone number with an icon
  * @param {*}email,show an email direction with an icon
  * @param {*}date shows the current date with an icon
+ * @param {*}job shows a job title with an icon
+ *
  * @param {*} options an array of options to be displayed on ToastMenu when user click more icon
  */
 export const InformationHeader = ({
@@ -43,6 +45,7 @@ export const InformationHeader = ({
   phone,
   email,
   date,
+  job,
   options = [
     {
       onClick: function() {},
@@ -105,6 +108,12 @@ export const InformationHeader = ({
           <DateContainer>
             <Icon hasAnimatedClick={false} icon="timer" />
             <Date>{date}</Date>
+          </DateContainer>
+        )}
+        {job && (
+          <DateContainer>
+            <Icon hasAnimatedClick={false} icon="work" />
+            <Date>{job}</Date>
           </DateContainer>
         )}
       </ContactInfoContainer>
