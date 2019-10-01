@@ -24,7 +24,7 @@ export const LateralMenu = ({isShowed, user = {}, closeMenu}) => {
       <Menu>
         <CloseIcon onClick={closeMenu}>close</CloseIcon>
         <Header>
-          <ProfileImage />
+          <ProfileImage image={user.picture} />
           <Username>{user.name || "Username"}</Username>
           <Location>{user.job || "Job title"}</Location>
         </Header>

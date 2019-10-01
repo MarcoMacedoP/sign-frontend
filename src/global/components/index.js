@@ -14,6 +14,7 @@ export {InfoLayout} from "./InfoLayout";
 export {ErrorMessage} from "./ErrorMessage";
 export {Icon} from "./Icon";
 export {Comments} from "./Comments";
+export {ToastMenu} from "./ToastMenu";
 //Routes Component
 export {PrivateRoute} from "./PrivateRoute";
 export {PublicRoute} from "./PublicRoute";
