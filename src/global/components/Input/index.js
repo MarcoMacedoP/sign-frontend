@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Label, InputForm, Container} from "./styles";
+import {Label, InputForm, Container, TextArea} from "./styles";
 /**
     @author : Marco Macedo
     @description: Este componente recibe como props: 
@@ -15,9 +15,9 @@ export const Input = ({
   type,
   placeholder,
   onChange,
-  value = ""
+  value = "",
+  error
 }) => {
-  const [error, setError] = useState(false);
   const [active, setActive] = useState(false);
   return (
     <Container
@@ -27,25 +27,28 @@ export const Input = ({
       <Label htmlFor={name} active={active}>
         {label || name}
       </Label>
-      <InputForm
-        id={name}
-        className="input"
-        type={type || "text"}
-        placeholder={placeholder}
-        name={name}
-        active={active}
-        onChange={e => {
-          const {value} = document.getElementById(name);
-          if (value.length < 3) {
-            setError(true);
-          } else {
-            setError(false);
-          }
-          onChange(e);
-        }}
-        value={value.name}
-        error={error}
-      />
+      {type === "textarea" ? (
+        <TextArea
+          name={name}
+          placeholder={placeholder}
+          active={active}
+          onChange={onChange}
+          value={value}
+          error={error}
+        />
+      ) : (
+        <InputForm
+          defaultValue={value}
+          id={name}
+          type={type || "text"}
+          placeholder={placeholder}
+          name={name}
+          active={active}
+          onChange={onChange}
+          value={value.name}
+          error={error}
+        />
+      )}
     </Container>
   );
 };

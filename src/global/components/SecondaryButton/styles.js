@@ -1,4 +1,4 @@
-import { Btn } from "../Button/styles";
+import {Btn} from "../Button/styles";
 import styled from "styled-components";
 import {
   mainColor,
@@ -6,21 +6,19 @@ import {
 } from "../../../global/styles/variables";
 export const Button = styled(Btn)`
   && {
-      margin-top: 0.5rem;
+    margin-top: 0.5rem;
     background-color: transparent;
-    width: ${(props) => (props.width ? props.width : "100%")};
-    border: 3px solid ${(props) =>
-      props.borderColor ? props.borderColor : mainColor};
+    width: ${props => (props.width ? props.width : "100%")};
+    border: 3px solid
+      ${props => (props.bordercolor ? props.bordercolor : mainColor)};
     &:hover,
     &:active {
-     opacity: 0.70;
+      opacity: 0.7;
       background: transparent;
-      
     }
 
-    
     .MuiButton-label {
-      color: ${(props) =>
+      color: ${props =>
         props.borderColor ? props.borderColor : blackColor};
     }
   }

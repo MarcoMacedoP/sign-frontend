@@ -1,8 +1,8 @@
 import React from "react";
-import { Button } from "./styles";
+import {Button} from "./styles";
 
 export const SecondaryButton = ({
-  borderColor,
+  bordercolor,
   variant = "contained",
   children,
   width,
@@ -10,9 +10,10 @@ export const SecondaryButton = ({
 }) => (
   <Button
     variant={variant}
-    borderColor={borderColor}
+    bordercolor={bordercolor}
     width={width}
-    onClick={onClick}>
+    onClick={onClick}
+  >
     {children}{" "}
   </Button>
 );

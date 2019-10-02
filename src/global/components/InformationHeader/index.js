@@ -35,6 +35,9 @@ import {APP_HOME_ROUTE} from "../../utils/routes";
  * @param {*}job shows a job title with an icon
  *
  * @param {*} options an array of options to be displayed on ToastMenu when user click more icon
+ * @param {options} onClick function to be executed with click in option
+ * @param {options} title the text to be displayed on interface. Describe de option.
+ * @param {options} icon the icon to be showed in option
  */
 export const InformationHeader = ({
   title,

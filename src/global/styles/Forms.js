@@ -10,6 +10,7 @@ export const BaseForm = styled.form`
   flex-direction: column;
   min-width: 320px;
   width: 28vw;
+  margin-top: 1rem;
   ${InputForm}:last-child {
     margin-bottom: 1rem;
   }

@@ -26,8 +26,9 @@ function setHeadlineText({
 
 export const H1 = styled.h1`
   ${setHeadlineText({size: "3rem"})}
-  @media ${cellphoneMediaQuery}{
-      font-size: 2rem;
+  text-align: ${props => (props.center ? "center" : "left")};
+  @media ${cellphoneMediaQuery} {
+    font-size: 2rem;
   }
 `;
 export const H2 = styled.h2`
