@@ -74,6 +74,7 @@ function App({user}) {
               path={USER_PAGE}
               component={UserPage}
             />
+
             <PrivateRoute
               userIsLoged={user.isLoged}
               exact
