@@ -127,13 +127,13 @@ function App({user}) {
               exact
               path={EDIT_USER}
             />
-            <PrivateRoute
+            <PublicRoute
               userIsLoged={user.isLoged}
               component={SignupPage}
               exact
               path={SIGNUP_ROUTE}
             />
-            <PrivateRoute
+            <PublicRoute
               userIsLoged={user.isLoged}
               component={LoginPage}
               exact

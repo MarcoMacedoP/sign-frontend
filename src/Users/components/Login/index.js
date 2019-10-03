@@ -29,7 +29,7 @@ export const Login = ({
           type="email"
           placeholder="example@email.com"
           onChange={handleChange}
-          value={formValues}
+          value={formValues.email}
         />
         <Input
           name="password"
@@ -37,7 +37,7 @@ export const Login = ({
           type="password"
           placeholder="*********"
           onChange={handleChange}
-          value={formValues}
+          value={formValues.password}
         />
 
         <ErrorMessage error={error} onClose={handleOnErrorClose} />
