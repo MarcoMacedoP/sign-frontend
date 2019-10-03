@@ -6,9 +6,6 @@ import {PrivateRoute, PublicRoute} from "./global/components";
 import {LastLocationProvider} from "react-router-last-location";
 // Pages
 import {Landing} from "./LandingPage";
-import {SignupContainer} from "./Users";
-import UserPage from "./Users/components/UserPage";
-import LoginContainer from "./Users/components/LoginContainer";
 import {
   AddClient,
   ClientsList,
@@ -19,6 +16,21 @@ import {
   ProviderPageContainer,
   ProviderListContainer
 } from "./Providers";
+
+//--------------projects pages--------------------------
+import ProjectList from "./Projects/components/ProjectListContainer";
+import ProjectPage from "./Projects/components/ProjectPageContainer";
+import AddProject from "./Projects/components/AddProjectPageContainer";
+
+//--------------end projects pages----------------------
+
+//--------------user pages--------------------------
+import EditUser from "./Users/components/EditUser";
+import LoginPage from "./Users/components/LoginContainer";
+import SignupPage from "./Users/components/SignupContainer";
+import UserPage from "./Users/components/UserPage";
+//--------------end user pages-----------------------
+
 import {RemindersList} from "./Reminders";
 import {PageNotFound} from "./global/components/PageNotFound";
 // Routes
@@ -27,15 +39,18 @@ import {
   APP_HOME_ROUTE,
   CLIENTS_ROUTE,
   LANDING_ROUTE,
-  LOGIN_ROUTE,
   PROVIDERS_ROUTE,
   REMINDERS_ROUTE,
-  SIGNUP_ROUTE,
   PROVIDER_PAGE_ROUTE,
   CLIENT_PAGE_ROUTE,
-  USER_PAGE
+  USER_PAGE,
+  EDIT_USER,
+  SIGNUP_ROUTE,
+  LOGIN_ROUTE,
+  PROJECTS_PAGE_ROUTE,
+  ADD_PROJECTS_ROUTE,
+  PROJECTS_ROUTE
 } from "./global/utils/routes";
-import ProjectsRoutes from "./Projects/routes";
 // Resources
 import {GlobalStyles} from "./global/styles/GlobalStyles";
 //redux
@@ -56,31 +71,13 @@ function App({user}) {
               path={LANDING_ROUTE}
               component={Landing}
             />
-            <PublicRoute
-              userIsLoged={user.isLoged}
-              exact
-              path={LOGIN_ROUTE}
-              component={LoginContainer}
-            />
-            <PublicRoute
-              userIsLoged={user.isLoged}
-              exact
-              path={SIGNUP_ROUTE}
-              component={SignupContainer}
-            />
-            <PrivateRoute
-              userIsLoged={user.isLoged}
-              exact
-              path={USER_PAGE}
-              component={UserPage}
-            />
-
             <PrivateRoute
               userIsLoged={user.isLoged}
               exact
               path={APP_HOME_ROUTE}
               component={Dashboard}
             />
+
             <PrivateRoute
               userIsLoged={user.isLoged}
               exact
@@ -117,13 +114,57 @@ function App({user}) {
               path={REMINDERS_ROUTE}
               component={RemindersList}
             />
-            <ProjectsRoutes />
+            {/*------------user routes -------------------*/}
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              component={UserPage}
+              exact
+              path={USER_PAGE}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              component={EditUser}
+              exact
+              path={EDIT_USER}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              component={SignupPage}
+              exact
+              path={SIGNUP_ROUTE}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              component={LoginPage}
+              exact
+              path={LOGIN_ROUTE}
+            />
             <PrivateRoute
               userIsLoged={user.isLoged}
               component={Test}
               exact
               path="/test/"
             />
+            {/*------------end user routes -------------------*/}
+
+            {/*------------projects routes -------------------*/}
+            <Route
+              exact
+              path={PROJECTS_ROUTE}
+              component={ProjectList}
+            />
+            <Route
+              exact
+              path={ADD_PROJECTS_ROUTE}
+              component={AddProject}
+            />
+            <Route
+              exact
+              path={PROJECTS_PAGE_ROUTE}
+              component={ProjectPage}
+            />
+            {/*------------end projects routes -----------------*/}
+
             <Route component={PageNotFound} />
           </Switch>
         </Layout>
