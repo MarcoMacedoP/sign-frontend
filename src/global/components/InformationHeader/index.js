@@ -49,13 +49,7 @@ export const InformationHeader = ({
   email,
   date,
   job,
-  options = [
-    {
-      onClick: function() {},
-      title: "",
-      icon: ""
-    }
-  ]
+  options = []
 }) => {
   const {state, toggleStateValue} = useHandleState({
     goBack: false,
@@ -63,63 +57,71 @@ export const InformationHeader = ({
   });
   const goLastPage = () => toggleStateValue("goBack");
   const toggleToastMenu = () => toggleStateValue("toastMenuIsShowed");
-
+  console.log(options);
   const lastLocation = useLastLocation() || APP_HOME_ROUTE;
   return (
-    <About>
-      {state.goBack && <Redirect to={lastLocation} />}
+    <>
       <Navigation>
         <Icon icon="arrow_back" onClick={goLastPage} />
-        <Icon icon="more_vert" onClick={toggleToastMenu} />
-        <ToastMenu
-          isShowed={state.toastMenuIsShowed}
-          onClose={toggleToastMenu}
-          menuItems={options || []}
-        />
+        {state.goBack && <Redirect to={lastLocation} />}
+
+        {/*If there is options to render on a Menu, then render the menu */}
+        {options.length !== 0 && (
+          <>
+            <Icon icon="more_vert" onClick={toggleToastMenu} />
+            <ToastMenu
+              isShowed={state.toastMenuIsShowed}
+              onClose={toggleToastMenu}
+              menuItems={options || []}
+            />
+          </>
+        )}
       </Navigation>
 
-      <Name>{title || "title"}</Name>
-      <BiographyContainer>
-        <ProfilePicture
-          image={imageUrl || image_url}
-          isShowed={imageIsShow}
-        >
-          <img
-            src={imageUrl || image_url}
-            alt={`Profile of ${title || "name"}`}
-          />
-        </ProfilePicture>
-        <Biography imageIsShow={imageIsShow}>
-          {about || "Acerca de ..."}
-        </Biography>
-      </BiographyContainer>
+      <About>
+        <Name>{title || "title"}</Name>
+        <BiographyContainer>
+          <ProfilePicture
+            image={imageUrl || image_url}
+            isShowed={imageIsShow}
+          >
+            <img
+              src={imageUrl || image_url}
+              alt={`Profile of ${title || "name"}`}
+            />
+          </ProfilePicture>
+          <Biography imageIsShow={imageIsShow}>
+            {about || "Acerca de ..."}
+          </Biography>
+        </BiographyContainer>
 
-      <ContactInfoContainer>
-        {phone && (
-          <ContactInfo>
-            <Icon icon="contact_phone" hasAnimatedClick={false} />
-            <p>{phone}</p>
-          </ContactInfo>
-        )}
-        {email && (
-          <ContactInfo>
-            <Icon icon="email" hasAnimatedClick={false} />
-            <p>{email}</p>
-          </ContactInfo>
-        )}
-        {date && (
-          <DateContainer>
-            <Icon hasAnimatedClick={false} icon="timer" />
-            <Date>{date}</Date>
-          </DateContainer>
-        )}
-        {job && (
-          <DateContainer>
-            <Icon hasAnimatedClick={false} icon="work" />
-            <Date>{job}</Date>
-          </DateContainer>
-        )}
-      </ContactInfoContainer>
-    </About>
+        <ContactInfoContainer>
+          {phone && (
+            <ContactInfo>
+              <Icon icon="contact_phone" hasAnimatedClick={false} />
+              <p>{phone}</p>
+            </ContactInfo>
+          )}
+          {email && (
+            <ContactInfo>
+              <Icon icon="email" hasAnimatedClick={false} />
+              <p>{email}</p>
+            </ContactInfo>
+          )}
+          {date && (
+            <DateContainer>
+              <Icon hasAnimatedClick={false} icon="timer" />
+              <Date>{date}</Date>
+            </DateContainer>
+          )}
+          {job && (
+            <DateContainer>
+              <Icon hasAnimatedClick={false} icon="work" />
+              <Date>{job}</Date>
+            </DateContainer>
+          )}
+        </ContactInfoContainer>
+      </About>
+    </>
   );
 };

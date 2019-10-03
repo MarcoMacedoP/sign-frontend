@@ -5,15 +5,19 @@ import {
   whiteColorLigth,
   blackColorTransparent
 } from "../../styles/variables";
+import {Menu as ToastMenu} from "../ToastMenu/styles";
+
 import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
+
 export const About = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
+  overflow: scroll;
 `;
 export const Navigation = styled.nav`
-  width: 100%;
+  width: 90vw;
   box-sizing: border-box;
   height: 3rem;
   display: flex;
@@ -21,8 +25,13 @@ export const Navigation = styled.nav`
   justify-content: space-between;
   position: sticky;
   top: 0;
+  left: 0;
   background: ${whiteColorLigth};
-  z-index: 4;
+  z-index: 1;
+
+  ${ToastMenu} {
+    top: 0;
+  }
 `;
 
 export const Name = styled(H1)`

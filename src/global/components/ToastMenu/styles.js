@@ -14,7 +14,8 @@ export const Menu = styled.ul`
   transition: width 200ms ease-out;
 
   position: absolute;
-  top: 4rem;
+  z-index: 6;
+  top: 3rem;
   right: 1.5rem;
 
   box-shadow: -1px 4px 19px 1px rgba(112, 112, 112, 0.29);
@@ -47,6 +48,7 @@ export const MenuItem = styled.li`
   :hover {
     background-color: ${mainColor};
     a,
+    p,
     i {
       color: ${whiteColorLigth};
     }
