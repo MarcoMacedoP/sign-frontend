@@ -15,6 +15,7 @@ export {ErrorMessage} from "./ErrorMessage";
 export {Icon} from "./Icon";
 export {Comments} from "./Comments";
 export {ToastMenu} from "./ToastMenu";
+export {UploadImage} from "./UploadImage";
 //Routes Component
 export {PrivateRoute} from "./PrivateRoute";
 export {PublicRoute} from "./PublicRoute";
