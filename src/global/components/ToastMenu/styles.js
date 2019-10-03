@@ -35,7 +35,8 @@ export const MenuItem = styled.li`
 
   cursor: pointer;
 
-  a {
+  a,
+  p {
     width: 100%;
     color: ${blackColorTransparent};
     text-decoration: none;

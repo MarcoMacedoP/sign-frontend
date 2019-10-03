@@ -8,7 +8,6 @@ import {InformationHeader} from "../../../global/components/";
 import {Redirect} from "react-router-dom";
 //styled-components
 import {Container} from "./styles";
-import EditUser from "../EditUser";
 //utils
 import {EDIT_USER} from "../../../global/utils/routes";
 /**This component return a page with the user information.

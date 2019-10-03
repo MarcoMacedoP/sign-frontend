@@ -23,14 +23,13 @@ const Layout = withRouter(({children, user, logout, history}) => {
         <AppNavbar
           openMenu={() => setMenuStatus(true)}
           profilePicture={user.picture}
-          redirectToUserPage={redirectToUserPage}
+          onLogout={logout}
         />
         <LateralMenu
           redirectToUserPage={redirectToUserPage}
           isShowed={menuStatus}
           closeMenu={() => setMenuStatus(false)}
           user={user}
-          onLogout={logout}
         />
         {children}
       </ThemeProvider>

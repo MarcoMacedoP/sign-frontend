@@ -16,19 +16,26 @@ export const ToastMenu = ({
       onClick: function() {}
     }
   ]
-}) => (
-  <Menu onMouseLeave={onClose} isShowed={isShowed}>
-    {menuItems.map(item => (
-      <ToastMenuItem
-        icon={item.icon}
-        title={item.title}
-        direction={item.direction}
-        isShowed={isShowed}
-        onClick={item.onClick}
-      />
-    ))}
-  </Menu>
-);
+}) => {
+  let count = 0;
+  return (
+    <Menu onMouseLeave={onClose} isShowed={isShowed}>
+      {menuItems.map(item => {
+        count++;
+        return (
+          <ToastMenuItem
+            key={count}
+            icon={item.icon}
+            title={item.title}
+            direction={item.direction}
+            isShowed={isShowed}
+            onClick={item.onClick}
+          />
+        );
+      })}
+    </Menu>
+  );
+};
 const ToastMenuItem = ({
   isShowed,
   onClick,
@@ -37,7 +44,7 @@ const ToastMenuItem = ({
   title
 }) => (
   <MenuItem onClick={onClick} isShowed={isShowed}>
-    <Link to={direction}>{title}</Link>
+    {direction ? <Link to={direction}>{title}</Link> : <p>{title}</p>}
     <Icon icon={icon} hasAnimatedClick={false} />
   </MenuItem>
 );
