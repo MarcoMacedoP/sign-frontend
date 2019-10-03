@@ -5,10 +5,12 @@ import {connect} from "react-redux";
 import {useState} from "react";
 //components
 import {InformationHeader} from "../../../global/components/";
+import {Redirect} from "react-router-dom";
 //styled-components
 import {Container} from "./styles";
-import {EditUser} from "../EditUser";
-
+import EditUser from "../EditUser";
+//utils
+import {EDIT_USER} from "../../../global/utils/routes";
 /**This component return a page with the user information.
  * editMode can be activated from the options of InforationHeader component.
  * In edit mode users can edit is own data.
@@ -16,12 +18,12 @@ import {EditUser} from "../EditUser";
  */
 const UserPage = ({user}) => {
   const {name, lastname, job, picture, bio} = user;
-  const [editMode, setEditMode] = useState(true);
-  if (editMode) {
-    return <EditUser {...user} />;
-  }
+  const [editMode, setEditMode] = useState(false);
+  const enableEditMode = () => setEditMode(true);
+
   return (
     <Container>
+      {editMode && <Redirect to={EDIT_USER} />}
       <InformationHeader
         title={`${name} ${lastname}`}
         imageUrl={picture}
@@ -30,7 +32,7 @@ const UserPage = ({user}) => {
         options={[
           {
             title: "Editar perfil",
-            onClick: () => console.log("editar user"),
+            onClick: enableEditMode,
             icon: "edit"
           }
         ]}

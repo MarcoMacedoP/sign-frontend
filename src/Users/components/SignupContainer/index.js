@@ -34,7 +34,8 @@ export const SignupContainer = ({match}) => {
       //Everthing in the rigth place
       try {
         debugger;
-        const {data: user} = await fetchData();
+        const data = await fetchData();
+        console.log(data);
       } catch (error) {
         console.log(error);
         setError(error.message);
@@ -55,3 +56,4 @@ export const SignupContainer = ({match}) => {
     />
   );
 };
+export default SignupContainer;

@@ -4,7 +4,7 @@ export const APP_HOME_ROUTE = "/app";
 export const LOGIN_ROUTE = "/login";
 export const SIGNUP_ROUTE = "/signup";
 export const USER_PAGE = `${APP_HOME_ROUTE}/user/`;
-export const EDIT_USER = `${USER_PAGE}?edit=true`;
+export const EDIT_USER = `${USER_PAGE}edit/`;
 //providers
 export const PROVIDERS_ROUTE = `${APP_HOME_ROUTE}/providers/`;
 export const PROVIDER_PAGE_ROUTE = `${PROVIDERS_ROUTE}:providerId`;

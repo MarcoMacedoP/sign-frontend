@@ -1,5 +1,5 @@
 //Components
-import React, {useState} from "react";
+import React from "react";
 import {Redirect} from "react-router-dom";
 import {ToastMenu} from "../ToastMenu";
 import {Icon} from "../Icon";

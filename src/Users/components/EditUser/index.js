@@ -4,8 +4,10 @@ import {useHandleState} from "../../../global/hooks/";
 //components
 import {Input} from "../../../global/components/";
 import {EditPage} from "../../../global/components/EditPage";
+//redux
+import {connect} from "react-redux";
 
-export function EditUser({name, lastname, bio, job}) {
+function EditUser({name, lastname, bio, job}) {
   const initialState = {name, lastname, bio, job};
   const {state, addFormValueToState} = useHandleState(initialState);
   return (
@@ -40,3 +42,10 @@ export function EditUser({name, lastname, bio, job}) {
     </EditPage>
   );
 }
+
+const mapStateToProps = state => ({...state.user});
+
+export default connect(
+  mapStateToProps,
+  null
+)(EditUser);
