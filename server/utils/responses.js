@@ -7,7 +7,6 @@ function sendBadResponse({
   statusCode = 500,
   data = []
 }) {
-  debug(`error: ${error}`);
   response.status(statusCode).json({
     message,
     data,
@@ -21,6 +20,6 @@ function sendGoodResponse({
   statusCode = 200,
   data = []
 }) {
-  response.status(statusCode).json({message, data, statusCode});
+  response.status(statusCode).json({message, ...data, statusCode});
 }
 module.exports = {sendBadResponse, sendGoodResponse};
