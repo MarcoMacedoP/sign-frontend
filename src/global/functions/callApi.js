@@ -5,7 +5,7 @@ const BASE_URL = "http://localhost:8080/api";
  * 						BASE_URL=http://localhost:8080/api
  *@param options the options to be used like method: 'post'
  */
-export async function callApi(endpoint, options = {}) {
+export function callApi(endpoint, options = {}) {
   options.headers = {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -13,10 +13,10 @@ export async function callApi(endpoint, options = {}) {
   };
   const url = BASE_URL + endpoint;
   return fetch(url, options)
-    .then(response => response.json)
-    .then(({data, statusCode, message}) =>
-      statusCode >= 200 && statusCode < 300
-        ? {data, statusCode, message}
-        : {error: new Error(message), statusCode}
-    );
+    .then(response => response.json())
+    .then(({data, statusCode, message}) => ({
+      data,
+      statusCode,
+      message
+    }));
 }

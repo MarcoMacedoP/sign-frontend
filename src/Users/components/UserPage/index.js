@@ -16,6 +16,7 @@ import {EDIT_USER} from "../../../global/utils/routes";
  *
  */
 const UserPage = ({user}) => {
+  debugger;
   const {name, lastname, job, picture, bio} = user;
   const [editMode, setEditMode] = useState(false);
   const enableEditMode = () => setEditMode(true);
@@ -40,7 +41,11 @@ const UserPage = ({user}) => {
   );
 };
 
-const mapStateToProps = state => ({user: state.user});
+const mapStateToProps = state => {
+  debugger;
+
+  return {user: state.user};
+};
 
 export default connect(
   mapStateToProps,

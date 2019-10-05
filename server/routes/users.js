@@ -3,7 +3,6 @@ const axios = require("axios");
 const debug = require("debug")("app:users:routes");
 const multer = require("multer");
 const fs = require("fs");
-const {exec} = require("child_process");
 //utils
 const convertToFormData = require("../utils/convertToFormData");
 //init

@@ -10,7 +10,7 @@ import {callApi} from "../../functions/callApi";
 
 export const login = user => ({
   type: LOG_IN,
-  payload: {user}
+  payload: {...user}
 });
 
 export const logout = () => ({
