@@ -1,8 +1,8 @@
 import React from "react";
 // components
-import { DashboardItem } from "../DashboardItem";
+import {DashboardItem} from "../DashboardItem";
 // styled-components
-import { Container } from "./styles";
+import {Container} from "./styles";
 // static
 import iconClient from "../../../global/static/icons/Clients.svg";
 import iconProjects from "../../../global/static/icons/Projects.svg";
@@ -14,7 +14,8 @@ import {
   CLIENTS_ROUTE,
   PROVIDERS_ROUTE,
   REMINDERS_ROUTE,
-  PROJECTS_ROUTE
+  PROJECTS_ROUTE,
+  TEAMS_LIST
 } from "../../../global/utils/routes";
 
 export const Dashboard = () => {
@@ -39,7 +40,7 @@ export const Dashboard = () => {
         description="Administra a tus proveedores y los servicisos o productos que te ofrecen."
       />
       <DashboardItem
-        linkDirection="/404/"
+        linkDirection={TEAMS_LIST}
         title="Colaboradores"
         icon={iconTeams}
         description="Crea equipos de trabajo con diferentes usuarios."

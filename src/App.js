@@ -17,11 +17,14 @@ import {
   ProviderListContainer
 } from "./Providers";
 
+//--------------teams pages----------------------------
+import TeamsList from "./Teams/components/TeamsList";
+//--------------end teams page--------------------------
+
 //--------------projects pages--------------------------
 import ProjectList from "./Projects/components/ProjectListContainer";
 import ProjectPage from "./Projects/components/ProjectPageContainer";
 import AddProject from "./Projects/components/AddProjectPageContainer";
-
 //--------------end projects pages----------------------
 
 //--------------user pages--------------------------
@@ -49,7 +52,8 @@ import {
   LOGIN_ROUTE,
   PROJECTS_PAGE_ROUTE,
   ADD_PROJECTS_ROUTE,
-  PROJECTS_ROUTE
+  PROJECTS_ROUTE,
+  TEAMS_LIST
 } from "./global/utils/routes";
 // Resources
 import {GlobalStyles} from "./global/styles/GlobalStyles";
@@ -164,6 +168,15 @@ function App({user}) {
               component={ProjectPage}
             />
             {/*------------end projects routes -----------------*/}
+
+            {/*------------teams routes ------------------------*/}
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={TEAMS_LIST}
+              component={TeamsList}
+            />
+            {/*------------end teams routes --------------------*/}
 
             <Route component={PageNotFound} />
           </Switch>
