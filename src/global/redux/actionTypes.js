@@ -7,3 +7,5 @@ export const ADD_PROJECT = "ADD_PROJECT";
 export const ADD_ACTIVITE = "ADD_ACTIVITIE";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const CHANGE_ACTIVITY_TYPE = "CHANGE_ACTIVITY_TYPE";
+//Teams
+export const ADD_TEAM = "ADD_TEAM";

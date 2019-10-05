@@ -1,15 +1,22 @@
 import React from "react";
 //redux
 import {connect} from "react-redux";
-import {addTeam} from "../../../global/redux/actions/teams";
 //components
 import {List, LongCard} from "../../../global/components";
+import {Redirect} from "react-router-dom";
+//hooks
+import {useState} from "react";
 //styled-components
 import {TeamListItem} from "./styles";
+//utils
+import {ADD_TEAM} from "../../../global/utils/routes";
 
-function TeamsList({teams = [], addTeam}) {
+function TeamsList({teams = []}) {
+  const [isRedirect, setRedirect] = useState(false);
+  const handleRedirect = () => setRedirect(true);
   return (
-    <List title="Coolaboradores">
+    <List title="Coolaboradores" onAddButtonClick={handleRedirect}>
+      {isRedirect && <Redirect to={ADD_TEAM} />}
       {teams.map(team => (
         <TeamListItem key={team.id}>
           <LongCard
@@ -23,13 +30,8 @@ function TeamsList({teams = [], addTeam}) {
   );
 }
 
-const mapStateToProps = state => {
-  debugger;
-
-  return {teams: state.teams};
-};
-
+const mapStateToProps = state => ({teams: state.teams});
 export default connect(
   mapStateToProps,
-  {addTeam}
+  null
 )(TeamsList);

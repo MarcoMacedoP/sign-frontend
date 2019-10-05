@@ -18,7 +18,7 @@ export const AddProjectPage = ({
       info=" La herramienta de proyectos permite, de manera sencilla,
           organizar y administrar proyectos de gran escala, es decir
           proyectos cuya duración puede extenderse por un periodo de
-          considerable de tiempo. :p"
+          considerable de tiempo."
     >
       <BaseForm>
         <Input

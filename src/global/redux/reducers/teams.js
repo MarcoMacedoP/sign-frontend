@@ -13,11 +13,7 @@ const initialState = [
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TEAM:
-      const addedTeam = action.payload.team;
-      //return teams filtered
-      return state.map(team =>
-        team.id === addedTeam.id ? addedTeam : team
-      );
+      return [...state, action.payload.team];
 
     default:
       return [...state];
