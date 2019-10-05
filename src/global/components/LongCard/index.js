@@ -12,15 +12,9 @@ import {Icon} from "../Icon";
 /**
  * @description Makes a long card full size of the width
  */
-export const LongCard = ({
-  title,
-  date,
-  picture,
-  onClick,
-  hasPicture
-}) => (
+export const LongCard = ({title, date, picture, onClick}) => (
   <Container onClick={onClick}>
-    {hasPicture && (
+    {picture && (
       <PictureContainer>
         <Picture image={picture} />
       </PictureContainer>
