@@ -4,21 +4,32 @@ import {
   Picture,
   Title,
   Date,
-  ArrowIcon,
-  PictureContainer
+  PictureContainer,
+  IconContainer
 } from "./styles";
-
+//components
+import {Icon} from "../Icon";
 /**
  * @description Makes a long card full size of the width
  */
-export const LongCard = ({ title, date, picture, onClick }) => (
+export const LongCard = ({
+  title,
+  date,
+  picture,
+  onClick,
+  hasPicture
+}) => (
   <Container onClick={onClick}>
-    <PictureContainer>
-      <Picture image={picture} />
-    </PictureContainer>
+    {hasPicture && (
+      <PictureContainer>
+        <Picture image={picture} />
+      </PictureContainer>
+    )}
     <Title>{title || "Nombre"}</Title>
 
     <Date>{date || "04/08/2000"}</Date>
-    <ArrowIcon>arrow_forward_ios</ArrowIcon>
+    <IconContainer>
+      <Icon icon="arrow_forward_ios" />
+    </IconContainer>
   </Container>
 );
