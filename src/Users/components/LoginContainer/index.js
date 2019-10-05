@@ -30,7 +30,7 @@ function LoginContainer(props) {
     } else {
       //Everything ok
       try {
-        const {data: fetchedData} = await fetchData();
+        const fetchedData = await fetchData();
         login(fetchedData.user);
       } catch (error) {
         setError(error.message);

@@ -19,11 +19,12 @@ export const EditPage = ({
   onSubmit,
   onCancel,
   onDelete,
-  children
+  children,
+  formType
 }) => (
   <AppContainer>
     <H1 center>{title}</H1>
-    <BaseForm>
+    <BaseForm type={formType} onSubmit={onSubmit}>
       {children}
 
       <SecondaryButton
