@@ -1,5 +1,5 @@
 import React from "react";
-import { MaterialIcon } from "../../styles/foundations/MaterialIcon";
+import {MaterialIcon} from "../../styles/foundations/MaterialIcon";
 import {
   Container,
   Picture,
@@ -8,8 +8,13 @@ import {
   PictureContainer,
   IconContainer
 } from "./styles";
-export const PictureCard = ({ picture, description, title, id }) => (
-  <Container>
+export const PictureCard = ({
+  className,
+  picture,
+  description,
+  title
+}) => (
+  <Container className={className}>
     <PictureContainer>
       <Picture url={picture} />
     </PictureContainer>

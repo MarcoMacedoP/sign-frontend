@@ -33,7 +33,7 @@ export const PictureContainer = styled.div`
   justify-content: center;
 
   width: 100%;
-  height: inherit;
+  height: 100%;
   padding-left: 1rem;
   box-sizing: border-box;
 `;
@@ -45,7 +45,7 @@ export const Picture = styled.picture`
   min-height: 4rem;
   border-radius: 50%;
 
-  ${(props) =>
+  ${props =>
     props.url
       ? `background-image:url(${props.url})`
       : `background-color: ${secondaryColorLigth}`};

@@ -9,7 +9,10 @@ export {Button} from "./Button";
 export {SecondaryButton} from "./SecondaryButton";
 export {InformationHeader} from "./InformationHeader";
 export {SmallEmptyState} from "./SmallEmptyState";
+//list
 export {List} from "./List";
+export {AsideList, AsideListItem} from "./AsideList";
+
 export {InfoLayout} from "./InfoLayout";
 export {ErrorMessage} from "./ErrorMessage";
 export {Icon} from "./Icon";

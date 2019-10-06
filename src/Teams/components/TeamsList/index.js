@@ -2,7 +2,7 @@ import React from "react";
 //redux
 import {connect} from "react-redux";
 //components
-import {List, LongCard} from "../../../global/components";
+import {AsideList, AsideListItem} from "../../../global/components";
 import {Redirect} from "react-router-dom";
 //hooks
 import {useState} from "react";
@@ -15,18 +15,20 @@ function TeamsList({teams = []}) {
   const [isRedirect, setRedirect] = useState(false);
   const handleRedirect = () => setRedirect(true);
   return (
-    <List title="Coolaboradores" onAddButtonClick={handleRedirect}>
+    <AsideList
+      title="Coolaboradores"
+      onAddButtonClick={handleRedirect}
+    >
       {isRedirect && <Redirect to={ADD_TEAM} />}
       {teams.map(team => (
-        <TeamListItem key={team.id}>
-          <LongCard
-            picture={team.picture}
-            title={`${team.name}`}
-            date={team.about}
-          />
-        </TeamListItem>
+        <AsideListItem
+          key={team.id}
+          picture={team.picture}
+          title={`${team.name}`}
+          date={team.about}
+        />
       ))}
-    </List>
+    </AsideList>
   );
 }
 
