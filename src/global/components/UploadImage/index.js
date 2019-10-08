@@ -1,6 +1,16 @@
 import React from "react";
 //hooks
 import {useState} from "react";
+//components
+import {Icon} from "../Icon";
+//styled-components
+import {
+  Container,
+  Image,
+  Upload,
+  UploadInput,
+  UploadText
+} from "./styles";
 
 export const UploadImage = ({name, onUpload, value}) => {
   const [state, setState] = useState({
@@ -23,16 +33,20 @@ export const UploadImage = ({name, onUpload, value}) => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleChange} name={name} />
-      <img
+    <Container>
+      <Image
         src={state.isUploaded ? state.base64UrlImage : value}
-        alt="profile pic"
-        width="300px"
-        height="auto"
+        alt=""
       />
-
-      <p>Agregar fotografía</p>
-    </div>
+      <Upload>
+        <UploadInput
+          type="file"
+          onChange={handleChange}
+          name={name}
+        />
+        <Icon icon="camera_alt" />
+        <UploadText>Agregar fotografía</UploadText>
+      </Upload>
+    </Container>
   );
 };
