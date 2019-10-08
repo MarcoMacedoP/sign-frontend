@@ -8,13 +8,9 @@ import {
 import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
 
 import {PictureCard} from "../PictureCard";
-import {
-  Description,
-  PictureContainer,
-  Title
-} from "../PictureCard/styles";
+import {Description, Title} from "../PictureCard/styles";
 export const Aside = styled.aside`
-  width: 70vw;
+  width: 30vw;
   height: 100vh;
   max-height: 100vh;
   overflow: scroll;
@@ -22,6 +18,10 @@ export const Aside = styled.aside`
   flex-direction: column;
   box-shadow: ${appShadow};
   background-color: ${whiteColorLigth};
+
+  @media ${cellphoneMediaQuery} {
+    width: 70vw;
+  }
 `;
 
 export const Navigation = styled.nav`
@@ -45,8 +45,10 @@ export const AsideListItemBase = styled(PictureCard)`
   }
 
   ${Description} {
-    max-height: 40px;
+    width: 100%;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
   @media ${cellphoneMediaQuery} {
     grid-template-rows: 1fr;

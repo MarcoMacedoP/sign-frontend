@@ -6,8 +6,6 @@ import {AsideList, AsideListItem} from "../../../global/components";
 import {Redirect} from "react-router-dom";
 //hooks
 import {useState} from "react";
-//styled-components
-import {TeamListItem} from "./styles";
 //utils
 import {ADD_TEAM} from "../../../global/utils/routes";
 

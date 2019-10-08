@@ -11,7 +11,12 @@ export const UploadImage = ({name, onUpload, value}) => {
   return (
     <div>
       <input type="file" onChange={handleChange} name={name} />
-      <img src={value} width="300px" height="auto" />
+      <img
+        src={value}
+        width="300px"
+        height="auto"
+        alt="upload"
+      />
 
       <p>Agregar fotografía</p>
     </div>

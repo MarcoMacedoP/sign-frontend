@@ -3,7 +3,6 @@ import React from "react";
 //components
 import {Icon} from "../Icon";
 import {Redirect} from "react-router-dom";
-import {PictureCard} from "../PictureCard";
 //hooks
 import {useHandleState} from "../../hooks";
 import {useLastLocation} from "react-router-last-location";
