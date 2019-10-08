@@ -22,7 +22,7 @@ const Layout = withRouter(({children, user, logout, history}) => {
       <ThemeProvider theme={theme}>
         <AppNavbar
           openMenu={() => setMenuStatus(true)}
-          profilePicture={user.picture}
+          profilePicture={user.profilePic}
           onLogout={logout}
         />
         <LateralMenu

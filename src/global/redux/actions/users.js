@@ -27,7 +27,7 @@ export const requestUserUpdate = user => ({
 });
 export const recieveUserUpdate = updatedUser => ({
   type: RECIEVE_USER_UPDATE,
-  updatedUser
+  payload: updatedUser
 });
 
 /**Call the api with new user data for update the user.
@@ -40,17 +40,20 @@ export const fetchUserUpdate = (
   updatedUserFormData
 ) => dispatch => {
   dispatch(requestUserUpdate(user));
-  return callApi(`/users/${user.id}`, {
-    method: "put",
-    headers: {...updatedUserFormData.headers()},
-    body: updatedUserFormData
-  }).then(({error, data, message, statusCode}) => {
-    if (error) {
-      console.error(error);
-      dispatch(errorOnUserUpdate(error));
+  return callApi(
+    `/users/${user.id}`,
+    {
+      method: "put",
+      body: updatedUserFormData
+    },
+    false
+  ).then(response => {
+    debugger;
+    if (response.error) {
+      console.error(response.error);
+      dispatch(errorOnUserUpdate(response.error));
     } else {
-      console.log({data, message, statusCode});
-      dispatch(recieveUserUpdate(data));
+      dispatch(recieveUserUpdate(response.data));
     }
   });
 };

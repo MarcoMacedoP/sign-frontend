@@ -57,7 +57,6 @@ export const InformationHeader = ({
   });
   const goLastPage = () => toggleStateValue("goBack");
   const toggleToastMenu = () => toggleStateValue("toastMenuIsShowed");
-  console.log(options);
   const lastLocation = useLastLocation() || APP_HOME_ROUTE;
   return (
     <>

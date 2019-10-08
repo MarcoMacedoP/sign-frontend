@@ -18,13 +18,13 @@ function ActivitieList({
 }) {
   const handleOnDragOver = event => event.preventDefault();
   const handleOnDrop = event => {
-    debugger;
+    ;
     event.preventDefault();
     const activitie = JSON.parse(event.dataTransfer.getData("text"));
     changeActivitieType({project, activitie, newType: activitieType});
   };
   const handleDrag = (event, activitie) => {
-    debugger;
+    ;
     event.dataTransfer.setData("text", JSON.stringify(activitie));
   };
   return (

@@ -19,12 +19,13 @@ import {
   PROVIDERS_ROUTE
 } from "../../../global/utils/routes";
 export const LateralMenu = ({isShowed, user = {}, closeMenu}) => {
+  debugger;
   if (isShowed) {
     return (
       <Menu>
         <CloseIcon onClick={closeMenu}>close</CloseIcon>
         <Header>
-          <ProfileImage image={user.picture} />
+          <ProfileImage image={user.profilePic} />
           <Username>{user.name || "Username"}</Username>
           <Location>{user.job || "Job title"}</Location>
         </Header>

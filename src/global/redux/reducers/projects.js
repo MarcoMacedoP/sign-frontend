@@ -100,7 +100,7 @@ function projectReducer(state = initialState, action) {
         type: payload.newType
       };
       return state.map(project => {
-        debugger;
+        ;
         return {
           ...project,
           //map activities and update selected activitie

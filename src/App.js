@@ -174,7 +174,6 @@ function App({user}) {
 }
 
 const mapStateToProps = state => {
-  debugger;
   return {user: state.user};
 };
 

@@ -14,7 +14,7 @@ function EditUser({user, loading, error, fetchUserUpdate}) {
     lastname: user.lastname,
     bio: user.bio,
     job: user.job,
-    picture: user.picture
+    profilePic: user.profilePic
   };
 
   const {
@@ -23,14 +23,15 @@ function EditUser({user, loading, error, fetchUserUpdate}) {
     addValueToState
   } = useHandleState(initialState);
 
-  const handleUploadImage = imgUrl =>
-    addValueToState("picture", imgUrl);
+  const handleUploadImage = fileImage =>
+    addValueToState("profilePic", fileImage);
 
   const handleSubmit = event => {
     event.preventDefault();
-    const userFormData = new FormData();
+    debugger;
+    let userFormData = new FormData();
     //add all elements to form data
-    Object.keys(state).forEach(key =>
+    Object.keys(state).map(key =>
       userFormData.append(key, state[key])
     );
     fetchUserUpdate(user, userFormData);
@@ -40,12 +41,12 @@ function EditUser({user, loading, error, fetchUserUpdate}) {
     <EditPage
       title="Editar perfil"
       onDelete={true}
-      onSumbit={handleSubmit}
+      onSubmit={handleSubmit}
     >
       <UploadImage
         name="picture"
         onUpload={handleUploadImage}
-        value={state.picture}
+        value={state.profilePic}
       />
       <Input
         name="name"

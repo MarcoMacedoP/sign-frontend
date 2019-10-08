@@ -30,6 +30,7 @@ export const EditPage = ({
       <SecondaryButton
         bordercolor={positiveStatusColor}
         onClick={onSubmit}
+        type="submit"
       >
         Guardar
       </SecondaryButton>

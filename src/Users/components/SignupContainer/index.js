@@ -33,7 +33,7 @@ export const SignupContainer = ({match}) => {
     } else {
       //Everthing in the rigth place
       try {
-        debugger;
+        ;
         const data = await fetchData();
         console.log(data);
       } catch (error) {

@@ -26,6 +26,7 @@ router.put(
   "/:userId",
   upload.single("profilePic"),
   async (req, res, next) => {
+    debug(req.body);
     try {
       //create FormData from req.body
       const form = convertToFormData(req.body);
@@ -45,7 +46,7 @@ router.put(
       );
       sendGoodResponse({
         response: res,
-        data: {...data},
+        data: {...data.data},
         statusCode: status
       });
     } catch (error) {

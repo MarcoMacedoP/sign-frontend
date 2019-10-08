@@ -8,8 +8,7 @@ import {connect} from "react-redux";
 import {login} from "../../../global/redux/actions/users";
 
 //Container component
-function LoginContainer(props) {
-  const {login} = props;
+function LoginContainer({login}) {
   //state handlers
   const {state: formValues, addFormValueToState} = useHandleState({
     email: "",

@@ -20,7 +20,7 @@ import {
 //component
 export const ProjectPage = ({project, modalIsOpen, handleModal}) => {
   const {name, description, dueDate, activities = {}} = project;
-  debugger;
+  ;
 
   return (
     <PageContainer>

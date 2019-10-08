@@ -6,13 +6,15 @@ export const SecondaryButton = ({
   variant = "contained",
   children,
   width,
-  onClick
+  onClick,
+  type
 }) => (
   <Button
     variant={variant}
     bordercolor={bordercolor}
     width={width}
     onClick={onClick}
+    type={type}
   >
     {children}{" "}
   </Button>
