@@ -3,7 +3,6 @@ const axios = require("axios");
 const debug = require("debug")("app:users:routes");
 const multer = require("multer");
 const fs = require("fs");
-const {exec} = require("child_process");
 //utils
 const convertToFormData = require("../utils/convertToFormData");
 //init
@@ -21,10 +20,13 @@ const {
   sendBadResponse,
   sendGoodResponse
 } = require("../utils/responses");
+
+//++++++++++++routes+++++++++++++++++++++++
 router.put(
   "/:userId",
   upload.single("profilePic"),
   async (req, res, next) => {
+    debug(req.body);
     try {
       //create FormData from req.body
       const form = convertToFormData(req.body);
@@ -44,7 +46,7 @@ router.put(
       );
       sendGoodResponse({
         response: res,
-        data: {...data},
+        data: {...data.data},
         statusCode: status
       });
     } catch (error) {

@@ -26,6 +26,7 @@ router.post("/login/", async (req, res) => {
       }
     );
     const {data} = body;
+    debug("good response:");
     debug(data);
     addTokenToCookies(data.token, res);
     sendGoodResponse({
@@ -35,6 +36,7 @@ router.post("/login/", async (req, res) => {
       statusCode
     });
   } catch (error) {
+    debug("error:");
     debug(error);
     sendBadResponse({
       response: res,

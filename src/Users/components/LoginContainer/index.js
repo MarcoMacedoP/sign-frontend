@@ -8,8 +8,7 @@ import {connect} from "react-redux";
 import {login} from "../../../global/redux/actions/users";
 
 //Container component
-function LoginContainer(props) {
-  const {login} = props;
+function LoginContainer({login}) {
   //state handlers
   const {state: formValues, addFormValueToState} = useHandleState({
     email: "",
@@ -30,8 +29,8 @@ function LoginContainer(props) {
     } else {
       //Everything ok
       try {
-        const {data: fetchedData} = await fetchData();
-        login(fetchedData.user);
+        const {data} = await fetchData();
+        login(data.user);
       } catch (error) {
         setError(error.message);
       }

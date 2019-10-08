@@ -6,9 +6,16 @@ import {Input, UploadImage} from "../../../global/components/";
 import {EditPage} from "../../../global/components/EditPage";
 //redux
 import {connect} from "react-redux";
+import {fetchUserUpdate} from "../../../global/redux/actions/users";
 
-function EditUser({name, lastname, bio, job, picture}) {
-  const initialState = {name, lastname, bio, job, picture};
+function EditUser({user, loading, error, fetchUserUpdate}) {
+  const initialState = {
+    name: user.name,
+    lastname: user.lastname,
+    bio: user.bio,
+    job: user.job,
+    profilePic: user.profilePic
+  };
 
   const {
     state,
@@ -16,15 +23,29 @@ function EditUser({name, lastname, bio, job, picture}) {
     addValueToState
   } = useHandleState(initialState);
 
-  const handleUploadImage = imgUrl =>
-    addValueToState("picture", imgUrl);
+  const handleUploadImage = fileImage =>
+    addValueToState("profilePic", fileImage);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    let userFormData = new FormData();
+    //add all elements to form data
+    Object.keys(state).map(key =>
+      userFormData.append(key, state[key])
+    );
+    fetchUserUpdate(user, userFormData);
+  };
 
   return (
-    <EditPage title="Editar perfil" onDelete={true}>
+    <EditPage
+      title="Editar perfil"
+      onDelete={true}
+      onSubmit={handleSubmit}
+    >
       <UploadImage
         name="picture"
         onUpload={handleUploadImage}
-        value={state.picture}
+        value={state.profilePic}
       />
       <Input
         name="name"
@@ -57,9 +78,9 @@ function EditUser({name, lastname, bio, job, picture}) {
   );
 }
 
-const mapStateToProps = state => ({...state.user});
+const mapStateToProps = state => ({user: state.user});
 
 export default connect(
   mapStateToProps,
-  null
+  {fetchUserUpdate}
 )(EditUser);

@@ -16,7 +16,7 @@ import {EDIT_USER} from "../../../global/utils/routes";
  *
  */
 const UserPage = ({user}) => {
-  const {name, lastname, job, picture, bio} = user;
+  const {name, lastname, job, profilePic, bio} = user;
   const [editMode, setEditMode] = useState(false);
   const enableEditMode = () => setEditMode(true);
 
@@ -25,7 +25,7 @@ const UserPage = ({user}) => {
       {editMode && <Redirect to={EDIT_USER} />}
       <InformationHeader
         title={`${name} ${lastname}`}
-        imageUrl={picture}
+        imageUrl={profilePic}
         about={bio}
         job={job}
         options={[
@@ -40,7 +40,9 @@ const UserPage = ({user}) => {
   );
 };
 
-const mapStateToProps = state => ({user: state.user});
+const mapStateToProps = state => {
+  return {user: state.user};
+};
 
 export default connect(
   mapStateToProps,
