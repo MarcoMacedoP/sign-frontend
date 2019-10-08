@@ -28,7 +28,6 @@ function EditUser({user, loading, error, fetchUserUpdate}) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    debugger;
     let userFormData = new FormData();
     //add all elements to form data
     Object.keys(state).map(key =>

@@ -19,7 +19,6 @@ import {
   PROVIDERS_ROUTE
 } from "../../../global/utils/routes";
 export const LateralMenu = ({isShowed, user = {}, closeMenu}) => {
-  debugger;
   if (isShowed) {
     return (
       <Menu>

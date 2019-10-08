@@ -35,7 +35,6 @@ export default function(state = initialState, action) {
     case ERROR_ON_USER_UPDATE:
       return {...state, error: action.payload.error, loading: false};
     case RECIEVE_USER_UPDATE:
-      debugger;
       return {
         ...state,
         ...action.payload,

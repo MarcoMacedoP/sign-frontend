@@ -30,7 +30,6 @@ function LoginContainer({login}) {
       //Everything ok
       try {
         const {data} = await fetchData();
-        debugger;
         login(data.user);
       } catch (error) {
         setError(error.message);

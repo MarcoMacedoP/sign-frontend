@@ -48,7 +48,6 @@ export const fetchUserUpdate = (
     },
     false
   ).then(response => {
-    debugger;
     if (response.error) {
       console.error(response.error);
       dispatch(errorOnUserUpdate(response.error));
