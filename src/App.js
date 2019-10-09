@@ -183,14 +183,14 @@ function App({user}) {
             <PrivateRoute
               userIsLoged={user.isLoged}
               exact
-              path={TEAM_PAGE}
-              component={Team}
+              path={ADD_TEAM}
+              component={AddTeam}
             />
             <PrivateRoute
               userIsLoged={user.isLoged}
               exact
-              path={ADD_TEAM}
-              component={AddTeam}
+              path={TEAM_PAGE}
+              component={Team}
             />
             {/*------------end teams routes --------------------*/}
 

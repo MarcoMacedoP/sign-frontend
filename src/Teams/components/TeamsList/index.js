@@ -5,7 +5,8 @@ import {connect} from "react-redux";
 import {
   AsideList,
   AsideListItem,
-  AddButton
+  AddButton,
+  SmallEmptyState
 } from "../../../global/components";
 import {Redirect} from "react-router-dom";
 //hooks
@@ -28,12 +29,29 @@ function TeamsList({teams = [], children}) {
   const handleSelectTeam = teamId =>
     addValueToState("selectedTeam", teamId);
 
+  if (!teams.length) {
+    return (
+      <SmallEmptyState
+        message={[
+          "Aún no perteneces a ningún equipo...",
+          "Cuando creas un equipo o te unes a uno aquí se mostrará un todo lo que necesitas saber. 😎"
+        ]}
+        callToAction="¡Crea un equipo ahora!"
+      >
+        <AddButton
+          isCallToAction
+          onClick={handleRedirect}
+          position="static"
+        />
+        {state.isRedirect && <Redirect to={ADD_TEAM} />}
+      </SmallEmptyState>
+    );
+  }
   return (
     <Container>
       <AsideList
         isShowed={state.isShowed}
         title="Coolaboradores"
-        onAddButtonClick={handleRedirect}
         toggleAsideList={toggleAsideList}
       >
         {teams.map(team => (
