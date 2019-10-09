@@ -39,8 +39,8 @@ export const PictureContainer = styled.div`
 `;
 export const Picture = styled.picture`
   display: block;
-  width: 6.875vw;
-  height: 6.875vw;
+  width: 4rem;
+  height: 4rem;
   min-width: 4rem;
   min-height: 4rem;
   border-radius: 50%;

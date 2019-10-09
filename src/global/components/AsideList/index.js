@@ -2,32 +2,37 @@
 import React from "react";
 //components
 import {Icon} from "../Icon";
-import {Redirect} from "react-router-dom";
 //hooks
 import {useHandleState} from "../../hooks";
-import {useLastLocation} from "react-router-last-location";
 //styled-components
 import {Subtitle} from "../../styles/texts";
 import {Aside, Navigation, AsideListItemBase} from "./styles";
-//utils
-import {APP_HOME_ROUTE} from "../../utils/routes";
 /**
  * Shows an Aside list
  * @param {*} title the name of the list
  */
-export const AsideList = ({title, children}) => {
-  const {state, toggleStateValue} = useHandleState({
-    goBack: false
+export const AsideList = ({
+  title,
+  children,
+  isShowed,
+  toggleAsideList
+}) => {
+  const {state, addValueToState} = useHandleState({
+    icon: "close"
   });
-  const lastLocation = useLastLocation() || APP_HOME_ROUTE;
-  const goLastPage = () => toggleStateValue("goBack");
-
+  const handleToggle = () => {
+    if (!isShowed) {
+      addValueToState("icon", "close");
+    } else {
+      addValueToState("icon", "arrow_forward_ios");
+    }
+    toggleAsideList();
+  };
   return (
-    <Aside>
-      {state.goBack && <Redirect to={lastLocation} />}
-      <Navigation>
-        <Icon icon="arrow_back" onClick={goLastPage} />
+    <Aside isShowed={isShowed}>
+      <Navigation isShowed={isShowed}>
         <Subtitle>{title}</Subtitle>
+        <Icon icon={state.icon} onClick={handleToggle} />
       </Navigation>
       {children}
     </Aside>
