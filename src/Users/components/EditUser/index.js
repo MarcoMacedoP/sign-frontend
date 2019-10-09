@@ -10,11 +10,11 @@ import {fetchUserUpdate} from "../../../global/redux/actions/users";
 
 function EditUser({user, loading, error, fetchUserUpdate}) {
   const initialState = {
-    name: user.name,
-    lastname: user.lastname,
-    bio: user.bio,
-    job: user.job,
-    profilePic: user.profilePic
+    name: user.name || "",
+    lastname: user.lastname || "",
+    bio: user.bio || "",
+    job: user.job || "",
+    profilePic: user.profilePic || ""
   };
 
   const {
