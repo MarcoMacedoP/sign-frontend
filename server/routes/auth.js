@@ -49,22 +49,24 @@ router.post("/login/", async (req, res) => {
 
 router.post("/signup/", async (req, res) => {
   try {
-    const response = await axios(`${apiRoute}/auth/signup/`, {
+    const {data: response} = await axios(`${apiRoute}/auth/signup/`, {
       method: "post",
       data: req.body
     });
-    const {body} = response;
-    debug(response);
-    addTokenToCookies(data.token, res);
+    debug(response.data);
+    addTokenToCookies(response.data.token, res);
     sendGoodResponse({
       response: res,
-      message: body.message,
-      statusCode
+      message: response.message,
+      statusCode: response.statusCode,
+      data: response.data.user
     });
   } catch (error) {
+    debug(error);
     sendBadResponse({
       response: res,
-      message: "Not authorized",
+      message:
+        "Ups, parece que tenemos un error interno. Intentalo más tarde 😅 ",
       error
     });
   }

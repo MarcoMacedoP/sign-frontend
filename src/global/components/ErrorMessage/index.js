@@ -9,7 +9,7 @@ import {Error, Icon} from "./styles";
 export const ErrorMessage = ({error = false, onClose}) => {
   return (
     <>
-      {error && (
+      {error && typeof error === "string" && (
         <Error>
           {error}
           <Icon icon="close" onClick={onClose} />

@@ -1,10 +1,6 @@
 import styled from "styled-components";
 //vars
-import {
-  blackColor,
-  whiteColorDark,
-  whiteColor
-} from "../../styles/variables";
+import {blackColor, whiteColorDark} from "../../styles/variables";
 import {BaseIcon as Icon} from "../Icon/styles";
 
 export const Container = styled.div`

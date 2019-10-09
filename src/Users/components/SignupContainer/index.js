@@ -1,9 +1,13 @@
 import React from "react";
 import {Signup} from "../Signup";
 //hooks
-import {useHandleState, useCallApi} from "../../../global/hooks";
+import {useHandleState} from "../../../global/hooks";
+import {useState, useEffect} from "react";
+//redux
+import {fetchSignupUser} from "../../../global/redux/actions/users";
+import {connect} from "react-redux";
 //Container component
-export const SignupContainer = ({match}) => {
+function SignupContainer({user, fetchSignupUser}) {
   //Hooks
   const {state, addFormValueToState} = useHandleState({
     name: "",
@@ -12,10 +16,20 @@ export const SignupContainer = ({match}) => {
     password: "",
     password_repeat: ""
   });
-  const {loading, error, setError, fetchData} = useCallApi({
-    endpoint: "/signup/",
-    options: {method: "post", body: JSON.stringify(state)}
-  });
+  useEffect(() => {
+    debugger;
+    if (user.errorOnSignup) {
+      setError(user.errorOnSignup.message);
+      setLoading(false);
+    }
+    if (user.loadingSignup) {
+      setLoading(user.loadingSignup);
+      setError(null);
+    }
+  }, [user]);
+  //status
+  const [loading, setLoading] = useState(user.loadingSignup);
+  const [error, setError] = useState(user.errorOnSignup);
 
   //handlers
   async function handleClick(e) {
@@ -31,15 +45,7 @@ export const SignupContainer = ({match}) => {
     } else if (state.password !== state.password_repeat) {
       setError("Las contraseñas no coinciden 🤦‍♀️");
     } else {
-      //Everthing in the rigth place
-      try {
-        ;
-        const data = await fetchData();
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-        setError(error.message);
-      }
+      fetchSignupUser(state);
     }
   }
   const handleErrorClose = () => setError(null);
@@ -55,5 +61,10 @@ export const SignupContainer = ({match}) => {
       onErrorClose={handleErrorClose}
     />
   );
-};
-export default SignupContainer;
+}
+
+const mapStateToProps = state => ({user: state.user});
+export default connect(
+  mapStateToProps,
+  {fetchSignupUser}
+)(SignupContainer);

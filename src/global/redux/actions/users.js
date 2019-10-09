@@ -3,7 +3,8 @@ import {
   LOG_OUT,
   ERROR_ON_USER_UPDATE,
   REQUEST_USER_UPDATE,
-  RECIEVE_USER_UPDATE
+  RECIEVE_USER_UPDATE,
+  SIGN_UP_USER
 } from "../actionTypes";
 
 import {callApi} from "../../functions/callApi";
@@ -16,6 +17,38 @@ export const login = user => ({
 export const logout = () => ({
   type: LOG_OUT
 });
+
+//----signup user ------------------//
+export const signupUser = (status, response) => ({
+  type: SIGN_UP_USER,
+  payload: {status, response}
+});
+
+export function fetchSignupUser(user) {
+  return function(dispatch) {
+    dispatch(signupUser("loading"));
+    return callApi("/signup/", {
+      method: "post",
+      body: JSON.stringify(user)
+    })
+      .then(response => {
+        console.log(response);
+        debugger;
+        const statusCodeIsValid =
+          response.statusCode >= 200 && response.statusCode < 300;
+        if (statusCodeIsValid) {
+          dispatch(signupUser("success", response.data));
+        } else {
+          dispatch(signupUser("error", response));
+        }
+      })
+      .catch(error => dispatch(signupUser("error", error.message)));
+  };
+}
+
+//----signup user end -------------//
+
+//---------update user -------------//
 export const errorOnUserUpdate = error => ({
   type: ERROR_ON_USER_UPDATE,
   error
@@ -56,3 +89,4 @@ export const fetchUserUpdate = (
     }
   });
 };
+//---------update user end-------------//
