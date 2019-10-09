@@ -45,7 +45,7 @@ function TeamsList({teams = []}) {
         ))}
         <AddButton onClick={handleRedirect} />
       </AsideList>
-      <Team />
+      <Team teamId={1} />
     </Container>
   );
 }

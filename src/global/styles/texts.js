@@ -48,11 +48,10 @@ export const H3 = styled.h3`
   }
 `;
 export const H4 = styled.h4`
-  ${setHeadlineText({
-    size: "1.5rem",
-    color: blackColorLigth,
-    weigth: "400"
-  })};
+  font-size: 1rem;
+  color: ${blackColor};
+  font-family: ${fontBody};
+  font-weight: bold;
 `;
 
 export const Subtitle = styled.p`
