@@ -7,7 +7,6 @@ import {
   AsideListItem,
   AddButton
 } from "../../../global/components";
-import Team from "../Team";
 import {Redirect} from "react-router-dom";
 //hooks
 import {useHandleState} from "../../../global/hooks";
@@ -15,16 +14,19 @@ import {useHandleState} from "../../../global/hooks";
 import {Container} from "./styles";
 
 //utils
-import {ADD_TEAM} from "../../../global/utils/routes";
+import {ADD_TEAM, TEAMS_LIST} from "../../../global/utils/routes";
 
-function TeamsList({teams = []}) {
-  const {state, toggleStateValue} = useHandleState({
+function TeamsList({teams = [], children}) {
+  const {state, toggleStateValue, addValueToState} = useHandleState({
     isShowed: true,
-    isRedirect: false
+    isRedirect: false,
+    selectedTeam: null
   });
   //handles
   const handleRedirect = () => toggleStateValue("isRedirect");
   const toggleAsideList = () => toggleStateValue("isShowed");
+  const handleSelectTeam = teamId =>
+    addValueToState("selectedTeam", teamId);
 
   return (
     <Container>
@@ -34,18 +36,22 @@ function TeamsList({teams = []}) {
         onAddButtonClick={handleRedirect}
         toggleAsideList={toggleAsideList}
       >
-        {state.isRedirect && <Redirect to={ADD_TEAM} />}
         {teams.map(team => (
           <AsideListItem
             key={team.id}
             picture={team.picture}
             title={`${team.name}`}
             date={team.about}
+            onClick={() => handleSelectTeam(team.id)}
           />
         ))}
+        {state.selectedTeam && (
+          <Redirect to={`${TEAMS_LIST}${state.selectedTeam}`} />
+        )}
         <AddButton onClick={handleRedirect} />
+        {state.isRedirect && <Redirect to={ADD_TEAM} />}
       </AsideList>
-      <Team teamId={1} />
+      {children}
     </Container>
   );
 }

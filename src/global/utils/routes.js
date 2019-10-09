@@ -20,4 +20,5 @@ export const ADD_PROJECTS_ROUTE = `${PROJECTS_ROUTE}add/`;
 export const PROJECTS_PAGE_ROUTE = `${PROJECTS_ROUTE}:projectId/`;
 //teams
 export const TEAMS_LIST = `${APP_HOME_ROUTE}/teams/`;
+export const TEAM_PAGE = `${TEAMS_LIST}:teamId`;
 export const ADD_TEAM = `${TEAMS_LIST}add/`;

@@ -1,6 +1,7 @@
 import React from "react";
 //components
-import {Icon} from "../../../global/components";
+import {Icon, SmallEmptyState} from "../../../global/components";
+import TeamList from "../TeamsList";
 //hooks
 import {useHandleState} from "../../../global/hooks/useHandleState";
 //styled-components
@@ -16,26 +17,35 @@ function Team({team}) {
   const toggleInfo = () => toggleStateValue("infoIsShowed");
 
   return (
-    <Container>
-      <Header>
-        <H4>{team.name}</H4>
-        <Icon icon="info" onClick={toggleInfo} />
-      </Header>
-      <div>info del proyecto</div>
+    <TeamList>
+      {team ? (
+        <Container>
+          <Header>
+            <H4>{team.name}</H4>
+            <Icon icon="info" onClick={toggleInfo} />
+          </Header>
+          <div>info del proyecto</div>
 
-      <Info isShowed={state.infoIsShowed}>
-        <Picture>
-          <img src={team.picture} alt="" />
-        </Picture>
-        <About>{team.about}</About>
-      </Info>
-    </Container>
+          <Info isShowed={state.infoIsShowed}>
+            <Picture>
+              <img src={team.picture} alt="" />
+            </Picture>
+            <About>{team.about}</About>
+          </Info>
+        </Container>
+      ) : (
+        <SmallEmptyState message="Parece que este equipo no existe..." />
+      )}
+    </TeamList>
   );
 }
 
-const mapStateToProps = (state, props) => ({
-  team: state.teams.find(team => team.id === props.teamId)
-});
+const mapStateToProps = (state, props) => {
+  const teamId = parseInt(props.match.params.teamId);
+  return {
+    team: state.teams.find(team => team.id === teamId)
+  };
+};
 
 export default connect(
   mapStateToProps,

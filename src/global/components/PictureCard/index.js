@@ -12,9 +12,10 @@ export const PictureCard = ({
   className,
   picture,
   description,
-  title
+  title,
+  onClick
 }) => (
-  <Container className={className}>
+  <Container className={className} onClick={onClick}>
     <PictureContainer>
       <Picture url={picture} />
     </PictureContainer>

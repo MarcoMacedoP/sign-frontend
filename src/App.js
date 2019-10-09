@@ -20,6 +20,7 @@ import {
 //--------------teams pages----------------------------
 import TeamsList from "./Teams/components/TeamsList";
 import AddTeam from "./Teams/components/AddTeam";
+import Team from "./Teams/components/Team";
 //--------------end teams page--------------------------
 
 //--------------projects pages--------------------------
@@ -55,7 +56,8 @@ import {
   ADD_PROJECTS_ROUTE,
   PROJECTS_ROUTE,
   TEAMS_LIST,
-  ADD_TEAM
+  ADD_TEAM,
+  TEAM_PAGE
 } from "./global/utils/routes";
 // Resources
 import {GlobalStyles} from "./global/styles/GlobalStyles";
@@ -177,6 +179,12 @@ function App({user}) {
               exact
               path={TEAMS_LIST}
               component={TeamsList}
+            />
+            <PrivateRoute
+              userIsLoged={user.isLoged}
+              exact
+              path={TEAM_PAGE}
+              component={Team}
             />
             <PrivateRoute
               userIsLoged={user.isLoged}
