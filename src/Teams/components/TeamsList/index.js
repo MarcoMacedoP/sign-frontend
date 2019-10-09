@@ -7,9 +7,13 @@ import {
   AsideListItem,
   AddButton
 } from "../../../global/components";
+import Team from "../Team";
 import {Redirect} from "react-router-dom";
 //hooks
 import {useHandleState} from "../../../global/hooks";
+//styled-components
+import {Container} from "./styles";
+
 //utils
 import {ADD_TEAM} from "../../../global/utils/routes";
 
@@ -23,23 +27,26 @@ function TeamsList({teams = []}) {
   const toggleAsideList = () => toggleStateValue("isShowed");
 
   return (
-    <AsideList
-      isShowed={state.isShowed}
-      title="Coolaboradores"
-      onAddButtonClick={handleRedirect}
-      toggleAsideList={toggleAsideList}
-    >
-      {state.isRedirect && <Redirect to={ADD_TEAM} />}
-      {teams.map(team => (
-        <AsideListItem
-          key={team.id}
-          picture={team.picture}
-          title={`${team.name}`}
-          date={team.about}
-        />
-      ))}
-      <AddButton onClick={handleRedirect} />
-    </AsideList>
+    <Container>
+      <AsideList
+        isShowed={state.isShowed}
+        title="Coolaboradores"
+        onAddButtonClick={handleRedirect}
+        toggleAsideList={toggleAsideList}
+      >
+        {state.isRedirect && <Redirect to={ADD_TEAM} />}
+        {teams.map(team => (
+          <AsideListItem
+            key={team.id}
+            picture={team.picture}
+            title={`${team.name}`}
+            date={team.about}
+          />
+        ))}
+        <AddButton onClick={handleRedirect} />
+      </AsideList>
+      <Team />
+    </Container>
   );
 }
 

@@ -47,6 +47,13 @@ export const H3 = styled.h3`
     font-size: 1.5rem;
   }
 `;
+export const H4 = styled.h4`
+  ${setHeadlineText({
+    size: "1.5rem",
+    color: blackColorLigth,
+    weigth: "400"
+  })};
+`;
 
 export const Subtitle = styled.p`
   font-size: 1rem;

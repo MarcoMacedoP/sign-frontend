@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-export const TeamListItem = styled.li`
-  margin: 1rem 0;
-  width: 100%;
+export const Container = styled.section`
+  display: flex;
 `;
