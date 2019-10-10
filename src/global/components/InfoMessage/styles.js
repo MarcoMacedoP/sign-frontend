@@ -6,10 +6,12 @@ import {
   secondaryColor,
   whiteColorLigth
 } from "../../styles/variables";
+import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
 
 export const Info = styled.div`
   padding: 0.5rem 1rem;
   margin-top: 1rem;
+  max-width: 40vw;
 
   background-color: ${secondaryColor};
   color: ${whiteColorLigth};
@@ -17,15 +19,31 @@ export const Info = styled.div`
   display: flex;
   justify-content: space-between;
 
-  min-width: 200px;
-  width: 20vw;
-
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 2rem;
+  left: 0.5rem;
   z-index: 4;
+
+  overflow: hidden;
 
   ${Icon} {
     color: ${whiteColorLigth};
+  }
+
+  @media ${cellphoneMediaQuery} {
+    max-width: 80vw;
+  }
+
+  animation: resize 1s;
+
+  @keyframes resize {
+    0% {
+      min-width: 0px;
+      width: 0;
+    }
+    100% {
+      width: 30vw;
+      min-width: 300px;
+    }
   }
 `;

@@ -1,6 +1,7 @@
 import React from "react";
 //hooks
 import {useHandleState} from "../../../global/hooks/";
+import {useState} from "react";
 //components
 import {
   Input,
@@ -14,10 +15,6 @@ import {connect} from "react-redux";
 import {fetchUserUpdate} from "../../../global/redux/actions/users";
 
 function EditUser({user, loading, error, fetchUserUpdate, location}) {
-  //query params
-  const urlParams = new URLSearchParams(location.search);
-  const firstTime = urlParams.get("firstTime");
-
   const initialState = {
     name: user.name || "",
     lastname: user.lastname || "",
@@ -44,6 +41,11 @@ function EditUser({user, loading, error, fetchUserUpdate, location}) {
     );
     fetchUserUpdate(user, userFormData);
   };
+  //logic for show a message query params firstTime exists
+  const urlParams = new URLSearchParams(location.search);
+  const firstTime = urlParams.get("firstTime");
+  const [showInfoMessage, setShowInfoMessage] = useState(firstTime);
+  const handleCloseInfoMessage = () => setShowInfoMessage(false);
 
   return (
     <EditPage
@@ -51,7 +53,13 @@ function EditUser({user, loading, error, fetchUserUpdate, location}) {
       onDelete={true}
       onSubmit={handleSubmit}
     >
-      {firstTime && <InfoMessage message="Bienvendo a SIGN" />}
+      {showInfoMessage && (
+        <InfoMessage
+          onClose={handleCloseInfoMessage}
+          message={`¡Bienvenido a SIGN ${user.name}! \n
+          ¿Qué te parece si antes de empezar nos cuentas un poco más de ti?`}
+        />
+      )}
       <UploadImage
         name="picture"
         onUpload={handleUploadImage}
