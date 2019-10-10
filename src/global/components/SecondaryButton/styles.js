@@ -8,6 +8,7 @@ export const Button = styled(Btn)`
   && {
     margin-top: 0.5rem;
     background-color: transparent;
+    min-height: 3rem;
     width: ${props => (props.width ? props.width : "100%")};
     border: 3px solid
       ${props => (props.bordercolor ? props.bordercolor : mainColor)};

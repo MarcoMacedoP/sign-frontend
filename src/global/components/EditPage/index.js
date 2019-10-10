@@ -2,8 +2,8 @@ import React from "react";
 //components
 import {SecondaryButton} from "../";
 //styled-components
+import {ButtonContainer} from "./styles";
 import {AppContainer} from "../../styles/Containers";
-import {BaseForm} from "../../styles/Forms";
 import {H1} from "../../styles/texts";
 import {
   positiveStatusColor,
@@ -19,14 +19,12 @@ export const EditPage = ({
   onSubmit,
   onCancel,
   onDelete,
-  children,
-  formType
+  children
 }) => (
   <AppContainer>
     <H1 center>{title}</H1>
-    <BaseForm type={formType} onSubmit={onSubmit}>
-      {children}
-
+    {children}
+    <ButtonContainer>
       <SecondaryButton
         bordercolor={positiveStatusColor}
         onClick={onSubmit}
@@ -45,6 +43,6 @@ export const EditPage = ({
       >
         Cancelar
       </SecondaryButton>
-    </BaseForm>
+    </ButtonContainer>
   </AppContainer>
 );

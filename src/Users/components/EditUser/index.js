@@ -9,7 +9,11 @@ import {
   EditPage,
   InfoMessage
 } from "../../../global/components/";
-
+//styled-components
+import {
+  FormWithPhotoUpload,
+  InputContainer
+} from "../../../global/styles/Forms";
 //redux
 import {connect} from "react-redux";
 import {fetchUserUpdate} from "../../../global/redux/actions/users";
@@ -60,38 +64,42 @@ function EditUser({user, loading, error, fetchUserUpdate, location}) {
           ¿Qué te parece si antes de empezar nos cuentas un poco más de ti?`}
         />
       )}
-      <UploadImage
-        name="picture"
-        onUpload={handleUploadImage}
-        value={state.profilePic}
-      />
-      <Input
-        name="name"
-        label="Nombre (s)"
-        value={state.name}
-        onChange={addFormValueToState}
-      />
-      <Input
-        name="lastname"
-        label="Apellido (s)"
-        value={state.lastname}
-        onChange={addFormValueToState}
-      />
-      <Input
-        name="bio"
-        type="textarea"
-        label="Sobre ti"
-        placeholder="ej. Soy una persona alegre, dispuesta a triunfar."
-        value={state.bio}
-        onChange={addFormValueToState}
-      />
-      <Input
-        name="job"
-        label="Título de trabajo"
-        placeholder="ej. Ing. Industrial"
-        value={state.job}
-        onChange={addFormValueToState}
-      />
+      <FormWithPhotoUpload>
+        <UploadImage
+          name="picture"
+          onUpload={handleUploadImage}
+          value={state.profilePic}
+        />
+        <InputContainer>
+          <Input
+            name="name"
+            label="Nombre (s)"
+            value={state.name}
+            onChange={addFormValueToState}
+          />
+          <Input
+            name="lastname"
+            label="Apellido (s)"
+            value={state.lastname}
+            onChange={addFormValueToState}
+          />
+          <Input
+            name="bio"
+            type="textarea"
+            label="Sobre ti"
+            placeholder="ej. Soy una persona alegre, dispuesta a triunfar."
+            value={state.bio}
+            onChange={addFormValueToState}
+          />
+          <Input
+            name="job"
+            label="Título de trabajo"
+            placeholder="ej. Ing. Industrial"
+            value={state.job}
+            onChange={addFormValueToState}
+          />
+        </InputContainer>
+      </FormWithPhotoUpload>
     </EditPage>
   );
 }
