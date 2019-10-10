@@ -1,6 +1,6 @@
 import React from "react";
 //styled-components
-import {Error, Icon} from "./styles";
+import {Error} from "./styles";
 /**Shows an ErrorMessage component. This component will
  * be rendered only if there is an error
  * @param {*} error the error that are going to be rendered
@@ -8,13 +8,9 @@ import {Error, Icon} from "./styles";
  */
 export const ErrorMessage = ({error = false, onClose}) => {
   return (
-    <>
-      {error && typeof error === "string" && (
-        <Error>
-          {error}
-          <Icon icon="close" onClick={onClose} />
-        </Error>
-      )}
-    </>
+    error &&
+    typeof error === "string" && (
+      <Error message="error" onClose={onClose} />
+    )
   );
 };

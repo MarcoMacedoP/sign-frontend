@@ -1,19 +1,10 @@
 import styled from "styled-components";
-import {Icon as BaseIcon} from "../Icon";
+import {InfoMessage} from "../InfoMessage";
 //vars
-import {errorColor, whiteColorLigth} from "../../styles/variables";
-export const Error = styled.div`
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
+import {errorColor} from "../../styles/variables";
 
+export const Error = styled(InfoMessage)`
   background-color: ${errorColor};
-  color: ${whiteColorLigth};
-
-  display: flex;
-  justify-content: space-between;
-
+  position: static;
   width: 90%;
-`;
-export const Icon = styled(BaseIcon)`
-  color: ${whiteColorLigth};
 `;
