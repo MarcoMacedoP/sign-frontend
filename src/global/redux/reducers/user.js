@@ -12,7 +12,7 @@ const initialState = {
   loading: false,
   loadingSignup: false,
   errorOnSignup: null,
-  isLoged: false,
+  isLoged: true,
   id: null,
   name: "",
   lastname: "",

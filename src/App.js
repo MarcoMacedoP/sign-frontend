@@ -140,6 +140,7 @@ function App({user}) {
               component={SignupPage}
               exact
               path={SIGNUP_ROUTE}
+              routeToBeRedirected={`${EDIT_USER}?firstTime=true`}
             />
             <PublicRoute
               userIsLoged={user.isLoged}

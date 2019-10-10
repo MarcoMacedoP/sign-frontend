@@ -1,11 +1,15 @@
 import React from "react";
+//components
 import {Signup} from "../Signup";
+import {Redirect} from "react-router-dom";
 //hooks
 import {useHandleState} from "../../../global/hooks";
 import {useState, useEffect} from "react";
 //redux
 import {fetchSignupUser} from "../../../global/redux/actions/users";
 import {connect} from "react-redux";
+//utils
+import {EDIT_USER} from "../../../global/utils/routes";
 //Container component
 function SignupContainer({user, fetchSignupUser}) {
   //Hooks
@@ -52,14 +56,17 @@ function SignupContainer({user, fetchSignupUser}) {
 
   //The UI
   return (
-    <Signup
-      handleClick={handleClick}
-      handleChange={addFormValueToState}
-      loading={loading}
-      error={error}
-      formValues={state}
-      onErrorClose={handleErrorClose}
-    />
+    <>
+      {user.isLoged && <Redirect to={EDIT_USER} />}
+      <Signup
+        handleClick={handleClick}
+        handleChange={addFormValueToState}
+        loading={loading}
+        error={error}
+        formValues={state}
+        onErrorClose={handleErrorClose}
+      />
+    </>
   );
 }
 

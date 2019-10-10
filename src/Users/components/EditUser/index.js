@@ -2,13 +2,22 @@ import React from "react";
 //hooks
 import {useHandleState} from "../../../global/hooks/";
 //components
-import {Input, UploadImage} from "../../../global/components/";
-import {EditPage} from "../../../global/components/EditPage";
+import {
+  Input,
+  UploadImage,
+  EditPage,
+  InfoMessage
+} from "../../../global/components/";
+
 //redux
 import {connect} from "react-redux";
 import {fetchUserUpdate} from "../../../global/redux/actions/users";
 
-function EditUser({user, loading, error, fetchUserUpdate}) {
+function EditUser({user, loading, error, fetchUserUpdate, location}) {
+  //query params
+  const urlParams = new URLSearchParams(location.search);
+  const firstTime = urlParams.get("firstTime");
+
   const initialState = {
     name: user.name || "",
     lastname: user.lastname || "",
@@ -42,6 +51,7 @@ function EditUser({user, loading, error, fetchUserUpdate}) {
       onDelete={true}
       onSubmit={handleSubmit}
     >
+      {firstTime && <InfoMessage message="Bienvendo a SIGN" />}
       <UploadImage
         name="picture"
         onUpload={handleUploadImage}

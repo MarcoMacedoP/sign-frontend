@@ -8,10 +8,14 @@ import {APP_HOME_ROUTE} from "../../utils/routes";
  *  @param {*} userIsLoged the boolean that determinates if an user is loged
  * @param {*} args the props that are going to be pased to Route component
  */
-export const PublicRoute = ({userIsLoged, ...args}) => (
+export const PublicRoute = ({
+  userIsLoged,
+  routeToBeRedirected = APP_HOME_ROUTE,
+  ...args
+}) => (
   <PrivateRoute
     userIsLoged={userIsLoged ? false : true}
-    route={APP_HOME_ROUTE}
+    route={routeToBeRedirected}
     {...args}
   />
 );
