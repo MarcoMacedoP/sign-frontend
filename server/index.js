@@ -2,9 +2,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const cors = require("cors");
 //config
 const config = require("./config");
+const sessionOptions = {
+  resave: false,
+  saveUninitialized: false,
+  secret: config.session.secret
+};
 //initialize app
 const app = express();
 //routes
@@ -19,6 +25,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser(config.cookie.secret));
+app.use(session(sessionOptions));
 
 //router-middlewares
 app.use("/api", authRoute);

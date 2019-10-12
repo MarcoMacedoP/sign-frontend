@@ -8,5 +8,8 @@ module.exports = {
   },
   cookie: {
     secret: process.env.COOKIE_SECRET
+  },
+  session: {
+    secret: process.env.SESSION_SECRET
   }
 };
