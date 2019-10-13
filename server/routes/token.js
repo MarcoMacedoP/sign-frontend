@@ -1,32 +1,30 @@
 const express = require("express");
 const router = express.Router();
-const config = require("../config");
+const {api} = require("../config");
+const debug = require("debug")("app:routes:refreshToken");
+const axios = require("axios");
+const jwt = require("jsonwebtoken");
 
 const {addTokenToCookies} = require("../utils/addTokenToCookies");
 
-router.post("/", async (req, res, next) => {
+router.all("/", async (req, res, next) => {
   try {
     const {token} = req.cookies;
-    const refreshToken = global.refreshTokens.find(
-      refreshToken => token === refreshToken.token
-    );
-    const {data: body, statusCode} = await axios(
-      `${config.api.route}/auth/token`,
-      {
-        method: "post",
-        data: {token: refreshToken}
+    debug("orignal token", token);
+    debug("actualizando token...");
+    debug(req.session.refreshToken);
+    const response = await axios(`${api.route}/auth/token/`, {
+      method: "post",
+      data: {
+        refreshToken: req.session.refreshToken
       }
-    );
-    const {data} = body;
-    sendGoodResponse({
-      response: res,
-      message: body.message,
-      statusCode,
-      data
     });
-    addTokenToCookies(data.token, res);
+    const {data} = response.data;
+    debug(data);
+    addTokenToCookies(data.accessToken, res);
+    res.redirect(307, "back");
   } catch (error) {
-    sendBadResponse({response: res, message: "Not authorized"});
+    next(error);
   }
 });
 module.exports = router;

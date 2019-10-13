@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const cors = require("cors");
+//own middlewares
+const refreshToken = require("./utils/middlewares/refreshToken");
 //config
 const config = require("./config");
 const sessionOptions = {
@@ -17,8 +19,6 @@ const app = express();
 const authRoute = require("./routes/auth");
 const tokenRoute = require("./routes/token");
 const usersRoute = require("./routes/users");
-//refreshtokens list
-global.refreshTokens = [];
 
 //middlewares
 app.use(cors());
@@ -30,7 +30,7 @@ app.use(session(sessionOptions));
 //router-middlewares
 app.use("/api", authRoute);
 app.use("/api/token", tokenRoute);
-app.use("/api/users", usersRoute);
+app.use("/api/users", refreshToken, usersRoute);
 
 //initialize server
 app.listen(config.server.port, () => {
