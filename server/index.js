@@ -11,7 +11,8 @@ const config = require("./config");
 const sessionOptions = {
   resave: false,
   saveUninitialized: false,
-  secret: config.session.secret
+  secret: config.session.secret,
+  cookie: {maxAge: 100000}
 };
 //initialize app
 const app = express();

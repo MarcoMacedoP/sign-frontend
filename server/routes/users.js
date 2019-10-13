@@ -4,8 +4,6 @@ const debug = require("debug")("app:users:routes");
 const multer = require("multer");
 const fs = require("fs");
 //utils
-//midlewares
-const refreshToken = require("../utils/middlewares/refreshToken");
 const convertToFormData = require("../utils/convertToFormData");
 //init
 const config = require("../config");
