@@ -3,7 +3,7 @@ import {
   ADD_ACTIVITE,
   ADD_COMMENT,
   CHANGE_ACTIVITY_TYPE
-} from "../actionTypes";
+} from "../types/actionTypes";
 import {DONED, PENDING, IN_PROGRESS} from "../types/activitieTypes";
 
 const initialState = [

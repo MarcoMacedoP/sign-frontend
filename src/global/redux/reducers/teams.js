@@ -1,4 +1,4 @@
-import {ADD_TEAM} from "../actionTypes";
+import {ADD_TEAM} from "../types/actionTypes";
 
 const initialState = [
   {

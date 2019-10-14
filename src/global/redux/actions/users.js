@@ -1,18 +1,32 @@
 import {
-  LOG_IN,
+  LOG_IN_USER,
   LOG_OUT,
   ERROR_ON_USER_UPDATE,
   REQUEST_USER_UPDATE,
   RECIEVE_USER_UPDATE,
   SIGN_UP_USER
-} from "../actionTypes";
+} from "../types/actionTypes";
 
 import {callApi} from "../../functions/callApi";
-
-export const login = user => ({
-  type: LOG_IN,
-  payload: {...user}
+//------login user-----------------------------//
+export const loginUser = (status, response) => ({
+  type: LOG_IN_USER,
+  payload: {status, response}
 });
+
+export function fetchUserLogin(userData = {}) {
+  return function(dispatch) {
+    dispatch(loginUser("loading", []));
+
+    return callApi("/login/", {
+      method: "post",
+      body: JSON.stringify(userData)
+    })
+      .then(response => dispatch(loginUser("success", response)))
+      .catch(error => dispatch(loginUser("error", error)));
+  };
+}
+//------end login user------
 
 export const logout = () => ({
   type: LOG_OUT

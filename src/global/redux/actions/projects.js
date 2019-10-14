@@ -3,7 +3,7 @@ import {
   ADD_ACTIVITE,
   ADD_COMMENT,
   CHANGE_ACTIVITY_TYPE
-} from "../actionTypes";
+} from "../types/actionTypes";
 
 export const addProject = project => ({
   type: ADD_PROJECT,

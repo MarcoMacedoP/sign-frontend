@@ -1,40 +1,58 @@
 import {
-  LOG_IN,
+  LOG_IN_USER,
   LOG_OUT,
   ERROR_ON_USER_UPDATE,
   RECIEVE_USER_UPDATE,
   REQUEST_USER_UPDATE,
   SIGN_UP_USER
-} from "../actionTypes";
+} from "../types/actionTypes";
 
 const initialState = {
-  error: null,
-  loading: false,
-  loadingSignup: false,
-  errorOnSignup: null,
-  isLoged: true,
   id: null,
   name: "",
   lastname: "",
   profilePic: "",
   bio: "",
-  job: ""
+  job: "",
+  status: {
+    error: null,
+    loading: false,
+    loadingSignup: false,
+    errorOnSignup: null,
+    errorOnLogin: null,
+    loadingLogin: true,
+    isLoged: true
+  }
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case LOG_IN:
-      return {
-        ...action.payload,
-        isLoged: true
-      };
+    case LOG_IN_USER:
+      switch (action.payload.status) {
+        case "loading":
+          return {...state, loadingLogin: true, errorOnLogin: false};
+        case "error":
+          return {
+            ...state,
+            loadingLogin: false,
+            errorOnLogin: action.payload.response
+          };
+        case "success":
+          return {
+            ...state,
+            loadingLogin: false,
+            errorOnLogin: null,
+            ...action.payload.response
+          };
+        default:
+          return {...state};
+      }
 
     case LOG_OUT:
       return {
         isLoged: false
       };
     case SIGN_UP_USER:
-      debugger;
       switch (action.payload.status) {
         case "loading":
           return {...state, loadingSignup: true, errorOnSignup: null};
