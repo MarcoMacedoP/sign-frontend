@@ -26,8 +26,6 @@ router.post("/login/", async (req, res) => {
       }
     );
     const {data} = body;
-    debug("good response:");
-    debug(data);
     const {accessToken, refreshToken} = data.token;
     req.session.refreshToken = refreshToken;
     addTokenToCookies(accessToken, res);
@@ -38,8 +36,6 @@ router.post("/login/", async (req, res) => {
       statusCode
     });
   } catch (error) {
-    debug("error:");
-    debug(error);
     sendBadResponse({
       response: res,
       message: error.message,
@@ -55,7 +51,6 @@ router.post("/signup/", async (req, res) => {
       method: "post",
       data: req.body
     });
-    debug(response.data);
     const {accessToken, refreshToken} = response.data.token;
     req.session.refreshToken = refreshToken;
     addTokenToCookies(accessToken, res);
@@ -75,10 +70,29 @@ router.post("/signup/", async (req, res) => {
     });
   }
 });
-
+router.post("/logout/", async (req, res) => {
+  try {
+    await axios(`${apiRoute}/auth/token/`, {
+      method: "delete",
+      data: {refreshToken: req.session.refreshToken}
+    });
+    req.session.destroy(error => console.log(error));
+    sendGoodResponse({
+      response: res,
+      message: "Session eliminada",
+      statusCode: 200
+    });
+  } catch (error) {
+    debug(error);
+    sendBadResponse({
+      response: res,
+      error,
+      message: "hubo un error borrando el refresh token"
+    });
+  }
+});
 /**This function encode the user data to put it into Auth header */
 function encodeUserData(userData) {
-  console.log(userData);
   const {email, password} = userData;
   return Buffer.from(email + ":" + password).toString("base64");
 }
