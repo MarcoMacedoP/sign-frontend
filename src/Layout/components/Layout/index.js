@@ -17,7 +17,7 @@ import {USER_PAGE} from "../../../global/utils/routes";
 const Layout = withRouter(({children, user, logout, history}) => {
   const [menuStatus, setMenuStatus] = useState(false);
   const redirectToUserPage = () => history.push(USER_PAGE);
-  if (user.isLoged) {
+  if (user.status.isLoged) {
     return (
       <ThemeProvider theme={theme}>
         <AppNavbar

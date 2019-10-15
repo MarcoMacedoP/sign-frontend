@@ -22,7 +22,12 @@ const tokenRoute = require("./routes/token");
 const usersRoute = require("./routes/users");
 
 //middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: /.*localhost:3000.*/,
+    credentials: true
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser(config.cookie.secret));

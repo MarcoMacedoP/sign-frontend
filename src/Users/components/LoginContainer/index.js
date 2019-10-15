@@ -2,40 +2,42 @@ import React from "react";
 import {Login} from "../Login/";
 //hooks
 import {useHandleState} from "../../../global/hooks/useHandleState";
-import {useCallApi} from "../../../global/hooks/useCallApi";
+import {useState, useEffect} from "react";
 //redux
 import {connect} from "react-redux";
-import {login} from "../../../global/redux/actions/users";
+import {fetchUserLogin} from "../../../global/redux/actions/users";
 
 //Container component
-function LoginContainer({login}) {
-  //state handlers
+function LoginContainer({fetchUserLogin, user}) {
+  debugger;
+  const {loadingLogin, errorOnLogin} = user.status;
+  //state
   const {state: formValues, addFormValueToState} = useHandleState({
     email: "",
     password: ""
   });
-
-  //api
-  const {loading, error, fetchData, setError} = useCallApi({
-    options: {method: "post", body: JSON.stringify(formValues)},
-    endpoint: "/login/"
-  });
+  const [loading, setLoading] = useState(loadingLogin);
+  const [error, setError] = useState(errorOnLogin);
+  //on user change after fetchUserLogin()
+  useEffect(
+    function() {
+      setLoading(loadingLogin);
+      if (errorOnLogin) {
+        setError(errorOnLogin);
+      }
+    },
+    [loadingLogin, errorOnLogin]
+  );
+  //handlers
   const handleOnErrorClose = () => setError(null);
-  async function handleClick(e) {
+  const handleClick = e => {
     e.preventDefault();
-
     if (!formValues.email || !formValues.password) {
       setError("Campos vacios");
     } else {
-      //Everything ok
-      try {
-        const {data} = await fetchData();
-        login(data.user);
-      } catch (error) {
-        setError(error.message);
-      }
+      fetchUserLogin(formValues);
     }
-  }
+  };
 
   return (
     <Login
@@ -48,7 +50,9 @@ function LoginContainer({login}) {
     />
   );
 }
+const mapStateToProps = state => ({user: state.user});
+
 export default connect(
-  null,
-  {login}
+  mapStateToProps,
+  {fetchUserLogin}
 )(LoginContainer);

@@ -20,20 +20,17 @@ function SignupContainer({user, fetchSignupUser}) {
     password: "",
     password_repeat: ""
   });
-  useEffect(() => {
-    debugger;
-    if (user.errorOnSignup) {
-      setError(user.errorOnSignup.message);
-      setLoading(false);
-    }
-    if (user.loadingSignup) {
-      setLoading(user.loadingSignup);
-      setError(null);
-    }
-  }, [user]);
   //status
-  const [loading, setLoading] = useState(user.loadingSignup);
-  const [error, setError] = useState(user.errorOnSignup);
+  const {errorOnSignup, loadingSignup} = user.status;
+  useEffect(() => {
+    setLoading(loadingSignup);
+    if (errorOnSignup) {
+      setError(errorOnSignup.message);
+    }
+  }, [errorOnSignup, loadingSignup]);
+  //status
+  const [loading, setLoading] = useState(loadingSignup);
+  const [error, setError] = useState(errorOnSignup);
 
   //handlers
   async function handleClick(e) {
@@ -57,7 +54,7 @@ function SignupContainer({user, fetchSignupUser}) {
   //The UI
   return (
     <>
-      {user.isLoged && <Redirect to={EDIT_USER} />}
+      {user.status.isLoged && <Redirect to={EDIT_USER} />}
       <Signup
         handleClick={handleClick}
         handleChange={addFormValueToState}

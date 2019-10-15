@@ -28,6 +28,7 @@ router.post("/login/", async (req, res) => {
     const {data} = body;
     const {accessToken, refreshToken} = data.token;
     req.session.refreshToken = refreshToken;
+    debug(req.session.refreshToken);
     addTokenToCookies(accessToken, res);
     sendGoodResponse({
       response: res,
@@ -51,9 +52,12 @@ router.post("/signup/", async (req, res) => {
       method: "post",
       data: req.body
     });
+    debug(response);
     const {accessToken, refreshToken} = response.data.token;
     req.session.refreshToken = refreshToken;
+    debug(req.session.refreshToken);
     addTokenToCookies(accessToken, res);
+
     sendGoodResponse({
       response: res,
       message: response.message,

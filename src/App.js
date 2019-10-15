@@ -16,7 +16,8 @@ import {
   ProviderPageContainer,
   ProviderListContainer
 } from "./Providers";
-
+//hooks
+import {useEffect} from "react";
 //--------------teams pages----------------------------
 import TeamsList from "./Teams/components/TeamsList";
 import AddTeam from "./Teams/components/AddTeam";
@@ -63,10 +64,30 @@ import {
 import {GlobalStyles} from "./global/styles/GlobalStyles";
 //redux
 import {connect} from "react-redux";
-
+import {loginUser} from "./global/redux/actions/users";
+import {callApi} from "./global/functions/callApi";
 import {Test} from "./Test";
 
-function App({user}) {
+function App({userIsLoged, loginUser}) {
+  /*if user isn't loged calls server to get user info
+    from session, if isn't a session then do [xd]
+  */
+  useEffect(() => {
+    if (!userIsLoged) {
+      //call api
+      callApi("/users/session", {
+        method: "post"
+      })
+        .then(response => {
+          console.log(response);
+          response.statusCode === 200 &&
+            loginUser("success", response.data);
+        })
+        .catch(error =>
+          console.log("Usuario no restaurado de la sessión", error)
+        );
+    }
+  });
   return (
     <BrowserRouter>
       <LastLocationProvider>
@@ -74,82 +95,82 @@ function App({user}) {
         <Layout>
           <Switch>
             <PublicRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={LANDING_ROUTE}
               component={Landing}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={APP_HOME_ROUTE}
               component={Dashboard}
             />
 
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={PROVIDERS_ROUTE}
               component={ProviderListContainer}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={PROVIDER_PAGE_ROUTE}
               component={ProviderPageContainer}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={CLIENTS_ROUTE}
               component={ClientsList}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={ADD_CLIENT_ROUTE}
               component={AddClient}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={CLIENT_PAGE_ROUTE}
               component={ClientPage}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={REMINDERS_ROUTE}
               component={RemindersList}
             />
             {/*------------user routes -------------------*/}
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               component={UserPage}
               exact
               path={USER_PAGE}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               component={EditUser}
               exact
               path={EDIT_USER}
             />
             <PublicRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               component={SignupPage}
               exact
               path={SIGNUP_ROUTE}
               routeToBeRedirected={`${EDIT_USER}?firstTime=true`}
             />
             <PublicRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               component={LoginPage}
               exact
               path={LOGIN_ROUTE}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               component={Test}
               exact
               path="/test/"
@@ -176,19 +197,19 @@ function App({user}) {
 
             {/*------------teams routes ------------------------*/}
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={TEAMS_LIST}
               component={TeamsList}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={ADD_TEAM}
               component={AddTeam}
             />
             <PrivateRoute
-              userIsLoged={user.isLoged}
+              userIsLoged={userIsLoged}
               exact
               path={TEAM_PAGE}
               component={Team}
@@ -203,11 +224,11 @@ function App({user}) {
   );
 }
 
-const mapStateToProps = state => {
-  return {user: state.user};
-};
+const mapStateToProps = state => ({
+  userIsLoged: state.user.status.isLoged
+});
 
 export default connect(
   mapStateToProps,
-  null
+  {loginUser}
 )(App);

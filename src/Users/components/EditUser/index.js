@@ -1,13 +1,14 @@
 import React from "react";
 //hooks
 import {useHandleState} from "../../../global/hooks/";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 //components
 import {
   Input,
   UploadImage,
   EditPage,
-  InfoMessage
+  InfoMessage,
+  ErrorMessage
 } from "../../../global/components/";
 //styled-components
 import {
@@ -18,7 +19,7 @@ import {
 import {connect} from "react-redux";
 import {fetchUserUpdate} from "../../../global/redux/actions/users";
 
-function EditUser({user, loading, error, fetchUserUpdate, location}) {
+function EditUser({user, fetchUserUpdate, location}) {
   const initialState = {
     name: user.name || "",
     lastname: user.lastname || "",
@@ -33,6 +34,17 @@ function EditUser({user, loading, error, fetchUserUpdate, location}) {
     addValueToState
   } = useHandleState(initialState);
 
+  //status ui handling
+  const {errorOnUpdate, loadingUpdate} = user.status;
+  const [loading, setLoading] = useState(loadingUpdate);
+  const [error, setError] = useState(errorOnUpdate);
+  useEffect(() => {
+    setLoading(loadingUpdate);
+    if (errorOnUpdate) {
+      setError(errorOnUpdate);
+    }
+  }, [errorOnUpdate, loadingUpdate]);
+  //handlers
   const handleUploadImage = fileImage =>
     addValueToState("profilePic", fileImage);
 
@@ -98,6 +110,13 @@ function EditUser({user, loading, error, fetchUserUpdate, location}) {
             value={state.job}
             onChange={addFormValueToState}
           />
+          {error && (
+            <ErrorMessage
+              error={error}
+              onClose={() => setError(null)}
+            />
+          )}
+          {loading && <p>Cargando...</p>}
         </InputContainer>
       </FormWithPhotoUpload>
     </EditPage>

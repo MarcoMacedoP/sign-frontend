@@ -10,7 +10,7 @@ export const ErrorMessage = ({error = false, onClose}) => {
   return (
     error &&
     typeof error === "string" && (
-      <Error message="error" onClose={onClose} />
+      <Error message={error} onClose={onClose} />
     )
   );
 };

@@ -1,9 +1,7 @@
 import {
   LOG_IN_USER,
   LOG_OUT,
-  ERROR_ON_USER_UPDATE,
-  REQUEST_USER_UPDATE,
-  RECIEVE_USER_UPDATE,
+  UPDATE_USER,
   SIGN_UP_USER
 } from "../types/actionTypes";
 
@@ -22,7 +20,9 @@ export function fetchUserLogin(userData = {}) {
       method: "post",
       body: JSON.stringify(userData)
     })
-      .then(response => dispatch(loginUser("success", response)))
+      .then(response =>
+        dispatch(loginUser("success", response.data.user))
+      )
       .catch(error => dispatch(loginUser("error", error)));
   };
 }
@@ -63,18 +63,9 @@ export function fetchSignupUser(user) {
 //----signup user end -------------//
 
 //---------update user -------------//
-export const errorOnUserUpdate = error => ({
-  type: ERROR_ON_USER_UPDATE,
-  error
-});
-
-export const requestUserUpdate = user => ({
-  type: REQUEST_USER_UPDATE,
-  user
-});
-export const recieveUserUpdate = updatedUser => ({
-  type: RECIEVE_USER_UPDATE,
-  payload: updatedUser
+export const updateUser = (status, response) => ({
+  type: UPDATE_USER,
+  payload: {status, response}
 });
 
 /**Call the api with new user data for update the user.
@@ -86,7 +77,7 @@ export const fetchUserUpdate = (
   user,
   updatedUserFormData
 ) => dispatch => {
-  dispatch(requestUserUpdate(user));
+  dispatch(updateUser("loading", []));
   return callApi(
     `/users/${user.id}`,
     {
@@ -94,13 +85,15 @@ export const fetchUserUpdate = (
       body: updatedUserFormData
     },
     false
-  ).then(response => {
-    if (response.error) {
-      console.error(response.error);
-      dispatch(errorOnUserUpdate(response.error));
-    } else {
-      dispatch(recieveUserUpdate(response.data));
-    }
-  });
+  )
+    .then(response => {
+      if (response.error) {
+        dispatch(updateUser("error", response.error));
+      } else {
+        console.log(response);
+        dispatch(updateUser("success", response.data));
+      }
+    })
+    .catch(error => dispatch(updateUser("error", error)));
 };
 //---------update user end-------------//

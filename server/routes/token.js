@@ -9,10 +9,8 @@ const {addTokenToCookies} = require("../utils/addTokenToCookies");
 
 router.all("/", async (req, res, next) => {
   try {
-    const {token} = req.cookies;
-    debug("orignal token", token);
-    debug("actualizando token...");
-    debug(req.session.refreshToken);
+    const {lastUrl} = req.query;
+    debug("url:", lastUrl);
     const response = await axios(`${api.route}/auth/token/`, {
       method: "post",
       data: {
@@ -22,7 +20,7 @@ router.all("/", async (req, res, next) => {
     const {data} = response.data;
     debug(data);
     addTokenToCookies(data.accessToken, res);
-    res.redirect(307, "back");
+    res.redirect(307, lastUrl);
   } catch (error) {
     next(error);
   }

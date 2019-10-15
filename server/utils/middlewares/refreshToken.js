@@ -1,24 +1,26 @@
 const jwt = require("jsonwebtoken");
-const {api} = require("../../config");
 const debug = require("debug")("app:middlewares:refreshToken");
-const axios = require("axios");
-//utils
-const {addTokenToCookies} = require("../addTokenToCookies");
-
+const {sendBadResponse} = require("../responses");
 async function refreshToken(req, res, next) {
   const {token} = req.cookies;
-  debug("orignal token", token);
+  const {refreshToken} = req.session;
 
-  const {exp} = jwt.decode(token);
-  const jwtExpirationDate = exp * 1000;
-  const currentDate = Date.now();
+  if (token && refreshToken) {
+    const {exp} = jwt.decode(token);
+    const jwtExpirationDate = exp * 1000;
+    const currentDate = Date.now();
 
-  if (currentDate >= jwtExpirationDate) {
-    //redirect to /token to obtain a new token
-    debug(res.location);
-    res.redirect(307, "/api/token/");
+    if (currentDate >= jwtExpirationDate) {
+      //redirect to /token to obtain a new token
+      debug("location: ", req.originalUrl);
+      res.redirect(307, `/api/token/?lastUrl=${req.originalUrl}`);
+    } else next();
   } else {
-    next();
+    sendBadResponse({
+      response: res,
+      statusCode: 401,
+      message: "Not logged"
+    });
   }
 }
 module.exports = refreshToken;

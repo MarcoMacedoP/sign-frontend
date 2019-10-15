@@ -3,6 +3,7 @@ const axios = require("axios");
 const debug = require("debug")("app:users:routes");
 const multer = require("multer");
 const fs = require("fs");
+const jwt = require("jsonwebtoken");
 //utils
 const convertToFormData = require("../utils/convertToFormData");
 //init
@@ -22,11 +23,44 @@ const {
 } = require("../utils/responses");
 
 //++++++++++++routes+++++++++++++++++++++++
+
+//gets a user from the session if exists
+router.post("/session", async (req, res, next) => {
+  if (req.session.refreshToken && req.cookies.token) {
+    try {
+      const {sub} = jwt.decode(req.cookies.token);
+      const {data} = await axios(`/users/id/${sub}`);
+      sendGoodResponse({
+        response: res,
+        message: "user restored from session",
+        data: data.data
+      });
+    } catch (error) {
+      debug(error);
+
+      sendBadResponse({
+        response: res,
+        message: "No user on session",
+        statusCode: 401,
+        error
+      });
+    }
+  } else {
+    debug("no cookie or session");
+
+    sendBadResponse({
+      response: res,
+      message: "No user on session",
+      statusCode: 401
+    });
+  }
+});
+
 router.put(
   "/:userId",
   upload.single("profilePic"),
   async (req, res, next) => {
-    debug(req.cookies.token);
+    debug("actualizando usuario");
     try {
       //create FormData from req.body
       const form = convertToFormData(req.body);
@@ -50,6 +84,7 @@ router.put(
         statusCode: status
       });
     } catch (error) {
+      debug(error);
       sendBadResponse({response: res, message: error.message, error});
     } finally {
       //remove the file in this server, is already stored in the other server
