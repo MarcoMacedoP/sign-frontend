@@ -4,6 +4,7 @@ module.exports = {
     port: process.env.SERVER_PORT
   },
   api: {
+    host: process.env.API_HOST,
     route: process.env.API_ROUTE
   },
   cookie: {

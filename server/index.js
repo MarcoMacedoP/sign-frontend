@@ -20,6 +20,7 @@ const app = express();
 const authRoute = require("./routes/auth");
 const tokenRoute = require("./routes/token");
 const usersRoute = require("./routes/users");
+const redirectToMainApi = require("./routes/redirectToMainApi");
 
 //middlewares
 app.use(
@@ -37,7 +38,7 @@ app.use(session(sessionOptions));
 app.use("/api", authRoute);
 app.use("/api/token", tokenRoute);
 app.use("/api/users", refreshToken, usersRoute);
-
+app.use("/", refreshToken, redirectToMainApi);
 //initialize server
 app.listen(config.server.port, () => {
   console.log("server initialized on port", config.server.port);

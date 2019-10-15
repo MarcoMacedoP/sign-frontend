@@ -46,8 +46,6 @@ export function fetchSignupUser(user) {
       body: JSON.stringify(user)
     })
       .then(response => {
-        console.log(response);
-        debugger;
         const statusCodeIsValid =
           response.statusCode >= 200 && response.statusCode < 300;
         if (statusCodeIsValid) {
