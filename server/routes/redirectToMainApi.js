@@ -19,7 +19,10 @@ router.all("*", (req, res) => {
   };
   axios(API_URL, options)
     .then(({data}) => sendGoodResponse({...data, response: res}))
-    .catch(erorr => sendBadResponse({...erorr}));
+    .catch(err => {
+      const {error, data, statusCode} = err.response.data;
+      sendBadResponse({error, response: res, data, statusCode});
+    });
 });
 
 module.exports = router;

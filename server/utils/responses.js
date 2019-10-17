@@ -10,7 +10,7 @@ function sendBadResponse({
   response.status(statusCode).json({
     message,
     data,
-    statusCode: statusCode,
+    statusCode,
     error
   });
 }
