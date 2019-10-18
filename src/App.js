@@ -6,11 +6,7 @@ import {PrivateRoute, PublicRoute} from "./global/components";
 import {LastLocationProvider} from "react-router-last-location";
 // Pages
 import {Landing} from "./LandingPage";
-import {
-  AddClient,
-  ClientsList,
-  ClientPage
-} from "./Clients/components/";
+
 import {Dashboard} from "./Dashboard";
 import {
   ProviderPageContainer,
@@ -18,6 +14,11 @@ import {
 } from "./Providers";
 //hooks
 import {useEffect} from "react";
+//--------------clients pages----------------------------
+import {AddClient, ClientPage} from "./Clients/components/";
+import ClientsList from "./Clients/components/ClientsList";
+//--------------end clients pages-------------------------
+
 //--------------teams pages----------------------------
 import TeamsList from "./Teams/components/TeamsList";
 import AddTeam from "./Teams/components/AddTeam";

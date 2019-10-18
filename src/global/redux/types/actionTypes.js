@@ -11,3 +11,5 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const CHANGE_ACTIVITY_TYPE = "CHANGE_ACTIVITY_TYPE";
 //Teams
 export const ADD_TEAM = "ADD_TEAM";
+//Clients
+export const GET_CLIENTS = "FETCH_CLIENTS";

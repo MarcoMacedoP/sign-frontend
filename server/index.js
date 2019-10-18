@@ -20,6 +20,7 @@ const app = express();
 const authRoute = require("./routes/auth");
 const tokenRoute = require("./routes/token");
 const usersRoute = require("./routes/users");
+const teamsRoute = require("./routes/teams");
 const redirectToMainApi = require("./routes/redirectToMainApi");
 
 //middlewares
@@ -38,6 +39,7 @@ app.use(session(sessionOptions));
 app.use("/api", authRoute);
 app.use("/api/token", tokenRoute);
 app.use("/api/users", refreshToken, usersRoute);
+app.use("/api/teams", refreshToken, teamsRoute);
 app.use("/", refreshToken, redirectToMainApi);
 //initialize server
 app.listen(config.server.port, () => {
