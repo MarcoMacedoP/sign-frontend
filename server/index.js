@@ -26,7 +26,7 @@ const redirectToMainApi = require("./routes/redirectToMainApi");
 //middlewares
 app.use(
   cors({
-    origin: /.*localhost:3000.*/,
+    origin: /.*192.168.0.4:3000.*/,
     credentials: true
   })
 );

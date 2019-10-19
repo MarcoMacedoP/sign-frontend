@@ -2,7 +2,6 @@ import styled from "styled-components";
 //vars
 import {blackColor, whiteColorDark} from "../../styles/variables";
 import {BaseIcon as Icon} from "../Icon/styles";
-import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
 
 export const Container = styled.div`
   max-width: 200px;

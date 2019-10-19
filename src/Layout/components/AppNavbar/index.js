@@ -1,6 +1,6 @@
 import React from "react";
 //components
-import {Icon, ToastMenu} from "../../../global/components";
+import {ToastMenu} from "../../../global/components";
 
 import {Logo} from "../../../global/styles/foundations/Logo";
 import {Navbar, Picture} from "./styles";
@@ -24,7 +24,6 @@ export const AppNavbar = ({
 
   return (
     <Navbar>
-      <Icon onClick={openMenu} icon="menu" />
       <Logo to="/app">sign</Logo>
       <Picture onClick={toggleMenu}>
         <img src={profilePicture} alt={username} />

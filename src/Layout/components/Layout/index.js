@@ -13,7 +13,8 @@ import {ThemeProvider} from "@material-ui/styles";
 import {theme} from "../../MaterialUiTheme";
 //Utils
 import {USER_PAGE} from "../../../global/utils/routes";
-
+//styled-components
+import {Main} from "./styles";
 const Layout = withRouter(({children, user, logout, history}) => {
   const [menuStatus, setMenuStatus] = useState(false);
   const redirectToUserPage = () => history.push(USER_PAGE);
@@ -25,13 +26,14 @@ const Layout = withRouter(({children, user, logout, history}) => {
           profilePicture={user.profilePic}
           onLogout={logout}
         />
-        <LateralMenu
-          redirectToUserPage={redirectToUserPage}
-          isShowed={menuStatus}
-          closeMenu={() => setMenuStatus(false)}
-          user={user}
-        />
-        {children}
+        <Main>
+          <LateralMenu
+            redirectToUserPage={redirectToUserPage}
+            isShowed={menuStatus}
+            user={user}
+          />
+          {children}
+        </Main>
       </ThemeProvider>
     );
   } else {
