@@ -4,6 +4,7 @@ const {sendBadResponse} = require("../responses");
 async function refreshToken(req, res, next) {
   const {token} = req.cookies;
   const {refreshToken} = req.session;
+  debug("refreshing token : ", token);
   req.session.reload(err => debug("err", err));
   if (refreshToken) {
     const {exp} = jwt.decode(token);
@@ -15,6 +16,7 @@ async function refreshToken(req, res, next) {
       res.redirect(307, `/api/token/?lastUrl=${req.originalUrl}`);
     } else next();
   } else {
+    debug("no refresh token");
     sendBadResponse({
       response: res,
       statusCode: 401,

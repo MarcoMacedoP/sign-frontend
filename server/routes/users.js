@@ -2,6 +2,7 @@ const router = require("express").Router();
 const axios = require("axios");
 const debug = require("debug")("app:users:routes");
 const multer = require("multer");
+const {api} = require("../config");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 //utils
@@ -25,11 +26,14 @@ const {
 //++++++++++++routes+++++++++++++++++++++++
 
 //gets a user from the session if exists
-router.post("/session", async (req, res, next) => {
+router.post("/session", async (req, res) => {
   if (req.session.refreshToken && req.cookies.token) {
+    const {sub} = jwt.decode(req.cookies.token);
+    debug(sub);
     try {
-      const {sub} = jwt.decode(req.cookies.token);
-      const {data} = await axios(`/users/id/${sub}`);
+      const {data} = await axios(`${api.route}/users/${sub}`, {
+        headers: {Authorization: `Bearer ${req.cookies.token}`}
+      });
       sendGoodResponse({
         response: res,
         message: "user restored from session",
@@ -59,7 +63,7 @@ router.post("/session", async (req, res, next) => {
 router.put(
   "/:userId",
   upload.single("profilePic"),
-  async (req, res, next) => {
+  async (req, res) => {
     debug("actualizando usuario");
     try {
       //create FormData from req.body

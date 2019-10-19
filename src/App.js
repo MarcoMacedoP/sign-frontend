@@ -89,11 +89,14 @@ function App({userIsLoged, userHasLogout, loginUser}) {
         );
     }
   });
+  //if user has logout reload the window.
+  //This fix issues with storing session cookie
   useEffect(() => {
     if (userHasLogout) {
+      // eslint-disable-next-line no-undef
       window.location.reload();
     }
-  }, userHasLogout);
+  }, [userHasLogout]);
   return (
     <BrowserRouter>
       <LastLocationProvider>
