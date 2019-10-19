@@ -18,8 +18,7 @@ router.all("*", (req, res) => {
       Authorization: `Bearer ${req.cookies.token}`
     }
   };
-  const sessionId = req.session.id;
-  debug(sessionId);
+
   axios(API_URL, options)
     .then(({data}) => {
       debug(data);
