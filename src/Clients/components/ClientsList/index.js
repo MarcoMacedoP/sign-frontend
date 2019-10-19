@@ -29,8 +29,6 @@ function ClientsList({clients, fetchClients}) {
     fetchClients
   ]);
 
-  if (loadingClients) {
-  }
   if (errorOnGetClients) {
     console.log(errorOnGetClients);
     return <h1> error !!!</h1>;

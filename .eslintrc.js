@@ -18,6 +18,7 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
-    "jsx-uses-vars": true
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   }
 };

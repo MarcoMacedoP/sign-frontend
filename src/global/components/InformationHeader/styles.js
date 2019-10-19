@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import {H1} from "../../styles/texts";
 import {
-  secondaryColor,
   whiteColorLigth,
+  secondaryColor,
   blackColorTransparent
 } from "../../styles/variables";
 import {Menu as ToastMenu} from "../ToastMenu/styles";
-
+import {BaseIcon as Icon} from "../Icon/styles";
 import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
 
 export const About = styled.div`
@@ -17,18 +17,20 @@ export const About = styled.div`
   overflow: scroll;
 `;
 export const Navigation = styled.nav`
-  width: 90vw;
+  width: 100%;
   box-sizing: border-box;
   height: 3rem;
   display: flex;
-
   justify-content: space-between;
+  align-items: center;
   position: sticky;
   top: 0;
   left: 0;
-  background: ${whiteColorLigth};
-  z-index: 1;
 
+  z-index: 1;
+  ${Icon} {
+    background-color: ${whiteColorLigth};
+  }
   ${ToastMenu} {
     top: 0;
   }
