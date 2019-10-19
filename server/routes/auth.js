@@ -40,7 +40,7 @@ router.post("/login/", async (req, res) => {
     sendBadResponse({
       response: res,
       message: error.message,
-      statusCode: error.response.status,
+      statusCode: error.response.status || 500,
       error
     });
   }

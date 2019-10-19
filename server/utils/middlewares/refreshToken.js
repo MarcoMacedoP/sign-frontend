@@ -4,12 +4,14 @@ const {sendBadResponse} = require("../responses");
 async function refreshToken(req, res, next) {
   const {token} = req.cookies;
   const {refreshToken} = req.session;
+  debug(req.session);
+  debug("refreshToken : ", refreshToken);
+  debug("accessToken", token);
 
-  if (token && refreshToken) {
+  if (refreshToken) {
     const {exp} = jwt.decode(token);
     const jwtExpirationDate = exp * 1000;
     const currentDate = Date.now();
-
     if (currentDate >= jwtExpirationDate) {
       //redirect to /token to obtain a new token
       debug("location: ", req.originalUrl);

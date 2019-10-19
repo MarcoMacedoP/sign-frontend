@@ -36,7 +36,7 @@ export default function clientsReducer(state = initialState, action) {
               loadingClients: false,
               errorOnGetClients: null
             },
-            list: [...state.list, ...response]
+            list: [...response]
           };
         case "error":
           return {

@@ -18,7 +18,15 @@ router.all("*", (req, res) => {
     }
   };
   axios(API_URL, options)
-    .then(({data}) => sendGoodResponse({...data, response: res}))
+    .then(({data}) => {
+      debug(data);
+      sendGoodResponse({
+        data: data.data,
+        response: res,
+        statusCode: data.statusCode,
+        message: data.message
+      });
+    })
     .catch(err => {
       const {error, data, statusCode} = err.response.data;
       sendBadResponse({error, response: res, data, statusCode});

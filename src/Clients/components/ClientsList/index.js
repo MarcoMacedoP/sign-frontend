@@ -1,7 +1,7 @@
 // Components
 import React from "react";
 import {Link} from "react-router-dom";
-import {LongCard, List} from "../../../global/components";
+import {LongCard, List, Loading} from "../../../global/components";
 //hooks
 import {useEffect, useState} from "react";
 // styled-Components
@@ -30,7 +30,6 @@ function ClientsList({clients, fetchClients}) {
   ]);
 
   if (loadingClients) {
-    return <h1>loading...</h1>;
   }
   if (errorOnGetClients) {
     console.log(errorOnGetClients);
@@ -39,11 +38,15 @@ function ClientsList({clients, fetchClients}) {
   return (
     <List title="Clientes">
       <LongList>
-        {clients.list.map(id => (
-          <Link to={`${CLIENTS_ROUTE}${id}`} key={id}>
-            <LongCard />
-          </Link>
-        ))}
+        {loadingClients ? (
+          <Loading />
+        ) : (
+          clients.list.map(({client_id}) => (
+            <Link to={`${CLIENTS_ROUTE}${client_id}`} key={client_id}>
+              <LongCard />
+            </Link>
+          ))
+        )}
       </LongList>
     </List>
   );
