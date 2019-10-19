@@ -2,7 +2,11 @@
 import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Layout from "./Layout";
-import {PrivateRoute, PublicRoute} from "./global/components";
+import {
+  PrivateRoute,
+  PublicRoute,
+  Loading
+} from "./global/components";
 import {LastLocationProvider} from "react-router-last-location";
 // Pages
 import {Landing} from "./LandingPage";
@@ -13,7 +17,7 @@ import {
   ProviderListContainer
 } from "./Providers";
 //hooks
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 //--------------clients pages----------------------------
 import {AddClient, ClientPage} from "./Clients/components/";
 import ClientsList from "./Clients/components/ClientsList";
@@ -68,14 +72,24 @@ import {connect} from "react-redux";
 import {loginUser} from "./global/redux/actions/users";
 import {callApi} from "./global/functions/callApi";
 import {Test} from "./Test";
-
+//functions
+import {getCookieByName} from "./global/functions/cookies";
 function App({userIsLoged, userHasLogout, loginUser}) {
+  const [userHasSession, setUserHasSession] = useState(false);
+
+  //check if user has a session searching cookie token
+  useEffect(() => {
+    const userHasAccessToken = getCookieByName("token");
+    if (userHasAccessToken) {
+      setUserHasSession(true);
+    }
+  }, []);
+
   /*if user isn't loged calls server to get user info
     from session, if isn't a session then do [xd]
   */
   useEffect(() => {
-    if (!userIsLoged) {
-      //call api
+    if (!userIsLoged && userHasSession) {
       callApi("/users/session", {
         method: "post"
       })
@@ -88,15 +102,20 @@ function App({userIsLoged, userHasLogout, loginUser}) {
           console.log("Usuario no restaurado de la sessión", error)
         );
     }
-  });
+  }, [userHasSession, userIsLoged, loginUser]);
   //if user has logout reload the window.
   //This fix issues with storing session cookie
   useEffect(() => {
     if (userHasLogout) {
-      // eslint-disable-next-line no-undef
       window.location.reload();
     }
   }, [userHasLogout]);
+  //shows a loading status if user hasSession and isn't logged
+  //change the message depending if user has log out
+  if (userHasSession && !userIsLoged) {
+    return <Loading />;
+  }
+
   return (
     <BrowserRouter>
       <LastLocationProvider>

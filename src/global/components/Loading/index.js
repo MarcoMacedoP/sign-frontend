@@ -1,10 +1,11 @@
 import React from "react";
-import { CircularProgress } from "@material-ui/core/";
-import { Container } from "./styles";
-export const Loading = () => {
+import {CircularProgress} from "@material-ui/core/";
+import {Container, Message} from "./styles";
+export const Loading = ({message}) => {
   return (
     <Container>
-      <CircularProgress color="red" size="80px" />
+      <Message> {message} </Message>
+      <CircularProgress size="80px" />
     </Container>
   );
 };
