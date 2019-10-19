@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 //components
 import {ToastMenu} from "../../../global/components";
@@ -9,12 +10,7 @@ import {useHandleState} from "../../../global/hooks/useHandleState";
 //utils
 import {USER_PAGE} from "../../../global/utils/routes";
 
-export const AppNavbar = ({
-  openMenu,
-  profilePicture,
-  onLogout,
-  username
-}) => {
+export const AppNavbar = ({profilePicture, onLogout, username}) => {
   const {state, toggleStateValue} = useHandleState({
     menuShowed: false
   });

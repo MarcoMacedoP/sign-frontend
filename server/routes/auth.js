@@ -77,24 +77,30 @@ router.post("/signup/", async (req, res) => {
     });
   }
 });
-router.post("/logout/", async (req, res) => {
+router.get("/logout/", async (req, res) => {
   try {
+    //remove refreshToken from external list.
     await axios(`${apiRoute}/auth/token/`, {
       method: "delete",
       data: {refreshToken: req.session.refreshToken}
-    });
-    req.session.destroy(error => console.log(error));
-    sendGoodResponse({
-      response: res,
-      message: "Session eliminada",
-      statusCode: 200
     });
   } catch (error) {
     debug(error);
     sendBadResponse({
       response: res,
       error,
-      message: "hubo un error borrando el refresh token"
+      message: "Error cerrando sesión"
+    });
+  } finally {
+    //delete all session elements
+    req.session.destroy(error => console.log(error));
+    res.clearCookie("token");
+    res.clearCookie("connect.sid");
+    //make response
+    sendGoodResponse({
+      response: res,
+      message: "Session eliminada",
+      statusCode: 401
     });
   }
 });

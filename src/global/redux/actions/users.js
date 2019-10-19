@@ -28,10 +28,20 @@ export function fetchUserLogin(userData = {}) {
 }
 //------end login user------
 
-export const logout = () => ({
-  type: LOG_OUT
+export const logout = (status, response) => ({
+  type: LOG_OUT,
+  payload: {status, response}
 });
-
+export function fetchLogout() {
+  return dispatch => {
+    dispatch(logout("loading"));
+    return callApi("/logout/")
+      .then(response => {
+        dispatch(logout("success", response));
+      })
+      .catch(error => dispatch("error", error));
+  };
+}
 //----signup user ------------------//
 export const signupUser = (status, response) => ({
   type: SIGN_UP_USER,

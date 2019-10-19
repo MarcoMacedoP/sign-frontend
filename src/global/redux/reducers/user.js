@@ -13,12 +13,15 @@ const initialState = {
   bio: "",
   job: "",
   status: {
+    errrorOnLogout: null,
     errorOnLogin: null,
     errorOnSignup: null,
     errorOnUpdate: null,
     loadingUpdate: false,
+    loadingLogout: false,
     loadingSignup: false,
     loadingLogin: false,
+    hasLogout: false,
     isLoged: false
   }
 };
@@ -27,7 +30,6 @@ export default function(state = initialState, action) {
   switch (action.type) {
     //--------login user-------------
     case LOG_IN_USER:
-      debugger;
       switch (action.payload.status) {
         case "loading":
           return {
@@ -63,7 +65,36 @@ export default function(state = initialState, action) {
       }
     //--------logout user-------------
     case LOG_OUT:
-      return {...initialState};
+      switch (action.payload.status) {
+        case "loading":
+          return {
+            ...state,
+            status: {
+              ...state,
+              loadingLogout: true,
+              errrorOnLogout: null
+            }
+          };
+        case "error":
+          return {
+            ...state,
+            status: {
+              ...state,
+              loadingLogout: false,
+              errrorOnLogout: action.payload.response
+            }
+          };
+        case "success":
+          return {
+            ...initialState,
+            status: {
+              ...initialState.status,
+              hasLogout: true
+            }
+          };
+        default:
+          return state;
+      }
     //--------signup user-------------
     case SIGN_UP_USER:
       switch (action.payload.status) {

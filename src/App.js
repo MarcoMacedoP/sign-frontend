@@ -69,7 +69,7 @@ import {loginUser} from "./global/redux/actions/users";
 import {callApi} from "./global/functions/callApi";
 import {Test} from "./Test";
 
-function App({userIsLoged, loginUser}) {
+function App({userIsLoged, userHasLogout, loginUser}) {
   /*if user isn't loged calls server to get user info
     from session, if isn't a session then do [xd]
   */
@@ -89,6 +89,11 @@ function App({userIsLoged, loginUser}) {
         );
     }
   });
+  useEffect(() => {
+    if (userHasLogout) {
+      window.location.reload();
+    }
+  }, userHasLogout);
   return (
     <BrowserRouter>
       <LastLocationProvider>
@@ -180,7 +185,7 @@ function App({userIsLoged, loginUser}) {
 
             {/*------------projects routes -------------------*/}
             <Route
-              exact
+              exactuserHasLogout
               path={PROJECTS_ROUTE}
               component={ProjectList}
             />
@@ -226,7 +231,8 @@ function App({userIsLoged, loginUser}) {
 }
 
 const mapStateToProps = state => ({
-  userIsLoged: state.user.status.isLoged
+  userIsLoged: state.user.status.isLoged,
+  userHasLogout: state.user.status.hasLogout
 });
 
 export default connect(
