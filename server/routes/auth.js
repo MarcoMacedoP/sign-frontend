@@ -11,7 +11,10 @@ const {
   sendBadResponse,
   sendGoodResponse
 } = require("../utils/responses");
-const {addTokenToCookies} = require("../utils/addTokenToCookies");
+const {
+  addTokenToCookies,
+  addCookie
+} = require("../utils/addTokenToCookies");
 //routes
 router.post("/login/", async (req, res) => {
   try {
@@ -29,7 +32,9 @@ router.post("/login/", async (req, res) => {
     const {accessToken, refreshToken} = data.token;
     req.session.refreshToken = refreshToken;
     debug(req.session.refreshToken);
+    req.session.save(err => debug("err", err));
     addTokenToCookies(accessToken, res);
+    addCookie("sessionID", req.session.id, res);
     sendGoodResponse({
       response: res,
       message: body.message,
@@ -55,6 +60,8 @@ router.post("/signup/", async (req, res) => {
     debug(response);
     const {accessToken, refreshToken} = response.data.token;
     req.session.refreshToken = refreshToken;
+    req.session.save(err => debug(err));
+
     debug(req.session.refreshToken);
     addTokenToCookies(accessToken, res);
 

@@ -14,9 +14,12 @@ router.all("*", (req, res) => {
     method: req.method,
     headers: {
       ...req.headers,
+      withCredentals: true,
       Authorization: `Bearer ${req.cookies.token}`
     }
   };
+  const sessionId = req.session.id;
+  debug(sessionId);
   axios(API_URL, options)
     .then(({data}) => {
       debug(data);

@@ -19,7 +19,7 @@ const initialState = {
     loadingUpdate: false,
     loadingSignup: false,
     loadingLogin: false,
-    isLoged: true
+    isLoged: false
   }
 };
 

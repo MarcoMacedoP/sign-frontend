@@ -12,5 +12,9 @@ module.exports = {
   },
   session: {
     secret: process.env.SESSION_SECRET
+  },
+  db: {
+    mongoURI: process.env.MONGO_URI,
+    mongoDB: process.env.MONGO_DB_NAME
   }
 };
