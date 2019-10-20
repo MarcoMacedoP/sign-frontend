@@ -14,3 +14,6 @@ export const ADD_TEAM = "ADD_TEAM";
 //Clients
 export const GET_CLIENTS = "FETCH_CLIENTS";
 export const ADD_CLIENT = "ADD_CLIENT";
+//Providers
+export const GET_PROVIDERS = "FETCH_PROVIDERS";
+export const ADD_PROVIDERS = "ADD_PROVIDER";
