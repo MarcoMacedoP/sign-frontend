@@ -1,6 +1,7 @@
 import {
   GET_PROVIDERS,
-  SHOULD_FETCH_PROVIDERS
+  SHOULD_FETCH_PROVIDERS,
+  ADD_PROVIDER
 } from "../types/actionTypes";
 
 const initalState = {
@@ -12,20 +13,57 @@ const initalState = {
       email: "",
       phone: "",
       image_url: "",
-      services: [],
-      products: []
+      incomes: []
     }
   ],
   status: {
     shouldFetchProviders: true,
     loadingProviders: false,
-    errorOnGetProviders: null
+    loadingAddProvider: false,
+    errorOnGetProviders: null,
+    errorOnAddProvider: null
   }
 };
 
 export default (state = initalState, action) => {
   switch (action.type) {
-    //----get providers----------------
+    //***********add providers***********
+    case ADD_PROVIDER:
+      switch (action.payload.status) {
+        case "success":
+          return {
+            list: [...state.list, ...action.payload.response],
+            status: {
+              ...state.status,
+              loadingAddProvider: false,
+              errorOnAddProvider: null
+            }
+          };
+        case "loading":
+          return {
+            ...state,
+            status: {
+              ...state.status,
+              loadingAddProvider: true,
+              errorOnAddProvider: null
+            }
+          };
+        case "error":
+          return {
+            ...state,
+            status: {
+              ...state.status,
+              loadingAddProvider: false,
+              errorOnAddProvider: action.payload.response
+            }
+          };
+
+        default:
+          return state;
+      }
+    //***********end add providers***********
+
+    //***********get providers***********
     case SHOULD_FETCH_PROVIDERS:
       return {
         ...state,
@@ -66,6 +104,7 @@ export default (state = initalState, action) => {
         default:
           return state;
       }
+    //***********end get providers***********
 
     default:
       return state;
