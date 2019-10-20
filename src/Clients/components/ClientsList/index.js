@@ -1,13 +1,16 @@
 // Components
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {LongCard, List, Loading} from "../../../global/components";
 //hooks
 import {useEffect, useState} from "react";
 // styled-Components
 import {LongList} from "../../../global/styles/Lists";
 //utils
-import {CLIENTS_ROUTE} from "../../../global/utils/routes";
+import {
+  CLIENTS_ROUTE,
+  ADD_CLIENT_ROUTE
+} from "../../../global/utils/routes";
 //redux
 import {connect} from "react-redux";
 import {fetchClients} from "../../../global/redux/actions/clients";
@@ -15,6 +18,10 @@ import {fetchClients} from "../../../global/redux/actions/clients";
 function ClientsList({clients, fetchClients}) {
   const {loadingClients, errorOnGetClients} = clients.status;
   const [shouldFetchClients, setShouldFetchClients] = useState(true);
+  const [isRedirect, setIsRedirect] = useState(false);
+
+  const handleAddButton = () => setIsRedirect(true);
+
   useEffect(() => {
     if (shouldFetchClients) {
       fetchClients();
@@ -34,7 +41,7 @@ function ClientsList({clients, fetchClients}) {
     return <h1> error !!!</h1>;
   }
   return (
-    <List title="Clientes">
+    <List title="Clientes" onAddButtonClick={handleAddButton}>
       <LongList>
         {loadingClients ? (
           <Loading />
@@ -45,6 +52,7 @@ function ClientsList({clients, fetchClients}) {
             </Link>
           ))
         )}
+        {isRedirect && <Redirect to={ADD_CLIENT_ROUTE} />}
       </LongList>
     </List>
   );
