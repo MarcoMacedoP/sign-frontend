@@ -1,8 +1,8 @@
 import React from "react";
-import {ListContainer, List, Name} from "./styles";
+//components
+import {IncomeList} from "../IncomeList";
 import {InformationHeader} from "../../../global/components";
-import {Income} from "../Income";
-import {AddButton} from "../../../global/components/AddButton";
+//modals
 import {AddIncome} from "../../modals/AddIncome";
 import {EditIncome} from "../../modals/EditIncome";
 //styled-components
@@ -11,7 +11,7 @@ import {PageContainer} from "../../../global/styles/Containers";
 import {useModalState, useHandleState} from "../../../global/hooks/";
 //redux
 import {connect} from "react-redux";
-function ProviderPage({provider}) {
+function ProviderPage({provider, services = [], products = []}) {
   // modals
   const {
     modalIsOpen: addServiceIsOpen,
@@ -37,29 +37,18 @@ function ProviderPage({provider}) {
   return (
     <PageContainer>
       <InformationHeader {...provider} />
-      {/* ---------Services---- */}
-      <ListContainer>
-        <Name>Servicios</Name>
-        <List>
-          {[1, 2, 3, 4, 5].map(value => (
-            <Income key={value} onClick={handleEditService} />
-          ))}
-        </List>
-        <AddButton position="static" onClick={handleAddService} />
-      </ListContainer>
-      {/* -------------- */}
-
-      {/* ---------Products---- */}
-      <ListContainer>
-        <Name>Productos</Name>
-        <List>
-          {[1, 2, 3, 4, 5].map(value => (
-            <Income key={value} onClick={handleEditProduct} />
-          ))}
-        </List>
-        <AddButton position="static" onClick={handleAddProduct} />
-      </ListContainer>
-      {/* -------------- */}
+      <IncomeList
+        type="Servicios"
+        incomeListArray={services}
+        onAddButtonClick={handleAddService}
+        onIncomeClick={handleEditService}
+      />
+      <IncomeList
+        type="Productos"
+        incomeListArray={products}
+        onAddButtonClick={handleAddProduct}
+        onIncomeClick={handleEditProduct}
+      />
 
       {/* ---------Modals---- */}
       <AddIncome
@@ -102,7 +91,15 @@ const mapStateToProps = ({providers}, props) => {
   const [provider] = providers.list.filter(
     provider => provider.provider_id === providerId
   );
-  return {provider};
+
+  const services = provider.expenses.filter(
+    expense => expense.type === "service"
+  );
+  const products = provider.expenses.filter(
+    expense => expense.type === "product"
+  );
+
+  return {provider, services, products};
 };
 export default connect(
   mapStateToProps,
