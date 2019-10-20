@@ -33,10 +33,17 @@ function ProviderPage({provider, services = [], products = []}) {
 
   // Form values of AddIncome and EditIncome
   const {state, addFormValueToState} = useHandleState({});
-
+  //provider info
+  const {name, lastname, image_url, about, email, phone} = provider;
   return (
     <PageContainer>
-      <InformationHeader {...provider} />
+      <InformationHeader
+        title={`${name} ${lastname}`}
+        imageUrl={image_url}
+        about={about}
+        email={email}
+        phone={phone}
+      />
       <IncomeList
         type="Servicios"
         incomeListArray={services}
