@@ -15,7 +15,7 @@ import {Landing} from "./LandingPage";
 
 import {Dashboard} from "./Dashboard";
 //-------------providers pages-------------
-import ProviderPage from "./Providers/components/ProviderPageContainer";
+import ProviderPage from "./Providers/components/ProviderPage";
 import ProvidersList from "./Providers/components/ProviderList";
 //--------------clients pages----------------------------
 import AddClient from "./Clients/components/AddClient";
