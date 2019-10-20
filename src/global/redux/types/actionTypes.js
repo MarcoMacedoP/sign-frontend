@@ -17,3 +17,4 @@ export const ADD_CLIENT = "ADD_CLIENT";
 //Providers
 export const GET_PROVIDERS = "FETCH_PROVIDERS";
 export const ADD_PROVIDERS = "ADD_PROVIDER";
+export const SHOULD_FETCH_PROVIDERS = "SHOULD_FETCH_PROVIDERS";

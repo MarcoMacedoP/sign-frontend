@@ -47,7 +47,7 @@ export const Picture = styled.picture`
 
   ${props =>
     props.url
-      ? `background-image:url(${props.url})`
+      ? `background-image:url('${props.url}')`
       : `background-color: ${secondaryColorLigth}`};
   background-size: cover;
   background-repeat: no-repeat;

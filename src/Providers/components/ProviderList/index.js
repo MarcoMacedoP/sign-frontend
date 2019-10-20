@@ -1,41 +1,73 @@
 import React from "react";
 // Components
+import {PictureCard, List} from "../../../global/components/";
+import {Link} from "react-router-dom";
+//hooks
+import {useEffect, useState} from "react";
 
-import { LongCard, PictureCard, List } from "../../../global/components/";
-
-import { Link } from "react-router-dom";
 // Styled Components
-import { BigList, LongList } from "../../../global/styles/Lists";
+import {BigList} from "../../../global/styles/Lists";
+//redux
+import {connect} from "react-redux";
+import {
+  fetchProviders,
+  setShouldFetchProviders
+} from "../../../global/redux/actions/providers";
 
-export const ProviderList = ({ data }) => {
-  let bigProviders = data.slice(0, 4);
-  let longProviders = data.slice(4);
-  const onClick = () => console.log("Add provider");
+function ProviderList({
+  providers,
+  setShouldFetchProviders,
+  fetchProviders
+}) {
+  const {
+    shouldFetchProviders,
+    loadingProviders,
+    errorOnGetProviders
+  } = providers.status;
+  //fetch providers
+  useEffect(() => {
+    if (shouldFetchProviders && !loadingProviders) {
+      fetchProviders();
+      setShouldFetchProviders(false);
+    }
+  }, [shouldFetchProviders]);
+  //handle errors
+  const [error, setError] = useState(null);
+  useEffect(() => setError(errorOnGetProviders), [
+    errorOnGetProviders
+  ]);
+  const setErrorToNull = () => setError(null);
+
   return (
-    <List title="Proveedores" onClick={onClick}>
+    <List
+      title="Proveedores"
+      isLoading={loadingProviders}
+      error={error}
+      onErrorClose={setErrorToNull}
+    >
       <BigList>
-        {bigProviders.map(({ id, name, lastname, image_url, about }) => (
-          <Link key={id} to={`/app/providers/${id}`}>
-            <PictureCard
-              title={`${name} ${lastname}`}
-              picture={image_url}
-              description={about}
-            />
-          </Link>
-        ))}
+        {providers.list.map(
+          ({provider_id, name, lastname, image_url, about}) => (
+            <Link
+              key={provider_id}
+              to={`/app/providers/${provider_id}`}
+            >
+              <PictureCard
+                title={`${name} ${lastname}`}
+                picture={image_url}
+                description={about}
+              />
+            </Link>
+          )
+        )}
       </BigList>
-
-      <LongList>
-        {longProviders.map(({ id, name, lastname, image_url, about }) => (
-          <Link key={id} to={`/app/providers/${id}`}>
-            <LongCard
-              title={`${name} ${lastname}`}
-              picture={image_url}
-              description={about}
-            />
-          </Link>
-        ))}
-      </LongList>
     </List>
   );
-};
+}
+const mapStateToProps = state => ({
+  providers: state.providers
+});
+export default connect(
+  mapStateToProps,
+  {fetchProviders, setShouldFetchProviders}
+)(ProviderList);

@@ -7,17 +7,16 @@ import {
   PublicRoute,
   Loading
 } from "./global/components";
+//hooks
 import {LastLocationProvider} from "react-router-last-location";
-// Pages
+import {useEffect, useState} from "react";
+//*******************Pages****************
 import {Landing} from "./LandingPage";
 
 import {Dashboard} from "./Dashboard";
-import {
-  ProviderPageContainer,
-  ProviderListContainer
-} from "./Providers";
-//hooks
-import {useEffect, useState} from "react";
+//-------------providers pages-------------
+import {ProviderPageContainer} from "./Providers";
+import ProvidersList from "./Providers/components/ProviderList";
 //--------------clients pages----------------------------
 import AddClient from "./Clients/components/AddClient";
 import ClientPage from "./Clients/components/ClientPage";
@@ -140,7 +139,7 @@ function App({userIsLoged, userHasLogout, loginUser}) {
               userIsLoged={userIsLoged}
               exact
               path={PROVIDERS_ROUTE}
-              component={ProviderListContainer}
+              component={ProvidersList}
             />
             <PrivateRoute
               userIsLoged={userIsLoged}

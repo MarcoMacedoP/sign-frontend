@@ -1,17 +1,23 @@
-import {GET_PROVIDERS} from "../types/actionTypes";
+import {
+  GET_PROVIDERS,
+  SHOULD_FETCH_PROVIDERS
+} from "../types/actionTypes";
 
 const initalState = {
   list: [
     {
+      provider_id: "",
       name: "",
       about: "",
       email: "",
       phone: "",
+      image_url: "",
       services: [],
       products: []
     }
   ],
   status: {
+    shouldFetchProviders: true,
     loadingProviders: false,
     errorOnGetProviders: null
   }
@@ -20,6 +26,14 @@ const initalState = {
 export default (state = initalState, action) => {
   switch (action.type) {
     //----get providers----------------
+    case SHOULD_FETCH_PROVIDERS:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          shouldFetchProviders: action.payload
+        }
+      };
     case GET_PROVIDERS:
       switch (action.payload.status) {
         case "loading":

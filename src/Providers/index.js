@@ -7,6 +7,3 @@
 export {
   ProviderPageContainer
 } from "./components/ProviderPageContainer";
-export {
-  ProviderListContainer
-} from "./components/ProviderListContainer";
