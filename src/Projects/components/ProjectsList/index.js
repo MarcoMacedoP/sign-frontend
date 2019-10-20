@@ -4,7 +4,6 @@ import {Project} from "../Project";
 
 export const ProjectsList = ({
   projects,
-  handleAddProject,
   onProjectClick,
   handleAddClick
 }) => (

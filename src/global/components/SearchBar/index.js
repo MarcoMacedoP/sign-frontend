@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Container, Input, SearchIcon } from "./styles";
-export const SearchBar = ({ data, placeholder }) => {
-  const [ isActive, setActive ] = useState(false);
+import React, {useState} from "react";
+import {Container, Input, SearchIcon} from "./styles";
+export const SearchBar = ({placeholder}) => {
+  const [isActive, setActive] = useState(false);
   return (
     <Container isActive={isActive}>
       <Input

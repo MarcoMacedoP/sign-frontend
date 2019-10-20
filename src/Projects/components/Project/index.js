@@ -4,7 +4,6 @@ import {LongCard} from "../../../global/components";
 export const Project = ({
   name,
   description,
-  cost,
-  dueDate,
+
   onClick
 }) => <LongCard onClick={onClick} date={description} title={name} />;
