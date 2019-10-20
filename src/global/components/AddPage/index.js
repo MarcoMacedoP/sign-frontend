@@ -1,7 +1,7 @@
 import React from "react";
 
 //components
-import {InfoLayout, Button} from "../";
+import {InfoLayout, Button, ErrorMessage} from "../";
 //styled-components
 import {H2} from "../../styles/texts";
 import {BaseForm} from "../../styles/Forms";
@@ -11,7 +11,9 @@ export function AddPage({
   aboutTitle,
   about,
   children,
-  onSubmit
+  onSubmit,
+  isLoading,
+  error
 }) {
   return (
     <Container>
@@ -19,7 +21,10 @@ export function AddPage({
       <InfoLayout title={aboutTitle} info={about}>
         <BaseForm onSubmit={onSubmit}>
           {children}
-          <Button onClick={onSubmit}>Agregar </Button>
+          <ErrorMessage error={error} />
+          <Button onClick={onSubmit} loading={isLoading}>
+            Agregar{" "}
+          </Button>
         </BaseForm>
       </InfoLayout>
     </Container>
