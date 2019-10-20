@@ -5,7 +5,8 @@ import {Input, AddPage} from "../../../global/components";
 import {useHandleState} from "../../../global/hooks";
 //redux
 import {connect} from "react-redux";
-function AddClient() {
+import {fetchAddClient} from "../../../global/redux/actions/clients";
+function AddClient({fetchAddClient}) {
   const initialState = {
     name: "",
     lastname: "",
@@ -15,9 +16,10 @@ function AddClient() {
   };
 
   const {state, addFormValueToState} = useHandleState(initialState);
-
+  const handleSubmit = () => fetchAddClient(state);
   return (
     <AddPage
+      onSubmit={handleSubmit}
       title="Agregar cliente"
       aboutTitle="Sobre los clientes"
       about="Tener tu lista de clientes te permite tener un seguimiento exacto para cada uno"
@@ -57,5 +59,5 @@ function AddClient() {
 }
 export default connect(
   null,
-  null
+  {fetchAddClient}
 )(AddClient);
