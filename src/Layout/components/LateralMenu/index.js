@@ -4,7 +4,6 @@ import React from "react";
 import {useState} from "react";
 // Components
 import {LateralMenuItem} from "../LateralMenuItem";
-import {Icon} from "../../../global/components";
 // Styled Components
 import {
   Menu,
@@ -12,7 +11,8 @@ import {
   ProfileImage,
   Username,
   Location,
-  Navigation
+  Navigation,
+  ToggleMenuIcon
 } from "./styles";
 // Routes
 import {
@@ -33,8 +33,8 @@ const menuItems = [
     icon: "shopping_cart",
     route: PROVIDERS_ROUTE
   },
-  {name: "Recordatorios", icon: "people", route: REMINDERS_ROUTE},
-  {name: "Equipos", icon: "alarm_add", route: TEAMS_LIST}
+  {name: "Equipos", icon: "people", route: TEAMS_LIST},
+  {name: "Recordatorios", icon: "alarm_add", route: REMINDERS_ROUTE}
 ];
 
 export const LateralMenu = ({user = {}}) => {
@@ -43,9 +43,10 @@ export const LateralMenu = ({user = {}}) => {
   const showMenu = () => setIsShowed(true);
   return (
     <Menu isShowed={isShowed}>
-      <Icon
-        icon={isShowed ? "arrow_back_ios" : "arrow_forward_ios"}
+      <ToggleMenuIcon
+        icon={isShowed ? "close" : "arrow_forward_ios"}
         onClick={isShowed ? hideMenu : showMenu}
+        isShowed={isShowed}
       />
       <Header isShowed={isShowed}>
         <ProfileImage image={user.profilePic} isShowed={isShowed} />

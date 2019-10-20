@@ -23,7 +23,7 @@ export const LateralMenuItem = ({
           <NavigationItemTitle onClick={closeMenu}>
             {name}
           </NavigationItemTitle>
-          <Navicon icon="chevron_right" />
+          <Navicon icon="chevron_right" isShowed={isShowed} />
         </>
       )}
     </NavigationItem>

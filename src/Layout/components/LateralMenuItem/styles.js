@@ -10,7 +10,6 @@ import {
 export const NavigationItem = styled(Link)`
   width: 100%;
   height: 7vh;
-  padding-bottom: ${props => (props.isShowed ? "2rem" : "0")};
   box-sizing: border-box;
   display: ${props => (props.isShowed ? "grid" : "flex")};
   /**grid styles for when isShowed */
@@ -21,6 +20,8 @@ export const NavigationItem = styled(Link)`
   align-items: center;
 
   margin-bottom: 1rem;
+  padding-left: ${props => (props.isShowed ? "0.5rem" : "0")};
+
   opacity: 1;
   text-decoration: none;
   cursor: pointer;
@@ -42,5 +43,6 @@ export const NavigationItemTitle = styled.p`
 `;
 export const Navicon = styled(Icon)`
   position: absolute;
+  margin-top: 0;
   right: 0;
 `;
