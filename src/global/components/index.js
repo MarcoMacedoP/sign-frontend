@@ -11,7 +11,6 @@ export {Icon} from "./Icon";
 export {Comments} from "./Comments";
 export {ToastMenu} from "./ToastMenu";
 export {UploadImage} from "./UploadImage";
-export {EditPage} from "./EditPage";
 
 //list
 export {List} from "./List";
@@ -25,3 +24,6 @@ export {InfoMessage} from "./InfoMessage";
 export {InformationHeader} from "./InformationHeader";
 export {InfoLayout} from "./InfoLayout";
 export {SmallEmptyState} from "./SmallEmptyState";
+//Pages
+export {EditPage} from "./EditPage";
+export {AddPage} from "./AddPage";
