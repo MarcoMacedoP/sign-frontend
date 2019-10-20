@@ -14,7 +14,7 @@ export const About = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
-  overflow: scroll;
+  min-height: min-content;
 `;
 export const Navigation = styled.nav`
   width: 100%;
