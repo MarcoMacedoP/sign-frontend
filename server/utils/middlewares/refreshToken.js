@@ -6,7 +6,7 @@ async function refreshToken(req, res, next) {
   const {refreshToken} = req.session;
   debug("refreshing token : ", token);
   req.session.reload(err => debug("err", err));
-  if (refreshToken) {
+  if (refreshToken && token) {
     const {exp} = jwt.decode(token);
     const jwtExpirationDate = exp * 1000;
     const currentDate = Date.now();
