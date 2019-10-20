@@ -13,7 +13,8 @@ export function AddPage({
   children,
   onSubmit,
   isLoading,
-  error
+  error,
+  onErrorClose
 }) {
   return (
     <Container>
@@ -21,7 +22,7 @@ export function AddPage({
       <InfoLayout title={aboutTitle} info={about}>
         <BaseForm onSubmit={onSubmit}>
           {children}
-          <ErrorMessage error={error} />
+          <ErrorMessage error={error} onClose={onErrorClose} />
           <Button onClick={onSubmit} loading={isLoading}>
             Agregar{" "}
           </Button>

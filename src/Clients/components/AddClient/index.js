@@ -20,18 +20,44 @@ function AddClient({fetchAddClient, isLoading, errorOnAddClient}) {
     projects: []
   };
   const {state, addFormValueToState} = useHandleState(initialState);
+  const validateFields = () => {
+    if (state.name.length < 4) {
+      setError("Nombre demasiado corto");
+      return false;
+    } else if (state.lastname.length < 4) {
+      setError("Apellido demasiado corto");
+      return false;
+    } else if (state.email.length < 5) {
+      setError("Email invalido");
+    } else if (
+      !state.phone.match(/^\d+$/) ||
+      state.phone.length < 8
+    ) {
+      setError(
+        "El telefono solo puede ser númerico y debe tener 8 digitos minimo"
+      );
+      return false;
+    } else {
+      return true;
+    }
+  };
   //handle ui effects
   const [error, setError] = useState(null);
+  const setErrorToNull = () => setError(null);
   const [dataAreFetching, setDataAreFetching] = useState(false);
-  const handleSubmit = () => {
-    setDataAreFetching(true);
-    fetchAddClient(state);
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (validateFields()) {
+      setDataAreFetching(true);
+      fetchAddClient(state);
+    }
   };
 
   useEffect(() => setError(errorOnAddClient), [errorOnAddClient]);
 
   return (
     <AddPage
+      onErrorClose={setErrorToNull}
       error={error}
       isLoading={isLoading}
       onSubmit={handleSubmit}
@@ -69,7 +95,7 @@ function AddClient({fetchAddClient, isLoading, errorOnAddClient}) {
         onChange={addFormValueToState}
         type="number"
       />
-      {!isLoading && dataAreFetching && (
+      {!isLoading && dataAreFetching && !error && (
         <Redirect to={CLIENTS_ROUTE} />
       )}
     </AddPage>
