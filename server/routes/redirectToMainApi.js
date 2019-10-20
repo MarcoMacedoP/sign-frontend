@@ -30,7 +30,16 @@ router.all("*", (req, res) => {
       });
     })
     .catch(err => {
+      debug(err);
       const {error, data, statusCode} = err.response.data;
+      if (error) {
+        debug("error", error);
+        sendBadResponse({
+          message: error.payload.message,
+          response: res,
+          statusCode: error.payload.statusCode
+        });
+      }
       sendBadResponse({error, response: res, data, statusCode});
     });
 });

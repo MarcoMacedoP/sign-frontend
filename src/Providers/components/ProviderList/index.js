@@ -1,7 +1,7 @@
 import React from "react";
 // Components
 import {PictureCard, List} from "../../../global/components/";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 //hooks
 import {useEffect, useState} from "react";
 
@@ -13,7 +13,8 @@ import {
   fetchProviders,
   setShouldFetchProviders
 } from "../../../global/redux/actions/providers";
-
+//utils
+import {ADD_PROVIDER_ROUTE} from "../../../global/utils/routes";
 function ProviderList({
   providers,
   setShouldFetchProviders,
@@ -37,13 +38,21 @@ function ProviderList({
     errorOnGetProviders
   ]);
   const setErrorToNull = () => setError(null);
-
+  //handle redirects
+  const [redirectToAddProvider, setRedirectToAddProvider] = useState(
+    false
+  );
+  const setRedirectTrue = () => {
+    console.log("onAddButtonClick");
+    setRedirectToAddProvider(true);
+  };
   return (
     <List
       title="Proveedores"
       isLoading={loadingProviders}
       error={error}
       onErrorClose={setErrorToNull}
+      onAddButtonClick={setRedirectTrue}
     >
       <BigList>
         {providers.list.map(
@@ -61,6 +70,7 @@ function ProviderList({
           )
         )}
       </BigList>
+      {redirectToAddProvider && <Redirect to={ADD_PROVIDER_ROUTE} />}
     </List>
   );
 }

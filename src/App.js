@@ -16,6 +16,7 @@ import {Landing} from "./LandingPage";
 import {Dashboard} from "./Dashboard";
 //-------------providers pages-------------
 import ProviderPage from "./Providers/components/ProviderPage";
+import AddProvider from "./Providers/components/AddProvider";
 import ProvidersList from "./Providers/components/ProviderList";
 //--------------clients pages----------------------------
 import AddClient from "./Clients/components/AddClient";
@@ -51,6 +52,7 @@ import {
   CLIENTS_ROUTE,
   LANDING_ROUTE,
   PROVIDERS_ROUTE,
+  ADD_PROVIDER_ROUTE,
   REMINDERS_ROUTE,
   PROVIDER_PAGE_ROUTE,
   CLIENT_PAGE_ROUTE,
@@ -140,6 +142,12 @@ function App({userIsLoged, userHasLogout, loginUser}) {
               exact
               path={PROVIDERS_ROUTE}
               component={ProvidersList}
+            />
+            <PrivateRoute
+              userIsLoged={userIsLoged}
+              exact
+              path={ADD_PROVIDER_ROUTE}
+              component={AddProvider}
             />
             <PrivateRoute
               userIsLoged={userIsLoged}

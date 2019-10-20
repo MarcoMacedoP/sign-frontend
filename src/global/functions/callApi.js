@@ -36,3 +36,27 @@ export function callApi(endpoint, options = {}, isJSON = true) {
       message
     }));
 }
+/**This function validate the server response,
+ *  check the status code and throw friendly messages
+ * @param { Object} statusCode the http number code
+ */
+export function validateStatusCode(statusCode) {
+  const UNAUTHTORIZED_ERROR = 401;
+  const SERVER_CODE_ERROR = 500;
+
+  if (!statusCode) {
+    throw "No sé especifico un código en la respuesta.";
+  } else if (typeof statusCode !== "number") {
+    throw "Él código de la respuesta no es un error";
+  } else {
+    switch (statusCode) {
+      case SERVER_CODE_ERROR:
+        throw "Parece que tenemos un problema interno, intentalo más tarde 🙊";
+      case UNAUTHTORIZED_ERROR:
+        throw "Parece qué tu sesión ha expirado 😅";
+
+      default:
+        return true;
+    }
+  }
+}
