@@ -31,8 +31,14 @@ export function IncomeList({
     <ListContainer>
       <Name>{type}</Name>
       <List>
-        {incomeListArray.map(value => (
-          <Income key={value} onClick={onIncomeClick} />
+        {incomeListArray.map(income => (
+          <Income
+            key={income._id}
+            name={income.name}
+            description={income.description}
+            price={income.cost}
+            onClick={onIncomeClick}
+          />
         ))}
       </List>
       <AddButton position="static" onClick={onAddButtonClick} />
