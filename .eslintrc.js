@@ -4,7 +4,7 @@ module.exports = {
     node: true,
     browser: true
   },
-  extends: "eslint:recommended",
+  //extends: "eslint:recommended",
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly"
@@ -19,6 +19,10 @@ module.exports = {
   plugins: ["react"],
   rules: {
     "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "react/jsx-uses-vars": "error",
+    "no-unused-vars": [
+      1,
+      {vars: "all", args: "after-used", ignoreRestSiblings: false}
+    ]
   }
 };

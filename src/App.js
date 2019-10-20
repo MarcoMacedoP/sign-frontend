@@ -19,7 +19,8 @@ import {
 //hooks
 import {useEffect, useState} from "react";
 //--------------clients pages----------------------------
-import {AddClient, ClientPage} from "./Clients/components/";
+import {AddClient} from "./Clients/components/";
+import ClientPage from "./Clients/components/ClientPage";
 import ClientsList from "./Clients/components/ClientsList";
 //--------------end clients pages-------------------------
 

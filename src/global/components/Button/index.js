@@ -21,7 +21,7 @@ export const Button = ({
   }
   return (
     <Btn
-      size={"large"}
+      size={size || "large"}
       className={className}
       variant={variant}
       onClick={onClick}

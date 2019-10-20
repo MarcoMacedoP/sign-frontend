@@ -5,26 +5,55 @@ import {
   InformationHeader,
   Comments
 } from "../../../global/components";
+//hooks
+import {useHandleState} from "../../../global/hooks/useHandleState";
 import {RemindersListContainer} from "../../../Reminders/components/RemindersListContainer";
 //styled-components
 import {Article, Section} from "./styles";
+//redux
+import {connect} from "react-redux";
 import {PageContainer} from "../../../global/styles/Containers";
-export const ClientPage = ({
-  name,
-  lastname,
-  phone,
-  email,
-  projects,
-  reminders,
-  comments,
-  actualComment,
-  handleChange,
-  addCommentHandler
-}) => {
+function ClientPage({client}) {
+  const initialState = {
+    projects: [],
+    comments: [],
+    reminders: [],
+    actualComment: "",
+    id: "",
+    name: "Nombre (s)",
+    lastname: "Apellido (s)",
+    email: "",
+    phone: ""
+  };
+  const {
+    comments = [],
+    name,
+    lastname,
+    phone,
+    email,
+    reminders = [],
+    projects = []
+  } = client;
+  const {
+    state,
+    addArrayValueToState,
+    addFormValueToState
+  } = useHandleState(initialState);
+
+  function addCommentHandler() {
+    const date = new Date();
+
+    addArrayValueToState(state.comments, "comments", {
+      content: state.actualComment,
+      clientId: state.id,
+      date
+    });
+  }
+
   return (
     <PageContainer>
       <InformationHeader
-        name={`${name} ${lastname}`}
+        title={`${name} ${lastname}`}
         imageIsShow={false}
         about="Acerca del cliente"
         phone={phone}
@@ -36,8 +65,8 @@ export const ClientPage = ({
         <Section>
           <Comments
             comments={comments}
-            actualComment={actualComment}
-            handleChange={handleChange}
+            actualComment={state.actualComment}
+            handleChange={addFormValueToState}
             addCommentHandler={addCommentHandler}
           />
         </Section>
@@ -59,4 +88,17 @@ export const ClientPage = ({
       </Article>
     </PageContainer>
   );
+}
+
+const mapStateToProps = ({clients}, props) => {
+  debugger;
+  const clientId = parseInt(props.match.params.clientId);
+  const [client] = clients.list.filter(
+    client => client.client_id === clientId
+  );
+  return {client};
 };
+export default connect(
+  mapStateToProps,
+  null
+)(ClientPage);

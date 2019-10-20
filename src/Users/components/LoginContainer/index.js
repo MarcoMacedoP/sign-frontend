@@ -9,7 +9,6 @@ import {fetchUserLogin} from "../../../global/redux/actions/users";
 
 //Container component
 function LoginContainer({fetchUserLogin, user}) {
-  debugger;
   const {loadingLogin, errorOnLogin} = user.status;
   //state
   const {state: formValues, addFormValueToState} = useHandleState({
