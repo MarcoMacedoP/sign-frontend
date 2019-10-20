@@ -1,75 +1,39 @@
-import React, { useState, useEffect } from 'react'
-import { ProviderPage } from '../ProviderPage'
-import { providersApi } from '../../api/index'
-import { Loading } from '../../../global/components/'
+import React from "react";
+//components
+import {ProviderPage} from "../ProviderPage";
 // hooks
-import { useModalState } from '../../../global/hooks/useModalState'
-import { useHandleState } from '../../../global/hooks/useHandleState'
+import {useModalState} from "../../../global/hooks/useModalState";
+import {useHandleState} from "../../../global/hooks/useHandleState";
+//redux
+import {connect} from "react-redux";
 
 // component
-export function ProviderPageContainer ({ match }) {
+function ProviderPageContainer({provider}) {
   // modals
   const {
     modalIsOpen: addServiceIsOpen,
     handleModal: handleAddService
-  } = useModalState()
+  } = useModalState();
   const {
     modalIsOpen: editServiceIsOpen,
     handleModal: handleEditService
-  } = useModalState()
+  } = useModalState();
 
   const {
     modalIsOpen: addProductIsOpen,
     handleModal: handleAddProduct
-  } = useModalState()
+  } = useModalState();
   const {
     modalIsOpen: editProductIsOpen,
     handleModal: handleEditProduct
-  } = useModalState()
+  } = useModalState();
 
-  // States
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [data, setData] = useState(null)
   // Form values of AddIncome and EditIncome
-  const { state, addFormValueToState } = useHandleState({})
+  const {state, addFormValueToState} = useHandleState({});
 
-  const providerId = match.params.providerId
-
-  useEffect(() => {
-    async function fetchData () {
-      try {
-        const data = await providersApi.read(providerId)
-        setData(data)
-        setError(null)
-        setLoading(false)
-        setLoading(false)
-        console.log(data)
-      } catch (err) {
-        console.log(err)
-        setError(err)
-      }
-    }
-    fetchData()
-  })
-
-  if (loading) return <Loading />
-  if (error) {
-    return (
-      <div>
-        <h1>
-          Hubo un error{' '}
-          <span role='img' aria-label='Monkey'>
-            🙊
-          </span>
-        </h1>
-        <p>{error.message}</p>
-      </div>
-    )
-  }
   return (
     <ProviderPage
-      provider={data}
+      provider={provider}
       formValues={state}
       onChange={addFormValueToState}
       addServiceIsOpen={addServiceIsOpen}
@@ -81,5 +45,17 @@ export function ProviderPageContainer ({ match }) {
       editProductIsOpen={editProductIsOpen}
       handleEditProduct={handleEditProduct}
     />
-  )
+  );
 }
+
+const mapStateToProps = ({providers}, props) => {
+  const providerId = parseInt(props.match.params.providerId);
+  const [provider] = providers.list.filter(
+    provider => provider.provider_id === providerId
+  );
+  return {provider};
+};
+export default connect(
+  mapStateToProps,
+  null
+)(ProviderPageContainer);

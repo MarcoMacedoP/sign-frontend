@@ -91,13 +91,13 @@ function ClientPage({client}) {
 }
 
 const mapStateToProps = ({clients}, props) => {
-  debugger;
   const clientId = parseInt(props.match.params.clientId);
   const [client] = clients.list.filter(
     client => client.client_id === clientId
   );
   return {client};
 };
+
 export default connect(
   mapStateToProps,
   null

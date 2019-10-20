@@ -15,7 +15,7 @@ import {Landing} from "./LandingPage";
 
 import {Dashboard} from "./Dashboard";
 //-------------providers pages-------------
-import {ProviderPageContainer} from "./Providers";
+import ProviderPage from "./Providers/components/ProviderPageContainer";
 import ProvidersList from "./Providers/components/ProviderList";
 //--------------clients pages----------------------------
 import AddClient from "./Clients/components/AddClient";
@@ -145,7 +145,7 @@ function App({userIsLoged, userHasLogout, loginUser}) {
               userIsLoged={userIsLoged}
               exact
               path={PROVIDER_PAGE_ROUTE}
-              component={ProviderPageContainer}
+              component={ProviderPage}
             />
             <PrivateRoute
               userIsLoged={userIsLoged}
