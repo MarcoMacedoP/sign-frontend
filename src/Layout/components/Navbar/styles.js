@@ -41,7 +41,7 @@ export const Header = styled.header`
   box-sizing: border-box;
   padding: 0 5%;
   box-shadow: 0 3px 7px 0 rgba(50, 54, 53, 0.3);
-
+  background: ${whiteColorLigth};
   ${Icon} {
     display: none;
   }
