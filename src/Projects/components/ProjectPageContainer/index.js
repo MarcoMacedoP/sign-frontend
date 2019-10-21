@@ -19,24 +19,23 @@ function ProjectPageContainer({project}) {
 }
 
 //redux
-const mapStateToProps = (state, props) => {
+const mapStateToProps = ({projects}, props) => {
   const {projectId} = props.match.params;
-  const normalizedId = parseInt(projectId);
-  const project = state.projects.find(
-    project => project.id === normalizedId
+  const project = projects.list.find(
+    project => project._id === projectId
   );
   //if project not exists or there is no activities in project
   if (!project || !project.activities) {
     return {project: project || {}};
   } else {
     const pendingActivities = project.activities.filter(
-      activitie => activitie.type === "PENDING"
+      activitie => activitie.status === "PENDING"
     );
     const inProgressActivities = project.activities.filter(
-      activitie => activitie.type === "IN_PROGRESS"
+      activitie => activitie.status === "IN_PROGRESS"
     );
     const donedActivities = project.activities.filter(
-      activitie => activitie.type === "DONED"
+      activitie => activitie.status === "DONED"
     );
     return {
       project: {
