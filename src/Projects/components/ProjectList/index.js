@@ -17,6 +17,9 @@ import {
 //hooks
 import {useEffect, useState} from "react";
 import {useRedirect} from "../../../global/hooks/useRedirect";
+//styled-components
+import {BigList} from "../../../global/styles/Lists";
+
 //main
 function ProjectListContainer({
   isLoadingProjects,
@@ -53,14 +56,16 @@ function ProjectListContainer({
       onAddButtonClick={handleAddClick}
     >
       {projectList.length !== 0 ? (
-        projectList.map(({_id, description, name}) => (
-          <LongCard
-            ket={_id}
-            onClick={() => handleProjectClick(_id)}
-            date={description}
-            title={name}
-          />
-        ))
+        <BigList>
+          {projectList.map(({_id, description, name}) => (
+            <LongCard
+              ket={_id}
+              onClick={() => handleProjectClick(_id)}
+              date={description}
+              title={name}
+            />
+          ))}
+        </BigList>
       ) : (
         <EmptyProjectsState addProject={handleAddClick} />
       )}
@@ -70,7 +75,7 @@ function ProjectListContainer({
 }
 
 const mapStateToProps = ({projects}) => ({
-  isLoadingProjects: projects.status.loadingProjects,
+  isLoadingProjects: projects.status.isLoadingProjects,
   shouldFetchProjects: projects.status.shouldFetchProjects,
   errorLoadingProjects: projects.status.errorLoadingProjects,
   projectList: projects.list

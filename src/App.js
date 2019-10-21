@@ -31,7 +31,7 @@ import Team from "./Teams/components/Team";
 //--------------end teams page--------------------------
 
 //--------------projects pages--------------------------
-import ProjectList from "./Projects/components/ProjectListContainer";
+import ProjectList from "./Projects/components/ProjectList";
 import ProjectPage from "./Projects/components/ProjectPageContainer";
 import AddProject from "./Projects/components/AddProjectPageContainer";
 //--------------end projects pages----------------------
