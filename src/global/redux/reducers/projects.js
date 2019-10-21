@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   status: {
-    loadingProjects: false,
+    isLoadingProjects: false,
     errorLoadingProjects: false,
     shouldFetchProjects: true
   },
@@ -111,7 +111,7 @@ function fetchProjectsReducer({status, response}, state) {
           ...state.status,
           shouldFetchProjects: false,
           errorLoadingProjects: false,
-          loadingProjects: true
+          isLoadingProjects: true
         }
       };
     case "error":
@@ -121,7 +121,7 @@ function fetchProjectsReducer({status, response}, state) {
           ...state.status,
           shouldFetchProjects: false,
           errorLoadingProjects: response,
-          loadingProjects: false
+          isLoadingProjects: false
         }
       };
     case "success":
@@ -131,7 +131,7 @@ function fetchProjectsReducer({status, response}, state) {
           ...state.status,
           shouldFetchProjects: false,
           errorLoadingProjects: null,
-          loadingProjects: false
+          isLoadingProjects: false
         }
       };
     default:

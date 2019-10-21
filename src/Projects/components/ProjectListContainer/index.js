@@ -1,61 +1,80 @@
 //components
 import React from "react";
-import {ProjectsList} from "../ProjectsList";
+import {List, LongCard} from "../../../global/components";
 import {Redirect} from "react-router-dom";
 import {EmptyProjectsState} from "../EmptyProjectsState";
 //redux
 import {connect} from "react-redux";
-import {addProject} from "../../../global/redux/actions/projects";
+import {
+  addProject,
+  fetchProjects
+} from "../../../global/redux/actions/projects";
 //routes
 import {
   PROJECTS_ROUTE,
   ADD_PROJECTS_ROUTE
 } from "../../../global/utils/routes";
-
 //hooks
+import {useEffect, useState} from "react";
 import {useRedirect} from "../../../global/hooks/useRedirect";
 //main
+function ProjectListContainer({
+  isLoadingProjects,
+  shouldFetchProjects,
+  errorLoadingProjects,
+  projectList,
+  fetchProjects
+}) {
+  //fetching handler
+  useEffect(() => shouldFetchProjects && fetchProjects(), [
+    shouldFetchProjects
+  ]);
+  //handling errors
+  const [error, setError] = useState(null);
+  useEffect(() => setError(errorLoadingProjects), [
+    errorLoadingProjects
+  ]);
+  const setErrorToNull = () => setError(null);
 
-function ProjectListContainer({projects = [], addProject}) {
-  //;
+  //onClick handlers
   const [isRedirect, route, toggleRedirect] = useRedirect();
-  //handles
-  const handleAddProject = () => {
-    addProject({
-      name: "Projecto_2",
-      description: "Helloooooo",
-      cutDate: new Date(),
-      id: 1
-    });
-  };
   const handleAddClick = () => toggleRedirect(ADD_PROJECTS_ROUTE);
   const handleProjectClick = id =>
     toggleRedirect(`${PROJECTS_ROUTE}${id}`);
-  //main component
-  if (projects.length === 0) {
-    //no projects
-    return <EmptyProjectsState addProject={handleAddProject} />;
-  }
-  if (isRedirect) {
-    return <Redirect to={route} />;
-  } else {
-    //return projects
-    return (
-      <ProjectsList
-        projects={projects}
-        handleAddProject={handleAddProject}
-        onProjectClick={handleProjectClick}
-        handleAddClick={handleAddClick}
-      />
-    );
-  }
+
+  return (
+    <List
+      error={error}
+      onErrorClose={setErrorToNull}
+      isLoading={isLoadingProjects}
+      title="Proyectos"
+      onAddButtonClick={handleAddClick}
+    >
+      {projectList.length !== 0 ? (
+        projectList.map(({_id, description, name}) => (
+          <LongCard
+            ket={_id}
+            onClick={() => handleProjectClick(_id)}
+            date={description}
+            title={name}
+          />
+        ))
+      ) : (
+        <EmptyProjectsState addProject={handleAddClick} />
+      )}
+      {isRedirect && <Redirect to={route} />}
+    </List>
+  );
 }
 
-const mapStateToProps = state => ({
-  projects: state.projects
+const mapStateToProps = ({projects}) => ({
+  isLoadingProjects: projects.status.loadingProjects,
+  shouldFetchProjects: projects.status.shouldFetchProjects,
+  errorLoadingProjects: projects.status.errorLoadingProjects,
+  projectList: projects.list
 });
 
 export default connect(
   mapStateToProps,
-  {addProject}
+  {addProject, fetchProjects}
 )(ProjectListContainer);
