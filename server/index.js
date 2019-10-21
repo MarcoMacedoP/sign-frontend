@@ -8,6 +8,7 @@ const {MongoClient} = require("mongodb");
 const MongoStore = require("connect-mongo")(session);
 //own middlewares
 const refreshToken = require("./utils/middlewares/refreshToken");
+const uploadPicture = require("./utils/middlewares/uploadPicture");
 //config
 const config = require("./config");
 const sessionOptions = {
@@ -66,7 +67,7 @@ app.use("/api", authRoute);
 app.use("/api/token", tokenRoute);
 app.use("/api/users", refreshToken, usersRoute);
 app.use("/api/teams", refreshToken, teamsRoute);
-app.use("/", refreshToken, redirectToMainApi);
+app.use("/", refreshToken, uploadPicture, redirectToMainApi);
 //initialize server
 app.listen(config.server.port, () => {
   console.log("server initialized on port", config.server.port);
