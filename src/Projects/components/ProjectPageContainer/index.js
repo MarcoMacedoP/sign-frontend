@@ -25,7 +25,6 @@ const mapStateToProps = (state, props) => {
   const project = state.projects.find(
     project => project.id === normalizedId
   );
-  ;
   //if project not exists or there is no activities in project
   if (!project || !project.activities) {
     return {project: project || {}};

@@ -48,7 +48,6 @@ function ActivitieModal(props) {
       }
     });
     addValueToState("actualComment", "");
-    ;
   };
 
   return (

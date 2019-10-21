@@ -28,7 +28,6 @@ function AddActivitie({isShowed, onClose, project, addActivite}) {
 
   const handleAddActivie = e => {
     e.preventDefault();
-    ;
     addActivite({project, activitie: {...state, type: "PENDING"}});
     onClose();
   };

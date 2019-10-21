@@ -60,11 +60,12 @@ function projectReducer(state = initialState, action) {
   const {payload, type} = action;
 
   switch (type) {
-    case ADD_PROJECT:
+    case ADD_PROJECT: {
       const {project: addedProject} = action.payload;
       return [...state, addedProject];
+    }
 
-    case ADD_ACTIVITE:
+    case ADD_ACTIVITE: {
       const {project, activitie} = action.payload;
       const {activities = []} = project;
       const updatedProject = {
@@ -75,8 +76,9 @@ function projectReducer(state = initialState, action) {
       const actualProjectPosition = state.indexOf(project) - 1;
       const updatedState = state.slice(actualProjectPosition, 1);
       return [...updatedState, updatedProject];
+    }
 
-    case ADD_COMMENT:
+    case ADD_COMMENT: {
       const updatedActivitie = {
         ...payload.activitie,
         comments: [...payload.activitie.comments, payload.comment]
@@ -92,15 +94,15 @@ function projectReducer(state = initialState, action) {
             : iterableActivitie
         )
       }));
+    }
 
     //Change the activitie.type depending on wich section it's dropped
-    case CHANGE_ACTIVITY_TYPE:
+    case CHANGE_ACTIVITY_TYPE: {
       const changedTypeActivitie = {
         ...payload.activitie,
         type: payload.newType
       };
       return state.map(project => {
-        ;
         return {
           ...project,
           //map activities and update selected activitie
@@ -111,6 +113,7 @@ function projectReducer(state = initialState, action) {
           )
         };
       });
+    }
 
     default:
       return state;
