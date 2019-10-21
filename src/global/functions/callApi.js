@@ -40,7 +40,7 @@ export function callApi(endpoint, options = {}, isJSON = true) {
  *  check the status code and throw friendly messages
  * @param { Object} statusCode the http number code
  */
-export function validateStatusCode(statusCode) {
+export function statusCodeIsValid(statusCode) {
   const UNAUTHTORIZED_ERROR = 401;
   const SERVER_CODE_ERROR = 500;
 

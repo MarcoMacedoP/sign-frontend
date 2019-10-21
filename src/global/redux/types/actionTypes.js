@@ -5,6 +5,7 @@ export const SIGN_UP_USER = "SIGN_UP_USER";
 export const UPDATE_USER = "UPDATE_USER";
 //Projects
 export const ADD_PROJECT = "ADD_PROJECT";
+export const FETCH_PROJECTS = "FETCH_PROJECTS";
 //Projects - Activities
 export const ADD_ACTIVITE = "ADD_ACTIVITIE";
 export const ADD_COMMENT = "ADD_COMMENT";

@@ -2,64 +2,44 @@ import {
   ADD_PROJECT,
   ADD_ACTIVITE,
   ADD_COMMENT,
-  CHANGE_ACTIVITY_TYPE
+  CHANGE_ACTIVITY_TYPE,
+  FETCH_PROJECTS
 } from "../types/actionTypes";
-import {DONED, PENDING, IN_PROGRESS} from "../types/activitieTypes";
+// import {DONED, PENDING, IN_PROGRESS} from "../types/activitieTypes";
 
-const initialState = [
-  {
-    name: "Responsive web site",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec magna a nulla varius tempor eget quis arcu. Aliquam at magna ornare, imperdiet nunc accumsan, commodo lorem. Morbi accumsan lobortis augue.",
-    dueDate: new Date().toLocaleDateString,
-    id: 1,
-    expenses: {
-      name: "expense_1",
-      description: "desc_1",
-      cost: 900
-    },
-    incomes: {
-      name: "income_1",
-      description: "desc_2",
-      value: 900
-    },
-    activities: [
-      {
-        id: 1,
-        type: PENDING,
-        name: "Actividad pendiente",
-        dueDate: "11/09/2019",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec magna a nulla varius tempor eget quis arcu. ",
-        comments: [
-          {
-            date: new Date().toISOString(),
-            id: 1,
-            userId: 1,
-            content: "This is a comment example from the mock."
-          }
-        ]
-      },
-      {
-        id: 2,
-        type: IN_PROGRESS,
-        name: "Actividad en progreso",
-        dueDate: "11/09/2019"
-      },
-      {
-        id: 3,
-        type: DONED,
-        name: "Actividad terminada",
-        dueDate: "11/09/2019"
-      }
-    ]
-  }
-];
-
+const initialState = {
+  status: {
+    loadingProjects: false,
+    errorLoadingProjects: false,
+    shouldFetchProjects: true
+  },
+  list: [
+    {
+      _id: null,
+      name: "",
+      description: "",
+      expenses: [],
+      activities: [
+        {
+          _id: "",
+          name: "",
+          status: "",
+          comments: [
+            {_id: null, userId: null, date: null, content: ""}
+          ]
+        }
+      ]
+    }
+  ]
+};
 function projectReducer(state = initialState, action) {
   const {payload, type} = action;
 
   switch (type) {
+    case FETCH_PROJECTS: {
+      return fetchProjectsReducer(action.payload, state);
+    }
+
     case ADD_PROJECT: {
       const {project: addedProject} = action.payload;
       return [...state, addedProject];
@@ -115,6 +95,45 @@ function projectReducer(state = initialState, action) {
       });
     }
 
+    default:
+      return state;
+  }
+}
+/**handles all the fetching provider reducer stuff.
+ * @returns the state modified
+ * */
+function fetchProjectsReducer({status, response}, state) {
+  switch (status) {
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          shouldFetchProjects: false,
+          errorLoadingProjects: false,
+          loadingProjects: true
+        }
+      };
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          shouldFetchProjects: false,
+          errorLoadingProjects: response,
+          loadingProjects: false
+        }
+      };
+    case "success":
+      return {
+        list: [...response],
+        status: {
+          ...state.status,
+          shouldFetchProjects: false,
+          errorLoadingProjects: null,
+          loadingProjects: false
+        }
+      };
     default:
       return state;
   }

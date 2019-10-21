@@ -4,7 +4,7 @@ import {
   ADD_COMMENT,
   CHANGE_ACTIVITY_TYPE
 } from "../types/actionTypes";
-
+import {callApi, statusCodeIsValid} from "../../functions/callApi";
 export const addProject = project => ({
   type: ADD_PROJECT,
   payload: {project}
@@ -36,3 +36,20 @@ export const addCommentToActivitie = ({
     }
   }
 });
+//fetch projects actions----------
+import {FETCH_PROJECTS} from "../types/actionTypes";
+
+export const getProjects = (status, response) => ({
+  type: FETCH_PROJECTS,
+  payload: {status, response}
+});
+export const fetchProjects = () => dispatch => {
+  dispatch(getProjects("loading"));
+  return callApi("/projects/")
+    .then(
+      ({data, statusCode}) =>
+        statusCodeIsValid(statusCode) &&
+        dispatch(getProjects("success", data))
+    )
+    .catch(err => dispatch(getProjects("error", err)));
+};

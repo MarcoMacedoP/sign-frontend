@@ -3,7 +3,7 @@ import {
   SHOULD_FETCH_PROVIDERS,
   ADD_PROVIDER
 } from "../types/actionTypes";
-import {callApi, validateStatusCode} from "../../functions/callApi";
+import {callApi, statusCodeIsValid} from "../../functions/callApi";
 //--------------get providers-----------------
 export const setShouldFetchProviders = status => ({
   type: SHOULD_FETCH_PROVIDERS,
@@ -33,16 +33,11 @@ export const fetchAddProvider = provider => dispatch => {
     method: "post",
     body: JSON.stringify(provider)
   })
-    .then(response => {
-      console.log("response", response);
-      const responseIsValid = validateStatusCode(response.statusCode);
-      if (responseIsValid) {
-        dispatch(addProvider("success", response.data));
-      }
-    })
-    .catch(error => {
-      console.log("erorr", error);
-      dispatch(addProvider("error", error));
-    });
+    .then(
+      response =>
+        statusCodeIsValid(response.statusCode) &&
+        dispatch(addProvider("success", response.data))
+    )
+    .catch(error => dispatch(addProvider("error", error)));
 };
 //--------------end add provider-----------------
