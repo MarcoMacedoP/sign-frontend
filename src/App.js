@@ -95,11 +95,11 @@ function App({userIsLoged, userHasLogout, loginUser}) {
       callApi("/users/session", {
         method: "post"
       })
-        .then(response => {
-          console.log(response);
-          response.statusCode === 200 &&
-            loginUser("success", response.data);
-        })
+        .then(
+          response =>
+            response.statusCode === 200 &&
+            loginUser("success", response.data)
+        )
         .catch(error =>
           console.log("Usuario no restaurado de la sessión", error)
         );
@@ -214,17 +214,20 @@ function App({userIsLoged, userHasLogout, loginUser}) {
             {/*------------end user routes -------------------*/}
 
             {/*------------projects routes -------------------*/}
-            <Route
-              exactuserHasLogout
+            <PrivateRoute
+              userIsLoged={userIsLoged}
+              exact
               path={PROJECTS_ROUTE}
               component={ProjectList}
             />
-            <Route
+            <PrivateRoute
+              userIsLoged={userIsLoged}
               exact
               path={ADD_PROJECTS_ROUTE}
               component={AddProject}
             />
-            <Route
+            <PrivateRoute
+              userIsLoged={userIsLoged}
               exact
               path={PROJECTS_PAGE_ROUTE}
               component={ProjectPage}

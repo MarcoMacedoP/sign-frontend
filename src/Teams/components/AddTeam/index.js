@@ -35,7 +35,6 @@ function AddTeam({addTeam}) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    debugger;
     if (!state.name || !state.about || !state.picture) {
       setError("Alguno de los campos está invalido!");
     } else {

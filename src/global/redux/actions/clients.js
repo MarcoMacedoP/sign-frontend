@@ -10,10 +10,7 @@ export function fetchClients() {
   return dispatch => {
     dispatch(getClients("loading"));
     return callApi("/clients/")
-      .then(clients => {
-        debugger;
-        return dispatch(getClients("success", clients.data));
-      })
+      .then(clients => dispatch(getClients("success", clients.data)))
       .catch(error => dispatch(getClients("error", error)));
   };
 }
