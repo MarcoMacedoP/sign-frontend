@@ -45,7 +45,7 @@ export const getProjects = (status, response) => ({
 });
 export const fetchProjects = () => dispatch => {
   dispatch(getProjects("loading"));
-  return callApi("/projects/")
+  return callApi("/projects/user/")
     .then(
       ({data, statusCode}) =>
         statusCodeIsValid(statusCode) &&

@@ -26,9 +26,11 @@ function ProjectListContainer({
   fetchProjects
 }) {
   //fetching handler
-  useEffect(() => shouldFetchProjects && fetchProjects(), [
-    shouldFetchProjects
-  ]);
+  useEffect(() => {
+    if (shouldFetchProjects) {
+      fetchProjects();
+    }
+  }, [shouldFetchProjects]);
   //handling errors
   const [error, setError] = useState(null);
   useEffect(() => setError(errorLoadingProjects), [
