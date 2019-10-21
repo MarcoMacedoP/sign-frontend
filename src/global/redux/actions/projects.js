@@ -9,10 +9,33 @@ export const addProject = project => ({
   type: ADD_PROJECT,
   payload: {project}
 });
-export const addActivite = ({project, activitie}) => ({
+
+//fetch add activities----------
+
+export const addActivite = (status, response) => ({
   type: ADD_ACTIVITE,
-  payload: {project, activitie}
+  payload: {status, response}
 });
+
+export const fetchAddActivitie = (
+  activitie,
+  projectId
+) => dispatch => {
+  dispatch(addActivite("loading"));
+  return callApi(`/projects/activities/${projectId}`, {
+    method: "post",
+    body: JSON.stringify(activitie)
+  })
+    .then(
+      ({data, statusCode}) =>
+        statusCodeIsValid(statusCode) &&
+        dispatch(addActivite("success", data))
+    )
+    .catch(error => dispatch(addActivite("error", error)));
+};
+
+//fetch add activities----------
+
 export const changeActivitieType = ({
   project,
   activitie,

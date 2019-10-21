@@ -11,7 +11,9 @@ const initialState = {
   status: {
     isLoadingProjects: false,
     errorLoadingProjects: false,
-    shouldFetchProjects: true
+    shouldFetchProjects: true,
+    isLoadingAddActivitie: false,
+    errorOnAddingActivitie: null
   },
   list: [
     {
@@ -45,18 +47,8 @@ function projectReducer(state = initialState, action) {
       return [...state, addedProject];
     }
 
-    case ADD_ACTIVITE: {
-      const {project, activitie} = action.payload;
-      const {activities = []} = project;
-      const updatedProject = {
-        ...project,
-        activities: [...activities, activitie]
-      };
-      //It works but it's kinda ugly, maybe needs some fix
-      const actualProjectPosition = state.indexOf(project) - 1;
-      const updatedState = state.slice(actualProjectPosition, 1);
-      return [...updatedState, updatedProject];
-    }
+    case ADD_ACTIVITE:
+      return addActiviteReducer(payload, state);
 
     case ADD_COMMENT: {
       const updatedActivitie = {
@@ -99,6 +91,47 @@ function projectReducer(state = initialState, action) {
       return state;
   }
 }
+function addActiviteReducer({status, response}, state) {
+  switch (status) {
+    case "success": {
+      const filteredProjects = state.list.filter(
+        project => project._id !== response._id
+      );
+      return {
+        list: [...filteredProjects, response],
+        status: {
+          ...state.status,
+          isLoadingAddActivitie: true,
+          errorOnAddingActivitie: null
+        }
+      };
+    }
+
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingAddActivitie: true,
+          errorOnAddingActivitie: null
+        }
+      };
+
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingAddActivitie: false,
+          errorOnAddingActivitie: response
+        }
+      };
+
+    default:
+      return {};
+  }
+}
+
 /**handles all the fetching provider reducer stuff.
  * @returns the state modified
  * */

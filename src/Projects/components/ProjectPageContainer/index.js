@@ -7,8 +7,6 @@ import {ProjectPage} from "../ProjectPage";
 import {useModalState} from "../../../global/hooks/useModalState";
 function ProjectPageContainer({project}) {
   const {handleModal, modalIsOpen} = useModalState();
-
-  console.log(project);
   return (
     <ProjectPage
       project={project}
