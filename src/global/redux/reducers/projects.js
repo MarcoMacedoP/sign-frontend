@@ -87,6 +87,28 @@ function projectReducer(state = initialState, action) {
  */
 function changeActivitieStatusReducer({status, response}, state) {
   switch (status) {
+    case "loading": {
+      const filteredProjects = state.list.filter(
+        project => project._id !== response.projectId
+      );
+      const [actualProject] = state.list.filter(
+        project => project._id === response.projectId
+      );
+      const updatedActivities = actualProject.activities.map(
+        activitie =>
+          activitie._id === response.activitieId
+            ? {...activitie, status: response.newStatus}
+            : activitie
+      );
+      return {
+        ...state,
+        list: [
+          {...actualProject, activities: updatedActivities},
+          ...filteredProjects
+        ]
+      };
+    }
+
     case "error":
       return {
         ...state,
@@ -96,16 +118,9 @@ function changeActivitieStatusReducer({status, response}, state) {
         }
       };
     case "success": {
-      const reducedProjects = state.list.filter(
-        project => project._id !== response._id
-      );
-      return {
-        list: [...reducedProjects, response],
-        status: {
-          ...state.status,
-          errorOnChangingActivitieStatus: null
-        }
-      };
+      //state is already updated in "loading" for UX proposals,
+      //there is no need to updated here.
+      return state;
     }
 
     default:

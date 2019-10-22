@@ -53,9 +53,6 @@ export const fetchChangeActivitieStatus = (
       activitieId
     })
   );
-  console.log("newStatus", newStatus);
-  console.log("projectId", projectId);
-  console.log("activitieId", activitieId);
   return callApi("/projects/activities/change_status/", {
     method: "PATCH",
     body: JSON.stringify({status: newStatus, projectId, activitieId})
