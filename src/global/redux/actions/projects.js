@@ -36,14 +36,29 @@ export const fetchAddActivitie = (
 
 //fetch add activities----------
 
-export const changeActivitieType = ({
-  project,
-  activitie,
-  newType
-}) => ({
+//change activitie type----------
+export const changeActivitieStatus = (status, response) => ({
   type: CHANGE_ACTIVITY_TYPE,
-  payload: {project, activitie, newType}
+  payload: {status, response}
 });
+export const fetchChangeActivitieStatus = (
+  newStatus,
+  projectId,
+  activitieId
+) => dispatch => {
+  dispatch(changeActivitieStatus("loading"));
+  return callApi("/activities/change_status/", {
+    method: "patch",
+    body: JSON.stringify({status: newStatus, projectId, activitieId})
+  })
+    .then(
+      ({statusCode, data}) =>
+        statusCodeIsValid(statusCode) &&
+        dispatch(changeActivitieStatus("success", data))
+    )
+    .catch(error => dispatch(changeActivitieStatus("error", error)));
+};
+//change activitie type----------
 export const addCommentToActivitie = ({
   project,
   activitie,
@@ -59,6 +74,7 @@ export const addCommentToActivitie = ({
     }
   }
 });
+
 //fetch projects actions----------
 import {FETCH_PROJECTS} from "../types/actionTypes";
 
