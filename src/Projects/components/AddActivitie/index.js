@@ -4,33 +4,61 @@ import React from "react";
 import {
   Modal,
   Input,
-  SecondaryButton
+  SecondaryButton,
+  Button,
+  ErrorMessage
 } from "../../../global/components/";
 //hooks
 import {useHandleState} from "../../../global/hooks/";
+import {useEffect, useState} from "react";
 //redux
 import {connect} from "react-redux";
-import {addActivite} from "../../../global/redux/actions/projects";
+import {fetchAddActivitie} from "../../../global/redux/actions/projects";
 //styled components
 import {Title, BaseForm} from "../../../global/styles/Forms";
-import {
-  positiveStatusColor,
-  blackColorLigth
-} from "../../../global/styles/variables";
+import {blackColorLigth} from "../../../global/styles/variables";
 //component
-function AddActivitie({isShowed, onClose, project, addActivite}) {
+function AddActivitie({
+  isShowed,
+  onClose,
+  projectId,
+  fetchAddActivitie,
+  isLoadingAddActivitie,
+  errorOnAddingActivitie
+}) {
   //handles
   const {state, addFormValueToState} = useHandleState({
     name: "",
     description: "",
-    date: new Date().toLocaleDateString()
+    date: new Date().toLocaleDateString(),
+    status: "PENDING"
   });
-
+  //handling fetch
+  const [isRequestSended, setIsRequestSended] = useState(false);
   const handleAddActivie = e => {
     e.preventDefault();
-    addActivite({project, activitie: {...state, type: "PENDING"}});
-    onClose();
+    fetchAddActivitie(state, projectId);
+    setIsRequestSended(true);
   };
+  useEffect(() => {
+    if (
+      isRequestSended &&
+      !isLoadingAddActivitie &&
+      !errorOnAddingActivitie
+    ) {
+      onClose();
+    }
+  }, [
+    isRequestSended,
+    isLoadingAddActivitie,
+    errorOnAddingActivitie
+  ]);
+  //handling errors
+  const [error, setError] = useState(errorOnAddingActivitie);
+  useEffect(() => setError(errorOnAddingActivitie), [
+    errorOnAddingActivitie
+  ]);
+  const setErrorToNull = () => setError(null);
 
   return (
     <Modal isOpen={isShowed} onClose={onClose}>
@@ -58,12 +86,13 @@ function AddActivitie({isShowed, onClose, project, addActivite}) {
           name="date"
           type="date"
         />
-        <SecondaryButton
-          borderColor={positiveStatusColor}
+        <ErrorMessage error={error} onClose={setErrorToNull} />
+        <Button
           onClick={handleAddActivie}
+          loading={isLoadingAddActivitie}
         >
           Agregar
-        </SecondaryButton>
+        </Button>
         <SecondaryButton
           borderColor={blackColorLigth}
           onClick={onClose}
@@ -74,7 +103,12 @@ function AddActivitie({isShowed, onClose, project, addActivite}) {
     </Modal>
   );
 }
+
+const mapStateToProps = ({projects}) => ({
+  isLoadingAddActivitie: projects.status.isLoadingAddActivitie,
+  errorOnAddingActivitie: projects.status.errorOnAddingActivitie
+});
 export default connect(
-  null,
-  {addActivite}
+  mapStateToProps,
+  {fetchAddActivitie}
 )(AddActivitie);

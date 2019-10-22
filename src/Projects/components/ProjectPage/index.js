@@ -5,7 +5,8 @@ import AddActivitie from "../AddActivitie";
 import {
   InformationHeader,
   SmallEmptyState,
-  Button
+  Button,
+  AddButton
 } from "../../../global/components/";
 //styled-components
 import {PageContainer} from "../../../global/styles/Containers";
@@ -68,12 +69,12 @@ export const ProjectPage = ({project, modalIsOpen, handleModal}) => {
           )}
         </ActivitiesContainer>
       </Activities>
-
+      <AddButton onClick={handleModal} />
       {/*-------------- modals---------- */}
       <AddActivitie
         isShowed={modalIsOpen}
         onClose={handleModal}
-        project={project}
+        projectId={project._id}
       />
     </PageContainer>
   );

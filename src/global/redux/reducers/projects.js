@@ -101,7 +101,7 @@ function addActiviteReducer({status, response}, state) {
         list: [...filteredProjects, response],
         status: {
           ...state.status,
-          isLoadingAddActivitie: true,
+          isLoadingAddActivitie: false,
           errorOnAddingActivitie: null
         }
       };
