@@ -4,7 +4,7 @@ import {SmallEmptyState} from "../../../global/components/";
 import {Activitie} from "../Activitie";
 //redux
 import {connect} from "react-redux";
-import {changeActivitieType} from "../../../global/redux/actions/projects";
+import {fetchChangeActivitieStatus} from "../../../global/redux/actions/projects";
 //styled-components
 import {ContainerCard} from "./styles";
 import {H3} from "../../../global/styles/texts";
@@ -13,14 +13,18 @@ function ActivitieList({
   activities = [],
   title = "",
   activitieType,
-  project,
-  changeActivitieType
+  projectId,
+  fetchChangeActivitieStatus
 }) {
   const handleOnDragOver = event => event.preventDefault();
   const handleOnDrop = event => {
     event.preventDefault();
     const activitie = JSON.parse(event.dataTransfer.getData("text"));
-    changeActivitieType({project, activitie, newType: activitieType});
+    fetchChangeActivitieStatus(
+      activitieType,
+      projectId,
+      activitie._id
+    );
   };
   const handleDrag = (event, activitie) => {
     event.dataTransfer.setData("text", JSON.stringify(activitie));
@@ -54,5 +58,5 @@ const EmptyActivities = ({title}) => (
 
 export default connect(
   null,
-  {changeActivitieType}
+  {fetchChangeActivitieStatus}
 )(ActivitieList);

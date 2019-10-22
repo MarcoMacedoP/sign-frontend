@@ -51,19 +51,19 @@ export const ProjectPage = ({project, modalIsOpen, handleModal}) => {
                 activities={activities.pending || []}
                 title="Pendientes"
                 activitieType={PENDING}
-                project={project}
+                projectId={project._id}
               />
               <ActivitieList
                 activities={activities.inProgress || []}
                 title="En curso"
                 activitieType={IN_PROGRESS}
-                project={project}
+                projectId={project._id}
               />
               <ActivitieList
                 activities={activities.doned || []}
                 title="Terminadas"
                 activitieType={DONED}
-                project={project}
+                projectId={project._id}
               />
             </>
           )}

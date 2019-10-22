@@ -35,6 +35,7 @@ const initialState = {
     }
   ]
 };
+
 function projectReducer(state = initialState, action) {
   const {payload, type} = action;
 
@@ -70,23 +71,8 @@ function projectReducer(state = initialState, action) {
     }
 
     //Change the activitie.type depending on wich section it's dropped
-    case CHANGE_ACTIVITY_TYPE: {
-      const changedTypeActivitie = {
-        ...payload.activitie,
-        type: payload.newType
-      };
-      return state.map(project => {
-        return {
-          ...project,
-          //map activities and update selected activitie
-          activities: project.activities.map(activitie =>
-            activitie.id === payload.activitie.id
-              ? changedTypeActivitie
-              : activitie
-          )
-        };
-      });
-    }
+    case CHANGE_ACTIVITY_TYPE:
+      return changeActivitieStatusReducer(payload, state);
 
     default:
       return state;
@@ -140,7 +126,7 @@ function addActiviteReducer({status, response}, state) {
         project => project._id !== response._id
       );
       return {
-        list: [...filteredProjects, response],
+        list: [response, ...filteredProjects],
         status: {
           ...state.status,
           isLoadingAddActivitie: false,

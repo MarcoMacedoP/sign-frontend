@@ -46,9 +46,18 @@ export const fetchChangeActivitieStatus = (
   projectId,
   activitieId
 ) => dispatch => {
-  dispatch(changeActivitieStatus("loading"));
-  return callApi("/activities/change_status/", {
-    method: "patch",
+  dispatch(
+    changeActivitieStatus("loading", {
+      newStatus,
+      projectId,
+      activitieId
+    })
+  );
+  console.log("newStatus", newStatus);
+  console.log("projectId", projectId);
+  console.log("activitieId", activitieId);
+  return callApi("/projects/activities/change_status/", {
+    method: "PATCH",
     body: JSON.stringify({status: newStatus, projectId, activitieId})
   })
     .then(

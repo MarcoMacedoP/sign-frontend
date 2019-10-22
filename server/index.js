@@ -30,7 +30,8 @@ const redirectToMainApi = require("./routes/redirectToMainApi");
 app.use(
   cors({
     origin: /.*/,
-    credentials: true
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
   })
 );
 const mongoClient = new MongoClient(config.db.mongoURI, {
