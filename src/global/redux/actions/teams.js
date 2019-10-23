@@ -1,4 +1,4 @@
-import {ADD_TEAM} from "../types/actionTypes";
+import {ADD_TEAM, FETCH_TEAMS} from "../types/actionTypes";
 import {callApi} from "../../functions/callApi.new";
 
 //add team--------------
@@ -12,6 +12,17 @@ export const fetchAddTeam = team => dispatch => {
     method: "post",
     body: JSON.stringify(team)
   })
-    .then(({data}) => dispatch(addTeam("success", data)))
+    .then(team => dispatch(addTeam("success", team)))
     .catch(error => dispatch(addTeam("error", error)));
+};
+//get teams --------------------------------------------
+export const getTeams = (status, response) => ({
+  type: FETCH_TEAMS,
+  payload: {status, response}
+});
+export const fetchTeams = () => dispatch => {
+  dispatch(getTeams("loading"));
+  return callApi("/teams/")
+    .then(teams => dispatch(getTeams("success", teams)))
+    .catch(error => dispatch(getTeams("error", error)));
 };
