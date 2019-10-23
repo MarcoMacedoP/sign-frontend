@@ -19,12 +19,7 @@ export function callApi(endpoint, options = {}) {
   })
     .then(response => response.json())
     .then(
-      ({data, statusCode, message}) =>
-        statusCodeIsValid(statusCode) && {
-          data,
-          statusCode,
-          message
-        }
+      ({data, statusCode}) => statusCodeIsValid(statusCode) && data
     );
 }
 export function callApiWithFormData(endpoint, options) {
