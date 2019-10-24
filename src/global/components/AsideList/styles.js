@@ -5,14 +5,18 @@ import {
   whiteColorLigth,
   whiteColor
 } from "../../styles/variables";
-import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
+import {
+  cellphoneMediaQuery,
+  mediumScreen
+} from "../../styles/mediaQuerys";
 import {H3, Subtitle} from "../../styles/texts";
 import {PictureCard} from "../PictureCard";
 import {
   Description,
   Title,
   IconContainer,
-  PictureContainer
+  PictureContainer,
+  Picture
 } from "../PictureCard/styles";
 
 export const Navigation = styled.nav`
@@ -51,8 +55,15 @@ export const AsideListItemBase = styled(PictureCard)`
   ${IconContainer} {
     display: none;
   }
-  ${PictureContainer} {
+  @media ${mediumScreen} {
+    ${Picture} {
+      min-width: 2rem;
+      min-height: 2rem;
+      width: 2rem;
+      width: 2rem;
+    }
   }
+
   @media ${cellphoneMediaQuery} {
     grid-template-rows: 1fr;
 
@@ -79,9 +90,12 @@ export const Aside = styled.aside`
   background-color: ${whiteColorLigth};
 
   transition: width 150ms linear;
+  @media ${mediumScreen} {
+    width: ${props => (props.isShowed ? "50vw" : "4rem")};
+  }
 
   @media ${cellphoneMediaQuery} {
-    width: 70vw;
+    width: ${props => (props.isShowed ? "30vw" : "4rem")};
   }
   ${Subtitle} {
     display: ${props => !props.isShowed && "none"};
@@ -93,6 +107,7 @@ export const Aside = styled.aside`
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 9.21vh;
         ${Description} {
           display: none;
         }
@@ -102,7 +117,12 @@ export const Aside = styled.aside`
         ${PictureContainer}{
           padding:0;
         }
-  
+        ${Picture}{
+          min-width: 2rem;
+          min-height: 2rem;
+          width: 2rem;
+          height: 2rem;
+        }
   `}
   }
 `;

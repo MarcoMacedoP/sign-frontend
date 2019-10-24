@@ -50,6 +50,7 @@ export const Picture = styled.picture`
   min-height: 3rem;
   min-width: 3rem;
   margin-bottom: 1rem;
+  overflow: hidden;
 
   img {
     width: 100%;

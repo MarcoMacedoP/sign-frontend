@@ -70,34 +70,33 @@ function TeamsList({
   }
   return (
     <>
-      <Container>
-        <AsideList
-          isShowed={state.isShowed}
-          title="Coolaboradores"
-          toggleAsideList={toggleAsideList}
-        >
-          {loadingFetchTeams ? (
-            <Loading />
-          ) : (
-            teamsList.map(team => (
-              <AsideListItem
-                key={team._id}
-                picture={team.picture}
-                title={`${team.name}`}
-                date={team.about}
-                onClick={() => handleSelectTeam(team._id)}
-              />
-            ))
-          )}
-          <ErrorMessage error={error} onClose={setErrorToNull} />
-        </AsideList>
-        {children}
-      </Container>
+      <AsideList
+        isShowed={state.isShowed}
+        title="Coolaboradores"
+        toggleAsideList={toggleAsideList}
+      >
+        {loadingFetchTeams ? (
+          <Loading />
+        ) : (
+          teamsList.map(team => (
+            <AsideListItem
+              key={team._id}
+              picture={team.picture}
+              title={`${team.name}`}
+              date={team.about}
+              onClick={() => handleSelectTeam(team._id)}
+            />
+          ))
+        )}
+        <ErrorMessage error={error} onClose={setErrorToNull} />
+      </AsideList>
+      {children}
+
       {state.selectedTeam && (
         <Redirect to={`${TEAMS_LIST}${state.selectedTeam}`} />
       )}
-      <AddButton onClick={handleRedirect} />
       {state.isRedirect && <Redirect to={ADD_TEAM} />}
+      <AddButton onClick={handleRedirect} />
     </>
   );
 }
