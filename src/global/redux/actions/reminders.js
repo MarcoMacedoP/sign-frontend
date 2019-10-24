@@ -5,7 +5,9 @@ import {
   UPDATE_REMINDER
 } from "../types/actionTypes";
 import {callApi} from "../../functions/callApi.new";
+
 const REMINDERS_ENDPOINT = "/reminders/";
+
 //fetch reminders-------------------
 export const getReminders = (status, response) => ({
   type: FETCH_REMINDERS,
@@ -62,10 +64,11 @@ export const removeReminder = (status, response) => ({
   payload: {status, response}
 });
 export const fetchRemoveReminder = reminderId => dispatch => {
-  dispatch(removeReminder("loading"));
+  dispatch(removeReminder("loading", {reminderId}));
   return callApi(`${REMINDERS_ENDPOINT}${reminderId}`, {
     method: "DELETE"
   })
     .then(response => dispatch(removeReminder("success", response)))
     .catch(err => dispatch(removeReminder("error", err)));
 };
+//-------------------------------------------------------
