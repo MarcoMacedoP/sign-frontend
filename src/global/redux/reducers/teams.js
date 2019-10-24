@@ -8,15 +8,7 @@ const initialState = {
     errorOnAddTeam: null
   },
 
-  list: [
-    {
-      id: 1,
-      name: "Team mock",
-      picture:
-        "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-      about: "Team for develpment React library"
-    }
-  ]
+  list: []
 };
 
 export default (state = initialState, action) => {

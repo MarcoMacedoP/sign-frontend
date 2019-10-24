@@ -50,7 +50,7 @@ function TeamsList({
   useEffect(() => setError(errorOnFetchTeams), [errorOnFetchTeams]);
   const setErrorToNull = () => setError(null);
 
-  if (!teamsList.length) {
+  if (!teamsList.length && !loadingFetchTeams) {
     return (
       <SmallEmptyState
         message={[
@@ -81,11 +81,11 @@ function TeamsList({
           ) : (
             teamsList.map(team => (
               <AsideListItem
-                key={team.id}
+                key={team._id}
                 picture={team.picture}
                 title={`${team.name}`}
                 date={team.about}
-                onClick={() => handleSelectTeam(team.id)}
+                onClick={() => handleSelectTeam(team._id)}
               />
             ))
           )}

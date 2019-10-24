@@ -30,7 +30,7 @@ function Team({team}) {
             <Picture>
               <img src={team.picture} alt="" />
             </Picture>
-            <About>{team.about}</About>
+            <About>{team.description}</About>
           </Info>
         </Container>
       ) : (
@@ -41,9 +41,9 @@ function Team({team}) {
 }
 
 const mapStateToProps = (state, props) => {
-  const teamId = parseInt(props.match.params.teamId);
+  const teamId = props.match.params.teamId;
   return {
-    team: state.teams.find(team => team.id === teamId)
+    team: state.teams.list.find(team => team._id === teamId)
   };
 };
 
