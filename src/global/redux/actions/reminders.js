@@ -29,13 +29,13 @@ export const addReminder = (status, response) => ({
   payload: {status, response}
 });
 export const fetchAddReminder = reminder => dispatch => {
-  dispatch("loading");
+  dispatch(addReminder("loading"));
   return callApi(REMINDERS_ENDPOINT, {
     method: "POST",
     body: JSON.stringify(reminder)
   })
     .then(response => dispatch(addReminder("success", response)))
-    .catch(err => dispatch(addReminder("error", err)));
+    .catch(err => dispatch(addReminder("error", err.message || err)));
 };
 //-------------------------------------------------------
 
@@ -54,7 +54,9 @@ export const fetchUpdateReminder = updatedReminder => dispatch => {
     }
   )
     .then(response => dispatch(updateReminder("success", response)))
-    .catch(err => dispatch(updateReminder("error", err)));
+    .catch(err =>
+      dispatch(updateReminder("error", err.message || err))
+    );
 };
 //-------------------------------------------------------
 
@@ -69,6 +71,8 @@ export const fetchRemoveReminder = reminderId => dispatch => {
     method: "DELETE"
   })
     .then(response => dispatch(removeReminder("success", response)))
-    .catch(err => dispatch(removeReminder("error", err)));
+    .catch(err =>
+      dispatch(removeReminder("error", err.message || err))
+    );
 };
 //-------------------------------------------------------

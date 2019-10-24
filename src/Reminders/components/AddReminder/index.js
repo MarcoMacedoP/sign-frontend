@@ -24,6 +24,18 @@ function AddReminder({
     description: "",
     date: ""
   });
+  //handle submit
+  const [requestHasSend, setRequestHasSend] = useState(false);
+  const handleSubmit = () => {
+    setRequestHasSend(true);
+    fetchAddReminder(state);
+  };
+  useEffect(() => {
+    if (requestHasSend && !error && !loadingAddReminder) {
+      //it means that reminder whas added.
+      onClose();
+    }
+  }, [requestHasSend, error, loadingAddReminder]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -34,7 +46,7 @@ function AddReminder({
         isLoading={loadingAddReminder}
         error={error}
         onErrorClose={setErrorToNull}
-        onSubmit={fetchAddReminder}
+        onSubmit={handleSubmit}
       >
         <Input
           value={state.title}

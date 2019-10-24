@@ -3,7 +3,7 @@ import React from "react";
 import {ReminderModal} from "../ReminderModal";
 import {List} from "../../../global/components/";
 import {EmptyReminders} from "../EmptyReminders";
-
+import AddReminder from "../AddReminder";
 //hooks
 import {useModalState} from "../../../global/hooks/useModalState";
 import {useEffect, useState} from "react";
@@ -18,7 +18,15 @@ export function RemindersList({
   loadingFetchReminders,
   fetchReminders
 }) {
-  const {handleModal, modalIsOpen} = useModalState();
+  //modals
+  const {
+    handleModal: handleReminderModal,
+    modalIsOpen: reminderModalIsOpen
+  } = useModalState();
+  const {
+    handleModal: handleAddReminderModal,
+    modalIsOpen: addReminderModalIsOpen
+  } = useModalState();
   //fetch handling
   useEffect(() => {
     if (shuldFetchReminders) {
@@ -38,16 +46,17 @@ export function RemindersList({
       error={error}
       onErrorClose={setErrorToNull}
       isLoading={loadingFetchReminders}
+      onAddButtonClick={handleAddReminderModal}
     >
-      <ReminderModal isOpen={modalIsOpen} onClose={handleModal} />
-      {remindersList.length === 0 ? (
-        <EmptyReminders />
-      ) : (
-        remindersList.map(reminder => (
-          <p onClick={handleModal}>{reminder.title}</p>
-        ))
-      )}
-      <label>Agregar un recordatorio</label>
+      <AddReminder
+        isOpen={addReminderModalIsOpen}
+        onClose={handleAddReminderModal}
+      />
+      <ReminderModal
+        isOpen={reminderModalIsOpen}
+        onClose={handleReminderModal}
+      />
+      {remindersList.length === 0 && <EmptyReminders />}
     </List>
   );
 }
