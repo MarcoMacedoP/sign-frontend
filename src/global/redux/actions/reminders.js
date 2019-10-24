@@ -8,6 +8,8 @@ export const getReminders = (status, response) => ({
 export const fetchReminders = () => dispatch => {
   dispatch(getReminders("loading"));
   return callApi("/reminders/")
-    .then(response => dispatch("success", response))
-    .catch(err => dispatch(getReminders("error", err)));
+    .then(response => dispatch(getReminders("success", response)))
+    .catch(err =>
+      dispatch(getReminders("error", err.message || err))
+    );
 };

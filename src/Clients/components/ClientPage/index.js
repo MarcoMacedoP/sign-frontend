@@ -7,7 +7,6 @@ import {
 } from "../../../global/components";
 //hooks
 import {useHandleState} from "../../../global/hooks/useHandleState";
-import {RemindersListContainer} from "../../../Reminders/components/RemindersListContainer";
 //styled-components
 import {Article, Section} from "./styles";
 //redux
@@ -31,7 +30,6 @@ function ClientPage({client}) {
     lastname,
     phone,
     email,
-    reminders = [],
     projects = []
   } = client;
   const {
@@ -73,9 +71,7 @@ function ClientPage({client}) {
       </Article>
       <Article>
         <h2>Recordatorios</h2>
-        <Section>
-          <RemindersListContainer reminders={reminders} />
-        </Section>
+        <Section></Section>
       </Article>
 
       <Article>

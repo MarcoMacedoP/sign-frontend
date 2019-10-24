@@ -43,8 +43,11 @@ import SignupPage from "./Users/components/SignupContainer";
 import UserPage from "./Users/components/UserPage";
 //--------------end user pages-----------------------
 
-import {RemindersList} from "./Reminders";
+//--------------reminders pages-----------------------
+import RemindersList from "./Reminders/components/RemindersList";
+//--------------end reminders pages-----------------------
 import {PageNotFound} from "./global/components/PageNotFound";
+
 // Routes
 import {
   ADD_CLIENT_ROUTE,
@@ -173,12 +176,15 @@ function App({userIsLoged, userHasLogout, loginUser}) {
               path={CLIENT_PAGE_ROUTE}
               component={ClientPage}
             />
+            {/*------------reminders routes -------------------*/}
             <PrivateRoute
               userIsLoged={userIsLoged}
               exact
               path={REMINDERS_ROUTE}
               component={RemindersList}
             />
+            {/*------------end reminders routes -------------------*/}
+
             {/*------------user routes -------------------*/}
             <PrivateRoute
               userIsLoged={userIsLoged}
