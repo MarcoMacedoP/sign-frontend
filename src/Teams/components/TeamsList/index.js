@@ -1,23 +1,34 @@
 import React from "react";
 //redux
 import {connect} from "react-redux";
+import {fetchTeams} from "../../../global/redux/actions/teams";
 //components
 import {
   AsideList,
   AsideListItem,
   AddButton,
-  SmallEmptyState
+  SmallEmptyState,
+  Loading,
+  ErrorMessage
 } from "../../../global/components";
 import {Redirect} from "react-router-dom";
 //hooks
 import {useHandleState} from "../../../global/hooks";
+import {useEffect, useState} from "react";
 //styled-components
 import {Container} from "./styles";
 
 //utils
 import {ADD_TEAM, TEAMS_LIST} from "../../../global/utils/routes";
 
-function TeamsList({teams = [], children}) {
+function TeamsList({
+  fetchTeams,
+  teamsList,
+  shouldFetchTeams,
+  loadingFetchTeams,
+  errorOnFetchTeams,
+  children
+}) {
   const {state, toggleStateValue, addValueToState} = useHandleState({
     isShowed: true,
     isRedirect: false,
@@ -28,8 +39,18 @@ function TeamsList({teams = [], children}) {
   const toggleAsideList = () => toggleStateValue("isShowed");
   const handleSelectTeam = teamId =>
     addValueToState("selectedTeam", teamId);
+  //fetch stuff
+  useEffect(() => {
+    if (shouldFetchTeams) {
+      fetchTeams();
+    }
+  }, [shouldFetchTeams]);
+  //error handlers
+  const [error, setError] = useState(null);
+  useEffect(() => setError(errorOnFetchTeams), [errorOnFetchTeams]);
+  const setErrorToNull = () => setError(null);
 
-  if (!teams.length) {
+  if (!teamsList.length) {
     return (
       <SmallEmptyState
         message={[
@@ -48,34 +69,47 @@ function TeamsList({teams = [], children}) {
     );
   }
   return (
-    <Container>
-      <AsideList
-        isShowed={state.isShowed}
-        title="Coolaboradores"
-        toggleAsideList={toggleAsideList}
-      >
-        {teams.map(team => (
-          <AsideListItem
-            key={team.id}
-            picture={team.picture}
-            title={`${team.name}`}
-            date={team.about}
-            onClick={() => handleSelectTeam(team.id)}
-          />
-        ))}
-        {state.selectedTeam && (
-          <Redirect to={`${TEAMS_LIST}${state.selectedTeam}`} />
-        )}
-        <AddButton onClick={handleRedirect} />
-        {state.isRedirect && <Redirect to={ADD_TEAM} />}
-      </AsideList>
-      {children}
-    </Container>
+    <>
+      <Container>
+        <AsideList
+          isShowed={state.isShowed}
+          title="Coolaboradores"
+          toggleAsideList={toggleAsideList}
+        >
+          {loadingFetchTeams ? (
+            <Loading />
+          ) : (
+            teamsList.map(team => (
+              <AsideListItem
+                key={team.id}
+                picture={team.picture}
+                title={`${team.name}`}
+                date={team.about}
+                onClick={() => handleSelectTeam(team.id)}
+              />
+            ))
+          )}
+          <ErrorMessage error={error} onClose={setErrorToNull} />
+        </AsideList>
+        {children}
+      </Container>
+      {state.selectedTeam && (
+        <Redirect to={`${TEAMS_LIST}${state.selectedTeam}`} />
+      )}
+      <AddButton onClick={handleRedirect} />
+      {state.isRedirect && <Redirect to={ADD_TEAM} />}
+    </>
   );
 }
 
-const mapStateToProps = state => ({teams: state.teams});
+const mapStateToProps = ({teams}) => ({
+  teamsList: teams.list,
+  shouldFetchTeams: teams.status.shouldFetchTeams,
+  loadingFetchTeams: teams.status.loadingFetchTeams,
+  errorOnFetchTeams: teams.status.errorOnFetchTeams
+});
+
 export default connect(
   mapStateToProps,
-  null
+  {fetchTeams}
 )(TeamsList);

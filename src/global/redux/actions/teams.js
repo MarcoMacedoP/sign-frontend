@@ -22,7 +22,7 @@ export const getTeams = (status, response) => ({
 });
 export const fetchTeams = () => dispatch => {
   dispatch(getTeams("loading"));
-  return callApi("/teams/")
+  return callApi("/teams/user/")
     .then(teams => dispatch(getTeams("success", teams)))
     .catch(error => dispatch(getTeams("error", error)));
 };

@@ -1,6 +1,4 @@
 import {ADD_TEAM, FETCH_TEAMS} from "../types/actionTypes";
-import {handleAsyncAction} from "../functions/handleAsyncAction";
-
 const initialState = {
   status: {
     shouldFetchTeams: true,
@@ -22,6 +20,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case ADD_TEAM:
       return addTeamToState(action.payload, state);
@@ -32,61 +31,74 @@ export default (state = initialState, action) => {
   }
 };
 function fetchTeamsToState({status, response}, state) {
-  const onError = {
-    ...state,
-    status: {
-      ...state.status,
-      shouldFetchTeams: false,
-      loadingFetchTeams: false,
-      errorOnFetchTeams: response
-    }
-  };
-  const onSuccess = {
-    list: [...response],
-    status: {
-      ...state.status,
-      shouldFetchTeams: false,
-      loadingFetchTeams: false,
-      errorOnFetchTeams: null
-    }
-  };
+  switch (status) {
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          shouldFetchTeams: false,
+          loadingFetchTeams: true,
+          errorOnFetchTeams: null
+        }
+      };
 
-  const onLoading = {
-    ...state,
-    status: {
-      ...state.status,
-      shouldFetchTeams: false,
-      loadingFetchTeams: true,
-      errorOnFetchTeams: null
-    }
-  };
-  return handleAsyncAction(status, onLoading, onError, onSuccess);
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          shouldFetchTeams: false,
+          loadingFetchTeams: false,
+          errorOnFetchTeams: response
+        }
+      };
+    case "success":
+      return {
+        list: [...response],
+        status: {
+          ...state.status,
+          shouldFetchTeams: false,
+          loadingFetchTeams: false,
+          errorOnFetchTeams: null
+        }
+      };
+
+    default:
+      return state;
+  }
 }
 function addTeamToState({status, response}, state) {
-  const onLoading = {
-    ...state,
-    status: {
-      ...state.status,
-      loadingAddTeam: true,
-      errorOnAddTeam: null
-    }
-  };
+  switch (status) {
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loadingAddTeam: true,
+          errorOnAddTeam: null
+        }
+      };
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loadingAddTeam: false,
+          errorOnAddTeam: response
+        }
+      };
+    case "success":
+      return {
+        list: [response, ...state.list],
+        status: {
+          ...state.status,
+          loadingAddTeam: false,
+          errorOnAddTeam: null
+        }
+      };
 
-  const onError = {
-    ...state,
-    status: {
-      ...state.status,
-      loadingAddTeam: false,
-      errorOnAddTeam: response
-    }
-  };
-  const onSuccess = {
-    list: [response, ...state.list],
-    status: {
-      ...state.status,
-      loadingAddTeam: false,
-      errorOnAddTeam: null
-    }
-  };
-  return handleAsyncAction(status, onLoading, onError, onSuccess);
+    default:
+      return state;
+  }
 }
