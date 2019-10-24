@@ -35,6 +35,11 @@ export default function(state = initialState, action) {
   }
 }
 
+/**
+ * Reduce the state from the fetched data from the API.
+ * @param {*} payload the payload sended in the action
+ * @param {*} state the state of the reducer
+ */
 function reduceFetchedReminders({status, response}, state) {
   switch (status) {
     case "loading":
@@ -72,7 +77,11 @@ function reduceFetchedReminders({status, response}, state) {
       return state;
   }
 }
-
+/**
+ * Reduce the state from added reminder using the response from the API.
+ * @param {*} payload the payload sended in the action
+ * @param {*} state the state of the reducer
+ */
 function reduceAddedReminder({status, response}, state) {
   switch (status) {
     case "loading":
@@ -106,7 +115,11 @@ function reduceAddedReminder({status, response}, state) {
       return state;
   }
 }
-
+/**
+ * Reduce the state from updated reminder using the response from the API.
+ * @param {*} payload the payload sended in the action
+ * @param {*} state the state of the reducer
+ */
 function reduceUpdatedReminder({status, response}, state) {
   switch (status) {
     case "loading":
@@ -140,7 +153,13 @@ function reduceUpdatedReminder({status, response}, state) {
       return state;
   }
 }
-
+/**
+ * Reduce the state from removed reminder.
+ * Remove the reminder when start loading the http request
+ * for UX porposal.
+ * @param {*} payload the payload sended in the action
+ * @param {*} state the state of the reducer
+ */
 function reduceRemoveReminder({status, response}, state) {
   switch (status) {
     case "loading": {
