@@ -4,6 +4,7 @@ import {ReminderModal} from "../ReminderModal";
 import {List} from "../../../global/components/";
 import {EmptyReminders} from "../EmptyReminders";
 import AddReminder from "../AddReminder";
+import Reminder from "../Reminder";
 //hooks
 import {useModalState} from "../../../global/hooks/useModalState";
 import {useEffect, useState} from "react";
@@ -56,15 +57,23 @@ export function RemindersList({
         isOpen={reminderModalIsOpen}
         onClose={handleReminderModal}
       />
-      {remindersList.length === 0 && <EmptyReminders />}
+      {remindersList.length === 0 ? (
+        <EmptyReminders />
+      ) : (
+        remindersList.map(reminder => (
+          <Reminder
+            key={reminder.reminder_id}
+            title={reminder.title}
+            description={reminder.description}
+            date={reminder.date}
+          />
+        ))
+      )}
     </List>
   );
 }
 
 const mapStateToProps = ({reminders}) => {
-  // eslint-disable-next-line no-debugger
-  debugger;
-  console.log(reminders);
   return {
     remindersList: reminders.list,
     shuldFetchReminders: reminders.status.shuldFetchReminders,
