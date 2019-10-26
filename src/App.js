@@ -44,7 +44,7 @@ import UserPage from "./Users/components/UserPage";
 //--------------end user pages-----------------------
 
 //--------------reminders pages-----------------------
-import RemindersList from "./Reminders/components/RemindersList";
+import RemindersList from "./Reminders/components/RemindersListContainer";
 //--------------end reminders pages-----------------------
 import {PageNotFound} from "./global/components/PageNotFound";
 

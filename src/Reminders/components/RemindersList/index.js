@@ -1,87 +1,41 @@
-//components
 import React from "react";
 import {ReminderModal} from "../ReminderModal";
-import {List} from "../../../global/components/";
+import {List} from "../../../global/components";
 import {EmptyReminders} from "../EmptyReminders";
 import AddReminder from "../AddReminder";
 import Reminder from "../Reminder";
-//functions
-import {compareDateToTodayInDays} from "../../../global/functions/compareDateToTodayInDays";
-//redux
-import {connect} from "react-redux";
-import {fetchReminders} from "../../../global/redux/actions/reminders";
-//hooks
-import {useModalState} from "../../../global/hooks/useModalState";
-import {useEffect, useState} from "react";
-//const
-const REMINDER_STATUS = {
-  OK: "OK",
-  WARNING: "WARNING",
-  DANGER: "DANGER",
-  ARCHIVED: "ARCHIVED"
-};
-export function RemindersList({
-  remindersList = [],
-  shuldFetchReminders,
-  errorOnFetchReminders,
-  loadingFetchReminders,
-  fetchReminders
-}) {
-  //modals
-  const {
-    handleModal: handleReminderModal,
-    modalIsOpen: reminderModalIsOpen
-  } = useModalState();
-  const {
-    handleModal: handleAddReminderModal,
-    modalIsOpen: addReminderModalIsOpen
-  } = useModalState();
-  //fetch handling
-  useEffect(() => {
-    if (shuldFetchReminders) {
-      fetchReminders();
-    }
-  }, [shuldFetchReminders]);
-  //error handling
-  const [error, setError] = useState(null);
-  useEffect(() => setError(errorOnFetchReminders), [
-    errorOnFetchReminders
-  ]);
-  const setErrorToNull = () => setError(null);
-  //handling status on reminders
-  const [archivedReminders, setArchivedReminders] = useState([]);
-  const [notRelevantReminders, setNotRelevantReminders] = useState([]); // prettier-ignore
-  const [relevantReminders, setRelevantReminders] = useState([]);
 
-  const filterReminders = toBeEqual =>
-    remindersList.filter(reminder => reminder.status === toBeEqual);
-
-  useEffect(() => {
-    setArchivedReminders(filterReminders(REMINDER_STATUS.ARCHIVED));
-    setNotRelevantReminders(filterReminders(REMINDER_STATUS.OK));
-    setRelevantReminders([
-      ...filterReminders(REMINDER_STATUS.WARNING),
-      ...filterReminders(REMINDER_STATUS.DANGER)
-    ]);
-  }, [remindersList]);
+export function RemindersList(props) {
+  const {
+    onErrorClose,
+    error,
+    isLoading,
+    addReminderIsOpen,
+    toggleAddReminder,
+    archivedReminders = [],
+    notRelevantReminders = [],
+    relevantReminders = []
+  } = props;
 
   return (
     <List
       title="Recordatorios recientes"
       error={error}
-      onErrorClose={setErrorToNull}
-      isLoading={loadingFetchReminders}
-      onAddButtonClick={handleAddReminderModal}
+      onErrorClose={onErrorClose}
+      isLoading={isLoading}
+      onAddButtonClick={toggleAddReminder}
     >
       <AddReminder
-        isOpen={addReminderModalIsOpen}
-        onClose={handleAddReminderModal}
+        isOpen={addReminderIsOpen}
+        onClose={toggleAddReminder}
       />
       <ReminderModal
-        isOpen={reminderModalIsOpen}
-        onClose={handleReminderModal}
+        isOpen={addReminderIsOpen}
+        onClose={toggleAddReminder}
       />
-      {remindersList.length === 0 ? (
+      {!isLoading &&
+      notRelevantReminders.length === 0 &&
+      relevantReminders.length === 0 ? (
         <EmptyReminders />
       ) : (
         archivedReminders.map(reminder => (
@@ -97,17 +51,3 @@ export function RemindersList({
     </List>
   );
 }
-
-const mapStateToProps = ({reminders}) => {
-  return {
-    remindersList: reminders.list,
-    shuldFetchReminders: reminders.status.shuldFetchReminders,
-    errorOnFetchReminders: reminders.status.errorOnFetchReminders,
-    loadingFetchReminders: reminders.status.loadingFetchReminders
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  {fetchReminders}
-)(RemindersList);
