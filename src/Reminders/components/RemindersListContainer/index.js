@@ -8,7 +8,7 @@ import {fetchReminders} from "../../../global/redux/actions/reminders";
 import {useModalState} from "../../../global/hooks/useModalState";
 import {useEffect, useState} from "react";
 //const
-const REMINDER_STATUS = {
+export const REMINDER_STATUS = {
   OK: "OK",
   WARNING: "WARNING",
   DANGER: "DANGER",
@@ -21,8 +21,6 @@ export function RemindersListContainer({
   loadingFetchReminders,
   fetchReminders
 }) {
-  // eslint-disable-next-line no-debugger
-  debugger;
   //modals
   const {
     handleModal: toggleAddReminderModal,
