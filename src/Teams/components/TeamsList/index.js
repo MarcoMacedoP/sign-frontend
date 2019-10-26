@@ -15,9 +15,6 @@ import {Redirect} from "react-router-dom";
 //hooks
 import {useHandleState} from "../../../global/hooks";
 import {useEffect, useState} from "react";
-//styled-components
-import {Container} from "./styles";
-
 //utils
 import {ADD_TEAM, TEAMS_LIST} from "../../../global/utils/routes";
 

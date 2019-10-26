@@ -1,13 +1,12 @@
 import React from "react";
 //components
 import {ReminderModal} from "../ReminderModal";
-import {List, LongCard} from "../../../global/components";
+import {List} from "../../../global/components";
 import {EmptyReminders} from "../EmptyReminders";
 import AddReminder from "../AddReminder";
 import Reminder from "../Reminder";
 //styled-components
 import {RelevantReminders} from "./styles";
-import {LongList} from "../../../global/styles/Lists";
 
 export function RemindersList(props) {
   const {
@@ -16,7 +15,7 @@ export function RemindersList(props) {
     isLoading,
     addReminderIsOpen,
     toggleAddReminder,
-    archivedReminders = [],
+    // archivedReminders = [],
     notArchivedReminders = []
   } = props;
 
