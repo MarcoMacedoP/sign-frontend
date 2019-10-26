@@ -17,6 +17,7 @@ const initialState = {
     }
   ],
   status: {
+    shouldFetchClients: true,
     loadingClients: false,
     errorOnGetClients: null,
     loadingAddCient: false,
@@ -28,37 +29,7 @@ export default function clientsReducer(state = initialState, action) {
   switch (action.type) {
     //-----------get clients------------------------
     case GET_CLIENTS:
-      switch (action.payload.status) {
-        case "success":
-          return {
-            ...state,
-            status: {
-              loadingClients: false,
-              errorOnGetClients: null
-            },
-            list: [...action.payload.response]
-          };
-        case "error":
-          return {
-            ...state,
-            status: {
-              loadingClients: false,
-              errorOnGetClients: action.payload.response
-            }
-          };
-
-        case "loading":
-          return {
-            ...state,
-            status: {
-              loadingClients: true,
-              errorOnGetClients: null
-            }
-          };
-
-        default:
-          return state;
-      }
+      return reduceStateFromFetchedClients(action.payload, state);
     //-------------add client--------------------
     case ADD_CLIENT:
       switch (action.payload.status) {
@@ -95,5 +66,49 @@ export default function clientsReducer(state = initialState, action) {
 
     default:
       return state;
+  }
+
+  /**
+   * Reduce the state from fetched clients
+   * @returns the state modified
+   * @param {*} payload the action payload
+   * @param {*} state the reducer state
+   */
+  function reduceStateFromFetchedClients({status, response}, state) {
+    switch (status) {
+      case "success":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            shouldFetchClients: false,
+            loadingClients: false,
+            errorOnGetClients: null
+          },
+          list: [...response]
+        };
+      case "error":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            shouldFetchClients: false,
+            loadingClients: false,
+            errorOnGetClients: response
+          }
+        };
+      case "loading":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            shouldFetchClients: false,
+            loadingClients: true,
+            errorOnGetClients: null
+          }
+        };
+      default:
+        return state;
+    }
   }
 }

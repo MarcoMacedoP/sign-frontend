@@ -1,7 +1,7 @@
 // Components
 import React from "react";
 import {Link, Redirect} from "react-router-dom";
-import {LongCard, List, Loading} from "../../../global/components";
+import {LongCard, List} from "../../../global/components";
 //hooks
 import {useEffect, useState} from "react";
 // styled-Components
@@ -15,49 +15,59 @@ import {
 import {connect} from "react-redux";
 import {fetchClients} from "../../../global/redux/actions/clients";
 
-function ClientsList({clients, fetchClients}) {
-  const {loadingClients, errorOnGetClients} = clients.status;
-  const [shouldFetchClients, setShouldFetchClients] = useState(true);
+function ClientsList({
+  shouldFetchClients,
+  clientsList,
+  loadingClients,
+  errorOnGetClients,
+  fetchClients
+}) {
   const [isRedirect, setIsRedirect] = useState(false);
-
   const handleAddButton = () => setIsRedirect(true);
 
   useEffect(() => {
     if (shouldFetchClients) {
       fetchClients();
     }
-    if (loadingClients || errorOnGetClients) {
-      setShouldFetchClients(false);
-    }
-  }, [
-    shouldFetchClients,
-    loadingClients,
-    errorOnGetClients,
-    fetchClients
-  ]);
+  }, [shouldFetchClients]);
 
-  if (errorOnGetClients) {
-    console.log(errorOnGetClients);
-    return <h1> error !!!</h1>;
-  }
+  //handle error
+  const [error, setError] = useState(null);
+  useEffect(() => setError(errorOnGetClients), [errorOnGetClients]);
+  const setErrorToNull = () => setError(null);
+
   return (
-    <List title="Clientes" onAddButtonClick={handleAddButton}>
+    <List
+      error={error}
+      onErrorClose={setErrorToNull}
+      title="Clientes"
+      onAddButtonClick={handleAddButton}
+      isLoading={loadingClients}
+    >
       <LongList>
-        {loadingClients ? (
-          <Loading />
-        ) : (
-          clients.list.map(({client_id}) => (
-            <Link to={`${CLIENTS_ROUTE}${client_id}`} key={client_id}>
-              <LongCard />
-            </Link>
-          ))
-        )}
+        {clientsList.map(client => (
+          <Link
+            to={`${CLIENTS_ROUTE}${client.client_id}`}
+            key={client.client_id}
+          >
+            <LongCard
+              title={`${client.name} ${client.lastname}`}
+              about={client.email || client.phone}
+            />
+          </Link>
+        ))}
         {isRedirect && <Redirect to={ADD_CLIENT_ROUTE} />}
       </LongList>
     </List>
   );
 }
-const mapStateToProps = state => ({clients: state.clients});
+const mapStateToProps = ({clients}) => ({
+  clientsList: clients.list,
+  shouldFetchClients: clients.status.shouldFetchClients,
+  loadingClients: clients.status.loadingClients,
+  errorOnGetClients: clients.status.errorOnGetClients
+});
+
 export default connect(
   mapStateToProps,
   {fetchClients}
