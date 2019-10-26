@@ -40,18 +40,16 @@ export function RemindersListContainer({
   const setErrorToNull = () => setError(null);
   //handling status on reminders
   const [archivedReminders, setArchivedReminders] = useState([]);
-  const [notRelevantReminders, setNotRelevantReminders] = useState([]); // prettier-ignore
-  const [relevantReminders, setRelevantReminders] = useState([]);
-
+  const [notArchivedReminders, setNotArchivedReminders] = useState([]); // prettier-ignore
   const filterReminders = toBeEqual =>
     remindersList.filter(reminder => reminder.status === toBeEqual);
 
   useEffect(() => {
     setArchivedReminders(filterReminders(REMINDER_STATUS.ARCHIVED));
-    setNotRelevantReminders(filterReminders(REMINDER_STATUS.OK));
-    setRelevantReminders([
+    setNotArchivedReminders([
+      ...filterReminders(REMINDER_STATUS.DANGER),
       ...filterReminders(REMINDER_STATUS.WARNING),
-      ...filterReminders(REMINDER_STATUS.DANGER)
+      ...filterReminders(REMINDER_STATUS.OK)
     ]);
   }, [remindersList]);
 
@@ -63,8 +61,7 @@ export function RemindersListContainer({
       addReminderIsOpen={addReminderModalIsOpen}
       toggleAddReminder={toggleAddReminderModal}
       archivedReminders={archivedReminders}
-      notRelevantReminders={notRelevantReminders}
-      relevantReminders={relevantReminders}
+      notArchivedReminders={notArchivedReminders}
     />
   );
 }

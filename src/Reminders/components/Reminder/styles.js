@@ -4,11 +4,9 @@ import {
   whiteColorLigth,
   errorColor,
   pendingStatusColor,
-  whiteColorDark
+  whiteColorDark,
+  positiveStatusColor
 } from "../../../global/styles/variables";
-
-const BASE_CARD_BACKGROUND = `linear-gradient(180deg, ${whiteColorLigth} 61.07%,
-    rgba(255, 255, 255, 0) 100%),`;
 
 export const Card = styled.section`
   min-height: 150px;
@@ -24,10 +22,19 @@ export const Card = styled.section`
 
   border-radius: 1rem;
   border: 1px solid ${whiteColorDark};
-  background: ${props =>
-    props.status === REMINDER_STATUS.WARNING
-      ? `${BASE_CARD_BACKGROUND}${pendingStatusColor}`
-      : `${BASE_CARD_BACKGROUND}${errorColor}`};
+  --statusColor: ${props =>
+    props.status === REMINDER_STATUS.DANGER
+      ? errorColor
+      : props.status === REMINDER_STATUS.WARNING
+      ? pendingStatusColor
+      : props.status === REMINDER_STATUS.OK && positiveStatusColor};
+
+  background: linear-gradient(
+      180deg,
+      ${whiteColorLigth} 61.07%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    var(--statusColor);
 `;
 export const Title = styled.p`
   font-size: 1rem;
@@ -47,8 +54,5 @@ export const Content = styled.div`
 `;
 export const StyledDate = styled.span`
   margin-top: 1rem;
-  color: ${props =>
-    props.status === REMINDER_STATUS.WARNING
-      ? pendingStatusColor
-      : errorColor};
+  color: var(--statusColor);
 `;

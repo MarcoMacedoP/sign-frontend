@@ -1,12 +1,14 @@
 import React from "react";
 //components
 import {ReminderModal} from "../ReminderModal";
-import {List} from "../../../global/components";
+import {List, LongCard} from "../../../global/components";
 import {EmptyReminders} from "../EmptyReminders";
 import AddReminder from "../AddReminder";
 import Reminder from "../Reminder";
 //styled-components
 import {RelevantReminders} from "./styles";
+import {LongList} from "../../../global/styles/Lists";
+
 export function RemindersList(props) {
   const {
     onErrorClose,
@@ -15,8 +17,7 @@ export function RemindersList(props) {
     addReminderIsOpen,
     toggleAddReminder,
     archivedReminders = [],
-    notRelevantReminders = [],
-    relevantReminders = []
+    notArchivedReminders = []
   } = props;
 
   return (
@@ -31,17 +32,12 @@ export function RemindersList(props) {
         isOpen={addReminderIsOpen}
         onClose={toggleAddReminder}
       />
-      <ReminderModal
-        isOpen={addReminderIsOpen}
-        onClose={toggleAddReminder}
-      />
-      {!isLoading &&
-      notRelevantReminders.length === 0 &&
-      relevantReminders.length === 0 ? (
+      <ReminderModal isOpen={false} onClose={toggleAddReminder} />
+      {!isLoading && notArchivedReminders.length === 0 ? (
         <EmptyReminders />
       ) : (
         <RelevantReminders>
-          {archivedReminders.map(reminder => (
+          {notArchivedReminders.map(reminder => (
             <Reminder
               key={reminder.reminder_id}
               title={reminder.title}
