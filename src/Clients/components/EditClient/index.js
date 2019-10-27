@@ -1,6 +1,5 @@
 import React from "react";
 //components
-import {Redirect} from "react-router-dom";
 import {ClientFormBase} from "../ClientFormBase";
 //redux
 import {connect} from "react-redux";
@@ -46,7 +45,6 @@ function EditClient({
       onSubmit={handleSubmit}
       formValues={state}
       onInputChange={addFormValueToState}
-      isRedirect={false}
       error={error}
       setError={setError}
       onErrorClose={setErrorToNull}
