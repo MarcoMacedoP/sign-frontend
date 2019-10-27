@@ -1,17 +1,17 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const BigList = styled.ul`
   width: 100%;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
   grid-template-rows: 1fr 1fr;
   gap: 1.5rem;
   * {
     text-decoration: none;
   }
   margin-bottom: 3rem;
-`
+`;
 export const LongList = styled.ul`
   width: 100%;
 
@@ -29,4 +29,4 @@ export const LongList = styled.ul`
   * {
     text-decoration: none;
   }
-`
+`;

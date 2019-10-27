@@ -17,7 +17,7 @@ function AddProvider({fetchAddProvider, isLoading, errorOnFetching}) {
     lastname: "",
     email: "",
     phone: "",
-    incomes: []
+    about: ""
   };
   const {state, addFormValueToState} = useHandleState(initialState);
 
@@ -41,7 +41,7 @@ function AddProvider({fetchAddProvider, isLoading, errorOnFetching}) {
       onSubmit={handleSubmit}
       title="Agregar proveedor"
       aboutTitle="Sobre los proveedores"
-      about="Tener un listado de los provedores  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam molestie volutpat nisl a suscipit. Nullam non tortor lorem. Quisque purus urna, feugiat eu nulla ut, dictum venenatis tortor."
+      about="Tener un listado de los provedores te ayuda a hacer cosas cool"
     >
       <Input
         label="Nombre (s)"
@@ -55,6 +55,13 @@ function AddProvider({fetchAddProvider, isLoading, errorOnFetching}) {
         placeholder="Fernandez"
         name="lastname"
         value={state.lastname}
+        onChange={addFormValueToState}
+      />
+      <Input
+        label="Acerca de"
+        placeholder="Cuentanos un poco sobre él"
+        name="about"
+        value={state.about}
         onChange={addFormValueToState}
       />
       <Input

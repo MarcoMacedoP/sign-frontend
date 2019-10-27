@@ -1,6 +1,10 @@
 import React from "react";
 // Components
-import {PictureCard, List} from "../../../global/components/";
+import {
+  PictureCard,
+  List,
+  SmallEmptyState
+} from "../../../global/components/";
 import {Link, Redirect} from "react-router-dom";
 //hooks
 import {useEffect, useState} from "react";
@@ -54,22 +58,29 @@ function ProviderList({
       onErrorClose={setErrorToNull}
       onAddButtonClick={setRedirectTrue}
     >
-      <BigList>
-        {providers.list.map(
-          ({provider_id, name, lastname, image_url, about}) => (
-            <Link
-              key={provider_id}
-              to={`/app/providers/${provider_id}`}
-            >
-              <PictureCard
-                title={`${name} ${lastname}`}
-                picture={image_url}
-                description={about}
-              />
-            </Link>
-          )
-        )}
-      </BigList>
+      {providers.list.length === 0 ? (
+        <SmallEmptyState
+          message="Parece qué aún no tienes proveedores"
+          callToAction="¿Qué tal si agregas uno para comenzar?"
+        />
+      ) : (
+        <BigList>
+          {providers.list.map(
+            ({provider_id, name, lastname, image_url, about}) => (
+              <Link
+                key={provider_id}
+                to={`/app/providers/${provider_id}`}
+              >
+                <PictureCard
+                  title={`${name} ${lastname}`}
+                  picture={image_url}
+                  description={about}
+                />
+              </Link>
+            )
+          )}
+        </BigList>
+      )}
       {redirectToAddProvider && <Redirect to={ADD_PROVIDER_ROUTE} />}
     </List>
   );
