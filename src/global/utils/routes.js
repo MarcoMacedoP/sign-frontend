@@ -12,6 +12,7 @@ export const PROVIDER_PAGE_ROUTE = `${PROVIDERS_ROUTE}/:providerId`;
 //clients
 export const CLIENTS_ROUTE = `${APP_HOME_ROUTE}/clients/`;
 export const ADD_CLIENT_ROUTE = `${CLIENTS_ROUTE}add`;
+export const EDIT_CLIENT_ROUTE = `${CLIENTS_ROUTE}edit`;
 export const CLIENT_PAGE_ROUTE = `${CLIENTS_ROUTE}:clientId`;
 //reminders
 export const REMINDERS_ROUTE = `${APP_HOME_ROUTE}/reminders/`;

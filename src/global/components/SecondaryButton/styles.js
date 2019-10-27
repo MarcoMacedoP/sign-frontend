@@ -1,7 +1,6 @@
 import {Btn} from "../Button/styles";
 import styled from "styled-components";
 import {
-  mainColor,
   blackColor,
   blackColorLigth
 } from "../../../global/styles/variables";

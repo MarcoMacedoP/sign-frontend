@@ -20,6 +20,7 @@ import AddProvider from "./Providers/components/AddProvider";
 import ProvidersList from "./Providers/components/ProviderList";
 //--------------clients pages----------------------------
 import AddClient from "./Clients/components/AddClient";
+import EditClient from "./Clients/components/EditClient";
 import ClientPage from "./Clients/components/ClientPage";
 import ClientsList from "./Clients/components/ClientsList";
 //--------------end clients pages-------------------------
@@ -51,6 +52,7 @@ import {PageNotFound} from "./global/components/PageNotFound";
 // Routes
 import {
   ADD_CLIENT_ROUTE,
+  EDIT_CLIENT_ROUTE,
   APP_HOME_ROUTE,
   CLIENTS_ROUTE,
   LANDING_ROUTE,
@@ -158,6 +160,7 @@ function App({userIsLoged, userHasLogout, loginUser}) {
               path={PROVIDER_PAGE_ROUTE}
               component={ProviderPage}
             />
+
             <PrivateRoute
               userIsLoged={userIsLoged}
               exact
@@ -169,6 +172,12 @@ function App({userIsLoged, userHasLogout, loginUser}) {
               exact
               path={ADD_CLIENT_ROUTE}
               component={AddClient}
+            />
+            <PrivateRoute
+              userIsLoged={userIsLoged}
+              exact
+              path={`${EDIT_CLIENT_ROUTE}/:clientId`}
+              component={EditClient}
             />
             <PrivateRoute
               userIsLoged={userIsLoged}

@@ -1,5 +1,5 @@
 //components
-import React, {useEffect} from "react";
+import React from "react";
 import {Redirect} from "react-router-dom";
 import {
   LongCard,
@@ -20,8 +20,11 @@ import {PageContainer} from "../../../global/styles/Containers";
 import {connect} from "react-redux";
 import {fetchRemoveClient} from "../../../global/redux/actions/clients";
 //utils
-import {CLIENTS_ROUTE} from "../../../global/utils/routes";
-function ClientPage({client = {}, fetchRemoveClient, history}) {
+import {
+  CLIENTS_ROUTE,
+  EDIT_CLIENT_ROUTE
+} from "../../../global/utils/routes";
+function ClientPage({client = {}, fetchRemoveClient}) {
   //check if client exists.
   if (!client.client_id) {
     return <Redirect to={CLIENTS_ROUTE} />;
@@ -68,7 +71,14 @@ function ClientPage({client = {}, fetchRemoveClient, history}) {
     fetchRemoveClient(client.client_id);
     handleModal();
   };
+  //onEdit handler
+  const [isRedirectToEdit, route, toggleRedirect] = useRedirect();
+  const redirectToEdit = () =>
+    toggleRedirect(`${EDIT_CLIENT_ROUTE}/${client.client_id}`);
 
+  if (isRedirectToEdit) {
+    return <Redirect to={route} />;
+  }
   return (
     <PageContainer>
       <InformationHeader
@@ -82,6 +92,11 @@ function ClientPage({client = {}, fetchRemoveClient, history}) {
             icon: "delete_outline",
             title: "Eliminar",
             onClick: handleModal
+          },
+          {
+            icon: "edit",
+            title: "Editar cliente",
+            onClick: redirectToEdit
           }
         ]}
       />

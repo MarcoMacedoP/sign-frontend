@@ -11,7 +11,11 @@ import {fetchAddClient} from "../../../global/redux/actions/clients";
 //utils
 import {CLIENTS_ROUTE} from "../../../global/utils/routes";
 
-function AddClient({fetchAddClient, isLoading, errorOnAddClient}) {
+export function AddClient({
+  fetchAddClient,
+  isLoading,
+  errorOnAddClient
+}) {
   const initialState = {
     name: "",
     lastname: "",
