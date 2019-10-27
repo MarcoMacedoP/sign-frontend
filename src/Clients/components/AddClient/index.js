@@ -45,6 +45,7 @@ function AddClient({fetchAddClient, isLoading, errorOnAddClient}) {
   const [error, setError] = useState(null);
   const setErrorToNull = () => setError(null);
   const [dataAreFetching, setDataAreFetching] = useState(false);
+
   const handleSubmit = e => {
     e.preventDefault();
     if (validateFields()) {
@@ -52,8 +53,14 @@ function AddClient({fetchAddClient, isLoading, errorOnAddClient}) {
       fetchAddClient(state);
     }
   };
-
   useEffect(() => setError(errorOnAddClient), [errorOnAddClient]);
+
+  const [isRedirect, setIsRedirect] = useState(false);
+  useEffect(() => {
+    if (!errorOnAddClient && dataAreFetching && !isLoading) {
+      setIsRedirect(true);
+    }
+  }, [errorOnAddClient, dataAreFetching, isLoading]);
 
   return (
     <AddPage
@@ -95,15 +102,13 @@ function AddClient({fetchAddClient, isLoading, errorOnAddClient}) {
         onChange={addFormValueToState}
         type="number"
       />
-      {!isLoading && dataAreFetching && !error && (
-        <Redirect to={CLIENTS_ROUTE} />
-      )}
+      {isRedirect && <Redirect to={CLIENTS_ROUTE} />}
     </AddPage>
   );
 }
 const mapStateToProps = state => ({
   isLoading: state.clients.status.loadingAddCient,
-  errorOnFetching: state.clients.status.errorOnAddClient
+  errorOnAddClient: state.clients.status.errorOnAddClient
 });
 export default connect(
   mapStateToProps,

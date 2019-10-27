@@ -43,6 +43,7 @@ export default function clientsReducer(state = initialState, action) {
     case EDIT_CLIENT:
       return reduceStateFromEditedClient(action.payload, state);
     case REMOVE_CLIENT:
+      console.log(action.payload);
       return reduceStateFromRemovedClient(action.payload, state);
 
     default:
@@ -86,7 +87,7 @@ export default function clientsReducer(state = initialState, action) {
           }
         };
       default:
-        break;
+        return state;
     }
   }
   /** Reduce the state from an added client
@@ -149,7 +150,7 @@ export default function clientsReducer(state = initialState, action) {
             loadingAddCient: false,
             errorOnAddClient: null
           },
-          list: [...state.list, response]
+          list: [response, ...state.list]
         };
       case "error":
         return {

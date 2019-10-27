@@ -1,18 +1,32 @@
 //components
-import React from "react";
+import React, {useEffect} from "react";
+import {Redirect} from "react-router-dom";
 import {
   LongCard,
   InformationHeader,
-  Comments
+  Comments,
+  RemoveModal
 } from "../../../global/components";
 //hooks
-import {useHandleState} from "../../../global/hooks/useHandleState";
+import {
+  useHandleState,
+  useModalState,
+  useRedirect
+} from "../../../global/hooks/";
 //styled-components
 import {Article, Section} from "./styles";
+import {PageContainer} from "../../../global/styles/Containers";
 //redux
 import {connect} from "react-redux";
-import {PageContainer} from "../../../global/styles/Containers";
-function ClientPage({client}) {
+import {fetchRemoveClient} from "../../../global/redux/actions/clients";
+//utils
+import {CLIENTS_ROUTE} from "../../../global/utils/routes";
+function ClientPage({client = {}, fetchRemoveClient, history}) {
+  //check if client exists.
+  if (!client.client_id) {
+    return <Redirect to={CLIENTS_ROUTE} />;
+  }
+
   const initialState = {
     projects: [],
     comments: [],
@@ -47,6 +61,13 @@ function ClientPage({client}) {
       date
     });
   }
+  //onRemove handlers
+  const {modalIsOpen, handleModal} = useModalState(false);
+  const onCancelRemove = () => handleModal();
+  const onRemove = () => {
+    fetchRemoveClient(client.client_id);
+    handleModal();
+  };
 
   return (
     <PageContainer>
@@ -56,8 +77,14 @@ function ClientPage({client}) {
         about="Acerca del cliente"
         phone={phone}
         email={email}
+        options={[
+          {
+            icon: "delete_outline",
+            title: "Eliminar",
+            onClick: handleModal
+          }
+        ]}
       />
-
       <Article>
         <h2>Seguimiento de cliente </h2>
         <Section>
@@ -73,7 +100,6 @@ function ClientPage({client}) {
         <h2>Recordatorios</h2>
         <Section></Section>
       </Article>
-
       <Article>
         <h2>Lista de proyectos</h2>
         <ul>
@@ -82,6 +108,13 @@ function ClientPage({client}) {
           ))}
         </ul>
       </Article>
+      <RemoveModal
+        headline="Eliminar cliente"
+        message={`Estas a punto de eliminar a ${name}, esta acción no se puede deshacer. ¿Estás seguro?`}
+        isOpen={modalIsOpen}
+        onCancel={onCancelRemove}
+        onRemove={onRemove}
+      />
     </PageContainer>
   );
 }
@@ -96,5 +129,5 @@ const mapStateToProps = ({clients}, props) => {
 
 export default connect(
   mapStateToProps,
-  null
+  {fetchRemoveClient}
 )(ClientPage);

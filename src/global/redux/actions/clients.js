@@ -63,10 +63,10 @@ export const removeClient = (status, response) => ({
   payload: {status, response}
 });
 export const fetchRemoveClient = clientId => dispatch => {
-  dispatch(editClient("loading"));
+  dispatch(removeClient("loading", {clientId}));
   return callApi(`${CLIENTS_ENDPOINT}${clientId}`, {
     method: "DELETE"
   })
-    .then(() => dispatch(editClient("success", clientId)))
-    .catch(error => dispatch(editClient("error", error)));
+    .then(() => dispatch(removeClient("success")))
+    .catch(error => dispatch(removeClient("error", error)));
 };

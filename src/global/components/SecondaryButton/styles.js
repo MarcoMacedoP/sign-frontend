@@ -2,7 +2,8 @@ import {Btn} from "../Button/styles";
 import styled from "styled-components";
 import {
   mainColor,
-  blackColor
+  blackColor,
+  blackColorLigth
 } from "../../../global/styles/variables";
 export const Button = styled(Btn)`
   && {
@@ -11,7 +12,8 @@ export const Button = styled(Btn)`
     min-height: 3rem;
     width: ${props => (props.width ? props.width : "100%")};
     border: 3px solid
-      ${props => (props.bordercolor ? props.bordercolor : mainColor)};
+      ${props =>
+        props.bordercolor ? props.bordercolor : blackColorLigth};
     &:hover,
     &:active {
       opacity: 0.7;
