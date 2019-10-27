@@ -16,6 +16,8 @@ export const ADD_TEAM = "ADD_TEAM";
 //Clients
 export const GET_CLIENTS = "FETCH_CLIENTS";
 export const ADD_CLIENT = "ADD_CLIENT";
+export const EDIT_CLIENT = "EDIT_CLIENT";
+export const REMOVE_CLIENT = "REMOVE_CLIENT";
 //Providers
 export const GET_PROVIDERS = "FETCH_PROVIDERS";
 export const ADD_PROVIDER = "ADD_PROVIDER";

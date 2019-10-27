@@ -1,4 +1,9 @@
-import {GET_CLIENTS, ADD_CLIENT} from "../types/actionTypes";
+import {
+  ADD_CLIENT,
+  EDIT_CLIENT,
+  GET_CLIENTS,
+  REMOVE_CLIENT
+} from "../types/actionTypes";
 const initialState = {
   list: [
     {
@@ -21,51 +26,152 @@ const initialState = {
     loadingClients: false,
     errorOnGetClients: null,
     loadingAddCient: false,
-    errorOnAddClient: null
+    errorOnAddClient: null,
+    loadingUpdateClient: false,
+    errorOnUpdateClient: null,
+    loadingRemoveClient: false,
+    errorOnRemoveClient: null
   }
 };
 
 export default function clientsReducer(state = initialState, action) {
   switch (action.type) {
-    //-----------get clients------------------------
     case GET_CLIENTS:
       return reduceStateFromFetchedClients(action.payload, state);
-    //-------------add client--------------------
     case ADD_CLIENT:
-      switch (action.payload.status) {
-        case "success":
-          return {
-            ...state,
-            status: {
-              loadingAddCient: false,
-              errorOnAddClient: null
-            },
-            list: [...state.list, action.payload.response]
-          };
-        case "error":
-          return {
-            ...state,
-            status: {
-              ...state.status,
-              loadingAddCient: false,
-              errorOnAddClient: action.payload.response
-            }
-          };
-        case "loading":
-          return {
-            ...state,
-            status: {
-              loadingAddCient: true,
-              errorOnAddClient: null
-            }
-          };
-
-        default:
-          return state;
-      }
+      return reduceStateFromAddedClient(action.payload, state);
+    case EDIT_CLIENT:
+      return reduceStateFromEditedClient(action.payload, state);
+    case REMOVE_CLIENT:
+      return reduceStateFromRemovedClient(action.payload, state);
 
     default:
       return state;
+  }
+  /** Reduce the state from an removed client
+   * @returns the state modified
+   * @param {*} payload the action payload
+   * @param {*} state the reducer state
+   */
+  function reduceStateFromRemovedClient({status, response}, state) {
+    switch (status) {
+      case "loading":
+        //remove client when the loads starts
+        return {
+          list: state.list.filter(
+            ({client_id}) => client_id !== response.clientId
+          ),
+          status: {
+            ...state.status,
+            loadingRemoveClient: true,
+            errorOnRemoveClient: null
+          }
+        };
+      case "error":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            loadingRemoveClient: false,
+            errorOnRemoveClient: response
+          }
+        };
+      case "success":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            loadingRemoveClient: false,
+            errorOnRemoveClient: null
+          }
+        };
+      default:
+        break;
+    }
+  }
+  /** Reduce the state from an added client
+   * @returns the state modified
+   * @param {*} payload the action payload
+   * @param {*} state the reducer state
+   */
+  function reduceStateFromEditedClient({status, response}, state) {
+    switch (status) {
+      case "success":
+        return {
+          list: [
+            response,
+            ...state.list.filter(
+              client => client.client_id !== response.client_id
+            )
+          ],
+          status: {
+            ...state.status,
+            loadingUpdateClient: false,
+            errorOnUpdateClient: null
+          }
+        };
+      case "loading":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            loadingUpdateClient: true,
+            errorOnUpdateClient: null
+          }
+        };
+      case "error":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            loadingUpdateClient: false,
+            errorOnUpdateClient: response
+          }
+        };
+
+      default:
+        return state;
+    }
+  }
+
+  /** Reduce the state from an added client
+   * @returns the state modified
+   * @param {*} payload the action payload
+   * @param {*} state the reducer state
+   */
+  function reduceStateFromAddedClient({status, response}, state) {
+    switch (status) {
+      case "success":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            loadingAddCient: false,
+            errorOnAddClient: null
+          },
+          list: [...state.list, response]
+        };
+      case "error":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            loadingAddCient: false,
+            errorOnAddClient: response
+          }
+        };
+      case "loading":
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            loadingAddCient: true,
+            errorOnAddClient: null
+          }
+        };
+      default:
+        return state;
+    }
   }
 
   /**
