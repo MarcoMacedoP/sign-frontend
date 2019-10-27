@@ -16,9 +16,9 @@ export const List = ({
 }) => (
   <Container>
     <H1>{title}</H1>
-    {/* <SearchBarContainer>
-      <SearchBar />
-    </SearchBarContainer> */}
+
+    <SearchBarContainer>{/* <SearchBar /> */}</SearchBarContainer>
+
     {isLoading ? <Loading /> : children}
     <ErrorMessage error={error} onClose={onErrorClose} />
     <AddButton onClick={onAddButtonClick} />
