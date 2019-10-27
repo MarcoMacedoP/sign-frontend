@@ -15,7 +15,7 @@ import {
 
 export const Activitie = props => {
   const {activitie, onDragStart} = props;
-  const {name, dueDate} = activitie;
+  const {name, date} = activitie;
 
   const {handleModal, modalIsOpen} = useModalState();
   const allowDrop = event => event.preventDefault();
@@ -27,15 +27,17 @@ export const Activitie = props => {
       onDragStart={onDragStart}
       onDragOver={allowDrop}
     >
-      <Title>{name || "activitie name"}</Title>
-      <Date>
-        <DateIcon
-          size={12}
-          icon="access_time"
-          hasAnimatedClick={false}
-        />
-        {dueDate || "due date"}
-      </Date>
+      <Title>{name}</Title>
+      {date && (
+        <Date>
+          <DateIcon
+            size={12}
+            icon="access_time"
+            hasAnimatedClick={false}
+          />
+          {date}
+        </Date>
+      )}
       <IconContainer>
         <Icon icon="arrow_forward_ios" />
       </IconContainer>
