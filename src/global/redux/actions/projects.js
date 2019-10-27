@@ -4,11 +4,7 @@ import {
   ADD_COMMENT,
   CHANGE_ACTIVITY_TYPE
 } from "../types/actionTypes";
-import {callApi, statusCodeIsValid} from "../../functions/callApi";
-export const addProject = project => ({
-  type: ADD_PROJECT,
-  payload: {project}
-});
+import {callApi} from "../../functions/callApi.new";
 
 //fetch add activities----------
 
@@ -26,11 +22,7 @@ export const fetchAddActivitie = (
     method: "post",
     body: JSON.stringify(activitie)
   })
-    .then(
-      ({data, statusCode}) =>
-        statusCodeIsValid(statusCode) &&
-        dispatch(addActivite("success", data))
-    )
+    .then(response => dispatch(addActivite("success", response)))
     .catch(error => dispatch(addActivite("error", error)));
 };
 
@@ -57,10 +49,8 @@ export const fetchChangeActivitieStatus = (
     method: "PATCH",
     body: JSON.stringify({status: newStatus, projectId, activitieId})
   })
-    .then(
-      ({statusCode, data}) =>
-        statusCodeIsValid(statusCode) &&
-        dispatch(changeActivitieStatus("success", data))
+    .then(response =>
+      dispatch(changeActivitieStatus("success", response))
     )
     .catch(error => dispatch(changeActivitieStatus("error", error)));
 };
@@ -91,10 +81,21 @@ export const getProjects = (status, response) => ({
 export const fetchProjects = () => dispatch => {
   dispatch(getProjects("loading"));
   return callApi("/projects/user/")
-    .then(
-      ({data, statusCode}) =>
-        statusCodeIsValid(statusCode) &&
-        dispatch(getProjects("success", data))
-    )
+    .then(response => dispatch(getProjects("success", response)))
     .catch(err => dispatch(getProjects("error", err)));
+};
+
+//Add a project
+export const addProject = (status, response) => ({
+  type: ADD_PROJECT,
+  payload: {status, response}
+});
+export const fetchAddProject = project => dispatch => {
+  dispatch(addProject("loading"));
+  return callApi("/projects/user/", {
+    method: "POST",
+    body: JSON.stringify(project)
+  })
+    .then(response => dispatch(addProject("success", response)))
+    .catch(err => dispatch(addProject("error", err)));
 };

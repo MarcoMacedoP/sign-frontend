@@ -14,7 +14,9 @@ const initialState = {
     shouldFetchProjects: true,
     isLoadingAddActivitie: false,
     errorOnAddingActivitie: null,
-    errorOnChangingActivitieStatus: null
+    errorOnChangingActivitieStatus: null,
+    isLoadingAddProject: false,
+    errorOnAddProject: null
   },
   list: [
     {
@@ -40,14 +42,11 @@ function projectReducer(state = initialState, action) {
   const {payload, type} = action;
 
   switch (type) {
-    case FETCH_PROJECTS: {
+    case FETCH_PROJECTS:
       return fetchProjectsReducer(action.payload, state);
-    }
 
-    case ADD_PROJECT: {
-      const {project: addedProject} = action.payload;
-      return [...state, addedProject];
-    }
+    case ADD_PROJECT:
+      return reduceStateFromAddedProject(action.payload, state);
 
     case ADD_ACTIVITE:
       return addActiviteReducer(payload, state);
@@ -78,6 +77,47 @@ function projectReducer(state = initialState, action) {
       return state;
   }
 }
+/**
+/**handles all the fetching add project 
+ * @returns the state modified
+ * @param {*} payload the action payload 
+ * @param {*} state the reducer state
+ */
+function reduceStateFromAddedProject({status, response}, state) {
+  switch (status) {
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingAddProject: true,
+          errorOnAddProject: null
+        }
+      };
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingAddProject: false,
+          errorOnAddProject: response
+        }
+      };
+    case "success":
+      return {
+        list: [response, ...state.list],
+        status: {
+          ...state.status,
+          isLoadingAddProject: false,
+          errorOnAddProject: null
+        }
+      };
+
+    default:
+      return state;
+  }
+}
+
 /**
 /**handles all the fetching change status 
  * activitie reducer stuff.

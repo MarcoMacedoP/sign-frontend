@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import {
-  cellphoneMediaQuery,
-  mediumScreen
-} from "../../../global/styles/mediaQuerys";
+import {cellphoneMediaQuery} from "../../../global/styles/mediaQuerys";
 // static
 import backgroundImage from "../../../global/static/img/background.svg";
 export const Container = styled.div`
