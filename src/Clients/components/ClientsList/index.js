@@ -26,9 +26,6 @@ function ClientsList({
   errorOnGetClients,
   fetchClients
 }) {
-  const [isRedirect, setIsRedirect] = useState(false);
-  const handleAddButton = () => setIsRedirect(true);
-
   useEffect(() => {
     if (shouldFetchClients) {
       fetchClients();
@@ -39,6 +36,11 @@ function ClientsList({
   const [error, setError] = useState(null);
   useEffect(() => setError(errorOnGetClients), [errorOnGetClients]);
   const setErrorToNull = () => setError(null);
+
+  const [isRedirect, setIsRedirect] = useState(false);
+  const handleAddButton = () => {
+    setIsRedirect(true);
+  };
 
   return (
     <List
@@ -66,9 +68,9 @@ function ClientsList({
               />
             </Link>
           ))}
-          {isRedirect && <Redirect to={ADD_CLIENT_ROUTE} />}
         </LongList>
       )}
+      {isRedirect && <Redirect to={ADD_CLIENT_ROUTE} />}
     </List>
   );
 }
