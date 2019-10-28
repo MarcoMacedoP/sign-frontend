@@ -22,6 +22,8 @@ export const REMOVE_CLIENT = "REMOVE_CLIENT";
 export const GET_PROVIDERS = "FETCH_PROVIDERS";
 export const ADD_PROVIDER = "ADD_PROVIDER";
 export const SHOULD_FETCH_PROVIDERS = "SHOULD_FETCH_PROVIDERS";
+export const ADD_INCOME = "ADD_INCOME";
+export const EDIT_INCOME = "EDIT_INCOME";
 //Reminders
 export const FETCH_REMINDERS = "FETCH_REMINDERS";
 export const ADD_REMINDER = "ADD_REMINDER";

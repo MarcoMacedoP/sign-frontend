@@ -1,5 +1,5 @@
 import React from "react";
-import {SearchBar, AddButton, Loading, ErrorMessage} from "..";
+import {AddButton, Loading, ErrorMessage} from "..";
 // styled-components
 import {Container, SearchBarContainer} from "./styles";
 import {H1} from "../../styles/texts";

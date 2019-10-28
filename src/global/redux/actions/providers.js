@@ -41,3 +41,22 @@ export const fetchAddProvider = provider => dispatch => {
     .catch(error => dispatch(addProvider("error", error)));
 };
 //--------------end add provider-----------------
+
+//-------------- add provider-expense-----------------
+export const addExpense = (status, response) => ({
+  type: ADD_PROVIDER,
+  payload: {status, response}
+});
+export const fetchAddExpenseProvider = provider => dispatch => {
+  dispatch(addExpense("loading"));
+  return callApi("/providers/", {
+    method: "post",
+    body: JSON.stringify(provider)
+  })
+    .then(
+      response =>
+        statusCodeIsValid(response.statusCode) &&
+        dispatch(addExpense("success", response.data))
+    )
+    .catch(error => dispatch(addExpense("error", error)));
+};

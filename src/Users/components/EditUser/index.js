@@ -64,11 +64,7 @@ function EditUser({user, fetchUserUpdate, location}) {
   const handleCloseInfoMessage = () => setShowInfoMessage(false);
 
   return (
-    <EditPage
-      title="Editar perfil"
-      onDelete={true}
-      onSubmit={handleSubmit}
-    >
+    <EditPage title="Editar perfil" onSubmit={handleSubmit}>
       {showInfoMessage && (
         <InfoMessage
           onClose={handleCloseInfoMessage}

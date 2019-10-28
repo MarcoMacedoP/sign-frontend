@@ -1,15 +1,7 @@
 //libs
 import React from "react";
 //components
-import {
-  Button,
-  Input,
-  InfoLayout,
-  AddPage
-} from "../../../global/components";
-//styled-components
-import {H1} from "./styles";
-import {BaseForm} from "../../../global/styles/Forms";
+import {Input, AddPage} from "../../../global/components";
 
 export const AddProjectPage = ({
   state,

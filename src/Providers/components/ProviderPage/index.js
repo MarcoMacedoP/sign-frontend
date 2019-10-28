@@ -98,15 +98,18 @@ const mapStateToProps = ({providers}, props) => {
   const [provider] = providers.list.filter(
     provider => provider.provider_id === providerId
   );
+  if (provider.expenses) {
+    const services = provider.expenses.filter(
+      expense => expense.type === "service"
+    );
+    const products = provider.expenses.filter(
+      expense => expense.type === "product"
+    );
 
-  const services = provider.expenses.filter(
-    expense => expense.type === "service"
-  );
-  const products = provider.expenses.filter(
-    expense => expense.type === "product"
-  );
-
-  return {provider, services, products};
+    return {provider, services, products};
+  } else {
+    return {provider};
+  }
 };
 export default connect(
   mapStateToProps,

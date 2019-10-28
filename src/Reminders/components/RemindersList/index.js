@@ -33,7 +33,7 @@ export function RemindersList(props) {
       />
       <ReminderModal isOpen={false} onClose={toggleAddReminder} />
       {!isLoading && notArchivedReminders.length === 0 ? (
-        <EmptyReminders />
+        <EmptyReminders handleAddReminder={toggleAddReminder} />
       ) : (
         <RelevantReminders>
           {notArchivedReminders.map(reminder => (

@@ -25,5 +25,6 @@ export const Container = styled.div`
   }
   @media ${cellphoneMediaQuery} {
     grid-template-columns: minmax(250px, 1fr);
+    grid-template-rows: repeat(3, minmax(min-content, auto));
   }
 `;
