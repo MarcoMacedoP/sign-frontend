@@ -72,11 +72,11 @@ function ClientPage({client = {}, fetchRemoveClient}) {
     handleModal();
   };
   //onEdit handler
-  const [isRedirectToEdit, route, toggleRedirect] = useRedirect();
+  const {isRedirect, route, toggleRedirect} = useRedirect();
   const redirectToEdit = () =>
     toggleRedirect(`${EDIT_CLIENT_ROUTE}/${client.client_id}`);
 
-  if (isRedirectToEdit) {
+  if (isRedirect) {
     return <Redirect to={route} />;
   }
   return (

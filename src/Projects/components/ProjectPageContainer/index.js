@@ -5,17 +5,24 @@ import {fetchRemoveProject} from "../../../global/redux/actions/projects";
 //components
 import {ProjectPage} from "../ProjectPage";
 import {Redirect} from "react-router-dom";
-
 //hooks
-import {useModalState} from "../../../global/hooks/";
-import {useState} from "react";
+import {useModalState, useRedirect} from "../../../global/hooks/";
 import {useLastLocation} from "react-router-last-location";
+//utils
+import {PROJECTS_ROUTE} from "../../../global/utils/routes";
 function ProjectPageContainer({project, fetchRemoveProject}) {
   const {handleModal, modalIsOpen} = useModalState();
   const {
     handleModal: handleDeleteModal,
     modalIsOpen: deleteModalIsOpen
   } = useModalState();
+  //redirects
+  const {isRedirect, route, toggleRedirect} = useRedirect();
+  const lastLocation = useLastLocation();
+  const redirectToLastLocation = () => toggleRedirect(lastLocation);
+  const redirectToEditProject = () =>
+    toggleRedirect(`${PROJECTS_ROUTE}edit/${project._id}`);
+  //handlers
   const handleRemove = () => {
     fetchRemoveProject(project._id);
     handleDeleteModal();
@@ -27,14 +34,14 @@ function ProjectPageContainer({project, fetchRemoveProject}) {
       icon: "delete",
       onClick: handleDeleteModal,
       title: "Eliminar"
-    }
+    },
+    {icon: "edit", onClick: redirectToEditProject, title: "Editar"}
   ];
-  const lastLocation = useLastLocation();
-  const [isRedirect, setIsRedirect] = useState(false);
-  const redirectToLastLocation = () => setIsRedirect(true);
+  //redirect to last location
+
   return (
     <>
-      {isRedirect && <Redirect to={lastLocation} />}
+      {isRedirect && <Redirect to={route} />}
       <ProjectPage
         project={project}
         modalIsOpen={modalIsOpen}

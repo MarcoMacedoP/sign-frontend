@@ -35,6 +35,7 @@ import Team from "./Teams/components/Team";
 import ProjectList from "./Projects/components/ProjectList";
 import ProjectPage from "./Projects/components/ProjectPageContainer";
 import AddProject from "./Projects/components/AddProjectPageContainer";
+import EditProject from "./Projects/components/EditProject";
 //--------------end projects pages----------------------
 
 //--------------user pages--------------------------
@@ -70,7 +71,8 @@ import {
   PROJECTS_ROUTE,
   TEAMS_LIST,
   ADD_TEAM,
-  TEAM_PAGE
+  TEAM_PAGE,
+  EDIT_PROJECTS_ROUTE
 } from "./global/utils/routes";
 // Resources
 import {GlobalStyles} from "./global/styles/GlobalStyles";
@@ -246,6 +248,12 @@ function App({userIsLoged, userHasLogout, loginUser}) {
               exact
               path={PROJECTS_PAGE_ROUTE}
               component={ProjectPage}
+            />
+            <PrivateRoute
+              userIsLoged={userIsLoged}
+              exact
+              path={EDIT_PROJECTS_ROUTE}
+              component={EditProject}
             />
             {/*------------end projects routes -----------------*/}
 

@@ -19,6 +19,7 @@ export const REMINDERS_ROUTE = `${APP_HOME_ROUTE}/reminders/`;
 //projects
 export const PROJECTS_ROUTE = `${APP_HOME_ROUTE}/projects/`;
 export const ADD_PROJECTS_ROUTE = `${PROJECTS_ROUTE}add/`;
+export const EDIT_PROJECTS_ROUTE = `${PROJECTS_ROUTE}edit/:projectId`;
 export const PROJECTS_PAGE_ROUTE = `${PROJECTS_ROUTE}:projectId/`;
 //teams
 export const TEAMS_LIST = `${APP_HOME_ROUTE}/teams/`;

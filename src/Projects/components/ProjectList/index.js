@@ -42,7 +42,7 @@ function ProjectListContainer({
   const setErrorToNull = () => setError(null);
 
   //onClick handlers
-  const [isRedirect, route, toggleRedirect] = useRedirect();
+  const {isRedirect, route, toggleRedirect} = useRedirect();
   const handleAddClick = () => toggleRedirect(ADD_PROJECTS_ROUTE);
   const handleProjectClick = id =>
     toggleRedirect(`${PROJECTS_ROUTE}${id}`);

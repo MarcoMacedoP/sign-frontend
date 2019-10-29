@@ -9,12 +9,13 @@ export const AddProjectPage = ({
   handleSubmit,
   isLoading,
   error,
-  onErrorClose
+  onErrorClose,
+  title
 }) => (
   <AddPage
     onSubmit={handleSubmit}
     isLoading={isLoading}
-    title="Agregar proyecto"
+    title={title || "Agregar proyecto"}
     aboutTitle="Acerca de los proyectos"
     about="[inserta información útil sobre los proyectos, puto vago.]"
     error={error}

@@ -25,7 +25,7 @@ function AddProjectPageContainer({
     dueDate: ""
   };
   const {state, addFormValueToState} = useHandleState(initialState);
-  const [isRedirect, route, toggleRedirect] = useRedirect();
+  const {isRedirect, route, toggleRedirect} = useRedirect();
   //submit handler
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const handleSumbit = () => {
