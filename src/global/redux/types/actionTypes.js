@@ -6,6 +6,8 @@ export const UPDATE_USER = "UPDATE_USER";
 //Projects
 export const ADD_PROJECT = "ADD_PROJECT";
 export const FETCH_PROJECTS = "FETCH_PROJECTS";
+export const UPDATE_PROJECT = "UPDATE_PROJECT";
+export const REMOVE_PROJECT = "REMOVE_PROJECT";
 //Projects - Activities
 export const ADD_ACTIVITE = "ADD_ACTIVITIE";
 export const ADD_COMMENT = "ADD_COMMENT";

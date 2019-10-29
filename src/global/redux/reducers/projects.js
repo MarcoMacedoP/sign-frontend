@@ -3,7 +3,9 @@ import {
   ADD_ACTIVITE,
   ADD_COMMENT,
   CHANGE_ACTIVITY_TYPE,
-  FETCH_PROJECTS
+  FETCH_PROJECTS,
+  UPDATE_PROJECT,
+  REMOVE_PROJECT
 } from "../types/actionTypes";
 // import {DONED, PENDING, IN_PROGRESS} from "../types/activitieTypes";
 
@@ -16,7 +18,11 @@ const initialState = {
     errorOnAddingActivitie: null,
     errorOnChangingActivitieStatus: null,
     isLoadingAddProject: false,
-    errorOnAddProject: null
+    errorOnAddProject: null,
+    isLoadingRemoveProject: false,
+    errorOnRemoveProject: null,
+    isLoadingUpdateProject: false,
+    errorOnUpdateProject: null
   },
   list: [
     {
@@ -42,11 +48,16 @@ function projectReducer(state = initialState, action) {
   const {payload, type} = action;
 
   switch (type) {
+    //CRUD PROJECTS
     case FETCH_PROJECTS:
       return fetchProjectsReducer(action.payload, state);
-
     case ADD_PROJECT:
       return reduceStateFromAddedProject(action.payload, state);
+    case UPDATE_PROJECT:
+      return reduceStateFromUpdatedProject(action.payload, state);
+    case REMOVE_PROJECT:
+      return reduceStateFromRemovedProject(action.payload, state);
+    // END CRUD PROJECTS
 
     case ADD_ACTIVITE:
       return addActiviteReducer(payload, state);
@@ -77,6 +88,93 @@ function projectReducer(state = initialState, action) {
       return state;
   }
 }
+
+/**handles all the fetching the remove
+ * @returns the state modified
+ * @param {*} payload the action payload
+ * @param {*} state the reducer state
+ */
+function reduceStateFromRemovedProject({status, response}, state) {
+  switch (status) {
+    case "loading": {
+      const projectsWithoutRemoved = state.list.filter(
+        project => project._id !== response.projectId
+      );
+      return {
+        list: projectsWithoutRemoved,
+        status: {
+          ...state.status,
+          isLoadingRemoveProject: true,
+          errorOnRemoveProject: null
+        }
+      };
+    }
+
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingRemoveProject: false,
+          errorOnRemoveProject: response
+        }
+      };
+    case "success": {
+      //state is already updated in "loading" for UX proposals,
+      //there is no need to updated here.
+      return state;
+    }
+
+    default:
+      return state;
+  }
+}
+/**handles all the fetching change status
+ * activitie reducer stuff.
+ * @returns the state modified
+ * @param {*} payload the action payload
+ * @param {*} state the reducer state
+ */
+function reduceStateFromUpdatedProject({status, response}, state) {
+  switch (status) {
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingUpdateProject: true,
+          errorOnUpdateProject: null
+        }
+      };
+
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingUpdateProject: false,
+          errorOnUpdateProject: response
+        }
+      };
+    case "success": {
+      const updatedProjects = state.list.map(project =>
+        project._id === response._id ? response : project
+      );
+      return {
+        list: updatedProjects,
+        status: {
+          ...state.status,
+          isLoadingUpdateProject: false,
+          errorOnUpdateProject: null
+        }
+      };
+    }
+
+    default:
+      return state;
+  }
+}
+
 /**
 /**handles all the fetching add project 
  * @returns the state modified

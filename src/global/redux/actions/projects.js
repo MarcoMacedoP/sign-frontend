@@ -2,7 +2,8 @@ import {
   ADD_PROJECT,
   ADD_ACTIVITE,
   ADD_COMMENT,
-  CHANGE_ACTIVITY_TYPE
+  CHANGE_ACTIVITY_TYPE,
+  UPDATE_PROJECT
 } from "../types/actionTypes";
 import {callApi} from "../../functions/callApi.new";
 
@@ -98,4 +99,34 @@ export const fetchAddProject = project => dispatch => {
   })
     .then(response => dispatch(addProject("success", response)))
     .catch(err => dispatch(addProject("error", err)));
+};
+//update a project
+export const updateProject = (status, response) => ({
+  type: UPDATE_PROJECT,
+  payload: {status, response}
+});
+export const fetchUpdateProject = (
+  newProjectData,
+  projectId
+) => dispatch => {
+  dispatch(updateProject("loading"));
+  return callApi(`/projects/user/${projectId}`, {
+    method: "PUT",
+    body: JSON.stringify(newProjectData)
+  })
+    .then(response => dispatch(updateProject("success", response)))
+    .catch(err => dispatch(updateProject("error", err)));
+};
+//remove project
+export const removeProject = (status, response) => ({
+  type: UPDATE_PROJECT,
+  payload: {status, response}
+});
+export const fetchRemoveProject = projectId => dispatch => {
+  dispatch(removeProject("loading", {projectId}));
+  return callApi(`/projects/user/${projectId}`, {
+    method: "DELETE"
+  })
+    .then(() => dispatch(removeProject("success")))
+    .catch(err => dispatch(removeProject("error", err)));
 };
