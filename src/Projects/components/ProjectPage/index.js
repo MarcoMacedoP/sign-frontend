@@ -6,7 +6,8 @@ import {
   InformationHeader,
   SmallEmptyState,
   Button,
-  AddButton
+  AddButton,
+  RemoveModal
 } from "../../../global/components/";
 //styled-components
 import {PageContainer} from "../../../global/styles/Containers";
@@ -19,7 +20,15 @@ import {
   PENDING
 } from "../../../global/redux/types/activitieTypes";
 //component
-export const ProjectPage = ({project, modalIsOpen, handleModal}) => {
+export const ProjectPage = ({
+  handleDeleteModal,
+  deleteModalIsOpen,
+  onRemoveProject,
+  project,
+  modalIsOpen,
+  handleModal,
+  optionsMenuForInformationHeader
+}) => {
   const {name, description, dueDate, activities = {}} = project;
   return (
     <PageContainer>
@@ -28,6 +37,7 @@ export const ProjectPage = ({project, modalIsOpen, handleModal}) => {
         imageIsShow={false}
         about={description}
         date={dueDate}
+        options={optionsMenuForInformationHeader}
       />
       <Activities>
         <H3>Actividades del proyecto</H3>
@@ -75,6 +85,13 @@ export const ProjectPage = ({project, modalIsOpen, handleModal}) => {
         isShowed={modalIsOpen}
         onClose={handleModal}
         projectId={project._id}
+      />
+      <RemoveModal
+        headline="Eliminar proyecto"
+        message="Estás a punto de eliminar un projecto, ¿Estás seguro?"
+        onCancel={handleDeleteModal}
+        onRemove={onRemoveProject}
+        isOpen={deleteModalIsOpen}
       />
     </PageContainer>
   );

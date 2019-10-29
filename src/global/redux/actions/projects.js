@@ -3,7 +3,8 @@ import {
   ADD_ACTIVITE,
   ADD_COMMENT,
   CHANGE_ACTIVITY_TYPE,
-  UPDATE_PROJECT
+  UPDATE_PROJECT,
+  REMOVE_PROJECT
 } from "../types/actionTypes";
 import {callApi} from "../../functions/callApi.new";
 
@@ -119,7 +120,7 @@ export const fetchUpdateProject = (
 };
 //remove project
 export const removeProject = (status, response) => ({
-  type: UPDATE_PROJECT,
+  type: REMOVE_PROJECT,
   payload: {status, response}
 });
 export const fetchRemoveProject = projectId => dispatch => {

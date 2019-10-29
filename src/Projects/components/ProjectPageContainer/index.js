@@ -1,18 +1,52 @@
 import React from "react";
+//redux
 import {connect} from "react-redux";
-
+import {fetchRemoveProject} from "../../../global/redux/actions/projects";
 //components
 import {ProjectPage} from "../ProjectPage";
+import {Redirect} from "react-router-dom";
+
 //hooks
-import {useModalState} from "../../../global/hooks/useModalState";
-function ProjectPageContainer({project}) {
+import {useModalState} from "../../../global/hooks/";
+import {useState} from "react";
+import {useLastLocation} from "react-router-last-location";
+function ProjectPageContainer({project, fetchRemoveProject}) {
   const {handleModal, modalIsOpen} = useModalState();
+  const {
+    handleModal: handleDeleteModal,
+    modalIsOpen: deleteModalIsOpen
+  } = useModalState();
+  const handleRemove = () => {
+    fetchRemoveProject(project._id);
+    handleDeleteModal();
+    redirectToLastLocation();
+  };
+
+  const optionsMenuForInformationHeader = [
+    {
+      icon: "delete",
+      onClick: handleDeleteModal,
+      title: "Eliminar"
+    }
+  ];
+  const lastLocation = useLastLocation();
+  const [isRedirect, setIsRedirect] = useState(false);
+  const redirectToLastLocation = () => setIsRedirect(true);
   return (
-    <ProjectPage
-      project={project}
-      modalIsOpen={modalIsOpen}
-      handleModal={handleModal}
-    />
+    <>
+      {isRedirect && <Redirect to={lastLocation} />}
+      <ProjectPage
+        project={project}
+        modalIsOpen={modalIsOpen}
+        handleModal={handleModal}
+        handleDeleteModal={handleDeleteModal}
+        deleteModalIsOpen={deleteModalIsOpen}
+        onRemoveProject={handleRemove}
+        optionsMenuForInformationHeader={
+          optionsMenuForInformationHeader
+        }
+      />
+    </>
   );
 }
 
@@ -49,5 +83,5 @@ const mapStateToProps = ({projects}, props) => {
 };
 export default connect(
   mapStateToProps,
-  null
+  {fetchRemoveProject}
 )(ProjectPageContainer);
