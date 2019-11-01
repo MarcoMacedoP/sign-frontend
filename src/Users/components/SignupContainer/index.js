@@ -22,15 +22,9 @@ function SignupContainer({user, fetchSignupUser}) {
   });
   //status
   const {errorOnSignup, loadingSignup} = user.status;
-  useEffect(() => {
-    setLoading(loadingSignup);
-    if (errorOnSignup) {
-      setError(errorOnSignup.message);
-    }
-  }, [errorOnSignup, loadingSignup]);
-  //status
-  const [loading, setLoading] = useState(loadingSignup);
+  //handle errors
   const [error, setError] = useState(errorOnSignup);
+  useEffect(() => setError(errorOnSignup), [errorOnSignup]);
 
   //handlers
   async function handleClick(e) {
@@ -58,7 +52,7 @@ function SignupContainer({user, fetchSignupUser}) {
       <Signup
         handleClick={handleClick}
         handleChange={addFormValueToState}
-        loading={loading}
+        loading={loadingSignup}
         error={error}
         formValues={state}
         onErrorClose={handleErrorClose}

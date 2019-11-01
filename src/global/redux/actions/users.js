@@ -2,10 +2,19 @@ import {
   LOG_IN_USER,
   LOG_OUT,
   UPDATE_USER,
-  SIGN_UP_USER
+  SIGN_UP_USER,
+  UPDATE_USER_NOTIFICATIONS
 } from "../types/actionTypes";
 
-import {callApi} from "../../functions/callApi";
+import {callApi} from "../../functions/callApi.new";
+
+//-----user notifications----------------------//
+export const updateUserNotifications = notifications => ({
+  type: UPDATE_USER_NOTIFICATIONS,
+  payload: notifications
+});
+//-----end user notifications----------------------//
+
 //------login user-----------------------------//
 export const loginUser = (status, response) => ({
   type: LOG_IN_USER,
@@ -20,9 +29,10 @@ export function fetchUserLogin(userData = {}) {
       method: "post",
       body: JSON.stringify(userData)
     })
-      .then(response =>
-        dispatch(loginUser("success", response.data.user))
-      )
+      .then(response => {
+        dispatch(loginUser("success", response.user));
+        dispatch(updateUserNotifications(response.userNotifications));
+      })
       .catch(error => dispatch(loginUser("error", error)));
   };
 }
@@ -36,9 +46,7 @@ export function fetchLogout() {
   return dispatch => {
     dispatch(logout("loading"));
     return callApi("/logout/")
-      .then(response => {
-        dispatch(logout("success", response));
-      })
+      .then(response => dispatch(logout("success", response)))
       .catch(error => dispatch("error", error));
   };
 }
@@ -56,15 +64,11 @@ export function fetchSignupUser(user) {
       body: JSON.stringify(user)
     })
       .then(response => {
-        const statusCodeIsValid =
-          response.statusCode >= 200 && response.statusCode < 300;
-        if (statusCodeIsValid) {
-          dispatch(signupUser("success", response.data));
-        } else {
-          dispatch(signupUser("error", response));
-        }
+        console.log(response);
+        dispatch(signupUser("success", response.user));
+        dispatch(updateUserNotifications(response.userNotifications));
       })
-      .catch(error => dispatch(signupUser("error", error.message)));
+      .catch(error => dispatch(signupUser("error", error)));
   };
 }
 
@@ -94,14 +98,7 @@ export const fetchUserUpdate = (
     },
     false
   )
-    .then(response => {
-      if (response.error) {
-        dispatch(updateUser("error", response.error));
-      } else {
-        console.log(response);
-        dispatch(updateUser("success", response.data));
-      }
-    })
+    .then(response => dispatch(updateUser("success", response.data)))
     .catch(error => dispatch(updateUser("error", error)));
 };
 //---------update user end-------------//

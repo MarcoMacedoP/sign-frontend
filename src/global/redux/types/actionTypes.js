@@ -3,6 +3,7 @@ export const LOG_IN_USER = "LOG_IN_USER";
 export const LOG_OUT = "LOG_OUT";
 export const SIGN_UP_USER = "SIGN_UP_USER";
 export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_USER_NOTIFICATIONS = "UPDATE_USER_NOTIFICATIONS";
 //Projects
 export const ADD_PROJECT = "ADD_PROJECT";
 export const FETCH_PROJECTS = "FETCH_PROJECTS";

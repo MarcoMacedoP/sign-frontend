@@ -2,7 +2,8 @@ import {
   LOG_IN_USER,
   LOG_OUT,
   SIGN_UP_USER,
-  UPDATE_USER
+  UPDATE_USER,
+  UPDATE_USER_NOTIFICATIONS
 } from "../types/actionTypes";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   profilePic: "",
   bio: "",
   job: "",
+  notifications: [],
   status: {
     errrorOnLogout: null,
     errorOnLogin: null,
@@ -28,41 +30,15 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    //update user notifications
+    case UPDATE_USER_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications: action.payload
+      };
     //--------login user-------------
     case LOG_IN_USER:
-      switch (action.payload.status) {
-        case "loading":
-          return {
-            ...state,
-            status: {
-              ...state.status,
-              loadingLogin: true,
-              errorOnLogin: false
-            }
-          };
-        case "error":
-          return {
-            ...state,
-            status: {
-              ...state.status,
-              loadingLogin: true,
-              errorOnLogin: action.payload.response
-            }
-          };
-        case "success":
-          return {
-            ...state,
-            ...action.payload.response,
-            status: {
-              ...state.status,
-              loadingLogin: false,
-              errorOnLogin: false,
-              isLoged: true
-            }
-          };
-        default:
-          return {...state};
-      }
+      return reduceStateFromLogedUser(action, state);
     //--------logout user-------------
     case LOG_OUT:
       switch (action.payload.status) {
@@ -166,5 +142,45 @@ export default function(state = initialState, action) {
       }
     default:
       return state;
+  }
+}
+
+/**reduce the state from a loged user. Handles error status, and loading status.
+ *
+ * @param {*} payload the action payload
+ * @param {*} state the user state
+ */
+function reduceStateFromLogedUser({status, response}, state) {
+  switch (status) {
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loadingLogin: true,
+          errorOnLogin: false
+        }
+      };
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loadingLogin: true,
+          errorOnLogin: response
+        }
+      };
+    case "success":
+      return {
+        ...response,
+        status: {
+          ...state.status,
+          loadingLogin: false,
+          errorOnLogin: false,
+          isLoged: true
+        }
+      };
+    default:
+      return {...state};
   }
 }
