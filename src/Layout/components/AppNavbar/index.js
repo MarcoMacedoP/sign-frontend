@@ -1,16 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 //components
-import {ToastMenu} from "../../../global/components";
+import {ToastMenu, Icon} from "../../../global/components";
 
 import {Logo} from "../../../global/styles/foundations/Logo";
-import {Navbar, Picture} from "./styles";
+import {Navbar} from "./styles";
 //hooks
 import {useHandleState} from "../../../global/hooks/useHandleState";
 //utils
 import {USER_PAGE} from "../../../global/utils/routes";
 
-export const AppNavbar = ({profilePicture, onLogout, username}) => {
+export const AppNavbar = ({onLogout}) => {
   const {state, toggleStateValue} = useHandleState({
     menuShowed: false
   });
@@ -21,9 +21,7 @@ export const AppNavbar = ({profilePicture, onLogout, username}) => {
   return (
     <Navbar>
       <Logo to="/app">sign</Logo>
-      <Picture onClick={toggleMenu}>
-        <img src={profilePicture} alt={username} />
-      </Picture>
+      <Icon icon="settings" onClick={toggleMenu} />
       <ToastMenu
         isShowed={state.menuShowed}
         onClose={toggleMenu}
@@ -34,7 +32,7 @@ export const AppNavbar = ({profilePicture, onLogout, username}) => {
             direction: USER_PAGE
           },
           {
-            icon: "settings",
+            icon: "exit_to_app",
             title: "Cerrar sesión",
             onClick: onLogout
           }

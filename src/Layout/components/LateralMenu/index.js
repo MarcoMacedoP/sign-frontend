@@ -21,7 +21,8 @@ import {
   PROVIDERS_ROUTE,
   PROJECTS_ROUTE,
   REMINDERS_ROUTE,
-  TEAMS_LIST
+  TEAMS_LIST,
+  USER_PAGE
 } from "../../../global/utils/routes";
 
 const menuItems = [
@@ -37,10 +38,13 @@ const menuItems = [
   {name: "Recordatorios", icon: "alarm_add", route: REMINDERS_ROUTE}
 ];
 
-export const LateralMenu = ({user = {}}) => {
+export function LateralMenu({user = {}}) {
   const [isShowed, setIsShowed] = useState(false);
   const hideMenu = () => setIsShowed(false);
   const showMenu = () => setIsShowed(true);
+
+  //handle redirect
+
   return (
     <Menu isShowed={isShowed}>
       <ToggleMenuIcon
@@ -48,7 +52,7 @@ export const LateralMenu = ({user = {}}) => {
         onClick={isShowed ? hideMenu : showMenu}
         isShowed={isShowed}
       />
-      <Header isShowed={isShowed}>
+      <Header to={USER_PAGE} isShowed={isShowed}>
         <ProfileImage image={user.profilePic} isShowed={isShowed} />
         <Username isShowed={isShowed}>
           {user.name || "Username"}
@@ -69,4 +73,4 @@ export const LateralMenu = ({user = {}}) => {
       </Navigation>
     </Menu>
   );
-};
+}

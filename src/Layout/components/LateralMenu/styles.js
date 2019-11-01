@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {Icon} from "../../../global/components/Icon/";
+import {Link} from "react-router-dom";
 import {
   whiteColorLigth,
   whiteColor,
@@ -32,7 +33,7 @@ export const ToggleMenuIcon = styled(Icon)`
          align-self: flex-end;
          margin-right: 1rem; `}
 `;
-export const Header = styled.header`
+export const Header = styled(Link)`
   box-sizing: border-box;
   min-height: 5rem;
   height: 12%;
@@ -49,6 +50,7 @@ export const Header = styled.header`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
 `;
 export const ProfileImage = styled.div`
   transition: ${widthTransition}, ${heightTransition};
