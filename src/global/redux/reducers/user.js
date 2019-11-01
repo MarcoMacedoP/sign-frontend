@@ -38,7 +38,8 @@ export default function(state = initialState, action) {
       };
     //--------login user-------------
     case LOG_IN_USER:
-      return reduceStateFromLogedUser(action, state);
+      console.log(action);
+      return reduceStateFromLogedUser(action.payload, state);
     //--------logout user-------------
     case LOG_OUT:
       switch (action.payload.status) {
@@ -151,6 +152,8 @@ export default function(state = initialState, action) {
  * @param {*} state the user state
  */
 function reduceStateFromLogedUser({status, response}, state) {
+  // eslint-disable-next-line no-debugger
+  debugger;
   switch (status) {
     case "loading":
       return {

@@ -23,8 +23,7 @@ export const loginUser = (status, response) => ({
 
 export function fetchUserLogin(userData = {}) {
   return function(dispatch) {
-    dispatch(loginUser("loading", []));
-
+    dispatch(loginUser("loading"));
     return callApi("/login/", {
       method: "post",
       body: JSON.stringify(userData)
@@ -64,7 +63,6 @@ export function fetchSignupUser(user) {
       body: JSON.stringify(user)
     })
       .then(response => {
-        console.log(response);
         dispatch(signupUser("success", response.user));
         dispatch(updateUserNotifications(response.userNotifications));
       })

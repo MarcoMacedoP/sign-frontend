@@ -1,40 +1,34 @@
 import React from "react";
 import {Login} from "../Login/";
 //hooks
-import {useHandleState} from "../../../global/hooks/useHandleState";
-import {useState, useEffect} from "react";
+import {useHandleState, useError} from "../../../global/hooks/";
 //redux
 import {connect} from "react-redux";
 import {fetchUserLogin} from "../../../global/redux/actions/users";
 
 //Container component
-function LoginContainer({fetchUserLogin, user}) {
-  const {loadingLogin, errorOnLogin} = user.status;
+function LoginContainer({
+  fetchUserLogin,
+  loadingLogin,
+  errorOnLogin
+}) {
   //state
-  const {state: formValues, addFormValueToState} = useHandleState({
+  const {state, addFormValueToState} = useHandleState({
     email: "",
     password: ""
   });
-  const [loading, setLoading] = useState(loadingLogin);
-  const [error, setError] = useState(errorOnLogin);
-  //on user change after fetchUserLogin()
-  useEffect(
-    function() {
-      setLoading(loadingLogin);
-      if (errorOnLogin) {
-        setError(errorOnLogin);
-      }
-    },
-    [loadingLogin, errorOnLogin]
-  );
+  //handle status
+  const {error, setErrorToNull, setError} = useError({
+    updateErrorOnChange: errorOnLogin
+  });
+
   //handlers
-  const handleOnErrorClose = () => setError(null);
   const handleClick = e => {
     e.preventDefault();
-    if (!formValues.email || !formValues.password) {
+    if (!state.email || !state.password) {
       setError("Campos vacios");
     } else {
-      fetchUserLogin(formValues);
+      fetchUserLogin(state);
     }
   };
 
@@ -42,14 +36,17 @@ function LoginContainer({fetchUserLogin, user}) {
     <Login
       handleClick={handleClick}
       handleChange={addFormValueToState}
-      handleOnErrorClose={handleOnErrorClose}
-      loading={loading}
+      handleOnErrorClose={setErrorToNull}
+      loading={loadingLogin}
       error={error}
-      formValues={formValues}
+      formValues={state}
     />
   );
 }
-const mapStateToProps = state => ({user: state.user});
+const mapStateToProps = ({user}) => ({
+  loadingLogin: user.status.loadingLogin,
+  errorOnLogin: user.status.errorOnLogin
+});
 
 export default connect(
   mapStateToProps,

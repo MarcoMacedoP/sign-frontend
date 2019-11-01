@@ -7,5 +7,5 @@ export function useError({updateErrorOnChange}) {
     updateErrorOnChange
   ]);
   const setErrorToNull = () => setError(null);
-  return {error, setErrorToNull};
+  return {error, setErrorToNull, setError};
 }
