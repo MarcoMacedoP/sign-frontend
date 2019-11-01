@@ -34,7 +34,10 @@ router.post("/login/", async (req, res) => {
     sendGoodResponse({
       response: res,
       message: body.message,
-      data: {user: data.user},
+      data: {
+        user: data.user,
+        userNotifications: data.userNotifications
+      },
       statusCode
     });
   } catch (error) {
