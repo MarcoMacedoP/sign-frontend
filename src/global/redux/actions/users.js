@@ -46,7 +46,7 @@ export function fetchLogout() {
     dispatch(logout("loading"));
     return callApi("/logout/")
       .then(response => dispatch(logout("success", response)))
-      .catch(error => dispatch("error", error));
+      .catch(error => dispatch(logout("error", error)));
   };
 }
 //----signup user ------------------//

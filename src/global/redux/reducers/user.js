@@ -152,8 +152,6 @@ export default function(state = initialState, action) {
  * @param {*} state the user state
  */
 function reduceStateFromLogedUser({status, response}, state) {
-  // eslint-disable-next-line no-debugger
-  debugger;
   switch (status) {
     case "loading":
       return {
