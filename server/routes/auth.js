@@ -68,7 +68,10 @@ router.post("/signup/", async (req, res) => {
       response: res,
       message: response.message,
       statusCode: response.statusCode,
-      data: response.data.user
+      data: {
+        user: response.data.user,
+        userNotifications: response.data.userNotifications
+      }
     });
   } catch (error) {
     debug(error);
