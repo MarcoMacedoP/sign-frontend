@@ -9,4 +9,4 @@ function addCookie(name, value, response) {
   });
 }
 
-module.exports = {addTokenToCookies, addCookie};
+module.exports = { addTokenToCookies, addCookie };

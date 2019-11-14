@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const cors = require("cors");
-const {MongoClient} = require("mongodb");
+const { MongoClient } = require("mongodb");
 const MongoStore = require("connect-mongo")(session);
 //own middlewares
 const refreshToken = require("./utils/middlewares/refreshToken");
@@ -20,7 +20,7 @@ const sessionOptions = {
   resave: true,
   saveUninitialized: true,
   secret: config.session.secret,
-  cookie: {maxAge: 24 * 60 * 60 * 1000, secure: false}
+  cookie: { maxAge: 24 * 60 * 60 * 1000, secure: false }
 };
 //initialize app
 const app = express();
@@ -54,7 +54,7 @@ mongoClient.connect((err, client) => {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(config.cookie.secret));
 app.use(
   session({

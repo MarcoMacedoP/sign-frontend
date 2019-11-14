@@ -1,10 +1,6 @@
 const fs = require("fs");
 const multer = require("multer");
-function appendFileToFormData(
-  filePathToBeAppended,
-  formData,
-  fieldName
-) {
+function appendFileToFormData(filePathToBeAppended, formData, fieldName) {
   const stream = fs.createReadStream(filePathToBeAppended);
   formData.append(fieldName, stream);
 }

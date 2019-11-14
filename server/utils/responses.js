@@ -1,25 +1,11 @@
-const debug = require("debug")("app:responses");
-
-function sendBadResponse({
-  response,
-  message,
-  error = "",
-  statusCode = 500,
-  data = []
-}) {
+function sendBadResponse({ response, message, statusCode = 500, data = [] }) {
   response.status(statusCode).json({
     message,
     data,
-    statusCode,
-    error
+    statusCode
   });
 }
-function sendGoodResponse({
-  response,
-  message,
-  statusCode = 200,
-  data = []
-}) {
-  response.status(statusCode).json({message, data, statusCode});
+function sendGoodResponse({ response, message, statusCode = 200, data = [] }) {
+  response.status(statusCode).json({ message, data, statusCode });
 }
-module.exports = {sendBadResponse, sendGoodResponse};
+module.exports = { sendBadResponse, sendGoodResponse };

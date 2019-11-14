@@ -1,13 +1,13 @@
 const jwt = require("jsonwebtoken");
 const debug = require("debug")("app:middlewares:refreshToken");
-const {sendBadResponse} = require("../responses");
+const { sendBadResponse } = require("../responses");
 async function refreshToken(req, res, next) {
-  const {token} = req.cookies;
-  const {refreshToken} = req.session;
+  const { token } = req.cookies;
+  const { refreshToken } = req.session;
   debug("refreshing token : ", token);
   req.session.reload(err => debug("err", err));
   if (refreshToken && token) {
-    const {exp} = jwt.decode(token);
+    const { exp } = jwt.decode(token);
     const jwtExpirationDate = exp * 1000;
     const currentDate = Date.now();
     if (currentDate >= jwtExpirationDate) {
