@@ -13,6 +13,7 @@ export const ContainerCard = styled.li`
 
   ${H3} {
     text-align: center;
+    margin-bottom: 0.5rem;
   }
   ${SmallEmptyState} {
     margin: 0 auto;

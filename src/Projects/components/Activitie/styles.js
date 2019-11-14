@@ -29,11 +29,11 @@ export const Date = styled.span`
   display: flex;
   border-radius: 0.5rem;
   padding-right: 0.5rem;
-  margin: 4px 0;
+  margin: 0.5rem 0;
   font-size: 1rem;
   color: ${blackColorLigth};
   background-color: ${pendingStatusColor};
-  width: min-content;
+  width: 66%;
 `;
 export const DateIcon = styled(Icon)`
   margin-right: 0.5rem;
