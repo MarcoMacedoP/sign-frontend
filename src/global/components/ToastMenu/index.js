@@ -3,9 +3,12 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {Icon} from "../Icon";
 //styled-components
-import {MenuItem, Menu} from "./styles";
+import {MenuItem, Menu, Background} from "./styles";
 //component
+
 export const ToastMenu = ({
+  className,
+  children,
   isShowed,
   onClose,
   menuItems = [
@@ -18,23 +21,34 @@ export const ToastMenu = ({
   ]
 }) => {
   let count = 0;
-  return (
-    <Menu onMouseLeave={onClose} isShowed={isShowed}>
-      {menuItems.map(item => {
-        count++;
-        return (
-          <ToastMenuItem
-            key={count}
-            icon={item.icon}
-            title={item.title}
-            direction={item.direction}
-            isShowed={isShowed}
-            onClick={item.onClick}
-          />
-        );
-      })}
-    </Menu>
-  );
+  const handleItemClick = onClick => {
+    if (onClick) {
+      onClick();
+    }
+    onClose();
+  };
+  return isShowed ? (
+    <>
+      <Background onClick={onClose} />
+      <Menu isShowed={isShowed} className={className}>
+        {children
+          ? children
+          : menuItems.map(item => {
+              count++;
+              return (
+                <ToastMenuItem
+                  key={count}
+                  icon={item.icon}
+                  title={item.title}
+                  direction={item.direction}
+                  isShowed={isShowed}
+                  onClick={() => handleItemClick(item.onClick)}
+                />
+              );
+            })}
+      </Menu>
+    </>
+  ) : null;
 };
 const ToastMenuItem = ({
   isShowed,
@@ -44,7 +58,7 @@ const ToastMenuItem = ({
   title
 }) => (
   <MenuItem onClick={onClick} isShowed={isShowed}>
-    {direction ? <Link to={direction}>{title}</Link> : <p>{title}</p>}
     <Icon icon={icon} hasAnimatedClick={false} />
+    {direction ? <Link to={direction}>{title}</Link> : <p>{title}</p>}
   </MenuItem>
 );

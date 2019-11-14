@@ -5,10 +5,10 @@ import {
   SIGN_UP_USER,
   UPDATE_USER_NOTIFICATIONS
 } from "../types/actionTypes";
-import { removeSessionCookies } from "../../functions/cookies";
-import { callApi } from "../../functions/callApi";
+import {removeSessionCookies} from "../../functions/cookies";
+import {callApi} from "../../functions/callApi";
 //other actions
-import { fetchProjects } from "./projects";
+import {fetchProjects} from "./projects";
 //-----user notifications----------------------//
 export const updateUserNotifications = notifications => ({
   type: UPDATE_USER_NOTIFICATIONS,
@@ -19,7 +19,7 @@ export const updateUserNotifications = notifications => ({
 //------login user-----------------------------//
 export const loginUser = (status, response) => ({
   type: LOG_IN_USER,
-  payload: { status, response }
+  payload: {status, response}
 });
 
 export function fetchUserLogin(userData = {}) {
@@ -35,8 +35,8 @@ export function fetchUserLogin(userData = {}) {
         //after login fetch all projects
         dispatch(fetchProjects());
       })
-      .catch(({ message, statusCode }) =>
-        dispatch(loginUser("error", { message, statusCode }))
+      .catch(({message, statusCode}) =>
+        dispatch(loginUser("error", {message, statusCode}))
       );
   };
 }
@@ -44,21 +44,21 @@ export function fetchUserLogin(userData = {}) {
 
 export const logout = (status, response) => ({
   type: LOG_OUT,
-  payload: { status, response }
+  payload: {status, response}
 });
 export function fetchLogout() {
   return dispatch => {
     dispatch(logout("loading"));
     return callApi("/logout/")
       .then(response => dispatch(logout("success", response)))
-      .catch(({ message }) => dispatch(logout("error", message)))
+      .catch(({message}) => dispatch(logout("error", message)))
       .finally(() => removeSessionCookies());
   };
 }
 //----signup user ------------------//
 export const signupUser = (status, response) => ({
   type: SIGN_UP_USER,
-  payload: { status, response }
+  payload: {status, response}
 });
 
 export function fetchSignupUser(user) {
@@ -72,7 +72,7 @@ export function fetchSignupUser(user) {
         dispatch(signupUser("success", response.user));
         dispatch(updateUserNotifications(response.userNotifications));
       })
-      .catch(({ message }) => dispatch(signupUser("error", message)));
+      .catch(({message}) => dispatch(signupUser("error", message)));
   };
 }
 
@@ -81,7 +81,7 @@ export function fetchSignupUser(user) {
 //---------update user -------------//
 export const updateUser = (status, response) => ({
   type: UPDATE_USER,
-  payload: { status, response }
+  payload: {status, response}
 });
 
 /**Call the api with new user data for update the user.
@@ -89,7 +89,10 @@ export const updateUser = (status, response) => ({
  * @param {*} user the user to be updated
  * @param {*} updatedUserFormData the FormData object with the updated user info.
  */
-export const fetchUserUpdate = (user, updatedUserFormData) => dispatch => {
+export const fetchUserUpdate = (
+  user,
+  updatedUserFormData
+) => dispatch => {
   dispatch(updateUser("loading", []));
   return callApi(
     `/users/${user.id}`,
@@ -100,6 +103,6 @@ export const fetchUserUpdate = (user, updatedUserFormData) => dispatch => {
     false
   )
     .then(response => dispatch(updateUser("success", response.data)))
-    .catch(({ message }) => dispatch(updateUser("error", message)));
+    .catch(({message}) => dispatch(updateUser("error", message)));
 };
 //---------update user end-------------//

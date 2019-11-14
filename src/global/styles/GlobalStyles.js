@@ -32,7 +32,6 @@ body{
 }
 a{
 	color: ${mainColor};
-	text-decoration: underline;
 	&:hover{
   		opacity: 0.6;
 	}
@@ -44,7 +43,6 @@ p, h1,h2,h3,h4,h5,h6, span , label{
 }
 #root{
 	transition: filter 400ms ease-out 50ms;
-	
 }
 
 `;

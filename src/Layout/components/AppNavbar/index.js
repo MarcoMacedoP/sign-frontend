@@ -2,25 +2,36 @@
 import React from "react";
 //components
 import {ToastMenu, Icon} from "../../../global/components";
-
+import Notifications from "../Notifications";
 import {Logo} from "../../../global/styles/foundations/Logo";
-import {Navbar} from "./styles";
+import {Navbar, NotificationIcon} from "./styles";
 //hooks
 import {useHandleState} from "../../../global/hooks/useHandleState";
+
 //utils
 import {USER_PAGE} from "../../../global/utils/routes";
 
 export const AppNavbar = ({onLogout}) => {
   const {state, toggleStateValue} = useHandleState({
-    menuShowed: false
+    menuShowed: false,
+    notificationsAreShowed: false
   });
-  const toggleMenu = () => {
-    toggleStateValue("menuShowed");
-  };
+  const toggleMenu = () => toggleStateValue("menuShowed");
+  const toggleNotifications = () =>
+    toggleStateValue("notificationsAreShowed");
 
   return (
     <Navbar>
       <Logo to="/app">sign</Logo>
+      <NotificationIcon
+        isOpen={state.notificationsAreShowed}
+        icon="notifications_none"
+        onClick={toggleNotifications}
+      />
+      <Notifications
+        isShowed={state.notificationsAreShowed}
+        onClose={toggleNotifications}
+      />
       <Icon icon="settings" onClick={toggleMenu} />
       <ToastMenu
         isShowed={state.menuShowed}

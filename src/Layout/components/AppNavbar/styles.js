@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import {Icon} from "../../../global/components";
+
 import {
   whiteColorLigth,
-  blackColorTransparent,
-  appShadow
+  appShadow,
+  mainColorLight
 } from "../../../global/styles/variables";
 export const Navbar = styled.nav`
   max-width: 100vw;
@@ -22,20 +24,8 @@ export const Navbar = styled.nav`
   background: ${whiteColorLigth};
 `;
 
-export const Picture = styled.picture`
-  width: 24px;
-  height: 24px;
-  max-width: 24px;
-  max-height: 24px;
-  border-radius: 50%;
-  background-color: ${blackColorTransparent};
-  overflow: hidden;
-
-  cursor: pointer;
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    object-position: center;
-  }
+export const NotificationIcon = styled(Icon)`
+  margin-left: auto;
+  margin-right: 0.5rem;
+  color: ${props => (props.isOpen ? mainColorLight : "inital")};
 `;

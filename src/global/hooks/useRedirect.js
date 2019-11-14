@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useLastLocation } from "react-router-last-location";
+import {useState} from "react";
+import {useLastLocation} from "react-router-last-location";
 export const useRedirect = () => {
   const [isRedirect, setRedirect] = useState(false);
   const [route, setRoute] = useState("");
@@ -18,5 +18,5 @@ export const useRedirect = () => {
     toggleRedirect(lastLocation);
   }
 
-  return { isRedirect, route, toggleRedirect, redirectToLastLocation };
+  return {isRedirect, route, toggleRedirect, redirectToLastLocation};
 };

@@ -5,7 +5,16 @@ import {
   blackColorTransparent,
   mainColor
 } from "../../styles/variables";
+import {BaseIcon as Icon} from "../Icon/styles";
 
+export const Background = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+`;
 export const Menu = styled.ul`
   display: flex;
   flex-direction: column;
@@ -35,7 +44,9 @@ export const MenuItem = styled.li`
   justify-content: space-between;
 
   cursor: pointer;
-
+  ${Icon} {
+    margin-right: 0.5rem;
+  }
   a,
   p {
     width: 100%;

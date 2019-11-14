@@ -34,7 +34,7 @@ export const Info = styled.div`
     max-width: 80vw;
   }
 
-  animation: resize 1s;
+  animation: resize 0.5s;
 
   @keyframes resize {
     0% {
@@ -42,7 +42,7 @@ export const Info = styled.div`
       width: 0;
     }
     100% {
-      width: 30vw;
+      width: 100%;
       min-width: 300px;
     }
   }

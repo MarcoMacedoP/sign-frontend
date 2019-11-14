@@ -7,9 +7,11 @@ export const SecondaryButton = ({
   children,
   width,
   onClick,
-  type
+  type,
+  className
 }) => (
   <Button
+    className={className}
     variant={variant}
     bordercolor={bordercolor}
     width={width}
