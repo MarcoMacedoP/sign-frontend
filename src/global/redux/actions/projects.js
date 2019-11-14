@@ -1,39 +1,31 @@
-import {
-  ADD_PROJECT,
-  ADD_ACTIVITE,
-  ADD_COMMENT,
-  CHANGE_ACTIVITY_TYPE,
-  UPDATE_PROJECT,
-  REMOVE_PROJECT
-} from "../types/actionTypes";
-import {callApi} from "../../functions/callApi.new";
+import * as actionTypes from "../types/actionTypes";
+import { callApi } from "../../functions/callApi";
+//endpoints
+const USER_PROJECTS_ENDPOINT = "/projects/user/";
 
 //fetch add activities----------
 
 export const addActivite = (status, response) => ({
-  type: ADD_ACTIVITE,
-  payload: {status, response}
+  type: actionTypes.ADD_ACTIVITE,
+  payload: { status, response }
 });
 
-export const fetchAddActivitie = (
-  activitie,
-  projectId
-) => dispatch => {
+export const fetchAddActivitie = (activitie, projectId) => dispatch => {
   dispatch(addActivite("loading"));
   return callApi(`/projects/activities/${projectId}`, {
     method: "post",
     body: JSON.stringify(activitie)
   })
     .then(response => dispatch(addActivite("success", response)))
-    .catch(error => dispatch(addActivite("error", error)));
+    .catch(({ message }) => dispatch(addActivite("error", message)));
 };
 
 //fetch add activities----------
 
 //change activitie type----------
 export const changeActivitieStatus = (status, response) => ({
-  type: CHANGE_ACTIVITY_TYPE,
-  payload: {status, response}
+  type: actionTypes.CHANGE_ACTIVITY_TYPE,
+  payload: { status, response }
 });
 export const fetchChangeActivitieStatus = (
   newStatus,
@@ -49,20 +41,14 @@ export const fetchChangeActivitieStatus = (
   );
   return callApi("/projects/activities/change_status/", {
     method: "PATCH",
-    body: JSON.stringify({status: newStatus, projectId, activitieId})
+    body: JSON.stringify({ status: newStatus, projectId, activitieId })
   })
-    .then(response =>
-      dispatch(changeActivitieStatus("success", response))
-    )
-    .catch(error => dispatch(changeActivitieStatus("error", error)));
+    .then(response => dispatch(changeActivitieStatus("success", response)))
+    .catch(({ message }) => dispatch(changeActivitieStatus("error", message)));
 };
 //change activitie type----------
-export const addCommentToActivitie = ({
-  project,
-  activitie,
-  comment
-}) => ({
-  type: ADD_COMMENT,
+export const addCommentToActivitie = ({ project, activitie, comment }) => ({
+  type: actionTypes.ADD_COMMENT,
   payload: {
     project,
     activitie,
@@ -74,60 +60,113 @@ export const addCommentToActivitie = ({
 });
 
 //fetch projects actions----------
-import {FETCH_PROJECTS} from "../types/actionTypes";
+export const getProject = (status, response) => ({
+  type: actionTypes.FETCH_PROJECT,
+  payload: { status, response }
+});
+export const fetchProject = projectId => dispatch => {
+  dispatch(getProject("loading"));
+
+  return callApi(`${USER_PROJECTS_ENDPOINT}${projectId}`)
+    .then(project => dispatch(getProject("success", project)))
+    .catch(error => dispatch(getProject("error", error.message || error)));
+};
 
 export const getProjects = (status, response) => ({
-  type: FETCH_PROJECTS,
-  payload: {status, response}
+  type: actionTypes.FETCH_PROJECTS,
+  payload: { status, response }
 });
 export const fetchProjects = () => dispatch => {
   dispatch(getProjects("loading"));
-  return callApi("/projects/user/")
+  return callApi(USER_PROJECTS_ENDPOINT)
     .then(response => dispatch(getProjects("success", response)))
-    .catch(err => dispatch(getProjects("error", err)));
+    .catch(({ message }) => dispatch(getProjects("error", message)));
 };
 
 //Add a project
 export const addProject = (status, response) => ({
-  type: ADD_PROJECT,
-  payload: {status, response}
+  type: actionTypes.ADD_PROJECT,
+  payload: { status, response }
 });
 export const fetchAddProject = project => dispatch => {
   dispatch(addProject("loading"));
-  return callApi("/projects/user/", {
+  return callApi(USER_PROJECTS_ENDPOINT, {
     method: "POST",
     body: JSON.stringify(project)
   })
     .then(response => dispatch(addProject("success", response)))
-    .catch(err => dispatch(addProject("error", err)));
+    .catch(({ message }) => dispatch(addProject("error", message)));
 };
 //update a project
 export const updateProject = (status, response) => ({
-  type: UPDATE_PROJECT,
-  payload: {status, response}
+  type: actionTypes.UPDATE_PROJECT,
+  payload: { status, response }
 });
-export const fetchUpdateProject = (
-  newProjectData,
-  projectId
-) => dispatch => {
+export const fetchUpdateProject = (newProjectData, projectId) => dispatch => {
   dispatch(updateProject("loading"));
-  return callApi(`/projects/user/${projectId}`, {
+  return callApi(`${USER_PROJECTS_ENDPOINT}${projectId}`, {
     method: "PUT",
     body: JSON.stringify(newProjectData)
   })
     .then(response => dispatch(updateProject("success", response)))
-    .catch(err => dispatch(updateProject("error", err)));
+    .catch(({ message }) => dispatch(updateProject("error", message)));
 };
 //remove project
 export const removeProject = (status, response) => ({
-  type: REMOVE_PROJECT,
-  payload: {status, response}
+  type: actionTypes.REMOVE_PROJECT,
+  payload: { status, response }
 });
 export const fetchRemoveProject = projectId => dispatch => {
-  dispatch(removeProject("loading", {projectId}));
-  return callApi(`/projects/user/${projectId}`, {
+  dispatch(removeProject("loading", { projectId }));
+  return callApi(`${USER_PROJECTS_ENDPOINT}${projectId}`, {
     method: "DELETE"
   })
     .then(() => dispatch(removeProject("success")))
-    .catch(err => dispatch(removeProject("error", err)));
+    .catch(({ message }) => dispatch(removeProject("error", message)));
+};
+
+//******addons*******
+//clients into projects
+//-add
+export const addClientToProject = (status, response) => ({
+  type: actionTypes.ADD_CLIENT_TO_PROJECT,
+  payload: { status, response }
+});
+export const fetchAddClientToProject = ({
+  projectId,
+  clientId
+}) => dispatch => {
+  dispatch(addClientToProject("loading", { projectId, clientId }));
+  return callApi("/projects/clients/", {
+    method: "POST",
+    body: JSON.stringify({ projectId, clientId })
+  })
+    .then(project => dispatch(addClientToProject("success", project)))
+    .catch(error => dispatch(addClientToProject("error", error)));
+};
+//-remove
+export const removeClientOfProject = (status, response) => ({
+  type: actionTypes.REMOVE_CLIENT_OF_PROJECT,
+  payload: { status, response }
+});
+export const fetchRemoveClientOfProject = ({
+  projectId,
+  clientId
+}) => dispatch => {
+  dispatch(removeClientOfProject("loading", { projectId, clientId }));
+  return callApi("/projects/clients/", {
+    method: "DELETE",
+    body: JSON.stringify({ projectId, clientId })
+  })
+    .then(project => dispatch(removeClientOfProject("success", project)))
+    .catch(error =>
+      dispatch(
+        removeClientOfProject(
+          "error",
+          error.statusCode === 400
+            ? "Este cliente ya está dentro del proyecto."
+            : error
+        )
+      )
+    );
 };

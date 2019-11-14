@@ -5,7 +5,9 @@ import {
   CHANGE_ACTIVITY_TYPE,
   FETCH_PROJECTS,
   UPDATE_PROJECT,
-  REMOVE_PROJECT
+  REMOVE_PROJECT,
+  ADD_CLIENT_TO_PROJECT,
+  REMOVE_CLIENT_OF_PROJECT
 } from "../types/actionTypes";
 // import {DONED, PENDING, IN_PROGRESS} from "../types/activitieTypes";
 
@@ -22,7 +24,9 @@ const initialState = {
     isLoadingRemoveProject: false,
     errorOnRemoveProject: null,
     isLoadingUpdateProject: false,
-    errorOnUpdateProject: null
+    errorOnUpdateProject: null,
+    isLoadingAddingClientIntoProject: false,
+    errorOnAddingClientIntoProject: null
   },
   list: [
     {
@@ -84,6 +88,13 @@ function projectReducer(state = initialState, action) {
     case CHANGE_ACTIVITY_TYPE:
       return changeActivitieStatusReducer(payload, state);
 
+    //******addons******************
+
+    //Clients into proejcts reducer
+    case ADD_CLIENT_TO_PROJECT:
+      return reduceStateFromAddedClient(payload, state);
+    case REMOVE_CLIENT_OF_PROJECT:
+      return reduceStateFromRemovedClient(payload, state);
     default:
       return state;
   }
@@ -323,7 +334,6 @@ function fetchProjectsReducer({status, response}, state) {
         ...state,
         status: {
           ...state.status,
-          shouldFetchProjects: false,
           errorLoadingProjects: false,
           isLoadingProjects: true
         }
@@ -352,5 +362,92 @@ function fetchProjectsReducer({status, response}, state) {
       return state;
   }
 }
+/*******All project addons are here*********/
 
+/**handles all the fetching of add clients into projects stuff.
+ * @returns the state modified
+ * @param {Object} payload the action payload
+ * @param {Object} state the reducer state
+ */
+function reduceStateFromAddedClient({response, status}, state) {
+  switch (status) {
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingAddingClientIntoProject: true,
+          errorOnAddingClientIntoProject: null
+        }
+      };
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingAddingClientIntoProject: false,
+          errorOnAddingClientIntoProject: response
+        }
+      };
+    case "success": {
+      const reducedProjects = state.list.map(project =>
+        project._id === response._id ? response : project
+      );
+      return {
+        list: reducedProjects,
+        status: {
+          ...state.status,
+          isLoadingAddingClientIntoProject: false,
+          errorOnAddingClientIntoProject: null
+        }
+      };
+    }
+
+    default:
+      return state;
+  }
+}
+/**handles all the fetching of removing clients of projects stuff.
+ * @returns the state modified
+ * @param {Object} payload the action payload
+ * @param {Object} state the reducer state
+ */
+function reduceStateFromRemovedClient({response, status}, state) {
+  switch (status) {
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingAddingClientIntoProject: true,
+          errorOnAddingClientIntoProject: null
+        }
+      };
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          isLoadingAddingClientIntoProject: false,
+          errorOnAddingClientIntoProject: response
+        }
+      };
+    case "success": {
+      const reducedProjects = state.list.map(project =>
+        project._id === response._id ? response : project
+      );
+      return {
+        list: reducedProjects,
+        status: {
+          ...state.status,
+          isLoadingAddingClientIntoProject: false,
+          errorOnAddingClientIntoProject: null
+        }
+      };
+    }
+
+    default:
+      return state;
+  }
+}
 export default projectReducer;

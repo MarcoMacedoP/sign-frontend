@@ -4,7 +4,7 @@ import {
   ADD_REMINDER,
   UPDATE_REMINDER
 } from "../types/actionTypes";
-import {callApi} from "../../functions/callApi.new";
+import {callApi} from "../../functions/callApi";
 
 const REMINDERS_ENDPOINT = "/reminders/";
 

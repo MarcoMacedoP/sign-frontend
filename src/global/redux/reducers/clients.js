@@ -5,22 +5,7 @@ import {
   REMOVE_CLIENT
 } from "../types/actionTypes";
 const initialState = {
-  list: [
-    {
-      name: "",
-      lastname: "",
-      email: "",
-      phone: "",
-      comments: [
-        {
-          content: "",
-          date: "",
-          userId: ""
-        }
-      ],
-      projects: []
-    }
-  ],
+  list: [],
   status: {
     shouldFetchClients: true,
     loadingClients: false,
@@ -54,13 +39,13 @@ export default function clientsReducer(state = initialState, action) {
    * @param {*} payload the action payload
    * @param {*} state the reducer state
    */
-  function reduceStateFromRemovedClient({status, response}, state) {
+  function reduceStateFromRemovedClient({ status, response }, state) {
     switch (status) {
       case "loading":
         //remove client when the loads starts
         return {
           list: state.list.filter(
-            ({client_id}) => client_id !== response.clientId
+            ({ client_id }) => client_id !== response.clientId
           ),
           status: {
             ...state.status,
@@ -95,7 +80,7 @@ export default function clientsReducer(state = initialState, action) {
    * @param {*} payload the action payload
    * @param {*} state the reducer state
    */
-  function reduceStateFromEditedClient({status, response}, state) {
+  function reduceStateFromEditedClient({ status, response }, state) {
     switch (status) {
       case "success":
         return {
@@ -140,7 +125,7 @@ export default function clientsReducer(state = initialState, action) {
    * @param {*} payload the action payload
    * @param {*} state the reducer state
    */
-  function reduceStateFromAddedClient({status, response}, state) {
+  function reduceStateFromAddedClient({ status, response }, state) {
     switch (status) {
       case "success":
         return {
@@ -181,7 +166,7 @@ export default function clientsReducer(state = initialState, action) {
    * @param {*} payload the action payload
    * @param {*} state the reducer state
    */
-  function reduceStateFromFetchedClients({status, response}, state) {
+  function reduceStateFromFetchedClients({ status, response }, state) {
     switch (status) {
       case "success":
         return {

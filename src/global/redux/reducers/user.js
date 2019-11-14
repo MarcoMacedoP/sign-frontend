@@ -38,40 +38,10 @@ export default function(state = initialState, action) {
       };
     //--------login user-------------
     case LOG_IN_USER:
-      console.log(action);
       return reduceStateFromLogedUser(action.payload, state);
     //--------logout user-------------
     case LOG_OUT:
-      switch (action.payload.status) {
-        case "loading":
-          return {
-            ...state,
-            status: {
-              ...state,
-              loadingLogout: true,
-              errrorOnLogout: null
-            }
-          };
-        case "error":
-          return {
-            ...state,
-            status: {
-              ...state,
-              loadingLogout: false,
-              errrorOnLogout: action.payload.response
-            }
-          };
-        case "success":
-          return {
-            ...initialState,
-            status: {
-              ...initialState.status,
-              hasLogout: true
-            }
-          };
-        default:
-          return state;
-      }
+      return reduceStateFromLogout(action.payload, state);
     //--------signup user-------------
     case SIGN_UP_USER:
       switch (action.payload.status) {
@@ -146,6 +116,45 @@ export default function(state = initialState, action) {
   }
 }
 
+/**reduce the state from the user logout.
+ *  Handles error status, and loading status.
+ *
+ * @param {*} payload the action payload
+ * @param {*} state the user state
+ */
+function reduceStateFromLogout({status, response}, state) {
+  switch (status) {
+    case "loading":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loadingLogout: true,
+          errrorOnLogout: null
+        }
+      };
+    case "error":
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loadingLogout: false,
+          errrorOnLogout: response
+        }
+      };
+    case "success":
+      return {
+        ...initialState,
+        status: {
+          ...initialState.status,
+          hasLogout: true
+        }
+      };
+    default:
+      return state;
+  }
+}
+
 /**reduce the state from a loged user. Handles error status, and loading status.
  *
  * @param {*} payload the action payload
@@ -159,25 +168,30 @@ function reduceStateFromLogedUser({status, response}, state) {
         status: {
           ...state.status,
           loadingLogin: true,
-          errorOnLogin: false
+          errorOnLogin: null
         }
       };
-    case "error":
+    case "error": {
+      const error =
+        response.statusCode === 401
+          ? "Alguno de tus datos es invalido.  😫 "
+          : response.message;
       return {
         ...state,
         status: {
           ...state.status,
-          loadingLogin: true,
-          errorOnLogin: response
+          loadingLogin: false,
+          errorOnLogin: error
         }
       };
+    }
     case "success":
       return {
         ...response,
         status: {
           ...state.status,
           loadingLogin: false,
-          errorOnLogin: false,
+          errorOnLogin: null,
           isLoged: true
         }
       };

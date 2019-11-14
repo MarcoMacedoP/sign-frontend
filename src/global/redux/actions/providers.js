@@ -3,7 +3,7 @@ import {
   SHOULD_FETCH_PROVIDERS,
   ADD_PROVIDER
 } from "../types/actionTypes";
-import {callApi, statusCodeIsValid} from "../../functions/callApi";
+import {callApi} from "../../functions/callApi";
 //--------------get providers-----------------
 export const setShouldFetchProviders = status => ({
   type: SHOULD_FETCH_PROVIDERS,
@@ -16,10 +16,8 @@ export const getProviders = (status, response) => ({
 export const fetchProviders = () => dispatch => {
   dispatch(getProviders("loading"));
   return callApi("/providers/")
-    .then(response =>
-      dispatch(getProviders("success", response.data))
-    )
-    .catch(error => dispatch(getProviders("error", error)));
+    .then(response => dispatch(getProviders("success", response)))
+    .catch(({message}) => dispatch(getProviders("error", message)));
 };
 //--------------end get providers-----------------
 //-------------- add provider-----------------
@@ -33,12 +31,8 @@ export const fetchAddProvider = provider => dispatch => {
     method: "post",
     body: JSON.stringify(provider)
   })
-    .then(
-      response =>
-        statusCodeIsValid(response.statusCode) &&
-        dispatch(addProvider("success", response.data))
-    )
-    .catch(error => dispatch(addProvider("error", error)));
+    .then(response => dispatch(addProvider("success", response)))
+    .catch(({message}) => dispatch(addProvider("error", message)));
 };
 //--------------end add provider-----------------
 
@@ -53,10 +47,6 @@ export const fetchAddExpenseProvider = provider => dispatch => {
     method: "post",
     body: JSON.stringify(provider)
   })
-    .then(
-      response =>
-        statusCodeIsValid(response.statusCode) &&
-        dispatch(addExpense("success", response.data))
-    )
-    .catch(error => dispatch(addExpense("error", error)));
+    .then(response => dispatch(addExpense("success", response)))
+    .catch(({message}) => dispatch(addExpense("error", message)));
 };
