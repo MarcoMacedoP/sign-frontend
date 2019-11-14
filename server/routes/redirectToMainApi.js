@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const { api } = require("../config");
+const {api} = require("../config");
 const debug = require("debug")("app:routes:redirectToMainApi");
 const axios = require("axios");
-const { sendGoodResponse } = require("../utils/responses");
+const {sendGoodResponse} = require("../utils/responses");
 
 router.all("*", (req, res, next) => {
   const API_URL = `${api.host}${req.originalUrl}`;
@@ -17,7 +17,7 @@ router.all("*", (req, res, next) => {
   };
 
   axios(API_URL, options)
-    .then(({ data }) => {
+    .then(({data}) => {
       debug(data);
       sendGoodResponse({
         data: data.data,

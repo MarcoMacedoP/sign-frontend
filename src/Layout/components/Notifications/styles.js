@@ -1,11 +1,7 @@
 import styled from "styled-components";
-import {Caption} from "../../../global/styles/texts";
-import {
-  blackColorLigth,
-  whiteColor,
-  whiteColorLigth
-} from "../../../global/styles/variables";
-import {ToastMenu} from "../../../global/components/ToastMenu";
+import { Caption } from "../../../global/styles/texts";
+import { blackColorLigth, whiteColor } from "../../../global/styles/variables";
+import { ToastMenu } from "../../../global/components/ToastMenu";
 
 export const StyledNotifications = styled(ToastMenu)`
   min-width: 300px;
@@ -24,8 +20,7 @@ export const StyledNotification = styled.div`
   justify-content: flex-start;
   align-items: center;
 
-  background-color: ${props =>
-    props.isReaded ? "transparent" : whiteColor};
+  background-color: ${props => (props.isReaded ? "transparent" : whiteColor)};
 
   :hover {
     opacity: 0.76;
