@@ -48,7 +48,7 @@ export const Title = styled.p`
   align-items: center;
 `;
 
-export const Date = styled.p`
+export const About = styled.p`
   height: 100%;
 
   display: flex;

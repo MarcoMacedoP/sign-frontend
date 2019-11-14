@@ -3,16 +3,16 @@ import {
   Container,
   Picture,
   Title,
-  Date,
+  About,
   PictureContainer,
   IconContainer
 } from "./styles";
 //components
-import {Icon} from "../Icon";
+import { Icon } from "../Icon";
 /**
  * @description Makes a long card full size of the width
  */
-export const LongCard = ({title, date, picture, about, onClick}) => (
+export const LongCard = ({ title, date, picture, about, onClick }) => (
   <Container onClick={onClick}>
     {picture && (
       <PictureContainer>
@@ -21,7 +21,7 @@ export const LongCard = ({title, date, picture, about, onClick}) => (
     )}
     <Title>{title}</Title>
 
-    <Date>{date || about}</Date>
+    <About>{date || about}</About>
     <IconContainer>
       <Icon icon="arrow_forward_ios" />
     </IconContainer>
