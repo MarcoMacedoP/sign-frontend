@@ -216,6 +216,7 @@ function App({ userIsLoged, userHasLogout, loginUser, fetchProjects }) {
               exact
               path={LOGIN_ROUTE}
             />
+
             {/*------------end user routes -------------------*/}
 
             {/*------------projects routes -------------------*/}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Icon } from "../../../global/components/Icon";
-import { Link } from "react-router-dom";
+import {Icon} from "../../../global/components/Icon/";
+import {Link} from "react-router-dom";
 import {
   whiteColorLigth,
   whiteColor,
