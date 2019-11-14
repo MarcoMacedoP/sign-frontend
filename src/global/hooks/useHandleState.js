@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 
 export const useHandleState = initialState => {
   const [state, setState] = useState({
@@ -50,11 +50,7 @@ export const useHandleState = initialState => {
    * @param {*} key the name of the state property
    * @param {*} value the value of the element
    */
-  function addArrayValueToState(
-    array = [],
-    arrayName = "",
-    pushedItem
-  ) {
+  function addArrayValueToState(array = [], arrayName = "", pushedItem) {
     let newArray = array;
     newArray.push(pushedItem);
 

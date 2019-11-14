@@ -1,23 +1,20 @@
 import React from "react";
 //redux
-import {connect} from "react-redux";
-import {fetchRemoveProject} from "../../../global/redux/actions/projects";
+import { connect } from "react-redux";
+import { fetchRemoveProject } from "../../../global/redux/actions/projects";
 //components
-import {ProjectPage} from "../ProjectPage";
-import {Redirect} from "react-router-dom";
+import { ProjectPage } from "../ProjectPage";
+import { Redirect } from "react-router-dom";
 //hooks
-import {useModalState, useRedirect} from "../../../global/hooks/";
-import {useLastLocation} from "react-router-last-location";
+import { useModalState, useRedirect } from "../../../global/hooks/";
+import { useLastLocation } from "react-router-last-location";
 //utils
-import {PROJECTS_ROUTE} from "../../../global/utils/routes";
-function ProjectPageContainer({project, fetchRemoveProject}) {
-  const {handleModal, modalIsOpen} = useModalState();
-  const {
-    handleModal: handleDeleteModal,
-    modalIsOpen: deleteModalIsOpen
-  } = useModalState();
+import { PROJECTS_ROUTE } from "../../../global/utils/routes";
+function ProjectPageContainer({ project, fetchRemoveProject }) {
+  const [modalIsOpen, toggleModal] = useModalState();
+  const [deleteModalIsOpen, toggleDeleteModal] = useModalState();
   //redirects
-  const {isRedirect, route, toggleRedirect} = useRedirect();
+  const { isRedirect, route, toggleRedirect } = useRedirect();
   const lastLocation = useLastLocation();
   const redirectToLastLocation = () => toggleRedirect(lastLocation);
   const redirectToEditProject = () =>
@@ -25,17 +22,17 @@ function ProjectPageContainer({project, fetchRemoveProject}) {
   //handlers
   const handleRemove = () => {
     fetchRemoveProject(project._id);
-    handleDeleteModal();
+    toggleDeleteModal();
     redirectToLastLocation();
   };
 
   const optionsMenuForInformationHeader = [
     {
       icon: "delete",
-      onClick: handleDeleteModal,
+      onClick: toggleDeleteModal,
       title: "Eliminar"
     },
-    {icon: "edit", onClick: redirectToEditProject, title: "Editar"}
+    { icon: "edit", onClick: redirectToEditProject, title: "Editar" }
   ];
   //redirect to last location
 
@@ -45,27 +42,23 @@ function ProjectPageContainer({project, fetchRemoveProject}) {
       <ProjectPage
         project={project}
         modalIsOpen={modalIsOpen}
-        handleModal={handleModal}
-        handleDeleteModal={handleDeleteModal}
+        toggleModal={toggleModal}
+        toggleDeleteModal={toggleDeleteModal}
         deleteModalIsOpen={deleteModalIsOpen}
         onRemoveProject={handleRemove}
-        optionsMenuForInformationHeader={
-          optionsMenuForInformationHeader
-        }
+        optionsMenuForInformationHeader={optionsMenuForInformationHeader}
       />
     </>
   );
 }
 
 //redux
-const mapStateToProps = ({projects}, props) => {
-  const {projectId} = props.match.params;
-  const project = projects.list.find(
-    project => project._id === projectId
-  );
+const mapStateToProps = ({ projects }, props) => {
+  const { projectId } = props.match.params;
+  const project = projects.list.find(project => project._id === projectId);
   //if project not exists or there is no activities in project
   if (!project || !project.activities) {
-    return {project: project || {}};
+    return { project: project || {} };
   } else {
     const pendingActivities = project.activities.filter(
       activitie => activitie.status === "PENDING"
@@ -88,7 +81,6 @@ const mapStateToProps = ({projects}, props) => {
     };
   }
 };
-export default connect(
-  mapStateToProps,
-  {fetchRemoveProject}
-)(ProjectPageContainer);
+export default connect(mapStateToProps, { fetchRemoveProject })(
+  ProjectPageContainer
+);

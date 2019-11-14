@@ -1,12 +1,12 @@
 import React from "react";
 //components
-import {RemindersList} from "../RemindersList";
+import { RemindersList } from "../RemindersList";
 //redux
-import {connect} from "react-redux";
-import {fetchReminders} from "../../../global/redux/actions/reminders";
+import { connect } from "react-redux";
+import { fetchReminders } from "../../../global/redux/actions/reminders";
 //hooks
-import {useModalState} from "../../../global/hooks/useModalState";
-import {useEffect, useState} from "react";
+import { useModalState } from "../../../global/hooks/useModalState";
+import { useEffect, useState } from "react";
 //const
 export const REMINDER_STATUS = {
   OK: "OK",
@@ -22,10 +22,7 @@ export function RemindersListContainer({
   fetchReminders
 }) {
   //modals
-  const {
-    handleModal: toggleAddReminderModal,
-    modalIsOpen: addReminderModalIsOpen
-  } = useModalState();
+  const [addReminderModalIsOpen, toggleAddReminderModal] = useModalState();
   //fetch handling
   useEffect(() => {
     if (shuldFetchReminders) {
@@ -34,9 +31,7 @@ export function RemindersListContainer({
   }, [shuldFetchReminders]);
   //error handling
   const [error, setError] = useState(null);
-  useEffect(() => setError(errorOnFetchReminders), [
-    errorOnFetchReminders
-  ]);
+  useEffect(() => setError(errorOnFetchReminders), [errorOnFetchReminders]);
   const setErrorToNull = () => setError(null);
   //handling status on reminders
   const [archivedReminders, setArchivedReminders] = useState([]);
@@ -66,7 +61,7 @@ export function RemindersListContainer({
   );
 }
 
-const mapStateToProps = ({reminders}) => {
+const mapStateToProps = ({ reminders }) => {
   return {
     remindersList: reminders.list,
     shuldFetchReminders: reminders.status.shuldFetchReminders,
@@ -75,7 +70,6 @@ const mapStateToProps = ({reminders}) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {fetchReminders}
-)(RemindersListContainer);
+export default connect(mapStateToProps, { fetchReminders })(
+  RemindersListContainer
+);

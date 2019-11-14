@@ -1,6 +1,6 @@
 //components
 import React from "react";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import {
   LongCard,
   InformationHeader,
@@ -14,17 +14,14 @@ import {
   useRedirect
 } from "../../../global/hooks/";
 //styled-components
-import {Article, Section} from "./styles";
-import {PageContainer} from "../../../global/styles/Containers";
+import { Article, Section } from "./styles";
+import { PageContainer } from "../../../global/styles/Containers";
 //redux
-import {connect} from "react-redux";
-import {fetchRemoveClient} from "../../../global/redux/actions/clients";
+import { connect } from "react-redux";
+import { fetchRemoveClient } from "../../../global/redux/actions/clients";
 //utils
-import {
-  CLIENTS_ROUTE,
-  EDIT_CLIENT_ROUTE
-} from "../../../global/utils/routes";
-function ClientPage({client = {}, fetchRemoveClient}) {
+import { CLIENTS_ROUTE, EDIT_CLIENT_ROUTE } from "../../../global/utils/routes";
+function ClientPage({ client = {}, fetchRemoveClient }) {
   //check if client exists.
   if (!client.client_id) {
     return <Redirect to={CLIENTS_ROUTE} />;
@@ -41,19 +38,10 @@ function ClientPage({client = {}, fetchRemoveClient}) {
     email: "",
     phone: ""
   };
-  const {
-    comments = [],
-    name,
-    lastname,
-    phone,
-    email,
-    projects = []
-  } = client;
-  const {
-    state,
-    addArrayValueToState,
-    addFormValueToState
-  } = useHandleState(initialState);
+  const { comments = [], name, lastname, phone, email, projects = [] } = client;
+  const { state, addArrayValueToState, addFormValueToState } = useHandleState(
+    initialState
+  );
 
   function addCommentHandler() {
     const date = new Date();
@@ -65,14 +53,14 @@ function ClientPage({client = {}, fetchRemoveClient}) {
     });
   }
   //onRemove handlers
-  const {modalIsOpen, handleModal} = useModalState(false);
-  const onCancelRemove = () => handleModal();
+  const [modalIsOpen, toggleModal] = useModalState(false);
+  const onCancelRemove = () => toggleModal();
   const onRemove = () => {
     fetchRemoveClient(client.client_id);
-    handleModal();
+    toggleModal();
   };
   //onEdit handler
-  const {isRedirect, route, toggleRedirect} = useRedirect();
+  const { isRedirect, route, toggleRedirect } = useRedirect();
   const redirectToEdit = () =>
     toggleRedirect(`${EDIT_CLIENT_ROUTE}/${client.client_id}`);
 
@@ -91,7 +79,7 @@ function ClientPage({client = {}, fetchRemoveClient}) {
           {
             icon: "delete_outline",
             title: "Eliminar",
-            onClick: handleModal
+            onClick: toggleModal
           },
           {
             icon: "edit",
@@ -134,15 +122,10 @@ function ClientPage({client = {}, fetchRemoveClient}) {
   );
 }
 
-const mapStateToProps = ({clients}, props) => {
+const mapStateToProps = ({ clients }, props) => {
   const clientId = parseInt(props.match.params.clientId);
-  const [client] = clients.list.filter(
-    client => client.client_id === clientId
-  );
-  return {client};
+  const [client] = clients.list.filter(client => client.client_id === clientId);
+  return { client };
 };
 
-export default connect(
-  mapStateToProps,
-  {fetchRemoveClient}
-)(ClientPage);
+export default connect(mapStateToProps, { fetchRemoveClient })(ClientPage);

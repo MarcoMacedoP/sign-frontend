@@ -10,9 +10,9 @@ import {
   RemoveModal
 } from "../../../global/components/";
 //styled-components
-import {PageContainer} from "../../../global/styles/Containers";
-import {Activities, ActivitiesContainer} from "./styles";
-import {H3} from "../../../global/styles/texts";
+import { PageContainer } from "../../../global/styles/Containers";
+import { Activities, ActivitiesContainer } from "./styles";
+import { H3 } from "../../../global/styles/texts";
 //utils
 import {
   DONED,
@@ -21,15 +21,15 @@ import {
 } from "../../../global/redux/types/activitieTypes";
 //component
 export const ProjectPage = ({
-  handleDeleteModal,
+  toggleDeleteModal,
   deleteModalIsOpen,
   onRemoveProject,
   project,
   modalIsOpen,
-  handleModal,
+  toggleModal,
   optionsMenuForInformationHeader
 }) => {
-  const {name, description, dueDate, activities = {}} = project;
+  const { name, description, dueDate, activities = {} } = project;
   return (
     <PageContainer>
       <InformationHeader
@@ -51,7 +51,7 @@ export const ProjectPage = ({
                 "Las actividades permiten mantener el flujo de trabajo de tu proyecto para sacarle el máximo potencial a tú tiempo."
               ]}
             >
-              <Button size="medium" onClick={handleModal}>
+              <Button size="medium" onClick={toggleModal}>
                 Agrega una actividad
               </Button>
             </SmallEmptyState>
@@ -79,17 +79,17 @@ export const ProjectPage = ({
           )}
         </ActivitiesContainer>
       </Activities>
-      <AddButton onClick={handleModal} />
+      <AddButton onClick={toggleModal} />
       {/*-------------- modals---------- */}
       <AddActivitie
         isShowed={modalIsOpen}
-        onClose={handleModal}
+        onClose={toggleModal}
         projectId={project._id}
       />
       <RemoveModal
         headline="Eliminar proyecto"
         message="Estás a punto de eliminar un projecto, ¿Estás seguro?"
-        onCancel={handleDeleteModal}
+        onCancel={toggleDeleteModal}
         onRemove={onRemoveProject}
         isOpen={deleteModalIsOpen}
       />

@@ -1,40 +1,27 @@
 import React from "react";
 //components
-import {IncomeList} from "../IncomeList";
-import {InformationHeader} from "../../../global/components";
+import { IncomeList } from "../IncomeList";
+import { InformationHeader } from "../../../global/components";
 //modals
-import {AddIncome} from "../../modals/AddIncome";
-import {EditIncome} from "../../modals/EditIncome";
+import { AddIncome } from "../../modals/AddIncome";
+import { EditIncome } from "../../modals/EditIncome";
 //styled-components
-import {PageContainer} from "../../../global/styles/Containers";
+import { PageContainer } from "../../../global/styles/Containers";
 // hooks
-import {useModalState, useHandleState} from "../../../global/hooks/";
+import { useModalState, useHandleState } from "../../../global/hooks/";
 //redux
-import {connect} from "react-redux";
-function ProviderPage({provider, services = [], products = []}) {
+import { connect } from "react-redux";
+function ProviderPage({ provider, services = [], products = [] }) {
   // modals
-  const {
-    modalIsOpen: addServiceIsOpen,
-    handleModal: handleAddService
-  } = useModalState();
-  const {
-    modalIsOpen: editServiceIsOpen,
-    handleModal: handleEditService
-  } = useModalState();
-
-  const {
-    modalIsOpen: addProductIsOpen,
-    handleModal: handleAddProduct
-  } = useModalState();
-  const {
-    modalIsOpen: editProductIsOpen,
-    handleModal: handleEditProduct
-  } = useModalState();
+  const [addServiceIsOpen, handleAddService] = useModalState();
+  const [editServiceIsOpen, handleEditService] = useModalState();
+  const [addProductIsOpen, handleAddProduct] = useModalState();
+  const [editProductIsOpen, handleEditProduct] = useModalState();
 
   // Form values of AddIncome and EditIncome
-  const {state, addFormValueToState} = useHandleState({});
+  const { state, addFormValueToState } = useHandleState({});
   //provider info
-  const {name, lastname, image_url, about, email, phone} = provider;
+  const { name, lastname, image_url, about, email, phone } = provider;
   return (
     <PageContainer>
       <InformationHeader
@@ -93,7 +80,7 @@ function ProviderPage({provider, services = [], products = []}) {
     </PageContainer>
   );
 }
-const mapStateToProps = ({providers}, props) => {
+const mapStateToProps = ({ providers }, props) => {
   const providerId = parseInt(props.match.params.providerId);
   const [provider] = providers.list.filter(
     provider => provider.provider_id === providerId
@@ -106,12 +93,9 @@ const mapStateToProps = ({providers}, props) => {
       expense => expense.type === "product"
     );
 
-    return {provider, services, products};
+    return { provider, services, products };
   } else {
-    return {provider};
+    return { provider };
   }
 };
-export default connect(
-  mapStateToProps,
-  null
-)(ProviderPage);
+export default connect(mapStateToProps, null)(ProviderPage);
