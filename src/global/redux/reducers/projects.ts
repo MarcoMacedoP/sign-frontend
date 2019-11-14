@@ -1,17 +1,9 @@
-import {
-  ADD_PROJECT,
-  ADD_ACTIVITE,
-  ADD_COMMENT,
-  CHANGE_ACTIVITY_TYPE,
-  FETCH_PROJECTS,
-  UPDATE_PROJECT,
-  REMOVE_PROJECT,
-  ADD_CLIENT_TO_PROJECT,
-  REMOVE_CLIENT_OF_PROJECT
-} from "../types/actionTypes";
-// import {DONED, PENDING, IN_PROGRESS} from "../types/activitieTypes";
+import * as actionTypes from "../types/actionTypes";
+//types
+import { ProjectsReducerState } from "./types/projects.interface";
+import { AsyncAction, Payload, AsyncActionStatus } from "./types/AsyncActions";
 
-const initialState = {
+const initialState: ProjectsReducerState = {
   status: {
     isLoadingProjects: false,
     errorLoadingProjects: false,
@@ -20,6 +12,10 @@ const initialState = {
     errorOnAddingActivitie: null,
     errorOnChangingActivitieStatus: null,
     isLoadingAddProject: false,
+    getProject: {
+      projectId: null,
+      status: null
+    },
     errorOnAddProject: null,
     isLoadingRemoveProject: false,
     errorOnRemoveProject: null,
@@ -39,61 +35,37 @@ const initialState = {
           _id: "",
           name: "",
           status: "",
-          comments: [
-            {_id: null, userId: null, date: null, content: ""}
-          ]
+          comments: [{ _id: null, userId: null, date: null, content: "" }]
         }
       ]
     }
   ]
 };
 
-function projectReducer(state = initialState, action) {
-  const {payload, type} = action;
+function projectReducer(state = initialState, action: AsyncAction) {
+  const { payload, type } = action;
 
   switch (type) {
     //CRUD PROJECTS
-    case FETCH_PROJECTS:
+    case actionTypes.FETCH_PROJECTS:
       return fetchProjectsReducer(action.payload, state);
-    case ADD_PROJECT:
+    case actionTypes.ADD_PROJECT:
       return reduceStateFromAddedProject(action.payload, state);
-    case UPDATE_PROJECT:
+    case actionTypes.UPDATE_PROJECT:
       return reduceStateFromUpdatedProject(action.payload, state);
-    case REMOVE_PROJECT:
+    case actionTypes.REMOVE_PROJECT:
       return reduceStateFromRemovedProject(action.payload, state);
     // END CRUD PROJECTS
 
-    case ADD_ACTIVITE:
+    case actionTypes.ADD_ACTIVITE:
       return addActiviteReducer(payload, state);
-
-    case ADD_COMMENT: {
-      const updatedActivitie = {
-        ...payload.activitie,
-        comments: [...payload.activitie.comments, payload.comment]
-      };
-      const activitieId = payload.activitie.id;
-
-      return state.map(project => ({
-        ...project,
-        //map activite and update activitie where id equals payload activitie
-        activities: project.activities.map(iterableActivitie =>
-          iterableActivitie.id === activitieId
-            ? updatedActivitie
-            : iterableActivitie
-        )
-      }));
-    }
-
     //Change the activitie.type depending on wich section it's dropped
-    case CHANGE_ACTIVITY_TYPE:
+    case actionTypes.CHANGE_ACTIVITY_TYPE:
       return changeActivitieStatusReducer(payload, state);
-
-    //******addons******************
-
     //Clients into proejcts reducer
-    case ADD_CLIENT_TO_PROJECT:
+    case actionTypes.ADD_CLIENT_TO_PROJECT:
       return reduceStateFromAddedClient(payload, state);
-    case REMOVE_CLIENT_OF_PROJECT:
+    case actionTypes.REMOVE_CLIENT_OF_PROJECT:
       return reduceStateFromRemovedClient(payload, state);
     default:
       return state;
@@ -105,9 +77,10 @@ function projectReducer(state = initialState, action) {
  * @param {*} payload the action payload
  * @param {*} state the reducer state
  */
-function reduceStateFromRemovedProject({status, response}, state) {
+function reduceStateFromRemovedProject(payload: Payload, state) {
+  const { response, status } = payload;
   switch (status) {
-    case "loading": {
+    case AsyncActionStatus.loading: {
       const projectsWithoutRemoved = state.list.filter(
         project => project._id !== response.projectId
       );
@@ -121,7 +94,7 @@ function reduceStateFromRemovedProject({status, response}, state) {
       };
     }
 
-    case "error":
+    case AsyncActionStatus.error:
       return {
         ...state,
         status: {
@@ -130,7 +103,7 @@ function reduceStateFromRemovedProject({status, response}, state) {
           errorOnRemoveProject: response
         }
       };
-    case "success": {
+    case AsyncActionStatus.success: {
       //state is already updated in "loading" for UX proposals,
       //there is no need to updated here.
       return state;
@@ -146,9 +119,10 @@ function reduceStateFromRemovedProject({status, response}, state) {
  * @param {*} payload the action payload
  * @param {*} state the reducer state
  */
-function reduceStateFromUpdatedProject({status, response}, state) {
+function reduceStateFromUpdatedProject(payload: Payload, state) {
+  const { response, status } = payload;
   switch (status) {
-    case "loading":
+    case AsyncActionStatus.loading:
       return {
         ...state,
         status: {
@@ -158,7 +132,7 @@ function reduceStateFromUpdatedProject({status, response}, state) {
         }
       };
 
-    case "error":
+    case AsyncActionStatus.error:
       return {
         ...state,
         status: {
@@ -167,7 +141,7 @@ function reduceStateFromUpdatedProject({status, response}, state) {
           errorOnUpdateProject: response
         }
       };
-    case "success": {
+    case AsyncActionStatus.success: {
       const updatedProjects = state.list.map(project =>
         project._id === response._id ? response : project
       );
@@ -192,9 +166,10 @@ function reduceStateFromUpdatedProject({status, response}, state) {
  * @param {*} payload the action payload 
  * @param {*} state the reducer state
  */
-function reduceStateFromAddedProject({status, response}, state) {
+function reduceStateFromAddedProject(payload: Payload, state) {
+  const { response, status } = payload;
   switch (status) {
-    case "loading":
+    case AsyncActionStatus.loading:
       return {
         ...state,
         status: {
@@ -203,7 +178,7 @@ function reduceStateFromAddedProject({status, response}, state) {
           errorOnAddProject: null
         }
       };
-    case "error":
+    case AsyncActionStatus.error:
       return {
         ...state,
         status: {
@@ -212,7 +187,7 @@ function reduceStateFromAddedProject({status, response}, state) {
           errorOnAddProject: response
         }
       };
-    case "success":
+    case AsyncActionStatus.success:
       return {
         list: [response, ...state.list],
         status: {
@@ -234,31 +209,31 @@ function reduceStateFromAddedProject({status, response}, state) {
  * @param {*} payload the action payload 
  * @param {*} state the reducer state
  */
-function changeActivitieStatusReducer({status, response}, state) {
+function changeActivitieStatusReducer(payload: Payload, state) {
+  const { response, status } = payload;
   switch (status) {
-    case "loading": {
+    case AsyncActionStatus.loading: {
       const filteredProjects = state.list.filter(
         project => project._id !== response.projectId
       );
       const [actualProject] = state.list.filter(
         project => project._id === response.projectId
       );
-      const updatedActivities = actualProject.activities.map(
-        activitie =>
-          activitie._id === response.activitieId
-            ? {...activitie, status: response.newStatus}
-            : activitie
+      const updatedActivities = actualProject.activities.map(activitie =>
+        activitie._id === response.activitieId
+          ? { ...activitie, status: response.newStatus }
+          : activitie
       );
       return {
         ...state,
         list: [
-          {...actualProject, activities: updatedActivities},
+          { ...actualProject, activities: updatedActivities },
           ...filteredProjects
         ]
       };
     }
 
-    case "error":
+    case AsyncActionStatus.error:
       return {
         ...state,
         status: {
@@ -266,7 +241,7 @@ function changeActivitieStatusReducer({status, response}, state) {
           errorOnChangingActivitieStatus: response
         }
       };
-    case "success": {
+    case AsyncActionStatus.success: {
       //state is already updated in "loading" for UX proposals,
       //there is no need to updated here.
       return state;
@@ -283,9 +258,10 @@ function changeActivitieStatusReducer({status, response}, state) {
  * @param {*} payload the action payload 
  * @param {*} state the reducer state
  */
-function addActiviteReducer({status, response}, state) {
+function addActiviteReducer(payload: Payload, state) {
+  const { response, status } = payload;
   switch (status) {
-    case "success": {
+    case AsyncActionStatus.success: {
       const filteredProjects = state.list.filter(
         project => project._id !== response._id
       );
@@ -299,7 +275,7 @@ function addActiviteReducer({status, response}, state) {
       };
     }
 
-    case "loading":
+    case AsyncActionStatus.loading:
       return {
         ...state,
         status: {
@@ -309,7 +285,7 @@ function addActiviteReducer({status, response}, state) {
         }
       };
 
-    case "error":
+    case AsyncActionStatus.error:
       return {
         ...state,
         status: {
@@ -327,9 +303,10 @@ function addActiviteReducer({status, response}, state) {
 /**handles all the fetching provider reducer stuff.
  * @returns the state modified
  * */
-function fetchProjectsReducer({status, response}, state) {
+function fetchProjectsReducer(payload: Payload, state) {
+  const { response, status } = payload;
   switch (status) {
-    case "loading":
+    case AsyncActionStatus.loading:
       return {
         ...state,
         status: {
@@ -338,7 +315,7 @@ function fetchProjectsReducer({status, response}, state) {
           isLoadingProjects: true
         }
       };
-    case "error":
+    case AsyncActionStatus.error:
       return {
         ...state,
         status: {
@@ -348,7 +325,7 @@ function fetchProjectsReducer({status, response}, state) {
           isLoadingProjects: false
         }
       };
-    case "success":
+    case AsyncActionStatus.success:
       return {
         list: [...response],
         status: {
@@ -369,9 +346,10 @@ function fetchProjectsReducer({status, response}, state) {
  * @param {Object} payload the action payload
  * @param {Object} state the reducer state
  */
-function reduceStateFromAddedClient({response, status}, state) {
+function reduceStateFromAddedClient(payload: Payload, state) {
+  const { response, status } = payload;
   switch (status) {
-    case "loading":
+    case AsyncActionStatus.loading:
       return {
         ...state,
         status: {
@@ -380,7 +358,7 @@ function reduceStateFromAddedClient({response, status}, state) {
           errorOnAddingClientIntoProject: null
         }
       };
-    case "error":
+    case AsyncActionStatus.error:
       return {
         ...state,
         status: {
@@ -389,7 +367,7 @@ function reduceStateFromAddedClient({response, status}, state) {
           errorOnAddingClientIntoProject: response
         }
       };
-    case "success": {
+    case AsyncActionStatus.success: {
       const reducedProjects = state.list.map(project =>
         project._id === response._id ? response : project
       );
@@ -412,9 +390,10 @@ function reduceStateFromAddedClient({response, status}, state) {
  * @param {Object} payload the action payload
  * @param {Object} state the reducer state
  */
-function reduceStateFromRemovedClient({response, status}, state) {
+function reduceStateFromRemovedClient(payload: Payload, state) {
+  const { response, status } = payload;
   switch (status) {
-    case "loading":
+    case AsyncActionStatus.loading:
       return {
         ...state,
         status: {
@@ -423,7 +402,7 @@ function reduceStateFromRemovedClient({response, status}, state) {
           errorOnAddingClientIntoProject: null
         }
       };
-    case "error":
+    case AsyncActionStatus.error:
       return {
         ...state,
         status: {
@@ -432,7 +411,7 @@ function reduceStateFromRemovedClient({response, status}, state) {
           errorOnAddingClientIntoProject: response
         }
       };
-    case "success": {
+    case AsyncActionStatus.success: {
       const reducedProjects = state.list.map(project =>
         project._id === response._id ? response : project
       );
