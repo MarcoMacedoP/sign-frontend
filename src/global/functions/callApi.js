@@ -5,36 +5,29 @@ const BASE_URL = "http://localhost:8080/api";
  * 						BASE_URL=http://localhost:8080/api
  *@param options the options to be used like method: 'post'
  */
-export function callApi(endpoint, options = {}, isJSON = true) {
-  options = isJSON
-    ? {
-        ...options,
-        credentials: "include",
-        redirect: "follow",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          ...options.headers
-        }
-      }
-    : {
-        ...options,
-        credentials: "include",
-        redirect: "follow",
-        headers: {
-          ...options.headers,
-          Accept: "application/json"
-        }
-      };
-
+export function callApi(endpoint, options = {}) {
   const url = BASE_URL + endpoint;
-  return fetch(url, options)
-    .then(response => response.json())
-    .then(({data, statusCode, message}) => ({
-      data,
-      statusCode,
-      message
-    }));
+  return fetch(url, {
+    ...options,
+    credentials: "include",
+    redirect: "follow",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      ...options.headers
+    }
+  })
+    .then(response => statusCodeIsValid(response.status) && response.json())
+    .then(({ data, statusCode }) => statusCodeIsValid(statusCode) && data);
+}
+export function callApiWithFormData(endpoint, options) {
+  return callApi(endpoint, {
+    ...options,
+    headers: {
+      ...options.headers,
+      Accept: "application/json"
+    }
+  });
 }
 
 /**This function validate the server response,
@@ -54,11 +47,21 @@ export function statusCodeIsValid(statusCode) {
   } else {
     switch (statusCode) {
       case SERVER_CODE_ERROR:
-        throw "Parece que tenemos un problema interno, intentalo más tarde 🙊";
+        throw {
+          message:
+            "Parece que tenemos un problema interno, intentalo más tarde 🙊",
+          statusCode
+        };
       case UNAUTHTORIZED_ERROR:
-        throw "Parece qué tu sesión ha expirado 😅";
+        throw {
+          statusCode,
+          message: "Parece qué tu sesión ha expirado 😅"
+        };
       case BAD_REQUEST:
-        throw "Uno de los campos introducidos no es válido  🤐";
+        throw {
+          statusCode,
+          message: "Uno de los campos introducidos no es válido  🤐"
+        };
       default:
         return true;
     }
