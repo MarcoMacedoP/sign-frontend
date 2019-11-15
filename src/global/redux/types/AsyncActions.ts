@@ -4,11 +4,6 @@ export interface AsyncAction {
 }
 
 export interface Payload {
-  status: AsyncActionStatus;
+  status: "loading" | "error" | "success";
   response: any;
-}
-export enum AsyncActionStatus {
-  loading,
-  error,
-  success
 }
