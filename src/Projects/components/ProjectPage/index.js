@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 //components
 import ActivitieList from "../ActivitieList";
 import AddActivitie from "../AddActivitie";
@@ -12,7 +12,7 @@ import {
   Item,
   ItemList,
   ErrorToast
-} from "../../../global/components/";
+} from "../../../global/components";
 //styled-components
 import { PageContainer } from "../../../global/styles/Containers";
 import { Activities, ActivitiesContainer, ProjectInfo } from "./styles";

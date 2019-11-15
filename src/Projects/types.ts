@@ -18,14 +18,14 @@ export interface ProjectsReducerState {
     isLoadingAddingClientIntoProject: boolean;
     errorOnAddingClientIntoProject: string | null;
   };
-  list: Array<ProjectsList>;
+  list: Array<Project>;
 }
 
 interface GetProject {
   status: fetchStatus;
   projectId: string | null;
 }
-export interface ProjectsList {
+export interface Project {
   _id: string;
   name: string;
   description: string;
