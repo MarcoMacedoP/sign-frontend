@@ -1,6 +1,6 @@
 import React from "react";
-import {SmallEmptyState} from "../SmallEmptyState";
-import {Button} from "../Button";
+import { SmallEmptyState } from "../SmallEmptyState";
+import { Button } from "../Button";
 //styled-components
 import {
   CommentBox,
@@ -11,7 +11,7 @@ import {
   CommentContent,
   CommentDate
 } from "./styles";
-import {Subtitle} from "../../styles/texts";
+import { Subtitle } from "../../styles/texts";
 /**
  * 
  * Shows a list of comments
@@ -41,7 +41,7 @@ export function Comments({
         <Subtitle>Comentarios recientes...</Subtitle>
         <CommentsList ref={commentsList}>
           {comments.map(comment => (
-            <Comment>
+            <Comment key={comment._id}>
               <CommentImage />
               <CommentContent>
                 {comment.content}

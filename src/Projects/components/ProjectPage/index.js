@@ -14,16 +14,16 @@ import {
   ErrorToast
 } from "../../../global/components/";
 //styled-components
-import {PageContainer} from "../../../global/styles/Containers";
-import {Activities, ActivitiesContainer, ProjectInfo} from "./styles";
-import {H3} from "../../../global/styles/texts";
+import { PageContainer } from "../../../global/styles/Containers";
+import { Activities, ActivitiesContainer, ProjectInfo } from "./styles";
+import { H3 } from "../../../global/styles/texts";
 //utils
 import {
   DONED,
   IN_PROGRESS,
   PENDING
 } from "../../../global/redux/types/activitieTypes";
-//component
+
 export const ProjectPage = ({
   error,
   onErrorClose,
@@ -40,13 +40,7 @@ export const ProjectPage = ({
   onRemoveClient,
   optionsMenuForInformationHeader
 }) => {
-  const {
-    name,
-    description,
-    dueDate,
-    activities = {},
-    clients = []
-  } = project;
+  const { name, description, dueDate, activities = {}, clients = [] } = project;
   return (
     <PageContainer>
       <InformationHeader

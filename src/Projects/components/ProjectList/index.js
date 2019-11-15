@@ -1,10 +1,10 @@
 //components
 import React from "react";
-import {List, LongCard} from "../../../global/components";
-import {Redirect} from "react-router-dom";
-import {EmptyProjectsState} from "../EmptyProjectsState";
+import { List, LongCard } from "../../../global/components";
+import { Redirect } from "react-router-dom";
+import { EmptyProjectsState } from "../EmptyProjectsState";
 //redux
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import {
   addProject,
   fetchProjects
@@ -15,10 +15,10 @@ import {
   ADD_PROJECTS_ROUTE
 } from "../../../global/utils/routes";
 //hooks
-import {useEffect, useState} from "react";
-import {useRedirect} from "../../../global/hooks/useRedirect";
+import { useEffect, useState } from "react";
+import { useRedirect } from "../../../global/hooks/useRedirect";
 //styled-components
-import {BigList} from "../../../global/styles/Lists";
+import { BigList } from "../../../global/styles/Lists";
 
 //main
 function ProjectListContainer({
@@ -36,16 +36,13 @@ function ProjectListContainer({
   }, [shouldFetchProjects]);
   //handling errors
   const [error, setError] = useState(null);
-  useEffect(() => setError(errorLoadingProjects), [
-    errorLoadingProjects
-  ]);
+  useEffect(() => setError(errorLoadingProjects), [errorLoadingProjects]);
   const setErrorToNull = () => setError(null);
 
   //onClick handlers
-  const {isRedirect, route, toggleRedirect} = useRedirect();
+  const { isRedirect, route, toggleRedirect } = useRedirect();
   const handleAddClick = () => toggleRedirect(ADD_PROJECTS_ROUTE);
-  const handleProjectClick = id =>
-    toggleRedirect(`${PROJECTS_ROUTE}${id}`);
+  const handleProjectClick = id => toggleRedirect(`${PROJECTS_ROUTE}${id}`);
 
   return (
     <List
@@ -57,9 +54,9 @@ function ProjectListContainer({
     >
       {projectList.length !== 0 ? (
         <BigList>
-          {projectList.map(({_id, description, name}) => (
+          {projectList.map(({ _id, description, name }) => (
             <LongCard
-              ket={_id}
+              key={_id}
               onClick={() => handleProjectClick(_id)}
               date={description}
               title={name}
@@ -74,14 +71,13 @@ function ProjectListContainer({
   );
 }
 
-const mapStateToProps = ({projects}) => ({
+const mapStateToProps = ({ projects }) => ({
   isLoadingProjects: projects.status.isLoadingProjects,
   shouldFetchProjects: projects.status.shouldFetchProjects,
   errorLoadingProjects: projects.status.errorLoadingProjects,
   projectList: projects.list
 });
 
-export default connect(
-  mapStateToProps,
-  {addProject, fetchProjects}
-)(ProjectListContainer);
+export default connect(mapStateToProps, { addProject, fetchProjects })(
+  ProjectListContainer
+);

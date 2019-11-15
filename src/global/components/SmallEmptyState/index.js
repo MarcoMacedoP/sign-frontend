@@ -33,7 +33,9 @@ export const SmallEmptyState = ({
     </Picture>
 
     {Array.isArray(message) ? (
-      message.map(paragraph => <Message>{paragraph}</Message>)
+      message.map((paragraph, index) => (
+        <Message key={index}>{paragraph}</Message>
+      ))
     ) : (
       <Message> {message} </Message>
     )}

@@ -1,20 +1,16 @@
 import React from "react";
 //components
-import {ClientFormBase} from "../ClientFormBase";
+import { ClientFormBase } from "../ClientFormBase";
 //hooks
-import {useEffect, useState} from "react";
-import {useHandleState} from "../../../global/hooks";
+import { useEffect, useState } from "react";
+import { useHandleState } from "../../../global/hooks";
 //redux
-import {connect} from "react-redux";
-import {fetchAddClient} from "../../../global/redux/actions/clients";
+import { connect } from "react-redux";
+import { fetchAddClient } from "../../../global/redux/actions/clients";
 //utils
 
-export function AddClient({
-  fetchAddClient,
-  isLoading,
-  errorOnAddClient
-}) {
-  const {state, addFormValueToState} = useHandleState({
+export function AddClient({ fetchAddClient, isLoading, errorOnAddClient }) {
+  const { state, addFormValueToState } = useHandleState({
     name: "",
     lastname: "",
     email: "",
@@ -35,7 +31,6 @@ export function AddClient({
       isLoading={isLoading}
       title="Agregar cliente"
       onSubmit={handleSubmit}
-      formValues={state}
       onInputChange={addFormValueToState}
       error={error}
       setError={setError}
@@ -47,7 +42,4 @@ const mapStateToProps = state => ({
   isLoading: state.clients.status.loadingAddCient,
   errorOnAddClient: state.clients.status.errorOnAddClient
 });
-export default connect(
-  mapStateToProps,
-  {fetchAddClient}
-)(AddClient);
+export default connect(mapStateToProps, { fetchAddClient })(AddClient);

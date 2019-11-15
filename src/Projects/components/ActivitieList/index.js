@@ -1,13 +1,13 @@
 import React from "react";
 //components
-import {SmallEmptyState} from "../../../global/components/";
-import {Activitie} from "../Activitie";
+import { SmallEmptyState } from "../../../global/components/";
+import { Activitie } from "../Activitie";
 //redux
-import {connect} from "react-redux";
-import {fetchChangeActivitieStatus} from "../../../global/redux/actions/projects";
+import { connect } from "react-redux";
+import { fetchChangeActivitieStatus } from "../../../global/redux/actions/projects";
 //styled-components
-import {ContainerCard} from "./styles";
-import {H3} from "../../../global/styles/texts";
+import { ContainerCard } from "./styles";
+import { H3 } from "../../../global/styles/texts";
 
 function ActivitieList({
   activities = [],
@@ -20,24 +20,18 @@ function ActivitieList({
   const handleOnDrop = event => {
     event.preventDefault();
     const activitie = JSON.parse(event.dataTransfer.getData("text"));
-    fetchChangeActivitieStatus(
-      activitieType,
-      projectId,
-      activitie._id
-    );
+    fetchChangeActivitieStatus(activitieType, projectId, activitie._id);
   };
   const handleDrag = (event, activitie) => {
     event.dataTransfer.setData("text", JSON.stringify(activitie));
   };
   return (
-    <ContainerCard
-      onDragOver={handleOnDragOver}
-      onDrop={handleOnDrop}
-    >
+    <ContainerCard onDragOver={handleOnDragOver} onDrop={handleOnDrop}>
       <H3>{title}</H3>
       {activities.length !== 0 ? (
         activities.map(activitie => (
           <Activitie
+            key={activitie._id}
             activitie={activitie}
             onDragStart={event => handleDrag(event, activitie)}
           />
@@ -48,7 +42,7 @@ function ActivitieList({
     </ContainerCard>
   );
 }
-const EmptyActivities = ({title}) => (
+const EmptyActivities = ({ title }) => (
   <SmallEmptyState
     showTitle={false}
     message={`Parece que aún no hay actividades ${title}.`}
@@ -56,7 +50,4 @@ const EmptyActivities = ({title}) => (
   ></SmallEmptyState>
 );
 
-export default connect(
-  null,
-  {fetchChangeActivitieStatus}
-)(ActivitieList);
+export default connect(null, { fetchChangeActivitieStatus })(ActivitieList);

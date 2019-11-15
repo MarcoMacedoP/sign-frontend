@@ -1,6 +1,6 @@
 import React from "react";
 //redux
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 //styled-components
 import {
   Title,
@@ -8,17 +8,18 @@ import {
   StyledNotification,
   NotificationInfo
 } from "./styles";
-import {Caption, Subtitle} from "../../../global/styles/texts";
+import { Caption, Subtitle } from "../../../global/styles/texts";
 //components
-import {SmallEmptyState, Icon} from "../../../global/components";
+import { SmallEmptyState, Icon } from "../../../global/components";
 
-function Notifications({isShowed, notificationList = [], onClose}) {
+function Notifications({ isShowed, notificationList = [], onClose }) {
   return (
     <StyledNotifications isShowed={isShowed} onClose={onClose}>
       <Title>Notificaciones</Title>
       {notificationList.length > 0 ? (
         notificationList.map(notification => (
           <Notification
+            key={notification._id}
             title={notification.title}
             about={notification.about}
           />
@@ -29,7 +30,7 @@ function Notifications({isShowed, notificationList = [], onClose}) {
     </StyledNotifications>
   );
 }
-const Notification = ({title, about}) => (
+const Notification = ({ title, about }) => (
   <StyledNotification isReaded={false}>
     <Icon icon="notifications" />
 
@@ -40,11 +41,8 @@ const Notification = ({title, about}) => (
   </StyledNotification>
 );
 
-const mapStateToProps = ({user}) => ({
+const mapStateToProps = ({ user }) => ({
   notificationList: user.notifications || []
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(Notifications);
+export default connect(mapStateToProps, null)(Notifications);
