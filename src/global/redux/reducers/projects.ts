@@ -4,24 +4,30 @@ import { ProjectsReducerState } from "../../../Projects/types";
 import { AsyncAction, Payload } from "../types/AsyncActions";
 const initialState: ProjectsReducerState = {
   status: {
-    isLoadingProjects: false,
-    errorLoadingProjects: null,
-    shouldFetchProjects: true,
-    isLoadingAddActivitie: false,
-    errorOnAddingActivitie: null,
-    errorOnChangingActivitieStatus: null,
-    isLoadingAddProject: false,
-    getProject: {
-      projectId: null,
-      status: "unitialized"
+    getProjects: {
+      shouldFetchProjects: true,
+      status: null
     },
-    errorOnAddProject: null,
-    isLoadingRemoveProject: false,
-    errorOnRemoveProject: null,
-    isLoadingUpdateProject: false,
-    errorOnUpdateProject: null,
-    isLoadingAddingClientIntoProject: false,
-    errorOnAddingClientIntoProject: null
+    projectActions: {
+      type: null,
+      projectId: null,
+      status: null
+    },
+    activitiesProject: {
+      activitieId: "",
+      type: null,
+      status: null
+    },
+    clientsProject: {
+      clientId: "",
+      type: null,
+      status: null
+    },
+    teamsProject: {
+      teamId: "",
+      type: null,
+      status: null
+    }
   },
   list: []
 };
@@ -74,7 +80,8 @@ function reduceStateFromFetchedProject(
         ...state,
         status: {
           ...state.status,
-          getProject: {
+          projectActions: {
+            type: "GET",
             status: "loading",
             projectId: response.projectId
           }
@@ -87,18 +94,23 @@ function reduceStateFromFetchedProject(
         ...state,
         status: {
           ...state.status,
-          getProject: {
+          projectActions: {
+            type: "GET",
             status: "error",
-            projectId: response.projectId
+            projectId: response.projectId,
+            data: response.error
           }
         }
       };
     case "success": {
       return {
-        ...state,
+        list: state.list.map(project =>
+          project._id === response._id ? response : project
+        ),
         status: {
           ...state.status,
-          getProject: {
+          projectActions: {
+            type: "GET",
             status: "success",
             projectId: response.projectId
           }
@@ -122,32 +134,35 @@ function reduceStateFromRemovedProject(
 ): ProjectsReducerState {
   const { response, status } = payload;
   switch (status) {
-    case "loading": {
-      const projectsWithoutRemoved = state.list.filter(
-        project => project._id !== response.projectId
-      );
+    case "loading":
       return {
-        list: projectsWithoutRemoved,
+        list: state.list.filter(project => project._id !== response.projectId),
         status: {
           ...state.status,
-          isLoadingRemoveProject: true,
-          errorOnRemoveProject: null
+          projectActions: {
+            type: "REMOVE",
+            status: "loading",
+            projectId: response.projectId
+          }
         }
       };
-    }
 
     case "error":
       return {
         ...state,
         status: {
           ...state.status,
-          isLoadingRemoveProject: false,
-          errorOnRemoveProject: response
+          projectActions: {
+            type: "REMOVE",
+            status: "error",
+            projectId: response.projectId,
+            data: response.error
+          }
         }
       };
     case "success": {
       //state is already updated in "loading" for UX proposals,
-      //there is no need to updated here.
+      //there is no need to updated state here.
       return state;
     }
 
@@ -172,8 +187,11 @@ function reduceStateFromUpdatedProject(
         ...state,
         status: {
           ...state.status,
-          isLoadingUpdateProject: true,
-          errorOnUpdateProject: null
+          projectActions: {
+            type: "UPDATE",
+            status: "loading",
+            projectId: response.projectId
+          }
         }
       };
 
@@ -182,23 +200,28 @@ function reduceStateFromUpdatedProject(
         ...state,
         status: {
           ...state.status,
-          isLoadingUpdateProject: false,
-          errorOnUpdateProject: response
+          projectActions: {
+            type: "UPDATE",
+            status: "error",
+            projectId: response.projectId,
+            data: response.error
+          }
         }
       };
-    case "success": {
-      const updatedProjects = state.list.map(project =>
-        project._id === response._id ? response : project
-      );
+    case "success":
       return {
-        list: updatedProjects,
+        list: state.list.map(project =>
+          project._id === response._id ? response : project
+        ),
         status: {
           ...state.status,
-          isLoadingUpdateProject: false,
-          errorOnUpdateProject: null
+          projectActions: {
+            type: "UPDATE",
+            status: "success",
+            projectId: response.projectId
+          }
         }
       };
-    }
 
     default:
       return state;
@@ -222,8 +245,11 @@ function reduceStateFromAddedProject(
         ...state,
         status: {
           ...state.status,
-          isLoadingAddProject: true,
-          errorOnAddProject: null
+          projectActions: {
+            type: "ADD",
+            status,
+            projectId: response.projectId
+          }
         }
       };
     case "error":
@@ -231,8 +257,12 @@ function reduceStateFromAddedProject(
         ...state,
         status: {
           ...state.status,
-          isLoadingAddProject: false,
-          errorOnAddProject: response
+          projectActions: {
+            type: "ADD",
+            status,
+            projectId: response.projectId,
+            data: response.error
+          }
         }
       };
     case "success":
@@ -240,8 +270,11 @@ function reduceStateFromAddedProject(
         list: [response, ...state.list],
         status: {
           ...state.status,
-          isLoadingAddProject: false,
-          errorOnAddProject: null
+          projectActions: {
+            type: "ADD",
+            status,
+            projectId: response.projectId
+          }
         }
       };
 
@@ -289,7 +322,12 @@ function changeActivitieStatusReducer(
         ...state,
         status: {
           ...state.status,
-          errorOnChangingActivitieStatus: response
+          activitiesProject: {
+            type: "CHANGE_STATUS",
+            activitieId: response.activitieId,
+            projectId: response.projectId,
+            status
+          }
         }
       };
     case "success": {
@@ -323,8 +361,13 @@ function addActiviteReducer(
         list: [response, ...filteredProjects],
         status: {
           ...state.status,
-          isLoadingAddActivitie: false,
-          errorOnAddingActivitie: null
+
+          activitiesProject: {
+            type: "ADD",
+            activitieId: response.activitieId,
+            projectId: response.projectId,
+            status
+          }
         }
       };
     }
@@ -334,8 +377,12 @@ function addActiviteReducer(
         ...state,
         status: {
           ...state.status,
-          isLoadingAddActivitie: true,
-          errorOnAddingActivitie: null
+          activitiesProject: {
+            type: "ADD",
+            activitieId: response.activitieId,
+            projectId: response.projectId,
+            status
+          }
         }
       };
 
@@ -344,8 +391,13 @@ function addActiviteReducer(
         ...state,
         status: {
           ...state.status,
-          isLoadingAddActivitie: false,
-          errorOnAddingActivitie: response
+          activitiesProject: {
+            type: "ADD",
+            activitieId: response.activitieId,
+            projectId: response.projectId,
+            status,
+            data: response.error
+          }
         }
       };
 
@@ -362,38 +414,29 @@ function fetchProjectsReducer(
   state: ProjectsReducerState
 ): ProjectsReducerState {
   const { response, status } = payload;
-  switch (status) {
-    case "loading":
-      return {
-        ...state,
-        status: {
-          ...state.status,
-          errorLoadingProjects: null,
-          isLoadingProjects: true
-        }
-      };
-    case "error":
-      return {
-        ...state,
-        status: {
-          ...state.status,
+  if (status === "success") {
+    return {
+      list: [...response],
+      status: {
+        ...state.status,
+        getProjects: {
           shouldFetchProjects: false,
-          errorLoadingProjects: response,
-          isLoadingProjects: false
+          status
         }
-      };
-    case "success":
-      return {
-        list: [...response],
-        status: {
-          ...state.status,
+      }
+    };
+  } else {
+    return {
+      list: [...response],
+      status: {
+        ...state.status,
+        getProjects: {
           shouldFetchProjects: false,
-          errorLoadingProjects: null,
-          isLoadingProjects: false
+          status,
+          data: response.error && response.error
         }
-      };
-    default:
-      return state;
+      }
+    };
   }
 }
 /*******All project addons are here*********/
@@ -408,41 +451,33 @@ function reduceStateFromAddedClient(
   state: ProjectsReducerState
 ): ProjectsReducerState {
   const { response, status } = payload;
-  switch (status) {
-    case "loading":
-      return {
-        ...state,
-        status: {
-          ...state.status,
-          isLoadingAddingClientIntoProject: true,
-          errorOnAddingClientIntoProject: null
-        }
-      };
-    case "error":
-      return {
-        ...state,
-        status: {
-          ...state.status,
-          isLoadingAddingClientIntoProject: false,
-          errorOnAddingClientIntoProject: response
-        }
-      };
-    case "success": {
-      const reducedProjects = state.list.map(project =>
+  if (status === "success") {
+    return {
+      list: state.list.map(project =>
         project._id === response._id ? response : project
-      );
-      return {
-        list: reducedProjects,
-        status: {
-          ...state.status,
-          isLoadingAddingClientIntoProject: false,
-          errorOnAddingClientIntoProject: null
+      ),
+      status: {
+        ...state.status,
+        clientsProject: {
+          clientId: response._id,
+          status,
+          type: "ADD"
         }
-      };
-    }
-
-    default:
-      return state;
+      }
+    };
+  } else {
+    return {
+      ...state,
+      status: {
+        ...state.status,
+        clientsProject: {
+          status,
+          type: "ADD",
+          clientId: response.clientId,
+          data: response.error && response.error
+        }
+      }
+    };
   }
 }
 /**handles all the fetching of removing clients of projects stuff.
@@ -455,41 +490,33 @@ function reduceStateFromRemovedClient(
   state: ProjectsReducerState
 ): ProjectsReducerState {
   const { response, status } = payload;
-  switch (status) {
-    case "loading":
-      return {
-        ...state,
-        status: {
-          ...state.status,
-          isLoadingAddingClientIntoProject: true,
-          errorOnAddingClientIntoProject: null
-        }
-      };
-    case "error":
-      return {
-        ...state,
-        status: {
-          ...state.status,
-          isLoadingAddingClientIntoProject: false,
-          errorOnAddingClientIntoProject: response
-        }
-      };
-    case "success": {
-      const reducedProjects = state.list.map(project =>
+  if (status === "success") {
+    return {
+      list: state.list.map(project =>
         project._id === response._id ? response : project
-      );
-      return {
-        list: reducedProjects,
-        status: {
-          ...state.status,
-          isLoadingAddingClientIntoProject: false,
-          errorOnAddingClientIntoProject: null
+      ),
+      status: {
+        ...state.status,
+        clientsProject: {
+          type: "REMOVE",
+          status,
+          clientId: response._id
         }
-      };
-    }
-
-    default:
-      return state;
+      }
+    };
+  } else {
+    return {
+      ...state,
+      status: {
+        ...state.status,
+        clientsProject: {
+          type: "REMOVE",
+          status,
+          clientId: response.clientId,
+          data: response.error && response.error
+        }
+      }
+    };
   }
 }
 export default projectReducer;
