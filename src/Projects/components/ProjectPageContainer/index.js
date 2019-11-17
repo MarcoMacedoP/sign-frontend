@@ -1,11 +1,7 @@
 import * as React from "react";
 //redux
 import { connect } from "react-redux";
-import {
-  fetchRemoveProject,
-  fetchRemoveClientOfProject,
-  fetchAddClientToProject
-} from "../../../global/redux/actions/projects";
+import * as projectsActions from "../../../global/redux/actions/projects";
 //components
 import { ProjectPage } from "../ProjectPage";
 import { Redirect } from "react-router-dom";
@@ -14,7 +10,15 @@ import { useModalState, useRedirect, useError } from "../../../global/hooks";
 //utils
 import { PROJECTS_ROUTE } from "../../../global/utils/routes";
 
-function ProjectPageContainer(props) {
+function ProjectPageContainer({
+  fetchRemoveProject,
+  fetchRemoveClientOfProject,
+  fetchAddClientToProject,
+  project,
+  errorOnAddingClientIntoProject,
+  isLoadingAddingClientIntoProject,
+  fetchProject
+}) {
   //modals
   const [addActivitieIsOpen, toggleAddActivite] = useModalState();
   const [deleteProjectIsOpen, toggleDeleteModal] = useModalState();
@@ -27,20 +31,31 @@ function ProjectPageContainer(props) {
     redirectToLastLocation
   } = useRedirect();
   const redirectToEditProject = () =>
-    toggleRedirect(`${PROJECTS_ROUTE}edit/${props.project._id}`);
+    toggleRedirect(`${PROJECTS_ROUTE}edit/${project._id}`);
   //handlers
   const handleRemove = () => {
-    fetchRemoveProject(props.project._id);
+    fetchRemoveProject(project._id);
     toggleDeleteModal();
     redirectToLastLocation();
   };
   const handleAddClient = clientId =>
-    fetchAddClientToProject({ projectId: props.project._id, clientId });
+    fetchAddClientToProject({ projectId: project._id, clientId });
   const handleRemoveClient = clientId =>
-    fetchRemoveClientOfProject({ projectId: props.project._id, clientId });
+    fetchRemoveClientOfProject({ projectId: project._id, clientId });
+  //handle fetch project
+  const [shouldFetchProject, setShouldFetchProject] = React.useState(true);
+  const handleFetchProject = () => {
+    setShouldFetchProject(false);
+    fetchProject(project._id);
+  };
+  React.useEffect(() => {
+    if (shouldFetchProject) {
+      handleFetchProject();
+    }
+  }, [shouldFetchProject, handleFetchProject]);
   //errors
   const { error, setErrorToNull } = useError({
-    updateErrorOnChange: props.errorOnAddingClientIntoProject
+    updateErrorOnChange: errorOnAddingClientIntoProject
   });
   const optionsMenuForInformationHeader = [
     {
@@ -57,7 +72,7 @@ function ProjectPageContainer(props) {
       <ProjectPage
         error={error}
         onErrorClose={setErrorToNull}
-        project={props.project}
+        project={project}
         addClientIsOpen={addClientIsOpen}
         toggleAddClient={toggleAddClient}
         addActivitieIsOpen={addActivitieIsOpen}
@@ -67,7 +82,7 @@ function ProjectPageContainer(props) {
         onRemoveProject={handleRemove}
         onAddClient={handleAddClient}
         onRemoveClient={handleRemoveClient}
-        isLoadingAddingClient={props.isLoadingAddingClientIntoProject}
+        isLoadingAddingClient={isLoadingAddingClientIntoProject}
         optionsMenuForInformationHeader={optionsMenuForInformationHeader}
       />
     </>
@@ -109,7 +124,8 @@ function mapStateToProps({ projects }, props) {
   }
 }
 export default connect(mapStateToProps, {
-  fetchRemoveProject,
-  fetchAddClientToProject,
-  fetchRemoveClientOfProject
+  fetchRemoveProject: projectsActions.fetchRemoveProject,
+  fetchAddClientToProject: projectsActions.fetchAddClientToProject,
+  fetchRemoveClientOfProject: projectsActions.fetchRemoveClientOfProject,
+  fetchProject: projectsActions.fetchProject
 })(ProjectPageContainer);

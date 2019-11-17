@@ -1,8 +1,18 @@
-import React from "react";
+import * as React from "react";
 
-import {Btn} from "./styles";
-import {CircularProgress} from "@material-ui/core";
-export const Button = ({
+import { Btn } from "./styles";
+import { CircularProgress } from "@material-ui/core";
+
+interface ButtonProps {
+  variant?: string;
+  onClick?: Function;
+  width?: string;
+  loading?: boolean;
+  className?: string;
+  height?: "boolean";
+  size?: string;
+}
+export const Button: React.FC<ButtonProps> = ({
   variant = "contained",
   children,
   onClick,

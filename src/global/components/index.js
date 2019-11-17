@@ -1,36 +1,36 @@
-export {AddButton} from "./AddButton";
-export {SearchBar} from "./SearchBar";
-export {Input} from "./Input";
-export {Button} from "./Button";
-export {SecondaryButton} from "./SecondaryButton";
-export {Icon} from "./Icon";
-export {UploadImage} from "./UploadImage";
+export { AddButton } from "./AddButton/index";
+export { SearchBar } from "./SearchBar/index";
+export { Input } from "./Input/index";
+export { Button } from "./Button/index";
+export { SecondaryButton } from "./SecondaryButton/index";
+export { Icon } from "./Icon/index";
+export { UploadImage } from "./UploadImage/index";
 //Cards
-export {LongCard} from "./LongCard";
-export {PictureCard} from "./PictureCard";
-export {SelectionCard} from "./SelectionCard";
+export { LongCard } from "./LongCard/index";
+export { PictureCard } from "./PictureCard/index";
+export { SelectionCard } from "./SelectionCard/index";
 
 //Modals
-export {Modal} from "./Modal";
-export {RemoveModal} from "./RemoveModal";
+export { Modal } from "./Modal/index";
+export { RemoveModal } from "./RemoveModal/index";
 //list
-export {List} from "./List";
-export {AsideList, AsideListItem} from "./AsideList";
-export {Item, ItemList} from "./ItemList";
+export { List } from "./List/index";
+export { AsideList, AsideListItem } from "./AsideList/index";
+export { Item, ItemList } from "./ItemList/index";
 //Routes Component
-export {PrivateRoute} from "./PrivateRoute";
-export {PublicRoute} from "./PublicRoute";
+export { PrivateRoute } from "./PrivateRoute/index";
+export { PublicRoute } from "./PublicRoute/index";
 //info
-export {Comments} from "./Comments";
-export {ToastMenu} from "./ToastMenu";
-export {Loading} from "./Loading";
-export {ErrorMessage} from "./ErrorMessage";
-export {ErrorToast} from "./ErrorToast";
+export { Comments } from "./Comments/index";
+export { ToastMenu } from "./ToastMenu/index";
+export { Loading } from "./Loading/index";
+export { ErrorMessage } from "./ErrorMessage/index";
+export { ErrorToast } from "./ErrorToast/index";
 
-export {InfoMessage} from "./InfoMessage";
-export {InformationHeader} from "./InformationHeader";
-export {InfoLayout} from "./InfoLayout";
-export {SmallEmptyState} from "./SmallEmptyState";
+export { InfoMessage } from "./InfoMessage/index";
+export { InformationHeader } from "./InformationHeader/index";
+export { InfoLayout } from "./InfoLayout/index";
+export { SmallEmptyState } from "./SmallEmptyState/index";
 //Pages
-export {EditPage} from "./EditPage";
-export {AddPage} from "./AddPage";
+export { EditPage } from "./EditPage/index";
+export { AddPage } from "./AddPage/index";

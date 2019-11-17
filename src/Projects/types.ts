@@ -1,30 +1,47 @@
 import { fetchStatus } from "../global/types/global.types";
 
-export interface ProjectsReducerState {
-  status: {
-    isLoadingProjects: boolean;
-    errorLoadingProjects: string | null;
-    shouldFetchProjects: boolean;
-    isLoadingAddActivitie: boolean;
-    errorOnAddingActivitie: string | null;
-    errorOnChangingActivitieStatus: string | null;
-    getProject: GetProject;
-    isLoadingAddProject: boolean;
-    errorOnAddProject: string | null;
-    isLoadingRemoveProject: boolean;
-    errorOnRemoveProject: string | null;
-    isLoadingUpdateProject: boolean;
-    errorOnUpdateProject: string | null;
-    isLoadingAddingClientIntoProject: boolean;
-    errorOnAddingClientIntoProject: string | null;
-  };
+export interface ProjectsState {
+  status: ProjectsStateStatus;
   list: Array<Project>;
 }
-
-interface GetProject {
-  status: fetchStatus;
-  projectId: string | null;
+export interface ProjectsStateStatus {
+  getProjects: GetProjectsStatus;
+  projectActions: ProjectActions;
+  activitiesProject: ActivitieProjectActions;
+  clientsProject: ClientProjectActions;
+  teamsProject: TeamsProjectActions;
 }
+
+type actionType = "ADD" | "REMOVE" | null;
+
+interface ProjectActions {
+  status: fetchStatus;
+  type: actionType | "UPDATE" | "GET";
+  projectId?: string | null;
+  data?: string | null;
+}
+
+export interface GetProjectsStatus {
+  status: fetchStatus;
+  data?: any;
+  shouldFetchProjects: boolean;
+}
+interface ActivitieProjectActions {
+  type: actionType | "CHANGE_STATUS" | "UPDATE";
+  projectId?: string;
+  data?: any;
+  status: fetchStatus;
+  activitieId?: string;
+}
+interface ClientProjectActions extends ProjectActions {
+  type: actionType;
+  clientId: string;
+}
+interface TeamsProjectActions extends ProjectActions {
+  type: actionType;
+  teamId: string;
+}
+
 export interface Project {
   _id: string;
   name: string;

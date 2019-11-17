@@ -1,12 +1,13 @@
 import * as actionTypes from "../types/actionTypes";
 //types
-import { ProjectsReducerState } from "../../../Projects/types";
+import { ProjectsState } from "../../../Projects/types";
 import { AsyncAction, Payload } from "../types/AsyncActions";
-const initialState: ProjectsReducerState = {
+const initialState: ProjectsState = {
   status: {
     getProjects: {
       shouldFetchProjects: true,
-      status: null
+      status: null,
+      data: ""
     },
     projectActions: {
       type: null,
@@ -71,8 +72,8 @@ function projectReducer(state = initialState, action: AsyncAction) {
  */
 function reduceStateFromFetchedProject(
   payload: Payload,
-  state: ProjectsReducerState
-): ProjectsReducerState {
+  state: ProjectsState
+): ProjectsState {
   const { response, status } = payload;
   switch (status) {
     case "loading": {
@@ -130,8 +131,8 @@ function reduceStateFromFetchedProject(
  */
 function reduceStateFromRemovedProject(
   payload: Payload,
-  state: ProjectsReducerState
-): ProjectsReducerState {
+  state: ProjectsState
+): ProjectsState {
   const { response, status } = payload;
   switch (status) {
     case "loading":
@@ -178,8 +179,8 @@ function reduceStateFromRemovedProject(
  */
 function reduceStateFromUpdatedProject(
   payload: Payload,
-  state: ProjectsReducerState
-): ProjectsReducerState {
+  state: ProjectsState
+): ProjectsState {
   const { response, status } = payload;
   switch (status) {
     case "loading":
@@ -236,8 +237,8 @@ function reduceStateFromUpdatedProject(
  */
 function reduceStateFromAddedProject(
   payload: Payload,
-  state: ProjectsReducerState
-): ProjectsReducerState {
+  state: ProjectsState
+): ProjectsState {
   const { response, status } = payload;
   switch (status) {
     case "loading":
@@ -292,8 +293,8 @@ function reduceStateFromAddedProject(
  */
 function changeActivitieStatusReducer(
   payload: Payload,
-  state: ProjectsReducerState
-): ProjectsReducerState {
+  state: ProjectsState
+): ProjectsState {
   const { response, status } = payload;
   switch (status) {
     case "loading": {
@@ -349,8 +350,8 @@ function changeActivitieStatusReducer(
  */
 function addActiviteReducer(
   payload: Payload,
-  state: ProjectsReducerState
-): ProjectsReducerState {
+  state: ProjectsState
+): ProjectsState {
   const { response, status } = payload;
   switch (status) {
     case "success": {
@@ -411,12 +412,12 @@ function addActiviteReducer(
  * */
 function fetchProjectsReducer(
   payload: Payload,
-  state: ProjectsReducerState
-): ProjectsReducerState {
+  state: ProjectsState
+): ProjectsState {
   const { response, status } = payload;
   if (status === "success") {
     return {
-      list: [...response],
+      list: response,
       status: {
         ...state.status,
         getProjects: {
@@ -427,13 +428,13 @@ function fetchProjectsReducer(
     };
   } else {
     return {
-      list: [...response],
+      ...state,
       status: {
         ...state.status,
         getProjects: {
           shouldFetchProjects: false,
           status,
-          data: response.error && response.error
+          data: response ? (response.error ? response.error : null) : null
         }
       }
     };
@@ -448,8 +449,8 @@ function fetchProjectsReducer(
  */
 function reduceStateFromAddedClient(
   payload: Payload,
-  state: ProjectsReducerState
-): ProjectsReducerState {
+  state: ProjectsState
+): ProjectsState {
   const { response, status } = payload;
   if (status === "success") {
     return {
@@ -487,8 +488,8 @@ function reduceStateFromAddedClient(
  */
 function reduceStateFromRemovedClient(
   payload: Payload,
-  state: ProjectsReducerState
-): ProjectsReducerState {
+  state: ProjectsState
+): ProjectsState {
   const { response, status } = payload;
   if (status === "success") {
     return {

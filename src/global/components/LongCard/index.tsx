@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {
   Container,
   Picture,
@@ -8,11 +8,25 @@ import {
   IconContainer
 } from "./styles";
 //components
-import {Icon} from "../Icon";
+import { Icon } from "../Icon";
+
+interface LongCardProps {
+  title: string;
+  date?: Date;
+  picture?: string;
+  about: string;
+  onClick: Function;
+}
 /**
  * @description Makes a long card full size of the width
  */
-export const LongCard = ({title, date, picture, about, onClick}) => (
+export const LongCard: React.FC<LongCardProps> = ({
+  about,
+  onClick,
+  date,
+  title,
+  picture
+}) => (
   <Container onClick={onClick}>
     {picture && (
       <PictureContainer>

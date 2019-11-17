@@ -104,7 +104,7 @@ export const getProjects = (status, response) => ({
 export const fetchProjects = () => dispatch => {
   dispatch(getProjects("loading"));
   return callApi(USER_PROJECTS_ENDPOINT)
-    .then(response => dispatch(getProjects("success", { ...response })))
+    .then(response => dispatch(getProjects("success", response)))
     .catch(({ message }) => dispatch(getProjects("error", { error: message })));
 };
 

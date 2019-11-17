@@ -2,7 +2,7 @@
 import React from "react";
 import { List, LongCard } from "../../../global/components";
 import { Redirect } from "react-router-dom";
-import { EmptyProjectsState } from "../EmptyProjectsState";
+import { EmptyProjectsState } from "../EmptyProjectsState/index";
 //redux
 import { connect } from "react-redux";
 import {
@@ -15,40 +15,46 @@ import {
   ADD_PROJECTS_ROUTE
 } from "../../../global/utils/routes";
 //hooks
-import { useEffect, useState } from "react";
-import { useRedirect } from "../../../global/hooks/useRedirect";
+import { useEffect } from "react";
+import { useRedirect, useError } from "../../../global/hooks";
 //styled-components
 import { BigList } from "../../../global/styles/Lists";
+//types
+import { ProjectsState, GetProjectsStatus, Project } from "../../types";
 
+interface ProjectListState {
+  getProjectStatus: GetProjectsStatus;
+  projectList: Array<Project>;
+}
+interface ProjectListActions {
+  fetchProjects: Function;
+  addProject: Function;
+}
+interface ProjectListProps extends ProjectListActions, ProjectListState {}
 //main
-function ProjectListContainer({
-  isLoadingProjects,
-  shouldFetchProjects,
-  errorLoadingProjects,
-  projectList,
-  fetchProjects
-}) {
+function ProjectListContainer(props: ProjectListProps): JSX.Element {
+  const { projectList = [], getProjectStatus, fetchProjects } = props;
   //fetching handler
   useEffect(() => {
-    if (shouldFetchProjects) {
+    if (getProjectStatus.shouldFetchProjects) {
       fetchProjects();
     }
-  }, [shouldFetchProjects]);
+  }, [getProjectStatus]);
   //handling errors
-  const [error, setError] = useState(null);
-  useEffect(() => setError(errorLoadingProjects), [errorLoadingProjects]);
-  const setErrorToNull = () => setError(null);
-
+  const { error, setErrorToNull } = useError({
+    updateErrorOnChange: getProjectStatus.data
+  });
   //onClick handlers
   const { isRedirect, route, toggleRedirect } = useRedirect();
   const handleAddClick = () => toggleRedirect(ADD_PROJECTS_ROUTE);
-  const handleProjectClick = id => toggleRedirect(`${PROJECTS_ROUTE}${id}`);
+  const handleProjectClick = (id: string) =>
+    toggleRedirect(`${PROJECTS_ROUTE}${id}`);
 
   return (
     <List
       error={error}
       onErrorClose={setErrorToNull}
-      isLoading={isLoadingProjects}
+      isLoading={getProjectStatus.status === "loading" && true}
       title="Proyectos"
       onAddButtonClick={handleAddClick}
     >
@@ -58,7 +64,7 @@ function ProjectListContainer({
             <LongCard
               key={_id}
               onClick={() => handleProjectClick(_id)}
-              date={description}
+              about={description}
               title={name}
             />
           ))}
@@ -71,10 +77,12 @@ function ProjectListContainer({
   );
 }
 
-const mapStateToProps = ({ projects }) => ({
-  isLoadingProjects: projects.status.isLoadingProjects,
-  shouldFetchProjects: projects.status.shouldFetchProjects,
-  errorLoadingProjects: projects.status.errorLoadingProjects,
+const mapStateToProps = ({
+  projects
+}: {
+  projects: ProjectsState;
+}): ProjectListState => ({
+  getProjectStatus: projects.status.getProjects,
   projectList: projects.list
 });
 
