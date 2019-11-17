@@ -1,5 +1,5 @@
 import React from "react";
-import {AddButton} from "../";
+import { AddButton } from "..";
 
 //styled-components
 import {
@@ -14,7 +14,13 @@ import {
   StyledDeleteIcon
 } from "./styles";
 
-export const ItemList = ({
+interface ItemListProps {
+  title: string;
+  onAddButtonClick: Function;
+  addMessage: string;
+  isLoading: boolean;
+}
+export const ItemList: React.FC<ItemListProps> = ({
   title,
   children,
   onAddButtonClick,
@@ -34,12 +40,21 @@ export const ItemList = ({
   </StyledAside>
 );
 
-export const Item = ({image, name, direction, onDelete}) => (
+interface ItemProps {
+  image?: string;
+  name: string;
+  direction?: string;
+  onDelete: Function;
+}
+export const Item: React.FC<ItemProps> = ({
+  image,
+  name,
+  direction,
+  onDelete
+}) => (
   <StyledLi>
-    <StyledLink to={direction}>
-      <StyledPicture>
-        {image && <img src="" alt={image} />}
-      </StyledPicture>
+    <StyledLink to={direction || ""}>
+      <StyledPicture>{image && <img src="" alt={image} />}</StyledPicture>
       <p>{name}</p>
       <StyledDeleteIcon onClick={onDelete} />
     </StyledLink>
