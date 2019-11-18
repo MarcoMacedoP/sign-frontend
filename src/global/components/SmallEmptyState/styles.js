@@ -22,14 +22,15 @@ export const Title = styled.h4`
 `;
 
 export const Picture = styled.picture`
-  width: 25vw;
-  height: 25vw;
+  width: 18vw;
+  height: 18vw;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 `;
 
 export const Img = styled.img`
-  width: 100%;
-  height: auto;
+  width: 200px;
   object-fit: contain;
   object-position: center;
 `;

@@ -47,7 +47,7 @@ const EmptyActivities = ({ title }) => (
     showTitle={false}
     message={`Parece que aún no hay actividades ${title}.`}
     callToAction="Para agregar una arrastrala aquí."
-  ></SmallEmptyState>
+  />
 );
 
 export default connect(null, { fetchChangeActivitieStatus })(ActivitieList);

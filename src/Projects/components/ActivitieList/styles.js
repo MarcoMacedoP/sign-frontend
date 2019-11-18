@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {whiteColor} from "../../../global/styles/variables";
-import {H3} from "../../../global/styles/texts";
-import {Container as SmallEmptyState} from "../../../global/components/SmallEmptyState/styles";
+import { whiteColor } from "../../../global/styles/variables";
+import { H3 } from "../../../global/styles/texts";
+import { Container as SmallEmptyState } from "../../../global/components/SmallEmptyState/styles";
 
 export const ContainerCard = styled.li`
   border-radius: 1rem;
@@ -18,5 +18,9 @@ export const ContainerCard = styled.li`
   ${SmallEmptyState} {
     margin: 0 auto;
     align-self: center;
+    picture {
+      width: 18vw;
+      height: 18vh;
+    }
   }
 `;
