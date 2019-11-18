@@ -5,7 +5,6 @@ import AddActivitie from "../AddActivitie";
 import ClientListSelection from "../../../Clients/components/ClientsListSelection";
 import {
   InformationHeader,
-  SmallEmptyState,
   Button,
   AddButton,
   RemoveModal,
@@ -19,7 +18,8 @@ import {
   Activities,
   ActivitiesContainer,
   ProjectInfo,
-  StyledLoading
+  StyledLoading,
+  StyledEmptyState
 } from "./styles";
 import { H3 } from "../../../global/styles/texts";
 //utils
@@ -102,41 +102,30 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
         <ProjectInfo>
           <Activities>
             <H3>Actividades del proyecto</H3>
-            <ActivitiesContainer>
-              {!pendingActivites && !donedActivites && !inProgressActivites ? (
-                <SmallEmptyState
-                  message={[
-                    "Parece que aún no tienes actividades...",
-                    "Las actividades permiten mantener el flujo de trabajo de tu proyecto para sacarle el máximo potencial a tú tiempo."
-                  ]}
-                >
-                  <Button size="medium" onClick={toggleAddActivite}>
-                    Agrega una actividad
-                  </Button>
-                </SmallEmptyState>
-              ) : (
-                <>
-                  <ActivitieList
-                    activities={pendingActivites || []}
-                    title="Pendientes"
-                    activitieType={PENDING}
-                    projectId={project._id}
-                  />
-                  <ActivitieList
-                    activities={inProgressActivites || []}
-                    title="En curso"
-                    activitieType={IN_PROGRESS}
-                    projectId={project._id}
-                  />
-                  <ActivitieList
-                    activities={donedActivites || []}
-                    title="Terminadas"
-                    activitieType={DONED}
-                    projectId={project._id}
-                  />
-                </>
-              )}
-            </ActivitiesContainer>
+            {!pendingActivites && !donedActivites && !inProgressActivites ? (
+              <EmptyActivities onAddActivitie={toggleAddActivite} />
+            ) : (
+              <ActivitiesContainer>
+                <ActivitieList
+                  activities={pendingActivites || []}
+                  title="Pendientes"
+                  activitieType={PENDING}
+                  projectId={project._id}
+                />
+                <ActivitieList
+                  activities={inProgressActivites || []}
+                  title="En curso"
+                  activitieType={IN_PROGRESS}
+                  projectId={project._id}
+                />
+                <ActivitieList
+                  activities={donedActivites || []}
+                  title="Terminadas"
+                  activitieType={DONED}
+                  projectId={project._id}
+                />
+              </ActivitiesContainer>
+            )}
           </Activities>
 
           <ItemList
@@ -179,3 +168,20 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
     </PageContainer>
   );
 };
+
+interface EmptyActivitiesProps {
+  onAddActivitie: Function | any;
+}
+
+const EmptyActivities: React.FC<EmptyActivitiesProps> = onAddActivitie => (
+  <StyledEmptyState
+    message={[
+      "Parece que aún no tienes actividades...",
+      "Las actividades permiten mantener el flujo de trabajo de tu proyecto para sacarle el máximo potencial a tú tiempo."
+    ]}
+  >
+    <Button size="medium" onClick={onAddActivitie}>
+      Agrega una actividad
+    </Button>
+  </StyledEmptyState>
+);

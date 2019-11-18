@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button as BaseButton, Loading } from "../../../global/components";
-import { Picture as SmallEmptyStatePicture } from "../../../global/components/SmallEmptyState/styles";
+import { SmallEmptyState } from "../../../global/components/SmallEmptyState";
 import { mediumScreen } from "../../../global/styles/mediaQuerys";
 
 export const ProjectInfo = styled.div`
@@ -31,13 +31,6 @@ export const ActivitiesContainer = styled.section`
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   grid-template-rows: min-content 1fr;
   gap: 1rem;
-  ${SmallEmptyStatePicture} {
-    width: 16vw;
-    height: 16vh;
-    img {
-      height: 100%;
-    }
-  }
 `;
 export const Button = styled(BaseButton)`
   & & {
@@ -51,4 +44,23 @@ export const StyledLoading = styled(Loading).attrs(() => ({
   align-items: center;
   min-height: 3rem;
   height: 3rem;
+`;
+
+export const StyledEmptyState = styled(SmallEmptyState)`
+  margin: 1.5rem auto;
+  width: 50%;
+  min-width: 200px;
+
+  picture {
+    height: 16vh;
+    width: 16vw;
+    min-height: 200px;
+    min-width: 200px;
+    img {
+      height: 100%;
+    }
+  }
+  @media ${mediumScreen} {
+    width: 100%;
+  }
 `;

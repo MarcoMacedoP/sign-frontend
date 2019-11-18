@@ -24,9 +24,10 @@ export const SmallEmptyState = ({
   image = defaultImage,
   children,
   callToAction,
-  showTitle = true
+  showTitle = true,
+  className
 }) => (
-  <Container>
+  <Container className={className}>
     <Title>{showTitle && "Uhm..."}</Title>
     <Picture>
       <Img src={image} alt={message} />
