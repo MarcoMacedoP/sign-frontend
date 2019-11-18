@@ -1,7 +1,7 @@
 //libs
 import React from "react";
 //components
-import {Input, AddPage} from "../../../global/components";
+import { Input, AddPage } from "../../../global/components";
 
 export const AddProjectPage = ({
   state,
@@ -10,12 +10,12 @@ export const AddProjectPage = ({
   isLoading,
   error,
   onErrorClose,
-  title
+  title = "Agregar proyecto"
 }) => (
   <AddPage
     onSubmit={handleSubmit}
     isLoading={isLoading}
-    title={title || "Agregar proyecto"}
+    title={title}
     aboutTitle="Acerca de los proyectos"
     about="[inserta información útil sobre los proyectos, puto vago.]"
     error={error}

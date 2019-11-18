@@ -30,7 +30,7 @@ import Team from "./Teams/components/Team";
 //--------------projects pages--------------------------
 import ProjectList from "./Projects/components/ProjectList/index";
 import ProjectPage from "./Projects/components/ProjectPageContainer/index";
-import AddProject from "./Projects/components/AddProjectPageContainer";
+import AddProject from "./Projects/components/AddProjectPageContainer/index";
 import EditProject from "./Projects/components/EditProject";
 //--------------end projects pages----------------------
 

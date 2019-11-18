@@ -242,47 +242,30 @@ function reduceStateFromAddedProject(
   state: ProjectsState
 ): ProjectsState {
   const { response, status } = payload;
-  switch (status) {
-    case "loading":
-      return {
-        ...state,
-        status: {
-          ...state.status,
-          projectActions: {
-            type: "ADD",
-            status,
-            projectId: response.projectId
-          }
+  if (status === "success") {
+    return {
+      list: [response, ...state.list],
+      status: {
+        ...state.status,
+        projectActions: {
+          type: "ADD",
+          status,
+          projectId: response.projectId
         }
-      };
-    case "error":
-      return {
-        ...state,
-        status: {
-          ...state.status,
-          projectActions: {
-            type: "ADD",
-            status,
-            projectId: response.projectId,
-            data: response.error
-          }
+      }
+    };
+  } else {
+    return {
+      ...state,
+      status: {
+        ...state.status,
+        projectActions: {
+          type: "ADD",
+          status,
+          data: status === "error" && response.error
         }
-      };
-    case "success":
-      return {
-        list: [response, ...state.list],
-        status: {
-          ...state.status,
-          projectActions: {
-            type: "ADD",
-            status,
-            projectId: response.projectId
-          }
-        }
-      };
-
-    default:
-      return state;
+      }
+    };
   }
 }
 

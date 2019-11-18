@@ -14,7 +14,7 @@ export interface ProjectsStateStatus {
 
 type actionType = "ADD" | "REMOVE" | null;
 
-interface ProjectActions {
+export interface ProjectActions {
   status: fetchStatus;
   type: actionType | "UPDATE" | "GET";
   projectId?: string | null;
