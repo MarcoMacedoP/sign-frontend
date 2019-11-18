@@ -3,7 +3,7 @@ import * as React from "react";
 import { Btn } from "./styles";
 import { CircularProgress } from "@material-ui/core";
 //types
-interface ButtonProps {
+export interface ButtonProps {
   variant?: string;
   onClick?: any;
   width?: string;

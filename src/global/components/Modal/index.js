@@ -1,8 +1,8 @@
 import React from "react";
-import {createPortal} from "react-dom";
-import {Blur, ModalContainer, CloseIcon} from "./styles";
+import { createPortal } from "react-dom";
+import { Blur, ModalContainer, CloseIcon } from "./styles";
 
-export const Modal = ({children, isOpen, onClose, className}) =>
+export const Modal = ({ children, isOpen, onClose, className = "" }) =>
   isOpen
     ? createPortal(
         <Blur onClick={onClose}>

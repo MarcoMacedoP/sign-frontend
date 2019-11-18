@@ -1,13 +1,17 @@
 import React from "react";
-import {Button} from "./styles";
+import { Button } from "./styles";
 
-export const SecondaryButton = ({
+import { ButtonProps } from "../Button";
+interface SecondaryButtonProps extends ButtonProps {
+  bordercolor: string;
+}
+
+export const SecondaryButton: React.FC<SecondaryButtonProps> = ({
   bordercolor,
   variant = "contained",
   children,
-  width,
+  width = "",
   onClick,
-  type,
   className
 }) => (
   <Button
@@ -16,7 +20,6 @@ export const SecondaryButton = ({
     bordercolor={bordercolor}
     width={width}
     onClick={onClick}
-    type={type}
   >
     {children}{" "}
   </Button>
