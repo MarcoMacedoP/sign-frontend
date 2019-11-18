@@ -26,7 +26,7 @@ export interface GetProjectsStatus {
   data?: any;
   shouldFetchProjects: boolean;
 }
-interface ActivitieProjectActions {
+export interface ActivitieProjectActions {
   type: actionType | "CHANGE_STATUS" | "UPDATE";
   projectId?: string;
   data?: any;

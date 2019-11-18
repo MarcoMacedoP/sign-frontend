@@ -9,25 +9,36 @@ import {
   ErrorMessage
 } from "../../../global/components/";
 //hooks
-import {useHandleState} from "../../../global/hooks/";
-import {useEffect, useState} from "react";
+import { useHandleState, useError } from "../../../global/hooks/";
+import { useEffect, useState } from "react";
 //redux
-import {connect} from "react-redux";
-import {fetchAddActivitie} from "../../../global/redux/actions/projects";
+import { connect } from "react-redux";
+import { fetchAddActivitie } from "../../../global/redux/actions/projects";
 //styled components
-import {Title, BaseForm} from "../../../global/styles/Forms";
-import {blackColorLigth} from "../../../global/styles/variables";
+import { Title, BaseForm } from "../../../global/styles/Forms";
+import { blackColorLigth } from "../../../global/styles/variables";
+//types
+import { ProjectsState, ActivitieProjectActions } from "../../types";
+interface MapStateToProps {
+  activiteStatus: ActivitieProjectActions;
+}
+interface AddActivitieProps extends MapStateToProps {
+  isShowed: boolean | any;
+  onClose: any;
+  projectId: string;
+  fetchAddActivitie: any;
+}
 //component
-function AddActivitie({
-  isShowed,
-  onClose,
-  projectId,
-  fetchAddActivitie,
-  isLoadingAddActivitie,
-  errorOnAddingActivitie
-}) {
+function AddActivitie(props: AddActivitieProps): JSX.Element {
+  const {
+    isShowed,
+    onClose,
+    projectId,
+    fetchAddActivitie,
+    activiteStatus
+  } = props;
   //handles
-  const {state, addFormValueToState} = useHandleState({
+  const { state, addFormValueToState } = useHandleState({
     name: "",
     description: "",
     date: new Date().toLocaleDateString(),
@@ -35,7 +46,7 @@ function AddActivitie({
   });
   //handling fetch
   const [isRequestSended, setIsRequestSended] = useState(false);
-  const handleAddActivie = e => {
+  const handleAddActivie = (e: Event) => {
     e.preventDefault();
     fetchAddActivitie(state, projectId);
     setIsRequestSended(true);
@@ -43,23 +54,16 @@ function AddActivitie({
   useEffect(() => {
     if (
       isRequestSended &&
-      !isLoadingAddActivitie &&
-      !errorOnAddingActivitie
+      activiteStatus.status !== "error" &&
+      activiteStatus.status !== "loading"
     ) {
       onClose();
     }
-  }, [
-    isRequestSended,
-    isLoadingAddActivitie,
-    errorOnAddingActivitie
-  ]);
+  }, [isRequestSended, activiteStatus]);
   //handling errors
-  const [error, setError] = useState(errorOnAddingActivitie);
-  useEffect(() => setError(errorOnAddingActivitie), [
-    errorOnAddingActivitie
-  ]);
-  const setErrorToNull = () => setError(null);
-
+  const { error, setErrorToNull } = useError({
+    updateErrorOnChange: activiteStatus.data || null
+  });
   return (
     <Modal isOpen={isShowed} onClose={onClose}>
       <Title>Agrega una actividad al proyecto</Title>
@@ -89,14 +93,11 @@ function AddActivitie({
         <ErrorMessage error={error} onClose={setErrorToNull} />
         <Button
           onClick={handleAddActivie}
-          loading={isLoadingAddActivitie}
+          loading={activiteStatus.status === "loading"}
         >
           Agregar
         </Button>
-        <SecondaryButton
-          borderColor={blackColorLigth}
-          onClick={onClose}
-        >
+        <SecondaryButton bordercolor={blackColorLigth} onClick={onClose}>
           Cancelar
         </SecondaryButton>
       </BaseForm>
@@ -104,11 +105,11 @@ function AddActivitie({
   );
 }
 
-const mapStateToProps = ({projects}) => ({
-  isLoadingAddActivitie: projects.status.isLoadingAddActivitie,
-  errorOnAddingActivitie: projects.status.errorOnAddingActivitie
+const mapStateToProps = ({
+  projects
+}: {
+  projects: ProjectsState;
+}): MapStateToProps => ({
+  activiteStatus: projects.status.activitiesProject
 });
-export default connect(
-  mapStateToProps,
-  {fetchAddActivitie}
-)(AddActivitie);
+export default connect(mapStateToProps, { fetchAddActivitie })(AddActivitie);
