@@ -26,6 +26,7 @@ export { ToastMenu } from "./ToastMenu/index";
 export { Loading } from "./Loading/index";
 export { ErrorMessage } from "./ErrorMessage/index";
 export { ErrorToast } from "./ErrorToast/index";
+export { PageNotFound } from "./PageNotFound/index";
 
 export { InfoMessage } from "./InfoMessage/index";
 export { InformationHeader } from "./InformationHeader/index";

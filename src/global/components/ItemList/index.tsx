@@ -16,9 +16,9 @@ import {
 
 interface ItemListProps {
   title: string;
-  onAddButtonClick: Function;
+  onAddButtonClick: Function | any;
   addMessage: string;
-  isLoading: boolean;
+  isLoading: boolean | any;
 }
 export const ItemList: React.FC<ItemListProps> = ({
   title,

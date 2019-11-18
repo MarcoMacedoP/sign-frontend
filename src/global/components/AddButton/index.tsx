@@ -3,7 +3,7 @@ import { Button, Container } from "./styles";
 
 interface AddButtonProps {
   position?: "fixed" | "static" | "absolute";
-  onClick: Function;
+  onClick: Function | any;
   isCallToAction?: boolean;
 }
 export const AddButton: React.FC<AddButtonProps> = ({

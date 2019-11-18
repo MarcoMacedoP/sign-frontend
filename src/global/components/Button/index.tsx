@@ -2,10 +2,10 @@ import * as React from "react";
 
 import { Btn } from "./styles";
 import { CircularProgress } from "@material-ui/core";
-
+//types
 interface ButtonProps {
   variant?: string;
-  onClick?: Function;
+  onClick?: any;
   width?: string;
   loading?: boolean;
   className?: string;
