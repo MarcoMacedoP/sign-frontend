@@ -27,3 +27,6 @@ export const fontBody = "'Lato', sans-serif";
 export const appPadding = "1rem";
 export const webPadding = "5rem 3rem";
 export const appShadow = "0 -4px 13px 0 rgba(50, 54, 53, 0.3)";
+
+export const makeGradient = color => `linear-gradient(180deg, ${whiteColorLigth} 61.07%, rgba(255, 255, 255, 0) 100%), ${color});
+`;

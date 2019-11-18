@@ -16,6 +16,7 @@ interface LongCardProps {
   picture?: string;
   about: string;
   onClick: Function;
+  className?: string;
 }
 /**
  * @description Makes a long card full size of the width
@@ -25,9 +26,10 @@ export const LongCard: React.FC<LongCardProps> = ({
   onClick,
   date,
   title,
-  picture
+  picture,
+  className
 }) => (
-  <Container onClick={onClick}>
+  <Container className={className} onClick={onClick}>
     {picture && (
       <PictureContainer>
         <Picture image={picture} />
