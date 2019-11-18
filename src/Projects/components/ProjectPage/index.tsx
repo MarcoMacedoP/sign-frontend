@@ -80,7 +80,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
   const { name, description, dueDate, activities, clients = [] } = project;
 
   const filterActivities = (status: activitiesStatus) =>
-    activities.filter(act => act.status === status);
+    activities && activities.filter(act => act.status === status);
 
   const pendingActivites = filterActivities("PENDING");
   const donedActivites = filterActivities("DONED");

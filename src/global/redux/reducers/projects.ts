@@ -289,11 +289,13 @@ function changeActivitieStatusReducer(
       const [actualProject] = state.list.filter(
         project => project._id === response.projectId
       );
-      const updatedActivities = actualProject.activities.map(activitie =>
-        activitie._id === response.activitieId
-          ? { ...activitie, status: response.newStatus }
-          : activitie
-      );
+      const updatedActivities =
+        actualProject.activities &&
+        actualProject.activities.map(activitie =>
+          activitie._id === response.activitieId
+            ? { ...activitie, status: response.newStatus }
+            : activitie
+        );
       return {
         ...state,
         list: [

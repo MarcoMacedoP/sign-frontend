@@ -48,7 +48,7 @@ export interface Project {
   description: string;
   dueDate: Date;
   expenses: Array<Object>;
-  activities: Array<ProjectActivitie>;
+  activities: Array<ProjectActivitie> | undefined;
   clients: Array<any>;
   fullLoaded?: boolean;
 }
