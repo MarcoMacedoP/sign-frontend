@@ -106,7 +106,9 @@ function reduceStateFromFetchedProject(
     case "success": {
       return {
         list: state.list.map(project =>
-          project._id === response._id ? response : project
+          project._id === response._id
+            ? { ...response, fullLoaded: true }
+            : project
         ),
         status: {
           ...state.status,
@@ -455,7 +457,9 @@ function reduceStateFromAddedClient(
   if (status === "success") {
     return {
       list: state.list.map(project =>
-        project._id === response._id ? response : project
+        project._id === response._id
+          ? { ...response, fullLoaded: true }
+          : project
       ),
       status: {
         ...state.status,
@@ -494,7 +498,9 @@ function reduceStateFromRemovedClient(
   if (status === "success") {
     return {
       list: state.list.map(project =>
-        project._id === response._id ? response : project
+        project._id === response._id
+          ? { ...response, fullLoaded: true }
+          : project
       ),
       status: {
         ...state.status,

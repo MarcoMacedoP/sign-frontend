@@ -46,15 +46,19 @@ export interface Project {
   _id: string;
   name: string;
   description: string;
+  dueDate: Date;
   expenses: Array<Object>;
   activities: Array<ProjectActivitie>;
+  clients: Array<any>;
+  fullLoaded?: boolean;
 }
 export interface ProjectActivitie {
   _id: string;
   name: string;
-  status: string;
+  status: activitiesStatus;
   comments: Array<ProjectActivitieComment>;
 }
+export type activitiesStatus = "PENDING" | "IN_PROGRESS" | "DONED";
 export interface ProjectActivitieComment {
   _id: string;
   userId: string;

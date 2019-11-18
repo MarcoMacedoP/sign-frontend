@@ -86,10 +86,9 @@ export const fetchProject = projectId => dispatch => {
   dispatch(getProject("loading", { projectId }));
 
   return callApi(`${USER_PROJECTS_ENDPOINT}${projectId}`)
-    .then(project => {
-      console.log(project);
-      dispatch(getProject("success", { ...project, projectId }));
-    })
+    .then(project => 
+      dispatch(getProject("success", { ...project, projectId }))
+    )
     .catch(error =>
       dispatch(
         getProject("error", { projectId, error: error.message || error })

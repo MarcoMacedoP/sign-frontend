@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {Button as BaseButton} from "../../../global/components";
-import {Picture as SmallEmptyStatePicture} from "../../../global/components/SmallEmptyState/styles";
-import {mediumScreen} from "../../../global/styles/mediaQuerys";
+import { Button as BaseButton, Loading } from "../../../global/components";
+import { Picture as SmallEmptyStatePicture } from "../../../global/components/SmallEmptyState/styles";
+import { mediumScreen } from "../../../global/styles/mediaQuerys";
 
 export const ProjectInfo = styled.div`
   display: grid;
@@ -43,4 +43,12 @@ export const Button = styled(BaseButton)`
   & & {
     height: 4rem;
   }
+`;
+export const StyledLoading = styled(Loading).attrs(() => ({
+  size: "1.5rem"
+}))`
+  justify-content: center;
+  align-items: center;
+  min-height: 3rem;
+  height: 3rem;
 `;

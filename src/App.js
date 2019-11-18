@@ -29,7 +29,7 @@ import Team from "./Teams/components/Team";
 
 //--------------projects pages--------------------------
 import ProjectList from "./Projects/components/ProjectList/index";
-import ProjectPage from "./Projects/components/ProjectPageContainer";
+import ProjectPage from "./Projects/components/ProjectPageContainer/index";
 import AddProject from "./Projects/components/AddProjectPageContainer";
 import EditProject from "./Projects/components/EditProject";
 //--------------end projects pages----------------------
@@ -76,11 +76,12 @@ import { GlobalStyles } from "./global/styles/GlobalStyles";
 import { connect } from "react-redux";
 import { loginUser } from "./global/redux/actions/users";
 import { fetchProjects } from "./global/redux/actions/projects";
+import { fetchClients } from "./global/redux/actions/clients";
 
 import { callApi } from "./global/functions/callApi";
 //functions
 import { getCookieByName } from "./global/functions/cookies";
-function App({ userIsLoged, userHasLogout, loginUser, fetchProjects }) {
+function App({ userIsLoged, userHasLogout, loginUser, fetchClients }) {
   const [userHasSession, setUserHasSession] = useState(false);
 
   //check if user has a session searching cookie token
@@ -102,7 +103,7 @@ function App({ userIsLoged, userHasLogout, loginUser, fetchProjects }) {
         .then(response => {
           loginUser("success", response);
           //after user loaded gets their projects
-          fetchProjects();
+          fetchClients();
         })
         .catch(() => setUserHasSession(false));
     }
@@ -280,4 +281,8 @@ const mapStateToProps = state => ({
   userHasLogout: state.user.status.hasLogout
 });
 
-export default connect(mapStateToProps, { loginUser, fetchProjects })(App);
+export default connect(mapStateToProps, {
+  loginUser,
+  fetchProjects,
+  fetchClients
+})(App);
