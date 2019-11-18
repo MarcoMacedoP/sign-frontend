@@ -1,19 +1,10 @@
 // Modules
 import React from "react";
 //hooks
-import { useState } from "react";
 // Components
 import { LateralMenuItem } from "../LateralMenuItem";
 // Styled Components
-import {
-  Menu,
-  Header,
-  ProfileImage,
-  Username,
-  Location,
-  Navigation,
-  ToggleMenuIcon
-} from "./styles";
+import { Menu, Header, ProfileImage, Navigation } from "./styles";
 // Routes
 import {
   APP_HOME_ROUTE,
@@ -39,29 +30,15 @@ const menuItems = [
 ];
 
 export function LateralMenu({ user = {} }) {
-  const [isShowed, setIsShowed] = useState(false);
-  const hideMenu = () => setIsShowed(false);
-  const showMenu = () => setIsShowed(true);
-
-  //handle redirect
-
   return (
-    <Menu isShowed={isShowed}>
-      <ToggleMenuIcon
-        icon={isShowed ? "close" : "arrow_forward_ios"}
-        onClick={isShowed ? hideMenu : showMenu}
-        isShowed={isShowed}
-      />
-      <Header to={USER_PAGE} isShowed={isShowed}>
-        <ProfileImage image={user.profilePic} isShowed={isShowed} />
-        <Username isShowed={isShowed}>{user.name || "Username"}</Username>
-        <Location isShowed={isShowed}>{user.job || "Job title"}</Location>
+    <Menu>
+      <Header to={USER_PAGE}>
+        <ProfileImage image={user.profilePic} />
       </Header>
       <Navigation>
         {menuItems.map((item, index) => (
           <LateralMenuItem
             key={index}
-            isShowed={isShowed}
             icon={item.icon}
             name={item.name}
             direction={item.route}
