@@ -9,10 +9,11 @@ export interface ProjectsStateStatus {
   projectActions: ProjectActions;
   activitiesProject: ActivitieProjectActions;
   clientsProject: ClientProjectActions;
+  providersProject: ProviderProjectAction;
   teamsProject: TeamsProjectActions;
 }
 
-type actionType = "ADD" | "REMOVE" | null;
+export type actionType = "ADD" | "REMOVE" | null;
 
 export interface ProjectActions {
   status: fetchStatus;
@@ -26,6 +27,11 @@ export interface GetProjectsStatus {
   data?: any;
   shouldFetchProjects: boolean;
 }
+export interface ProviderProjectAction extends ProjectActions {
+  type: actionType;
+  providerId: string;
+}
+
 export interface ActivitieProjectActions {
   type: actionType | "CHANGE_STATUS" | "UPDATE";
   projectId?: string;

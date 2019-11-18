@@ -1,6 +1,6 @@
 import * as actionTypes from "../types/actionTypes";
 //types
-import { ProjectsState } from "../../../Projects/types";
+import { ProjectsState, actionType } from "../../../Projects/types";
 import { AsyncAction, Payload } from "../types/AsyncActions";
 const initialState: ProjectsState = {
   status: {
@@ -18,6 +18,11 @@ const initialState: ProjectsState = {
       activitieId: "",
       type: null,
       status: null
+    },
+    providersProject: {
+      providerId: "",
+      status: null,
+      type: null
     },
     clientsProject: {
       clientId: "",
@@ -60,6 +65,22 @@ function projectReducer(state = initialState, action: AsyncAction) {
       return reduceStateFromAddedClient(payload, state);
     case actionTypes.REMOVE_CLIENT_OF_PROJECT:
       return reduceStateFromRemovedClient(payload, state);
+    //Providers into projects
+    case actionTypes.ADD_PROVIDER_TO_PROJECT:
+      return reduceStateFromActionOfProviders(payload, state, "ADD");
+    case actionTypes.REMOVE_PROVIDER_TO_PROJECT:
+      return reduceStateFromActionOfProviders(payload, state, "REMOVE");
+    //Teams into projects
+    case actionTypes.ADD_TEAM_TO_PROJECT:
+      return;
+    case actionTypes.REMOVE_TEAM_TO_PROJECT:
+      return;
+    //Reminders into projects
+    case actionTypes.ADD_REMINDER_TO_PROJECT:
+      return;
+    case actionTypes.REMOVE_REMINDER_TO_PROJECT:
+      return;
+
     default:
       return state;
   }
@@ -515,4 +536,49 @@ function reduceStateFromRemovedClient(
     };
   }
 }
+
+/**Handles all the changes in providers in projects,
+ *  reduce the state from removed and added provider in project.
+ *  since once the action is dispatched the server response it's the same.
+ * @param payload the action payload.
+ * @param state the Project State
+ * @param actionType the action type can be "ADD" or "REMOVE" does not have an effect on function,
+ * it's just used for meta-data.
+ */
+function reduceStateFromActionOfProviders(
+  payload: Payload,
+  state: ProjectsState,
+  actionType: actionType
+): ProjectsState {
+  const { status, response } = payload;
+  if (status === "success") {
+    return {
+      list: state.list.map(project =>
+        project._id === response._id ? response : project
+      ),
+      status: {
+        ...state.status,
+        providersProject: {
+          type: actionType,
+          providerId: response._id,
+          status
+        }
+      }
+    };
+  } else {
+    return {
+      ...state,
+      status: {
+        ...state.status,
+        providersProject: {
+          type: actionType,
+          providerId: response._id,
+          status,
+          data: status === "error" && response.error
+        }
+      }
+    };
+  }
+}
+
 export default projectReducer;

@@ -4,6 +4,7 @@ export interface AsyncAction {
 }
 
 export interface Payload {
-  status: "loading" | "error" | "success";
+  status: PayloadStatus;
   response: any;
 }
+export type PayloadStatus = "loading" | "error" | "success";

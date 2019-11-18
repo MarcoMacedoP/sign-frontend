@@ -10,9 +10,15 @@ export const FETCH_PROJECT: string = "FETCH_PROJECT";
 export const FETCH_PROJECTS: string = "FETCH_PROJECTS";
 export const UPDATE_PROJECT: string = "UPDATE_PROJECT";
 export const REMOVE_PROJECT: string = "REMOVE_PROJECT";
+//Projects and other entities
 export const ADD_CLIENT_TO_PROJECT: string = "ADD_CLIENT_TO_PROJECT";
 export const REMOVE_CLIENT_OF_PROJECT: string = "REMOVE_CLIENT_OF_PROJECT";
-
+export const ADD_PROVIDER_TO_PROJECT: string = "ADD_PROVIDER_TO_PROJECT";
+export const REMOVE_PROVIDER_TO_PROJECT: string = "REMOVE_PROVIDER_TO_PROJECT";
+export const ADD_TEAM_TO_PROJECT: string = "ADD_TEAM_TO_PROJECT";
+export const REMOVE_TEAM_TO_PROJECT: string = "REMOVE_TEAM_TO_PROJECT";
+export const ADD_REMINDER_TO_PROJECT: string = "ADD_REMINDER_TO_PROJECT";
+export const REMOVE_REMINDER_TO_PROJECT: string = "REMOVE_REMINDER_TO_PROJECT";
 //Projects - Activities
 export const ADD_ACTIVITE: string = "ADD_ACTIVITIE";
 export const ADD_COMMENT: string = "ADD_COMMENT";
