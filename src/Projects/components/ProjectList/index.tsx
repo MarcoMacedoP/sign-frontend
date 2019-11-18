@@ -1,6 +1,8 @@
-//components
+//libs
 import React from "react";
-import { List, LongCard } from "../../../global/components";
+import { moment } from "../../../global/libs/moment";
+//components
+import { List } from "../../../global/components";
 import { Redirect } from "react-router-dom";
 import { EmptyProjectsState } from "../EmptyProjectsState/index";
 //redux
@@ -18,7 +20,12 @@ import {
 import { useEffect } from "react";
 import { useRedirect, useError } from "../../../global/hooks";
 //styled-components
-import { BigList } from "../../../global/styles/Lists";
+import {
+  StyledGridProjects,
+  StyledProjectCard,
+  StyledH3ProjectCard,
+  StyledInfo
+} from "./styles";
 //types
 import { ProjectsState, GetProjectsStatus, Project } from "../../types";
 
@@ -59,16 +66,17 @@ function ProjectListContainer(props: ProjectListProps): JSX.Element {
       onAddButtonClick={handleAddClick}
     >
       {projectList.length !== 0 ? (
-        <BigList>
-          {projectList.map(({ _id, description, name }) => (
-            <LongCard
+        <StyledGridProjects>
+          {projectList.map(({ _id, description, name, dueDate }) => (
+            <ProjectCard
               key={_id}
               onClick={() => handleProjectClick(_id)}
               about={description}
               title={name}
+              dueDate={dueDate}
             />
           ))}
-        </BigList>
+        </StyledGridProjects>
       ) : (
         <EmptyProjectsState addProject={handleAddClick} />
       )}
@@ -77,6 +85,35 @@ function ProjectListContainer(props: ProjectListProps): JSX.Element {
   );
 }
 
+interface ProjectCardProps {
+  title: string;
+  about: string;
+  dueDate: string | Date;
+  onClick: any;
+}
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  about,
+  dueDate,
+  title,
+  onClick
+}) => {
+  const date = moment(dueDate);
+  const today = moment();
+
+  return (
+    <StyledProjectCard onClick={onClick}>
+      <StyledInfo>
+        <StyledH3ProjectCard>{title}</StyledH3ProjectCard>
+        <p>{about}</p>
+        <p>
+          {date.isBefore(today)
+            ? "Parece que la fecha de entrega ha pasado"
+            : "Se entrega el " + date.format("LL")}
+        </p>
+      </StyledInfo>
+    </StyledProjectCard>
+  );
+};
 const mapStateToProps = ({
   projects
 }: {
