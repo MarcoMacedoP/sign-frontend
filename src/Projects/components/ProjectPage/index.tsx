@@ -47,7 +47,7 @@ interface ProjectPageProps {
   onRemoveProject: Function;
   project: Project;
   addActivitieIsOpen: toggleFunctions;
-  toggleAddActivite: toggleFunctions;
+  toggleAddActivite: any;
   addClientIsOpen: toggleFunctions;
   toggleAddClient: toggleFunctions;
   onAddClient: Function;
@@ -173,15 +173,17 @@ interface EmptyActivitiesProps {
   onAddActivitie: Function | any;
 }
 
-const EmptyActivities: React.FC<EmptyActivitiesProps> = onAddActivitie => (
-  <StyledEmptyState
-    message={[
-      "Parece que aún no tienes actividades...",
-      "Las actividades permiten mantener el flujo de trabajo de tu proyecto para sacarle el máximo potencial a tú tiempo."
-    ]}
-  >
-    <Button size="medium" onClick={onAddActivitie}>
-      Agrega una actividad
-    </Button>
-  </StyledEmptyState>
-);
+const EmptyActivities: React.FC<EmptyActivitiesProps> = ({
+  onAddActivitie
+}) => {
+  return (
+    <StyledEmptyState
+      message={[
+        "Parece que aún no tienes actividades...",
+        "Las actividades permiten mantener el flujo de trabajo de tu proyecto para sacarle el máximo potencial a tú tiempo."
+      ]}
+    >
+      <Button onClick={onAddActivitie}>Agrega una actividad</Button>
+    </StyledEmptyState>
+  );
+};

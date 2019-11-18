@@ -37,15 +37,7 @@ export const fetchChangeActivitieStatus = (
   activitieId
 ) => dispatch => {
   dispatch(
-    changeActivitieStatus(
-      "loading",
-      { projectId, activitieId },
-      {
-        newStatus,
-        projectId,
-        activitieId
-      }
-    )
+    changeActivitieStatus("loading", { projectId, activitieId, newStatus })
   );
   return callApi("/projects/activities/change_status/", {
     method: "PATCH",

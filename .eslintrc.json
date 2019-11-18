@@ -24,7 +24,8 @@
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "react/prop-types": 0,
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-debugger": "warn"
   },
   "settings": {
     "react": {

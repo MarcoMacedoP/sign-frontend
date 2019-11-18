@@ -286,23 +286,27 @@ function changeActivitieStatusReducer(
       const filteredProjects = state.list.filter(
         project => project._id !== response.projectId
       );
-      const [actualProject] = state.list.filter(
+      const actualProject = state.list.find(
         project => project._id === response.projectId
       );
-      const updatedActivities =
-        actualProject.activities &&
-        actualProject.activities.map(activitie =>
-          activitie._id === response.activitieId
-            ? { ...activitie, status: response.newStatus }
-            : activitie
-        );
-      return {
-        ...state,
-        list: [
-          { ...actualProject, activities: updatedActivities },
-          ...filteredProjects
-        ]
-      };
+      if (actualProject) {
+        const updatedActivities =
+          actualProject.activities &&
+          actualProject.activities.map(activitie =>
+            activitie._id === response.activitieId
+              ? { ...activitie, status: response.newStatus }
+              : activitie
+          );
+        return {
+          ...state,
+          list: [
+            { ...actualProject, activities: updatedActivities },
+            ...filteredProjects
+          ]
+        };
+      } else {
+        return state;
+      }
     }
 
     case "error":
