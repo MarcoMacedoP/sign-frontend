@@ -136,14 +136,13 @@ export const removeProject = (status, response) => ({
 });
 export const fetchRemoveProject = projectId => dispatch => {
   dispatch(removeProject("loading", { projectId }));
-  return (
-    callApi(`${USER_PROJECTS_ENDPOINT}${projectId}`, {
-      method: "DELETE"
-    }).then(() => dispatch(removeProject("success"))).catch,
-    projectId(({ message }) =>
+  return callApi(USER_PROJECTS_ENDPOINT + projectId, {
+    method: "DELETE"
+  })
+    .then(() => dispatch(removeProject("success", { projectId })))
+    .catch(({ message }) =>
       dispatch(removeProject("error", { projectId, error: message }))
-    )
-  );
+    );
 };
 
 //******addons*******

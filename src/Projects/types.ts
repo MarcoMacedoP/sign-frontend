@@ -49,7 +49,9 @@ export interface Project {
   dueDate: Date;
   expenses: Array<Object>;
   activities: Array<ProjectActivitie> | undefined;
-  clients: Array<any>;
+  clients?: Array<any>;
+  providers?: Array<any>;
+  teams?: Array<any>;
   fullLoaded?: boolean;
 }
 export interface ProjectActivitie {

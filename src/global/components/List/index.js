@@ -1,8 +1,8 @@
 import React from "react";
-import {AddButton, Loading, ErrorMessage} from "..";
+import { AddButton, Loading, ErrorMessage } from "..";
 // styled-components
-import {Container, SearchBarContainer} from "./styles";
-import {H1} from "../../styles/texts";
+import { Container } from "./styles";
+import { H1 } from "../../styles/texts";
 /**
  * Shows a list of a determinate React-Component
  */
@@ -16,8 +16,7 @@ export const List = ({
 }) => (
   <Container>
     <H1>{title}</H1>
-
-    <SearchBarContainer>{/* <SearchBar /> */}</SearchBarContainer>
+    {/* <SearchBarContainer><SearchBar /> </SearchBarContainer> */}
 
     {isLoading ? <Loading /> : children}
     <ErrorMessage error={error} onClose={onErrorClose} />

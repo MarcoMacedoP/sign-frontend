@@ -48,7 +48,7 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
     project && toggleRedirect(`${PROJECTS_ROUTE}edit/${project._id}`);
   //handlers
   const handleRemove = () => {
-    fetchRemoveProject(project && project._id);
+    project && fetchRemoveProject(project._id);
     typeof toggleDeleteModal === "function" && toggleDeleteModal(true);
     redirectToLastLocation();
   };

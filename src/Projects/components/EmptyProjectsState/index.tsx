@@ -1,15 +1,15 @@
 import React from "react";
-import { SmallEmptyState, Button } from "../../../global/components/";
+import { StyledEmptyState, StyledButton } from "./styles";
 
 interface EmptyProjectsStateProps {
   addProject: Function;
 }
 
 export const EmptyProjectsState = (props: EmptyProjectsStateProps) => (
-  <SmallEmptyState
+  <StyledEmptyState
     message="Aún no tines ningún proyecto..."
     callToAction="Agrega ahora tu primer proyecto"
   >
-    <Button onClick={props.addProject}>Empieza un proyecto</Button>
-  </SmallEmptyState>
+    <StyledButton onClick={props.addProject}>Empieza un proyecto</StyledButton>
+  </StyledEmptyState>
 );

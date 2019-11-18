@@ -77,7 +77,15 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
   optionsMenuForInformationHeader,
   isLoadingFullInfo
 }) => {
-  const { name, description, dueDate, activities, clients = [] } = project;
+  const {
+    name,
+    description,
+    dueDate,
+    activities,
+    clients = [],
+    providers = [],
+    fullLoaded
+  } = project;
 
   const filterActivities = (status: activitiesStatus) =>
     activities && activities.filter(act => act.status === status);
@@ -96,7 +104,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
         options={optionsMenuForInformationHeader}
       />
       <ErrorToast error={error} onClose={onErrorClose} />
-      {isLoadingFullInfo ? (
+      {isLoadingFullInfo || !fullLoaded ? (
         <StyledLoading />
       ) : (
         <ProjectInfo>
@@ -127,22 +135,43 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
               </ActivitiesContainer>
             )}
           </Activities>
-
-          <ItemList
-            title="Clientes"
-            onAddButtonClick={toggleAddClient}
-            addMessage="Agregar cliente"
-            isLoading={isLoadingAddingClient}
-          >
-            {clients.length > 0 &&
-              clients.map(client => (
-                <Item
-                  key={client.client_id}
-                  name={client.name}
-                  onDelete={() => onRemoveClient(client.client_id)}
-                />
-              ))}
-          </ItemList>
+          {/* clients in project */}
+          <article>
+            <ItemList
+              title="Clientes"
+              onAddButtonClick={toggleAddClient}
+              addMessage="Agregar cliente"
+              isLoading={isLoadingAddingClient}
+            >
+              {clients.length > 0 &&
+                clients.map(client => (
+                  <Item
+                    key={client.client_id}
+                    name={client.name}
+                    onDelete={(e: Event) => {
+                      e.preventDefault();
+                      onRemoveClient(client.client_id);
+                    }}
+                  />
+                ))}
+            </ItemList>
+            {/* providers in project */}
+            <ItemList
+              title="Proveedores"
+              isLoading={false}
+              addMessage="Agregar proveedor"
+              onAddButtonClick={() => console.log("add provider")}
+            >
+              {providers.length > 0 &&
+                providers.map(provider => (
+                  <Item
+                    key={provider.provider_id}
+                    name={provider.name}
+                    onDelete={() => console.log("remove provider")}
+                  />
+                ))}
+            </ItemList>
+          </article>
         </ProjectInfo>
       )}
 

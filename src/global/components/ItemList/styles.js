@@ -1,17 +1,15 @@
 import styled from "styled-components";
-import {Link} from "react-router-dom";
-import {Icon} from "../Icon";
-import {Loading} from "../Loading";
+import { Link } from "react-router-dom";
+import { Icon } from "../Icon";
+import { Loading } from "../Loading";
 
-import {
-  whiteColorDark,
-  blackColorLigth
-} from "../../styles/variables";
-import {Container as AddButton} from "../AddButton/styles";
+import { whiteColorDark, blackColorLigth } from "../../styles/variables";
+import { Container as AddButton } from "../AddButton/styles";
 
 export const StyledAside = styled.aside`
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 `;
 export const StyledTitle = styled.p`
   color: ${blackColorLigth};
