@@ -5,14 +5,17 @@ import { SelectionCard, Loading } from "../";
 import { H3 } from "../../styles/texts";
 import { StyledModal, StyledSecondaryButton } from "./styles";
 
-interface SelectionListProps {
-  title: string;
-  list: Array<any>;
-  itemListKeys: ItemListKeys;
+export interface SelectionListPropsBaseProps {
   onClose: Function | any;
   onSelection: Function | any;
   isOpen: boolean;
   isLoading: boolean;
+}
+
+export interface SelectionListProps extends SelectionListPropsBaseProps {
+  title?: string;
+  list: Array<any>;
+  itemListKeys: ItemListKeys;
 }
 interface ItemListKeys {
   about: string;
@@ -39,16 +42,22 @@ export const SelectionList: React.FC<SelectionListProps> = ({
   itemListKeys,
   onSelection
 }) => {
+  const handleSelection = (id: any) => {
+    onSelection(id);
+    onClose();
+  };
+
   return (
     <StyledModal onClose={onClose} isOpen={isOpen}>
       <H3>{title}</H3>
       {isLoading && <Loading size="1rem" />}
-      {list.length > 0 &&
+      {list &&
+        list.length > 0 &&
         list.map((item: any, index: number) => (
           <SelectionCard
             key={index}
             about={item[itemListKeys.about]}
-            onSelect={() => onSelection(item[itemListKeys.id])}
+            onSelect={() => handleSelection(item[itemListKeys.id])}
             title={item[itemListKeys.title]}
           />
         ))}

@@ -5,25 +5,18 @@ import {
   List,
   SmallEmptyState
 } from "../../../global/components/";
-import {Link, Redirect} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 //hooks
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 // Styled Components
-import {BigList} from "../../../global/styles/Lists";
+import { BigList } from "../../../global/styles/Lists";
 //redux
-import {connect} from "react-redux";
-import {
-  fetchProviders,
-  setShouldFetchProviders
-} from "../../../global/redux/actions/providers";
+import { connect } from "react-redux";
+import { fetchProviders } from "../../../global/redux/actions/providers";
 //utils
-import {ADD_PROVIDER_ROUTE} from "../../../global/utils/routes";
-function ProviderList({
-  providers,
-  setShouldFetchProviders,
-  fetchProviders
-}) {
+import { ADD_PROVIDER_ROUTE } from "../../../global/utils/routes";
+function ProviderList({ providers, fetchProviders }) {
   const {
     shouldFetchProviders,
     loadingProviders,
@@ -33,19 +26,14 @@ function ProviderList({
   useEffect(() => {
     if (shouldFetchProviders && !loadingProviders) {
       fetchProviders();
-      setShouldFetchProviders(false);
     }
   }, [shouldFetchProviders]);
   //handle errors
   const [error, setError] = useState(null);
-  useEffect(() => setError(errorOnGetProviders), [
-    errorOnGetProviders
-  ]);
+  useEffect(() => setError(errorOnGetProviders), [errorOnGetProviders]);
   const setErrorToNull = () => setError(null);
   //handle redirects
-  const [redirectToAddProvider, setRedirectToAddProvider] = useState(
-    false
-  );
+  const [redirectToAddProvider, setRedirectToAddProvider] = useState(false);
   const setRedirectTrue = () => {
     console.log("onAddButtonClick");
     setRedirectToAddProvider(true);
@@ -66,11 +54,8 @@ function ProviderList({
       ) : (
         <BigList>
           {providers.list.map(
-            ({provider_id, name, lastname, image_url, about}) => (
-              <Link
-                key={provider_id}
-                to={`/app/providers/${provider_id}`}
-              >
+            ({ provider_id, name, lastname, image_url, about }) => (
+              <Link key={provider_id} to={`/app/providers/${provider_id}`}>
                 <PictureCard
                   title={`${name} ${lastname}`}
                   picture={image_url}
@@ -88,7 +73,4 @@ function ProviderList({
 const mapStateToProps = state => ({
   providers: state.providers
 });
-export default connect(
-  mapStateToProps,
-  {fetchProviders, setShouldFetchProviders}
-)(ProviderList);
+export default connect(mapStateToProps, { fetchProviders })(ProviderList);

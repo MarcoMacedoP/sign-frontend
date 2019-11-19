@@ -3,6 +3,7 @@ import * as React from "react";
 import ActivitieList from "../ActivitieList";
 import AddActivitie from "../AddActivitie";
 import ClientListSelection from "../../../Clients/components/ClientsListSelection";
+import ProviderListSelection from "../../../Providers/modals/ProvidersListSelection";
 import {
   InformationHeader,
   Button,
@@ -53,8 +54,12 @@ interface ProjectPageProps {
   onAddClient: Function;
   onRemoveClient: Function;
   optionsMenuForInformationHeader: Array<OptionsMenu>;
-  // onProviderRemove: Function | any;
-  // onProviderAdded: Function | any;
+  //providers on projects
+  providerListIsOpen: boolean | any;
+  toggleProvidersList: toggleFunctions;
+  isLoadingProviderAction: boolean | any;
+  onProviderRemove: Function | any;
+  onProviderAdded: Function | any;
 }
 
 interface OptionsMenu {
@@ -77,9 +82,12 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
   onAddClient,
   onRemoveClient,
   optionsMenuForInformationHeader,
-  isLoadingFullInfo
-  // onProviderAdded,
-  // onProviderRemove
+  isLoadingFullInfo,
+  onProviderAdded,
+  onProviderRemove,
+  providerListIsOpen,
+  toggleProvidersList,
+  isLoadingProviderAction
 }) => {
   const {
     name,
@@ -108,9 +116,9 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
         options={optionsMenuForInformationHeader}
       />
       <ErrorToast error={error} onClose={onErrorClose} />
-      {isLoadingFullInfo || !fullLoaded ? (
+      {isLoadingFullInfo || (!fullLoaded && !error) ? (
         <StyledLoading />
-      ) : (
+      ) : error ? null : (
         <ProjectInfo>
           <Activities>
             <H3>Actividades del proyecto</H3>
@@ -152,26 +160,23 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
                   <Item
                     key={client.client_id}
                     name={client.name}
-                    onDelete={(e: Event) => {
-                      e.preventDefault();
-                      onRemoveClient(client.client_id);
-                    }}
+                    onDelete={() => onRemoveClient(client.client_id)}
                   />
                 ))}
             </ItemList>
             {/* providers in project */}
             <ItemList
               title="Proveedores"
-              isLoading={false}
+              isLoading={isLoadingProviderAction}
               addMessage="Agregar proveedor"
-              onAddButtonClick={() => console.log("add provider")}
+              onAddButtonClick={toggleProvidersList}
             >
               {providers.length > 0 &&
                 providers.map(provider => (
                   <Item
                     key={provider.provider_id}
                     name={provider.name}
-                    onDelete={() => console.log("remove provider")}
+                    onDelete={() => onProviderRemove(provider.provider_id)}
                   />
                 ))}
             </ItemList>
@@ -185,6 +190,11 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
         onClose={toggleAddClient}
         isOpen={addClientIsOpen}
         onSelection={onAddClient}
+      />
+      <ProviderListSelection
+        onSelection={onProviderAdded}
+        onClose={toggleProvidersList}
+        isOpen={providerListIsOpen}
       />
       <AddActivitie
         isShowed={addActivitieIsOpen}

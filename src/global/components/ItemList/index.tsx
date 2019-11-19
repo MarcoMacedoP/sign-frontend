@@ -51,12 +51,19 @@ export const Item: React.FC<ItemProps> = ({
   name,
   direction,
   onDelete
-}) => (
-  <StyledLi>
-    <StyledLink to={direction || ""}>
-      <StyledPicture>{image && <img src="" alt={image} />}</StyledPicture>
-      <p>{name}</p>
-      <StyledDeleteIcon onClick={onDelete} />
-    </StyledLink>
-  </StyledLi>
-);
+}) => {
+  const handleDelete = (e: Event) => {
+    //TODO: for some reason without this the router sends to main page. ??
+    e.preventDefault();
+    onDelete();
+  };
+  return (
+    <StyledLi>
+      <StyledLink to={direction || ""}>
+        <StyledPicture>{image && <img src="" alt={image} />}</StyledPicture>
+        <p>{name}</p>
+        <StyledDeleteIcon onClick={handleDelete} />
+      </StyledLink>
+    </StyledLi>
+  );
+};

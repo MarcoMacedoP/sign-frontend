@@ -12,13 +12,15 @@ function addProvider(status: PayloadStatus, response?: any): AsyncAction {
 export const fetchAddProvider = (providerId: string, projectId: string) => (
   dispatch: any
 ) => {
-  dispatch(addProvider("loading"));
+  dispatch(addProvider("loading", { providerId }));
   return callApi("/projects/providers/", {
     method: "POST",
     body: JSON.stringify({ providerId, projectId })
   })
     .then((response: any) => dispatch(addProvider("success", { ...response })))
-    .catch((error: any) => dispatch(addProvider("error", { error })));
+    .catch((error: any) =>
+      dispatch(addProvider("error", { error, providerId }))
+    );
 };
 function removeProvider(status: PayloadStatus, response?: any): AsyncAction {
   return {
@@ -30,7 +32,7 @@ function removeProvider(status: PayloadStatus, response?: any): AsyncAction {
 export const fetchRemoveProvider = (providerId: string, projectId: string) => (
   dispatch: any
 ) => {
-  dispatch(removeProvider("loading"));
+  dispatch(removeProvider("loading", { providerId }));
   return callApi("/projects/providers/", {
     method: "DELETE",
     body: JSON.stringify({ providerId, projectId })
@@ -38,7 +40,9 @@ export const fetchRemoveProvider = (providerId: string, projectId: string) => (
     .then((response: any) =>
       dispatch(removeProvider("success", { ...response }))
     )
-    .catch((error: any) => dispatch(removeProvider("error", { error })));
+    .catch((error: any) =>
+      dispatch(removeProvider("error", { error, providerId }))
+    );
 };
 
 //      teams- projects

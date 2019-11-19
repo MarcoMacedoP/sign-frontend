@@ -1,8 +1,4 @@
-import {
-  GET_PROVIDERS,
-  SHOULD_FETCH_PROVIDERS,
-  ADD_PROVIDER
-} from "../types/actionTypes";
+import { GET_PROVIDERS, ADD_PROVIDER } from "../types/actionTypes";
 
 const initalState = {
   list: [
@@ -64,14 +60,6 @@ export default (state = initalState, action) => {
     //***********end add providers***********
 
     //***********get providers***********
-    case SHOULD_FETCH_PROVIDERS:
-      return {
-        ...state,
-        status: {
-          ...state.status,
-          shouldFetchProviders: action.payload
-        }
-      };
     case GET_PROVIDERS:
       switch (action.payload.status) {
         case "loading":
@@ -80,7 +68,8 @@ export default (state = initalState, action) => {
             status: {
               ...state.status,
               loadingProviders: true,
-              errorOnGetProviders: null
+              errorOnGetProviders: null,
+              shouldFetchProviders: false
             }
           };
         case "success":
@@ -89,7 +78,8 @@ export default (state = initalState, action) => {
             status: {
               ...state.status,
               loadingProviders: false,
-              errorOnGetProviders: null
+              errorOnGetProviders: null,
+              shouldFetchProviders: false
             }
           };
         case "error":
@@ -98,7 +88,8 @@ export default (state = initalState, action) => {
             status: {
               ...state.status,
               loadingProviders: false,
-              errorOnGetProviders: action.payload.response
+              errorOnGetProviders: action.payload.response,
+              shouldFetchProviders: false
             }
           };
         default:

@@ -30,11 +30,6 @@ function ClientListSelection({
     }
   }, [shouldFetchClients]);
 
-  const handleSelection = clientId => {
-    onSelection(clientId);
-    onClose();
-  };
-
   return (
     <SelectionList
       isOpen={isOpen}
@@ -46,7 +41,7 @@ function ClientListSelection({
       title="Clientes xd"
       list={clients}
       onClose={onClose}
-      onSelection={handleSelection}
+      onSelection={onSelection}
       isLoading={loadingClients}
     />
   );

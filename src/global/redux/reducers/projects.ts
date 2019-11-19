@@ -530,7 +530,7 @@ function reduceStateFromRemovedClient(
           type: "REMOVE",
           status,
           clientId: response.clientId,
-          data: response.error && response.error
+          data: status === "error" && response.error
         }
       }
     };
@@ -554,7 +554,9 @@ function reduceStateFromActionOfProviders(
   if (status === "success") {
     return {
       list: state.list.map(project =>
-        project._id === response._id ? response : project
+        project._id === response._id
+          ? { ...response, fullLoaded: true }
+          : project
       ),
       status: {
         ...state.status,
@@ -571,7 +573,7 @@ function reduceStateFromActionOfProviders(
       status: {
         ...state.status,
         providersProject: {
-          providerId: response._id,
+          providerId: response.providerId,
           status,
           type,
           data: status === "error" && response.error

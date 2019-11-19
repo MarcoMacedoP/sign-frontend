@@ -35,8 +35,8 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
     fetchRemoveProject,
     fetchRemoveClientOfProject,
     fetchAddClientToProject,
-    // fetchAddProvider,
-    // fetchRemoveProvider,
+    fetchAddProvider,
+    fetchRemoveProvider,
     project,
     fetchProject,
     status
@@ -45,6 +45,7 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
   const [addActivitieIsOpen, toggleAddActivite] = useModalState();
   const [deleteProjectIsOpen, toggleDeleteModal] = useModalState(false);
   const [addClientIsOpen, toggleAddClient] = useModalState();
+  const [providerListIsOpen, toggleProvidersList] = useModalState();
   //redirects
   const {
     isRedirect,
@@ -65,10 +66,10 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
     fetchAddClientToProject({ projectId: project && project._id, clientId });
   const handleRemoveClient = (clientId: string) =>
     fetchRemoveClientOfProject({ projectId: project && project._id, clientId });
-  // const onProviderRemove = (providerId: string) =>
-  //   project && fetchRemoveProvider(providerId, project._id);
-  // const onProviderAdded = (providerId: string) =>
-  //   project && fetchAddProvider(providerId, project._id);
+  const onProviderRemove = (providerId: string) =>
+    project && fetchRemoveProvider(providerId, project._id);
+  const onProviderAdded = (providerId: string) =>
+    project && fetchAddProvider(providerId, project._id);
   //handle fetch project
   const [shouldFetchProject, setShouldFetchProject] = React.useState(true);
   const handleFetchProject = () => {
@@ -84,7 +85,10 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
   }, [shouldFetchProject, handleFetchProject]);
   //errors
   const { error, setErrorToNull } = useError({
-    updateErrorOnChange: status.getProjects.data || status.clientsProject.data
+    updateErrorOnChange:
+      status.getProjects.data ||
+      status.clientsProject.data ||
+      status.projectActions.data
   });
   const optionsMenuForInformationHeader = [
     {
@@ -116,6 +120,11 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
         onRemoveClient={handleRemoveClient}
         isLoadingAddingClient={status.clientsProject.status === "loading"}
         optionsMenuForInformationHeader={optionsMenuForInformationHeader}
+        onProviderAdded={onProviderAdded}
+        onProviderRemove={onProviderRemove}
+        providerListIsOpen={providerListIsOpen}
+        toggleProvidersList={toggleProvidersList}
+        isLoadingProviderAction={status.providersProject.status === "loading"}
       />
     );
   } else {
