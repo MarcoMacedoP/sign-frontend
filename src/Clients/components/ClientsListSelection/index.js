@@ -1,14 +1,11 @@
 import React from "react";
 //components
-import {SelectionCard, Loading} from "../../../global/components";
-//styled-components
-import {H3} from "../../../global/styles/texts";
-import {StyledModal, StyledSecondaryButton} from "./styles";
+import { SelectionList } from "../../../global/components/SelectionList";
 //hooks
-import {useEffect} from "react";
+import { useEffect } from "react";
 //redux
-import {connect} from "react-redux";
-import {fetchClients} from "../../../global/redux/actions/clients";
+import { connect } from "react-redux";
+import { fetchClients } from "../../../global/redux/actions/clients";
 /**Shows a modal list of selectable clients.
  *
  * @param {Array} clients the clients to be rendered.
@@ -39,31 +36,25 @@ function ClientListSelection({
   };
 
   return (
-    <StyledModal onClose={onClose} isOpen={isOpen}>
-      <H3> Seleccionar cliente </H3>
-      {loadingClients && <Loading size="1rem" />}
-      {clients.length > 0 &&
-        clients.map(client => (
-          <SelectionCard
-            key={client.client_id}
-            about={client.email || client.phone}
-            onSelect={() => handleSelection(client.client_id)}
-            title={`${client.name} ${client.lastname}`}
-          />
-        ))}
-      <StyledSecondaryButton onClick={onClose}>
-        Cancelar
-      </StyledSecondaryButton>
-    </StyledModal>
+    <SelectionList
+      isOpen={isOpen}
+      itemListKeys={{
+        about: "email",
+        id: "client_id",
+        title: "name"
+      }}
+      title="Clientes xd"
+      list={clients}
+      onClose={onClose}
+      onSelection={handleSelection}
+      isLoading={loadingClients}
+    />
   );
 }
-const mapStateToProps = ({clients}, props) => ({
+const mapStateToProps = ({ clients }, props) => ({
   clients: props.clients ? props.clients : clients.list,
   shouldFetchClients: clients.status.shouldFetchClients,
   loadingClients: clients.status.loadingClients,
   errorOnGetClients: clients.status.errorOnGetClients
 });
-export default connect(
-  mapStateToProps,
-  {fetchClients}
-)(ClientListSelection);
+export default connect(mapStateToProps, { fetchClients })(ClientListSelection);

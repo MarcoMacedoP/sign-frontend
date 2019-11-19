@@ -53,6 +53,8 @@ interface ProjectPageProps {
   onAddClient: Function;
   onRemoveClient: Function;
   optionsMenuForInformationHeader: Array<OptionsMenu>;
+  // onProviderRemove: Function | any;
+  // onProviderAdded: Function | any;
 }
 
 interface OptionsMenu {
@@ -76,6 +78,8 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
   onRemoveClient,
   optionsMenuForInformationHeader,
   isLoadingFullInfo
+  // onProviderAdded,
+  // onProviderRemove
 }) => {
   const {
     name,

@@ -542,13 +542,13 @@ function reduceStateFromRemovedClient(
  *  since once the action is dispatched the server response it's the same.
  * @param payload the action payload.
  * @param state the Project State
- * @param actionType the action type can be "ADD" or "REMOVE" does not have an effect on function,
+ * @param type the action type can be "ADD" or "REMOVE" does not have an effect on function,
  * it's just used for meta-data.
  */
 function reduceStateFromActionOfProviders(
   payload: Payload,
   state: ProjectsState,
-  actionType: actionType
+  type: actionType
 ): ProjectsState {
   const { status, response } = payload;
   if (status === "success") {
@@ -559,9 +559,9 @@ function reduceStateFromActionOfProviders(
       status: {
         ...state.status,
         providersProject: {
-          type: actionType,
           providerId: response._id,
-          status
+          status,
+          type
         }
       }
     };
@@ -571,9 +571,9 @@ function reduceStateFromActionOfProviders(
       status: {
         ...state.status,
         providersProject: {
-          type: actionType,
           providerId: response._id,
           status,
+          type,
           data: status === "error" && response.error
         }
       }
