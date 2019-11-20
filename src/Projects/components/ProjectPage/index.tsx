@@ -1,6 +1,7 @@
 import * as React from "react";
 //components
 import ActivitieList from "../ActivitieList";
+import { ProjectTransactionsInfo } from "../ProjectTransactionsInfo";
 import AddActivitie from "../AddActivitie";
 import ClientListSelection from "../../../Clients/components/ClientsListSelection";
 import ProviderListSelection from "../../../Providers/modals/ProvidersListSelection";
@@ -119,69 +120,72 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
       {isLoadingFullInfo || (!fullLoaded && !error) ? (
         <StyledLoading />
       ) : error ? null : (
-        <ProjectInfo>
-          <Activities>
-            <H3>Actividades del proyecto</H3>
-            {!pendingActivites && !donedActivites && !inProgressActivites ? (
-              <EmptyActivities onAddActivitie={toggleAddActivite} />
-            ) : (
-              <ActivitiesContainer>
-                <ActivitieList
-                  activities={pendingActivites || []}
-                  title="Pendientes"
-                  activitieType={PENDING}
-                  projectId={project._id}
-                />
-                <ActivitieList
-                  activities={inProgressActivites || []}
-                  title="En curso"
-                  activitieType={IN_PROGRESS}
-                  projectId={project._id}
-                />
-                <ActivitieList
-                  activities={donedActivites || []}
-                  title="Terminadas"
-                  activitieType={DONED}
-                  projectId={project._id}
-                />
-              </ActivitiesContainer>
-            )}
-          </Activities>
-          {/* clients in project */}
-          <article>
-            <ItemList
-              title="Clientes"
-              onAddButtonClick={toggleAddClient}
-              addMessage="Agregar cliente"
-              isLoading={isLoadingAddingClient}
-            >
-              {clients.length > 0 &&
-                clients.map(client => (
-                  <Item
-                    key={client.client_id}
-                    name={client.name}
-                    onDelete={() => onRemoveClient(client.client_id)}
+        <div>
+          <ProjectInfo>
+            <Activities>
+              <H3>Actividades del proyecto</H3>
+              {!pendingActivites && !donedActivites && !inProgressActivites ? (
+                <EmptyActivities onAddActivitie={toggleAddActivite} />
+              ) : (
+                <ActivitiesContainer>
+                  <ActivitieList
+                    activities={pendingActivites || []}
+                    title="Pendientes"
+                    activitieType={PENDING}
+                    projectId={project._id}
                   />
-                ))}
-            </ItemList>
-            {/* providers in project */}
-            <ItemList
-              title="Proveedores"
-              isLoading={isLoadingProviderAction}
-              addMessage="Agregar proveedor"
-              onAddButtonClick={toggleProvidersList}
-            >
-              {providers.length > 0 &&
-                providers.map(provider => (
-                  <Item
-                    key={provider.provider_id}
-                    name={provider.name}
-                    onDelete={() => onProviderRemove(provider.provider_id)}
+                  <ActivitieList
+                    activities={inProgressActivites || []}
+                    title="En curso"
+                    activitieType={IN_PROGRESS}
+                    projectId={project._id}
                   />
-                ))}
-            </ItemList>
-          </article>
-        </ProjectInfo>
+                  <ActivitieList
+                    activities={donedActivites || []}
+                    title="Terminadas"
+                    activitieType={DONED}
+                    projectId={project._id}
+                  />
+                </ActivitiesContainer>
+              )}
+            </Activities>
+            {/* clients in project */}
+            <article>
+              <ItemList
+                title="Clientes"
+                onAddButtonClick={toggleAddClient}
+                addMessage="Agregar cliente"
+                isLoading={isLoadingAddingClient}
+              >
+                {clients.length > 0 &&
+                  clients.map(client => (
+                    <Item
+                      key={client.client_id}
+                      name={client.name}
+                      onDelete={() => onRemoveClient(client.client_id)}
+                    />
+                  ))}
+              </ItemList>
+              {/* providers in project */}
+              <ItemList
+                title="Proveedores"
+                isLoading={isLoadingProviderAction}
+                addMessage="Agregar proveedor"
+                onAddButtonClick={toggleProvidersList}
+              >
+                {providers.length > 0 &&
+                  providers.map(provider => (
+                    <Item
+                      key={provider.provider_id}
+                      name={provider.name}
+                      onDelete={() => onProviderRemove(provider.provider_id)}
+                    />
+                  ))}
+              </ItemList>
+            </article>
+          </ProjectInfo>
+          <ProjectTransactionsInfo projectId={project._id} />
+        </div>
       )}
 
       <AddButton onClick={toggleAddActivite} />
