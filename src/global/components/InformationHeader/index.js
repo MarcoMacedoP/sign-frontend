@@ -1,11 +1,13 @@
-//Components
+import { moment } from "../../../global/libs/moment";
 import React from "react";
-import {Redirect} from "react-router-dom";
-import {ToastMenu} from "../ToastMenu";
-import {Icon} from "../Icon";
+//Components
+
+import { Redirect } from "react-router-dom";
+import { ToastMenu } from "../ToastMenu";
+import { Icon } from "../Icon";
 //hooks
-import {useLastLocation} from "react-router-last-location";
-import {useHandleState} from "../../hooks/useHandleState";
+import { useLastLocation } from "react-router-last-location";
+import { useHandleState } from "../../hooks/useHandleState";
 //Styled components
 import {
   About,
@@ -20,7 +22,7 @@ import {
   DateContainer
 } from "./styles";
 //routes
-import {APP_HOME_ROUTE} from "../../utils/routes";
+import { APP_HOME_ROUTE } from "../../utils/routes";
 
 /**
  * @description This component show a header with information about something like a provider, client or a project.
@@ -51,7 +53,7 @@ export const InformationHeader = ({
   job,
   options = []
 }) => {
-  const {state, toggleStateValue} = useHandleState({
+  const { state, toggleStateValue } = useHandleState({
     goBack: false,
     toastMenuIsShowed: false
   });
@@ -80,10 +82,7 @@ export const InformationHeader = ({
       <About>
         <Name>{title || "title"}</Name>
         <BiographyContainer>
-          <ProfilePicture
-            image={imageUrl || image_url}
-            isShowed={imageIsShow}
-          >
+          <ProfilePicture image={imageUrl || image_url} isShowed={imageIsShow}>
             <img
               src={imageUrl || image_url}
               alt={`Profile of ${title || "name"}`}
@@ -110,7 +109,7 @@ export const InformationHeader = ({
           {date && (
             <DateContainer>
               <Icon hasAnimatedClick={false} icon="timer" />
-              <Date>{date}</Date>
+              <Date>{moment(date).format("ll")}</Date>
             </DateContainer>
           )}
           {job && (
