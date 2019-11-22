@@ -51,7 +51,7 @@ export const ProfileImage = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: ${props => props.image && `url(${props.image})`};
+  background-image: ${props => props.image && `url("${props.image}")`};
 `;
 
 export const Navigation = styled.nav`

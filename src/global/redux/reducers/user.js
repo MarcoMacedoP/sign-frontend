@@ -24,6 +24,7 @@ const initialState = {
     loadingSignup: false,
     loadingLogin: false,
     hasLogout: false,
+    hasUpdated: false,
     isLoged: false
   }
 };
@@ -75,7 +76,7 @@ export default function(state = initialState, action) {
             }
           };
         default:
-          return {...state};
+          return { ...state };
       }
     //--------update user-------------
     case UPDATE_USER:
@@ -86,7 +87,8 @@ export default function(state = initialState, action) {
             status: {
               ...state.status,
               loadingUpdate: true,
-              errorOnUpdate: null
+              errorOnUpdate: null,
+              hasUpdated: false
             }
           };
         case "error":
@@ -95,7 +97,8 @@ export default function(state = initialState, action) {
             status: {
               ...state.status,
               loadingUpdate: false,
-              errorOnUpdate: action.payload.response
+              errorOnUpdate: action.payload.response,
+              hasUpdated: false
             }
           };
         case "success":
@@ -105,11 +108,12 @@ export default function(state = initialState, action) {
             status: {
               ...state.status,
               loadingUpdate: false,
-              errorOnUpdate: null
+              errorOnUpdate: null,
+              hasUpdated: true
             }
           };
         default:
-          return {...state};
+          return { ...state };
       }
     default:
       return state;
@@ -122,7 +126,7 @@ export default function(state = initialState, action) {
  * @param {*} payload the action payload
  * @param {*} state the user state
  */
-function reduceStateFromLogout({status, response}, state) {
+function reduceStateFromLogout({ status, response }, state) {
   switch (status) {
     case "loading":
       return {
@@ -160,7 +164,7 @@ function reduceStateFromLogout({status, response}, state) {
  * @param {*} payload the action payload
  * @param {*} state the user state
  */
-function reduceStateFromLogedUser({status, response}, state) {
+function reduceStateFromLogedUser({ status, response }, state) {
   switch (status) {
     case "loading":
       return {
@@ -196,6 +200,6 @@ function reduceStateFromLogedUser({status, response}, state) {
         }
       };
     default:
-      return {...state};
+      return { ...state };
   }
 }

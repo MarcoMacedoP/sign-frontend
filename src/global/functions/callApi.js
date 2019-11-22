@@ -21,13 +21,18 @@ export function callApi(endpoint, options = {}) {
     .then(({ data, statusCode }) => statusCodeIsValid(statusCode) && data);
 }
 export function callApiWithFormData(endpoint, options) {
-  return callApi(endpoint, {
+  const url = BASE_URL + endpoint;
+  return fetch(url, {
     ...options,
+    credentials: "include",
+    redirect: "follow",
     headers: {
-      ...options.headers,
-      Accept: "application/json"
+      Accept: "application/json",
+      ...options.headers
     }
-  });
+  })
+    .then(response => statusCodeIsValid(response.status) && response.json())
+    .then(({ data, statusCode }) => statusCodeIsValid(statusCode) && data);
 }
 
 /**This function validate the server response,

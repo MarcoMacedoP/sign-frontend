@@ -1,6 +1,6 @@
 import * as actionTypes from "../types/actionTypes";
 import { removeSessionCookies } from "../../functions/cookies";
-import { callApi } from "../../functions/callApi";
+import { callApi, callApiWithFormData } from "../../functions/callApi";
 //other actions
 import { fetchProjects } from "./projects";
 //-----user notifications----------------------//
@@ -93,17 +93,28 @@ export const updateUser = (status, response) => ({
  * @param {*} user the user to be updated
  * @param {*} updatedUserFormData the FormData object with the updated user info.
  */
-export const fetchUserUpdate = (user, updatedUserFormData) => dispatch => {
+export const fetchUserUpdate = (
+  user,
+  updatedUser,
+  hasProfilePicture
+) => dispatch => {
   dispatch(updateUser("loading", []));
-  return callApi(
-    `/users/${user.id}`,
-    {
-      method: "put",
-      body: updatedUserFormData
-    },
-    false
-  )
-    .then(response => dispatch(updateUser("success", response.data)))
-    .catch(({ message }) => dispatch(updateUser("error", message)));
+  console.log(updatedUser);
+
+  if (!hasProfilePicture) {
+    return callApi(`/users/no_picture/${user.id}`, {
+      method: "PUT",
+      body: JSON.stringify(updatedUser)
+    })
+      .then(response => dispatch(updateUser("success", response)))
+      .catch(({ message }) => dispatch(updateUser("error", message)));
+  } else {
+    return callApiWithFormData(`/users/${user.id}`, {
+      method: "PUT",
+      body: updatedUser
+    })
+      .then(response => dispatch(updateUser("success", response)))
+      .catch(({ message }) => dispatch(updateUser("error", message)));
+  }
 };
 //---------update user end-------------//

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 //hooks
-import {useHandleState} from "../../../global/hooks/";
-import {useState, useEffect} from "react";
+import { useHandleState, useError } from "../../../global/hooks/";
+import { useState } from "react";
 //components
 import {
   Input,
@@ -15,47 +15,44 @@ import {
   FormWithPhotoUpload,
   InputContainer
 } from "../../../global/styles/Forms";
+import { StyledLoading, StyledFormContainer } from "./styles";
+import { USER_PAGE } from "../../../global/utils/routes";
 //redux
-import {connect} from "react-redux";
-import {fetchUserUpdate} from "../../../global/redux/actions/users";
+import { connect } from "react-redux";
+import { fetchUserUpdate } from "../../../global/redux/actions/users";
 
-function EditUser({user, fetchUserUpdate, location}) {
-  const initialState = {
-    name: user.name || "",
-    lastname: user.lastname || "",
-    bio: user.bio || "",
-    job: user.job || "",
-    profilePic: user.profilePic || ""
-  };
-
-  const {
-    state,
-    addFormValueToState,
-    addValueToState
-  } = useHandleState(initialState);
-
-  //status ui handling
-  const {errorOnUpdate, loadingUpdate} = user.status;
-  const [loading, setLoading] = useState(loadingUpdate);
-  const [error, setError] = useState(errorOnUpdate);
+function EditUser({ user, fetchUserUpdate, location, history }) {
+  const { errorOnUpdate, loadingUpdate, hasUpdated } = user.status;
+  const [userHasSubmited, setUserHasSubmit] = useState(false);
+  const { state, addFormValueToState, addValueToState } = useHandleState(user);
+  const [userSubmitPhoto, setUserSubmitPhoto] = useState(false);
+  const { error, setErrorToNull } = useError({
+    updateErrorOnChange: errorOnUpdate
+  });
+  const redirectToUserPage = () => history.push(USER_PAGE);
   useEffect(() => {
-    setLoading(loadingUpdate);
-    if (errorOnUpdate) {
-      setError(errorOnUpdate);
+    if (userHasSubmited && hasUpdated) {
+      redirectToUserPage();
     }
-  }, [errorOnUpdate, loadingUpdate]);
-  //handlers
-  const handleUploadImage = fileImage =>
-    addValueToState("profilePic", fileImage);
+  }, [userHasSubmited, hasUpdated]);
 
+  //handlers
+  const handleUploadImage = fileImage => {
+    setUserSubmitPhoto(true);
+    addValueToState("profilePic", fileImage);
+  };
   const handleSubmit = event => {
     event.preventDefault();
-    let userFormData = new FormData();
-    //add all elements to form data
-    Object.keys(state).map(key =>
-      userFormData.append(key, state[key])
-    );
-    fetchUserUpdate(user, userFormData);
+    setErrorToNull(true);
+    setUserHasSubmit(true);
+    if (userSubmitPhoto) {
+      let userFormData = new FormData();
+      //add all elements to form data
+      Object.keys(state).map(key => userFormData.append(key, state[key]));
+      fetchUserUpdate(user, userFormData, userSubmitPhoto);
+    } else {
+      fetchUserUpdate(user, state, userSubmitPhoto);
+    }
   };
   //logic for show a message query params firstTime exists
   const urlParams = new URLSearchParams(location.search);
@@ -64,64 +61,58 @@ function EditUser({user, fetchUserUpdate, location}) {
   const handleCloseInfoMessage = () => setShowInfoMessage(false);
 
   return (
-    <EditPage title="Editar perfil" onSubmit={handleSubmit}>
-      {showInfoMessage && (
-        <InfoMessage
-          onClose={handleCloseInfoMessage}
-          message={`¡Bienvenido a SIGN ${user.name}! \n
+    <StyledFormContainer>
+      <EditPage title="Editar perfil" onSubmit={handleSubmit}>
+        {showInfoMessage && (
+          <InfoMessage
+            onClose={handleCloseInfoMessage}
+            message={`¡Bienvenido a SIGN ${user.name}! \n
           ¿Qué te parece si antes de empezar nos cuentas un poco más de ti?`}
-        />
-      )}
-      <FormWithPhotoUpload>
-        <UploadImage
-          name="picture"
-          onUpload={handleUploadImage}
-          value={state.profilePic}
-        />
-        <InputContainer>
-          <Input
-            name="name"
-            label="Nombre (s)"
-            value={state.name}
-            onChange={addFormValueToState}
           />
-          <Input
-            name="lastname"
-            label="Apellido (s)"
-            value={state.lastname}
-            onChange={addFormValueToState}
+        )}
+        <FormWithPhotoUpload>
+          <UploadImage
+            name="picture"
+            onUpload={handleUploadImage}
+            value={state.profilePic}
           />
-          <Input
-            name="bio"
-            type="textarea"
-            label="Sobre ti"
-            placeholder="ej. Soy una persona alegre, dispuesta a triunfar."
-            value={state.bio}
-            onChange={addFormValueToState}
-          />
-          <Input
-            name="job"
-            label="Título de trabajo"
-            placeholder="ej. Ing. Industrial"
-            value={state.job}
-            onChange={addFormValueToState}
-          />
-          {error && (
-            <ErrorMessage
-              error={error}
-              onClose={() => setError(null)}
+          <InputContainer>
+            <Input
+              name="name"
+              label="Nombre (s)"
+              value={state.name}
+              onChange={addFormValueToState}
             />
-          )}
-          {loading && <p>Cargando...</p>}
-        </InputContainer>
-      </FormWithPhotoUpload>
-    </EditPage>
+            <Input
+              name="lastname"
+              label="Apellido (s)"
+              value={state.lastname}
+              onChange={addFormValueToState}
+            />
+            <Input
+              name="bio"
+              type="textarea"
+              label="Sobre ti"
+              placeholder="ej. Soy una persona alegre, dispuesta a triunfar."
+              value={state.bio}
+              onChange={addFormValueToState}
+            />
+            <Input
+              name="job"
+              label="Título de trabajo"
+              placeholder="ej. Ing. Industrial"
+              value={state.job}
+              onChange={addFormValueToState}
+            />
+            <ErrorMessage error={error} onClose={setErrorToNull} />
+            {loadingUpdate && <StyledLoading size="3rem" />}
+          </InputContainer>
+        </FormWithPhotoUpload>
+      </EditPage>
+    </StyledFormContainer>
   );
 }
 
-const mapStateToProps = state => ({user: state.user});
+const mapStateToProps = state => ({ user: state.user });
 
-export default connect(
-  mapStateToProps,
-  {fetchUserUpdate}
-)(EditUser);
+export default connect(mapStateToProps, { fetchUserUpdate })(EditUser);
