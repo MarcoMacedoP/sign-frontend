@@ -29,9 +29,10 @@ export function fetchUserLogin(userData = {}) {
         //after login fetch all projects
         dispatch(fetchProjects());
       })
-      .catch(({ message, statusCode }) =>
-        dispatch(loginUser("error", { message, statusCode }))
-      );
+      .catch(({ message, statusCode }) => {
+        console.log({ message, statusCode });
+        return dispatch(loginUser("error", { message, statusCode }));
+      });
   };
 }
 //------end login user------
@@ -66,7 +67,16 @@ export function fetchSignupUser(user) {
         dispatch(signupUser("success", response.user));
         dispatch(updateUserNotifications(response.userNotifications));
       })
-      .catch(({ message }) => dispatch(signupUser("error", message)));
+      .catch(({ message, statusCode }) =>
+        statusCode === 401
+          ? dispatch(
+              signupUser(
+                "error",
+                "Parece qué este usuario ya está registrado 🤭"
+              )
+            )
+          : dispatch(signupUser("error", message))
+      );
   };
 }
 
