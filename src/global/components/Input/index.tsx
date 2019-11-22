@@ -6,9 +6,16 @@ import {
   TextArea,
   StyledErrorSpan
 } from "./styles";
-import { EMAIL_VALIDATION } from "../../utils/validations";
+import {
+  EMAIL_VALIDATION,
+  DIGITS_VALIDATION,
+  MIN_8_CHARS_VALIDATION,
+  ESPECIAL_CHARS_VALIDATION,
+  CHARS_ALPHABET_VALIDATION,
+  TEXT_VALIDATION
+} from "../../utils/validations";
 
-type inputType = "text" | "email" | "number" | "date" | "textarea";
+type inputType = "text" | "email" | "number" | "date" | "textarea" | "password";
 
 interface InputProps {
   name: string;
@@ -20,22 +27,50 @@ interface InputProps {
   setError?: Function | any;
   displayError?: boolean;
 }
+
+/** This hooks validates the user input, depending on the input type.
+ *  Only updates the error if the user has clicked in the form.
+ */
 const useErrorOnInput = ({ type, value }: { type: inputType; value: any }) => {
   const [localError, setLocalError] = useState<null | string>(null);
-  //use this state just for display the error if the user has cliked the form for first time.
   const [userHasClicked, setUserHasClicked] = useState(false);
 
   useEffect(() => {
     if (userHasClicked) {
       switch (type) {
+        case "date": {
+          value < new Date()
+            ? setLocalError(
+                "La fecha que intentas ingresar ya pasó, ¿Estás seguro de querer hacer esto?"
+              )
+            : setLocalError(null);
+          break;
+        }
+        case "number":
+          value.match(DIGITS_VALIDATION)
+            ? setLocalError(null)
+            : setLocalError("Debes ingresar números!");
+          break;
         case "email":
           value.match(EMAIL_VALIDATION)
             ? setLocalError(null)
             : setLocalError("El email no es válido");
-
           break;
+        case "password":
+          value.match(DIGITS_VALIDATION) &&
+          value.match(MIN_8_CHARS_VALIDATION) &&
+          value.match(ESPECIAL_CHARS_VALIDATION) &&
+          value.match(CHARS_ALPHABET_VALIDATION)
+            ? setLocalError(null)
+            : setLocalError(
+                "Contraseña demasiado debil. Minimo debe contener 8 caracteres, un digito y algun carácter especial ($&%?¿!¡)"
+              );
+          break;
+
         default:
-          setLocalError(null);
+          value.match(TEXT_VALIDATION)
+            ? setLocalError(null)
+            : setLocalError("Texto demasiado corto/largo. ");
       }
     }
   }, [value]);
@@ -84,7 +119,7 @@ export const Input: React.FC<InputProps> = ({
           name={name}
           active={active}
           onChange={onChange}
-          value={value.name}
+          value={value}
           error={displayError && error}
         />
       )}
