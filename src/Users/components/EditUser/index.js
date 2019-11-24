@@ -15,7 +15,7 @@ import {
   FormWithPhotoUpload,
   InputContainer
 } from "../../../global/styles/Forms";
-import { StyledLoading, StyledFormContainer } from "./styles";
+import { StyledFormContainer } from "./styles";
 import { USER_PAGE } from "../../../global/utils/routes";
 //redux
 import { connect } from "react-redux";
@@ -31,10 +31,10 @@ function EditUser({ user, fetchUserUpdate, location, history }) {
   });
   const redirectToUserPage = () => history.push(USER_PAGE);
   useEffect(() => {
-    if (userHasSubmited && hasUpdated) {
-      redirectToUserPage();
+    if (userHasSubmited && hasUpdated && !error) {
+      setTimeout(redirectToUserPage, 3000);
     }
-  }, [userHasSubmited, hasUpdated]);
+  }, [userHasSubmited, hasUpdated, error]);
 
   //handlers
   const handleUploadImage = fileImage => {
@@ -47,7 +47,6 @@ function EditUser({ user, fetchUserUpdate, location, history }) {
     setUserHasSubmit(true);
     if (userSubmitPhoto) {
       let userFormData = new FormData();
-      //add all elements to form data
       Object.keys(state).map(key => userFormData.append(key, state[key]));
       fetchUserUpdate(user, userFormData, userSubmitPhoto);
     } else {
@@ -62,7 +61,7 @@ function EditUser({ user, fetchUserUpdate, location, history }) {
 
   return (
     <StyledFormContainer>
-      <EditPage title="Editar perfil" onSubmit={handleSubmit}>
+      <EditPage title="Editar perfil" onSubmit={handleSubmit} isLoading={loadingUpdate}>
         {showInfoMessage && (
           <InfoMessage
             onClose={handleCloseInfoMessage}
@@ -105,7 +104,6 @@ function EditUser({ user, fetchUserUpdate, location, history }) {
               onChange={addFormValueToState}
             />
             <ErrorMessage error={error} onClose={setErrorToNull} />
-            {loadingUpdate && <StyledLoading size="3rem" />}
           </InputContainer>
         </FormWithPhotoUpload>
       </EditPage>

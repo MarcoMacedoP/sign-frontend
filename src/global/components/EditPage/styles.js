@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
 import {Btn as Button} from "../Button/styles";
+import { Loading } from "../../../global/components";
 
 export const ButtonContainer = styled.div`
   width: 100%;
@@ -20,4 +21,10 @@ export const ButtonContainer = styled.div`
       width: 100%;
     }
   }
+`;
+
+export const StyledLoading = styled(Loading)`
+  margin: 0;
+  padding: 0;
+  min-height: unset;
 `;
