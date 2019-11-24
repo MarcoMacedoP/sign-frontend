@@ -3,7 +3,7 @@ import { Button } from "./styles";
 
 import { ButtonProps } from "../Button";
 interface SecondaryButtonProps extends ButtonProps {
-  bordercolor: string;
+  bordercolor?: string;
 }
 
 export const SecondaryButton: React.FC<SecondaryButtonProps> = ({
