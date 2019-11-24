@@ -5,6 +5,8 @@ export const Main = styled.div`
   width: 100vw;
   height: 100vh;
   max-height: calc(100vh - 3rem);
-  overflow: scroll;
   max-width: 100vw;
+  overflow: auto;
+  padding-left: 60px;
+  box-sizing: border-box;
 `;

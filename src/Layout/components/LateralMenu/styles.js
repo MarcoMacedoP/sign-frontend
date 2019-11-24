@@ -4,7 +4,8 @@ import { whiteColorLigth, whiteColor } from "../../../global/styles/variables";
 const widthTransition = "width 120ms linear";
 const heightTransition = "height 120ms linear";
 export const Menu = styled.aside`
-  position: sticky;
+  position: fixed;
+  padding-top: 3rem;
   top: 0;
   background: ${whiteColorLigth};
   height: 100vh;
