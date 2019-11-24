@@ -7,12 +7,12 @@ import {
   PictureContainer,
 } from "./styles";
 export const PictureCard = ({
-  className,
+  className="",
   picture,
   description,
   title,
   to = "/",
-  onClick
+  onClick = undefined
 }) => (
   <Container to={to} className={className} onClick={onClick}>
     <PictureContainer>

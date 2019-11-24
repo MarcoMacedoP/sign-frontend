@@ -5,13 +5,13 @@ import { AsyncAction  } from "../types/AsyncActions";
 type actionType  = 'GET' | 'UPDATE' | 'REMOVE' | 'ADD'; 
 type statusType = 'loading' | 'error' | 'success' | undefined ;
 
-interface ActionOnProvider{
+export interface ActionOnProvider{
   type: actionType;
   status:  statusType;
   errorDetails?: string;
 }
 
-interface ProvidersState {
+export interface ProvidersState {
   list: Array<ProviderType>; 
   status:{
     actionOnProvider: ActionOnProvider | null,

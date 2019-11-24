@@ -1,46 +1,41 @@
 import React from "react";
 // Components
-import { PictureCard, List } from "../../../global/components/";
+import { PictureCard, List } from "../../../global/components";
 import { Redirect } from "react-router-dom";
 //hooks
-import { useEffect, useState } from "react";
-
+import { useEffect} from "react";
+import {useError, useRedirect} from "../../../global/hooks/"
 // Styled Components
 import { GridList } from "../../../global/styles/Lists";
 //redux
 import { connect } from "react-redux";
 import { fetchProviders } from "../../../global/redux/actions/providers";
 //utils
+import { ProvidersState } from "../../../global/redux/reducers/providers";
 import { ADD_PROVIDER_ROUTE } from "../../../global/utils/routes";
-function ProviderList({ providers, fetchProviders }) {
-  const {
-    shouldFetchProviders,
-    loadingProviders,
-    errorOnGetProviders
-  } = providers.status;
+
+function ProviderList({ providers, fetchProviders }:{providers: ProvidersState, fetchProviders: Function}) {
+  const {getProviders} = providers.status;
   //fetch providers
   useEffect(() => {
-    if (shouldFetchProviders && !loadingProviders) {
+    if (getProviders.shouldFetch && getProviders.status !== "loading") {
       fetchProviders();
     }
-  }, [shouldFetchProviders]);
+  }, [getProviders]);
   //handle errors
-  const [error, setError] = useState(null);
-  useEffect(() => setError(errorOnGetProviders), [errorOnGetProviders]);
-  const setErrorToNull = () => setError(null);
+  const {error, setErrorToNull} = useError({
+    updateErrorOnChange: getProviders.errorDetails
+  })
   //handle redirects
-  const [redirectToAddProvider, setRedirectToAddProvider] = useState(false);
-  const setRedirectTrue = () => {
-    console.log("onAddButtonClick");
-    setRedirectToAddProvider(true);
-  };
+  const {isRedirect, route, toggleRedirect} = useRedirect();
+  const redirectToAddProvider = ()=> toggleRedirect(ADD_PROVIDER_ROUTE);
   return (
     <List
       title="Proveedores"
-      isLoading={loadingProviders}
+      isLoading={getProviders.status === "loading"}
       error={error}
       onErrorClose={setErrorToNull}
-      onAddButtonClick={setRedirectTrue}
+      onAddButtonClick={redirectToAddProvider}
       isEmpty={providers.list.length === 0}
       infoDisplayedOnEmpty={{
         message: "Parece qué aún no tienes proveedores",
@@ -62,11 +57,11 @@ function ProviderList({ providers, fetchProviders }) {
           )}
         </GridList>
       )}
-      {redirectToAddProvider && <Redirect to={ADD_PROVIDER_ROUTE} />}
+      {isRedirect && <Redirect to={route} />}
     </List>
   );
 }
-const mapStateToProps = state => ({
+const mapStateToProps = (state:any) => ({
   providers: state.providers
 });
 export default connect(mapStateToProps, { fetchProviders })(ProviderList);
