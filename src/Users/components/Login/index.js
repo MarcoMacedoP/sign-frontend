@@ -38,6 +38,7 @@ export const Login = ({
           placeholder="*********"
           onChange={handleChange}
           value={formValues.password}
+          displayError={false}
         />
 
         <ErrorMessage error={error} onClose={handleOnErrorClose} />

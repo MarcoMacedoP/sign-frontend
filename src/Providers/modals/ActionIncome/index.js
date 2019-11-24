@@ -80,7 +80,7 @@ export function ActionIncome ({
         label='¿Costo por hora?'
       />
       <SecondaryButton
-        borderColor={positiveStatusColor}
+        bordercolor={positiveStatusColor}
         onClick={onSubmit}
         width='80%'
       >
@@ -88,7 +88,7 @@ export function ActionIncome ({
       </SecondaryButton>
       {children}
       <SecondaryButton
-        borderColor={blackColorLigth}
+        bordercolor={blackColorLigth}
         onClick={onClose}
         width='80%'
       >
