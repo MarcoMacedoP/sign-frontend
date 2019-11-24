@@ -39,6 +39,8 @@ export const GridList = styled.ul`
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 1rem;
   ${PictureCard}:nth-of-type(2n){
+    picture {
       background-color: ${mainColorLight};
+    }
   }
 `;
