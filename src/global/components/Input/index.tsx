@@ -112,7 +112,6 @@ export const Input: React.FC<InputProps> = ({
         />
       ) : (
         <InputForm
-          defaultValue={value}
           id={name}
           type={type}
           placeholder={placeholder}
