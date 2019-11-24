@@ -12,7 +12,7 @@ import {
   CallToAction
 } from "./styles";
 
-interface SmallEmptyStateProps {
+export interface SmallEmptyStateProps {
   message: Array<string> | string;
   image?: string;
   callToAction?: string;

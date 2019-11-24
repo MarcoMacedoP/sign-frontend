@@ -64,6 +64,7 @@ function ProjectListContainer(props: ProjectListProps): JSX.Element {
       isLoading={getProjectStatus.status === "loading" && true}
       title="Proyectos"
       onAddButtonClick={handleAddClick}
+      isEmpty={projectList.length === 0}
     >
       {projectList.length !== 0 ? (
         <StyledGridProjects>

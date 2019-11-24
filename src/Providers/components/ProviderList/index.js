@@ -1,10 +1,6 @@
 import React from "react";
 // Components
-import {
-  PictureCard,
-  List,
-  SmallEmptyState
-} from "../../../global/components/";
+import { PictureCard, List } from "../../../global/components/";
 import { Link, Redirect } from "react-router-dom";
 //hooks
 import { useEffect, useState } from "react";
@@ -45,13 +41,13 @@ function ProviderList({ providers, fetchProviders }) {
       error={error}
       onErrorClose={setErrorToNull}
       onAddButtonClick={setRedirectTrue}
+      isEmpty={providers.list.length === 0}
+      infoDisplayedOnEmpty={{
+        message: "Parece qué aún no tienes proveedores",
+        callToAction: "¿Qué tal si agregas uno para comenzar?"
+      }}
     >
-      {providers.list.length === 0 ? (
-        <SmallEmptyState
-          message="Parece qué aún no tienes proveedores"
-          callToAction="¿Qué tal si agregas uno para comenzar?"
-        />
-      ) : (
+      {providers.list.length === 0 && (
         <BigList>
           {providers.list.map(
             ({ provider_id, name, lastname, image_url, about }) => (

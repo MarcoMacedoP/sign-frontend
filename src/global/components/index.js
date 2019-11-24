@@ -14,7 +14,7 @@ export { SelectionCard } from "./SelectionCard/index";
 export { Modal } from "./Modal/index";
 export { RemoveModal } from "./RemoveModal/index";
 //list
-export { List } from "./List/index";
+export { List, EmptyListState } from "./List/index";
 export { AsideList, AsideListItem } from "./AsideList/index";
 export { Item, ItemList } from "./ItemList/index";
 //Routes Component

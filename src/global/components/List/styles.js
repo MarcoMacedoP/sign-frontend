@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { appPadding } from "../../styles/variables";
+import { SmallEmptyState } from "../SmallEmptyState";
 
 export const Container = styled.main`
   width: 100%;
@@ -10,6 +11,9 @@ export const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  h1 {
+    margin-bottom: 1rem;
+  }
 `;
 export const SearchBarContainer = styled.div`
   box-sizing: border-box;
@@ -21,4 +25,8 @@ export const SearchBarContainer = styled.div`
   @media only screen and (max-width: 800px) {
     margin-top: 2rem;
   }
+`;
+
+export const StyledSmallEmptyState = styled(SmallEmptyState)`
+  height: 60%;
 `;
