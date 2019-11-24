@@ -38,7 +38,7 @@ function ClientListSelection({
         id: "client_id",
         title: "name"
       }}
-      title="Clientes xd"
+      title="Clientes"
       list={clients}
       onClose={onClose}
       onSelection={onSelection}
