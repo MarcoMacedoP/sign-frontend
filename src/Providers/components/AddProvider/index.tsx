@@ -3,15 +3,17 @@ import React from "react";
 import {Redirect} from "react-router-dom";
 import {Input, AddPage} from "../../../global/components";
 //hooks
-import {useEffect, useState} from "react";
-import {useHandleState} from "../../../global/hooks";
+import { useState} from "react";
+import {useHandleState, useError} from "../../../global/hooks";
 //redux
 import {connect} from "react-redux";
 import {fetchAddProvider} from "../../../global/redux/actions/providers";
 //utils
 import {PROVIDERS_ROUTE} from "../../../global/utils/routes";
+import { ActionOnProvider } from "../../../global/redux/reducers/providers";
 
-function AddProvider({fetchAddProvider, isLoading, errorOnFetching}) {
+function AddProvider({fetchAddProvider, actionOnProvider}:{fetchAddProvider: Function, actionOnProvider: ActionOnProvider}) {
+  
   const initialState = {
     name: "",
     lastname: "",
@@ -22,22 +24,23 @@ function AddProvider({fetchAddProvider, isLoading, errorOnFetching}) {
   const {state, addFormValueToState} = useHandleState(initialState);
 
   //handle ui effects
-  const [error, setError] = useState(null);
-  const setErrorToNull = () => setError(null);
-  const [dataAreFetching, setDataAreFetching] = useState(false);
-  const handleSubmit = e => {
+  const {error, setErrorToNull} = useError({
+    updateErrorOnChange: actionOnProvider.errorDetails
+  });
+ 
+  const [hasSubmited, setHasSubmited] = useState(false);
+  const handleSubmit = (e:Event) => {
     e.preventDefault();
-    setDataAreFetching(true);
+    setHasSubmited(true);
     fetchAddProvider(state);
   };
 
-  useEffect(() => setError(errorOnFetching), [errorOnFetching]);
 
   return (
     <AddPage
       onErrorClose={setErrorToNull}
       error={error}
-      isLoading={isLoading}
+      isLoading={actionOnProvider.status === "loading"}
       onSubmit={handleSubmit}
       title="Agregar proveedor"
       aboutTitle="Sobre los proveedores"
@@ -80,15 +83,14 @@ function AddProvider({fetchAddProvider, isLoading, errorOnFetching}) {
         onChange={addFormValueToState}
         type="number"
       />
-      {!isLoading && dataAreFetching && !errorOnFetching && (
+      {actionOnProvider.status ==="success" && hasSubmited && (
         <Redirect to={PROVIDERS_ROUTE} />
       )}
     </AddPage>
   );
 }
-const mapStateToProps = ({providers}) => ({
-  isLoading: providers.status.loadingAddProvider,
-  errorOnFetching: providers.status.errorOnAddProvider
+const mapStateToProps = ({providers}: {providers:any}) => ({
+  actionOnProvider: providers.status.actionOnProvider
 });
 export default connect(
   mapStateToProps,

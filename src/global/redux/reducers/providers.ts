@@ -2,7 +2,7 @@ import { GET_PROVIDERS, ADD_PROVIDER } from "../types/actionTypes";
 import {  ProviderType } from "../../../Providers/types/Provider";
 import { AsyncAction  } from "../types/AsyncActions";
 
-type actionType  = 'GET' | 'UPDATE' | 'REMOVE' | 'ADD'; 
+type actionType  = 'GET' | 'UPDATE' | 'REMOVE' | 'ADD'| 'UNSET'; 
 type statusType = 'loading' | 'error' | 'success' | undefined ;
 
 export interface ActionOnProvider{
@@ -29,7 +29,10 @@ const initalState:ProvidersState = {
   list: [],
   status: {
   actionOnExpense: null,
-  actionOnProvider: null,
+  actionOnProvider: {
+    status: "success",
+    type:    "UNSET"
+  },
   getProviders: {
     shouldFetch: true,
     status: undefined   
