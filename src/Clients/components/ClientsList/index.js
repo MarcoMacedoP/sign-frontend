@@ -1,11 +1,11 @@
 // Components
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
-import { LongCard, List } from "../../../global/components";
+import { Redirect } from "react-router-dom";
+import { PictureCard, List } from "../../../global/components";
 //hooks
 import { useEffect, useState } from "react";
 // styled-Components
-import { LongList } from "../../../global/styles/Lists";
+import { GridList } from "../../../global/styles/Lists";
 //utils
 import { CLIENTS_ROUTE, ADD_CLIENT_ROUTE } from "../../../global/utils/routes";
 //redux
@@ -48,20 +48,17 @@ function ClientsList({
         callToAction: "¿Qué tal si agregas uno para comenzar?"
       }}
     >
-      {clientsList.length === 0 && (
-        <LongList>
+      {clientsList.length !== 0 && (
+        <GridList>
           {clientsList.map(client => (
-            <Link
-              to={`${CLIENTS_ROUTE}${client.client_id}`}
+            <PictureCard
               key={client.client_id}
-            >
-              <LongCard
-                title={`${client.name} ${client.lastname}`}
-                about={client.email || client.phone}
-              />
-            </Link>
+              to={`${CLIENTS_ROUTE}${client.client_id}`}
+              title={`${client.name} ${client.lastname}`}
+              description={client.email || client.phone}
+            />
           ))}
-        </LongList>
+        </GridList>
       )}
       {isRedirect && <Redirect to={ADD_CLIENT_ROUTE} />}
     </List>

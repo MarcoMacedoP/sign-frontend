@@ -3,7 +3,7 @@ import {appPadding} from "../../styles/variables";
 import {BaseForm} from "../../styles/Forms";
 import {mediumScreen} from "../../styles/mediaQuerys";
 export const Container = styled.div`
-  padding: ${appPadding};
+ ${appPadding()}
   ${BaseForm} {
     width: 100%;
     min-width: 0;

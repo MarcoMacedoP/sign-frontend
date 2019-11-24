@@ -1,12 +1,12 @@
 import React from "react";
 // Components
 import { PictureCard, List } from "../../../global/components/";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 //hooks
 import { useEffect, useState } from "react";
 
 // Styled Components
-import { BigList } from "../../../global/styles/Lists";
+import { GridList } from "../../../global/styles/Lists";
 //redux
 import { connect } from "react-redux";
 import { fetchProviders } from "../../../global/redux/actions/providers";
@@ -47,20 +47,20 @@ function ProviderList({ providers, fetchProviders }) {
         callToAction: "¿Qué tal si agregas uno para comenzar?"
       }}
     >
-      {providers.list.length === 0 && (
-        <BigList>
+      {providers.list.length !== 0 && (
+        <GridList>
           {providers.list.map(
             ({ provider_id, name, lastname, image_url, about }) => (
-              <Link key={provider_id} to={`/app/providers/${provider_id}`}>
-                <PictureCard
-                  title={`${name} ${lastname}`}
-                  picture={image_url}
-                  description={about}
-                />
-              </Link>
+              <PictureCard
+                key={provider_id}
+                to={`/app/providers/${provider_id}`}
+                title={`${name} ${lastname}`}
+                picture={image_url}
+                description={about}
+              />
             )
           )}
-        </BigList>
+        </GridList>
       )}
       {redirectToAddProvider && <Redirect to={ADD_PROVIDER_ROUTE} />}
     </List>

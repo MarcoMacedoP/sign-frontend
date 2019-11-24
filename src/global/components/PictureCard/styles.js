@@ -4,30 +4,35 @@ import {
   blackColorTransparent,
   secondaryColorLigth
 } from "../../styles/variables";
-export const Container = styled.div`
+import { mediumScreen } from "../../styles/mediaQuerys";
+
+import { Link } from "react-router-dom";
+
+export const Container = styled(Link)`
   max-width: 100%;
   height: 15.21vh;
   min-height: 121px;
 
   box-shadow: 0 3px 6px 0 ${blackColorTransparent};
   background-color: ${whiteColor};
+  border-radius: 0.5rem;
   margin: 0.5rem;
   cursor: pointer;
 
   box-sizing: border-box;
   overflow: hidden;
 
-  display: grid;
-  grid-template-columns: 20.19% 3fr 1fr;
-  grid-template-rows: 1fr 3fr;
-  row-gap: 1rem;
-  column-gap: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: min-content;
+  padding: 1rem;
+  border-radius: 0.5rem;
 `;
 
 export const PictureContainer = styled.div`
-  grid-column: 1/2;
-  grid-row: 1/-1;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,10 +44,11 @@ export const PictureContainer = styled.div`
 `;
 export const Picture = styled.picture`
   display: block;
-  width: 4rem;
-  height: 4rem;
-  min-width: 4rem;
-  min-height: 4rem;
+  --size: 4rem;
+  width: var(--size);
+  height: var(--size);
+  min-width: var(--size);
+  min-height: var(--size);
   border-radius: 50%;
 
   ${props =>
@@ -52,35 +58,20 @@ export const Picture = styled.picture`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+
+  @media ${mediumScreen} {
+    --size: 2rem;
+  }
 `;
 export const Description = styled.p`
-  grid-column: 2/3;
-  grid-row: 2/-1;
-  margin-bottom: 1rem;
+  @media ${mediumScreen} {
+    font-size: 0.85rem;
+  }
 `;
 export const Title = styled.p`
-  grid-column: 2/3;
-  grid-row: 1/2;
-
   font-size: 0.86rem;
   font-weight: bold;
-
   display: flex;
   align-items: flex-end;
-
-  margin-top: 1rem;
-`;
-export const IconContainer = styled.div`
-  grid-column: 3/-1;
-  grid-row: 1/-1;
-
-  height: inherit;
-  display: flex;
-  align-items: center;
-
-  position: relative;
-  i {
-    position: absolute;
-    right: 0.86rem;
-  }
+  margin: 1rem 0 0.25rem 0;
 `;

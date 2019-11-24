@@ -14,7 +14,6 @@ import {PictureCard} from "../PictureCard";
 import {
   Description,
   Title,
-  IconContainer,
   PictureContainer,
   Picture
 } from "../PictureCard/styles";
@@ -52,9 +51,7 @@ export const AsideListItemBase = styled(PictureCard)`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  ${IconContainer} {
-    display: none;
-  }
+
   @media ${mediumScreen} {
     ${Picture} {
       min-width: 2rem;

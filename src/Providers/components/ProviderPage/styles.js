@@ -5,7 +5,7 @@ import {
 } from "../../../global/styles/variables";
 
 export const Container = styled.div`
-  padding: ${appPadding};
+ ${appPadding()}
   background: ${whiteColorLigth};
   position: relative;
   top: 0;

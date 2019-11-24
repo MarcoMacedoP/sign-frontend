@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { appPadding, whiteColorLigth } from "./variables";
 
 export const AppContainer = styled.main`
-  padding: ${appPadding};
+ ${appPadding()}
   background: ${whiteColorLigth};
   box-sizing: border-box;
   width: 100%;

@@ -5,7 +5,7 @@ import { SmallEmptyState } from "../SmallEmptyState";
 export const Container = styled.main`
   width: 100%;
   height: 100%;
-  padding: ${appPadding};
+  ${appPadding()}
   box-sizing: border-box;
 
   display: flex;
