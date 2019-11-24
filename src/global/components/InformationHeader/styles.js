@@ -1,13 +1,9 @@
 import styled from "styled-components";
-import {H1} from "../../styles/texts";
-import {
-  whiteColorLigth,
-  secondaryColor,
-  blackColorTransparent
-} from "../../styles/variables";
-import {Menu as ToastMenu} from "../ToastMenu/styles";
-import {BaseIcon as Icon} from "../Icon/styles";
-import {cellphoneMediaQuery} from "../../styles/mediaQuerys";
+import { H1 } from "../../styles/texts";
+import { whiteColorLigth, secondaryColor } from "../../styles/variables";
+import { Menu as ToastMenu } from "../ToastMenu/styles";
+import { BaseIcon as Icon } from "../Icon/styles";
+import { cellphoneMediaQuery } from "../../styles/mediaQuerys";
 
 export const About = styled.div`
   display: flex;
@@ -68,6 +64,7 @@ export const ProfilePicture = styled.div`
     object-fit: cover;
     object-position: center;
     width: 100%;
+    height: 100%;
   }
 `;
 export const Biography = styled.p`
@@ -75,8 +72,7 @@ export const Biography = styled.p`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: ${props =>
-    props.imageIsShow ? "flex-start" : "center"};
+  justify-content: ${props => (props.imageIsShow ? "flex-start" : "center")};
 `;
 export const ContactInfoContainer = styled.div`
   margin-top: 1rem;
@@ -106,31 +102,7 @@ export const ContactInfo = styled.div`
     }
   }
 `;
-export const Date = styled.span`
-  position: relative;
-  :hover,
-  :active {
-    ::after {
-      display: block;
-    }
-  }
-  ::after {
-    content: "Está es la fecha de entrega.";
-    padding: 0.5rem;
-    display: none;
-    background-color: ${blackColorTransparent};
 
-    position: absolute;
-    top: 1.5rem;
-    left: 0;
-
-    min-width: 50px;
-    width: min-content;
-    white-space: nowrap;
-
-    border-radius: 0.5rem;
-  }
-`;
 export const DateContainer = styled.div`
   width: 100%;
   display: flex;

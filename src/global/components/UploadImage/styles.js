@@ -1,7 +1,7 @@
 import styled from "styled-components";
 //vars
-import {blackColor, whiteColorDark} from "../../styles/variables";
-import {BaseIcon as Icon} from "../Icon/styles";
+import { blackColor, whiteColorDark } from "../../styles/variables";
+import { BaseIcon as Icon } from "../Icon/styles";
 
 export const Container = styled.div`
   max-width: 200px;
@@ -19,7 +19,7 @@ export const Container = styled.div`
 `;
 export const Image = styled.img`
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   object-position: center;
 `;

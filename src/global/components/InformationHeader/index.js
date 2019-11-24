@@ -18,7 +18,6 @@ import {
   ProfilePicture,
   ContactInfoContainer,
   ContactInfo,
-  Date,
   DateContainer
 } from "./styles";
 //routes
@@ -109,13 +108,13 @@ export const InformationHeader = ({
           {date && (
             <DateContainer>
               <Icon hasAnimatedClick={false} icon="timer" />
-              <Date>{moment(date).format("ll")}</Date>
+              <span>{moment(date).format("ll")}</span>
             </DateContainer>
           )}
           {job && (
             <DateContainer>
               <Icon hasAnimatedClick={false} icon="work" />
-              <Date>{job}</Date>
+              <span>{job}</span>
             </DateContainer>
           )}
         </ContactInfoContainer>
