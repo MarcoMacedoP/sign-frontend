@@ -1,4 +1,9 @@
-import { GET_PROVIDERS, ADD_PROVIDER, ADD_INCOME } from '../types/actionTypes';
+import {
+	GET_PROVIDERS,
+	ADD_PROVIDER,
+	ADD_INCOME,
+	EDIT_INCOME
+} from '../types/actionTypes';
 import { ProviderType } from '../../../Providers/types/Provider';
 import { AsyncAction } from '../types/AsyncActions';
 
@@ -140,6 +145,45 @@ export default (state = initalState, action: AsyncAction): ProvidersState => {
 							...state.status,
 							actionOnExpense: {
 								type: 'ADD',
+								status,
+								errorDetails: response
+							}
+						}
+					};
+				}
+			case EDIT_INCOME:
+				if (status !== 'error') {
+					debugger;
+					return {
+						status: {
+							...state.status,
+							actionOnExpense: {
+								type: 'UPDATE',
+								status
+							}
+						},
+						list: state.list.map((provider) =>
+							provider.provider_id === response.expense.providerId
+								? {
+										...provider,
+										expenses: provider.expenses.map(
+											(expense) =>
+												expense._id ===
+												response.expense._id
+													? response.expense
+													: expense
+										)
+								  }
+								: provider
+						)
+					};
+				} else {
+					return {
+						...state,
+						status: {
+							...state.status,
+							actionOnExpense: {
+								type: 'UPDATE',
 								status,
 								errorDetails: response
 							}

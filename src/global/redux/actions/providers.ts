@@ -67,11 +67,16 @@ export const fetchAddIncome: ThunkAction<
 		.catch(({ message }) => dispatch(addIncome('error', message)));
 };
 //-----------edit provider -------------
-export const editIncome = (status: PayloadStatus, response?: any) => ({
+export const editExpense = (status: PayloadStatus, response?: any) => ({
 	type: EDIT_INCOME,
 	payload: { status, response }
 });
-export const fetchEditExpense = (expense: any) => (dipatch: Function) => {
-	dipatch(editIncome('loading', { expense }));
-	return callApi(`/expenses/${expense}`);
+export const fetchEditExpense = (expense: any) => (dispatch: Function) => {
+	dispatch(editExpense('loading', { expense }));
+	return callApi(`/expenses/${expense._id}`, {
+		method: 'PATCH',
+		body: JSON.stringify(expense)
+	})
+		.then((response) => dispatch(editExpense('success', response)))
+		.catch((error) => dispatch(editExpense('error', { error })));
 };
