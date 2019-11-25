@@ -13,8 +13,8 @@ import {
 } from "../../../global/components";
 import { Redirect } from "react-router-dom";
 //hooks
-import { useHandleState } from "../../../global/hooks";
-import { useEffect, useState } from "react";
+import { useHandleState, useRedirect, useError } from "../../../global/hooks";
+import { useEffect } from "react";
 //utils
 import { ADD_TEAM, TEAMS_LIST } from "../../../global/utils/routes";
 
@@ -26,15 +26,11 @@ function TeamsList({
   errorOnFetchTeams,
   children
 }) {
-  const { state, toggleStateValue, addValueToState } = useHandleState({
-    isShowed: true,
-    isRedirect: false,
-    selectedTeam: null
+  const { state, toggleStateValue } = useHandleState({
+    isShowed: true
   });
   //handles
-  const handleRedirect = () => toggleStateValue("isRedirect");
-  const toggleAsideList = () => toggleStateValue("isShowed");
-  const handleSelectTeam = (teamId) => addValueToState("selectedTeam", teamId);
+  const { isRedirect, toggleRedirect, route } = useRedirect();
   //fetch stuff
   useEffect(() => {
     if (shouldFetchTeams) {
@@ -42,13 +38,21 @@ function TeamsList({
     }
   }, [shouldFetchTeams]);
   //error handlers
-  const [error, setError] = useState(null);
-  useEffect(() => setError(errorOnFetchTeams), [errorOnFetchTeams]);
-  const setErrorToNull = () => setError(null);
+  const { error, setErrorToNull } = useError({
+    updateErrorOnChange: errorOnFetchTeams
+  });
+
+  const toggleAsideList = () => toggleStateValue("isShowed");
+  const handleAddClick = () => toggleRedirect(ADD_TEAM);
 
   if (loadingFetchTeams) {
     return <Loading />;
-  } else if (teamsList.length === 0) {
+  }
+  if (isRedirect) {
+    return <Redirect to={route} />;
+  }
+
+  if (teamsList.length === 0) {
     return (
       <SmallEmptyState
         message={[
@@ -57,8 +61,7 @@ function TeamsList({
         ]}
         callToAction="¡Crea un equipo ahora!"
       >
-        <AddButton isCallToAction onClick={handleRedirect} position="static" />
-        {state.isRedirect && <Redirect to={ADD_TEAM} />}
+        <AddButton isCallToAction onClick={handleAddClick} position="static" />
       </SmallEmptyState>
     );
   }
@@ -77,19 +80,15 @@ function TeamsList({
                 picture={team.picture}
                 title={`${team.name}`}
                 date={team.about}
-                onClick={() => handleSelectTeam(team._id)}
+                to={`${TEAMS_LIST}${team._id}`}
               />
             )
         )}
         <ErrorMessage error={error} onClose={setErrorToNull} />
       </AsideList>
       {children}
-
-      {state.selectedTeam && (
-        <Redirect to={`${TEAMS_LIST}${state.selectedTeam}`} />
-      )}
       {state.isRedirect && <Redirect to={ADD_TEAM} />}
-      <AddButton onClick={handleRedirect} />
+      <AddButton onClick={handleAddClick} />
     </>
   );
 }
