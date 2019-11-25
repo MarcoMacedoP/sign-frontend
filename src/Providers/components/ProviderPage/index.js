@@ -3,7 +3,7 @@ import React from "react";
 import {IncomeList} from "../IncomeList";
 import {InformationHeader} from "../../../global/components";
 //modals
-import {AddIncome} from "../../modals/AddIncome";
+import AddIncome from "../../modals/AddIncome";
 import {EditIncome} from "../../modals/EditIncome";
 //styled-components
 import {PageContainer} from "../../../global/styles/Containers";
@@ -21,7 +21,7 @@ function ProviderPage({provider, services = [], products = []}) {
   // Form values of AddIncome and EditIncome
   const {state, addFormValueToState} = useHandleState({});
   //provider info
-  const {name, lastname, image_url, about, email, phone} = provider;
+  const {name, lastname, image_url, about, email, phone, provider_id} = provider;
   return (
     <PageContainer>
       <InformationHeader
@@ -48,16 +48,18 @@ function ProviderPage({provider, services = [], products = []}) {
       <AddIncome
         onClose={handleAddService}
         isOpen={addServiceIsOpen}
-        incomeName="servicio"
+        type="service"
         onChange={addFormValueToState}
         formValues={state}
+        providerId={provider_id}
       />
       <EditIncome
         onClose={handleEditService}
         isOpen={editServiceIsOpen}
-        incomeName="servicio"
+        type="service"
         onChange={addFormValueToState}
         formValues={state}
+        providerId={provider_id}
       />
       {
         // products modals
@@ -65,16 +67,18 @@ function ProviderPage({provider, services = [], products = []}) {
       <AddIncome
         onClose={handleAddProduct}
         isOpen={addProductIsOpen}
-        incomeName="producto"
+        type="product"
         onChange={addFormValueToState}
         formValues={state}
+        providerId={provider_id}
       />
       <EditIncome
         onClose={handleEditProduct}
         isOpen={editProductIsOpen}
-        incomeName="producto"
+        type="product"
         onChange={addFormValueToState}
         formValues={state}
+        providerId={provider_id}
       />
       {/* -------------- */}
     </PageContainer>
@@ -87,12 +91,12 @@ const mapStateToProps = ({providers}, props) => {
   );
   if (provider.expenses) {
     const services = provider.expenses.filter(
-      expense => expense.type === "service"
+      expense => expense && expense.type === "service"
+      
     );
     const products = provider.expenses.filter(
-      expense => expense.type === "product"
+      expense => expense && expense.type === "product"
     );
-
     return {provider, services, products};
   } else {
     return {provider};

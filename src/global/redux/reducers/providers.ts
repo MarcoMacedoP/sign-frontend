@@ -1,4 +1,4 @@
-import { GET_PROVIDERS, ADD_PROVIDER } from "../types/actionTypes";
+import { GET_PROVIDERS, ADD_PROVIDER, ADD_INCOME } from "../types/actionTypes";
 import {  ProviderType } from "../../../Providers/types/Provider";
 import { AsyncAction  } from "../types/AsyncActions";
 
@@ -101,11 +101,51 @@ export default (state = initalState, action: AsyncAction):ProvidersState => {
               }
             }
           }
-          
+           /*******add income*******/
+    case ADD_INCOME:
+        if(status === "loading"){
+          const providers = state.list.map((provider) =>{
+                if(provider.provider_id === response.providerId){
+                  return {  
+                    ...provider,
+                    expenses: provider.expenses 
+                      ? [response.income, ...provider.expenses]
+                      : [response.income]
+                  };
+                }
+                else return provider;
+          });     
+            return {
+              status: {
+                  ...state.status,
+                  actionOnExpense: {
+                    status: "loading",
+                    type: "ADD"
+                  }
+              },
+              list: providers 
+            }
+        }else{
+          return {
+            ...state,
+            status:{
+              ...state.status,
+              actionOnExpense: {
+                type: "ADD",
+                status, 
+                errorDetails: status==="error" && response
+              }
+            }
+          }
+        }
           default:
           return state;
     }
+   
+
   }else{
     return state; 
   }
 };
+
+

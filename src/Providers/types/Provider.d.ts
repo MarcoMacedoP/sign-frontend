@@ -6,6 +6,17 @@ export interface ProviderType {
       email: string;
       phone: number;
       image_url: string;
-      incomes: Array<any>;
+      expenses: Array<any>;
       fullLoaded?: boolean;
+}
+
+export type IncomeType = 'service' | 'product';
+
+export interface IncomeInterface {
+   providerId: number | string;
+    name: string; 
+    description: string, 
+    cost:number, 
+    costPerHour:boolean
+    type: IncomeType
 }
