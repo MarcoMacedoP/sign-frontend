@@ -1,4 +1,4 @@
-import {ADD_TEAM, FETCH_TEAMS} from "../types/actionTypes";
+import { ADD_TEAM, FETCH_TEAMS } from "../types/actionTypes";
 const initialState = {
   status: {
     shouldFetchTeams: true,
@@ -12,9 +12,9 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case ADD_TEAM:
+      console.log(action);
       return addTeamToState(action.payload, state);
     case FETCH_TEAMS:
       return fetchTeamsToState(action.payload, state);
@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
       return state;
   }
 };
-function fetchTeamsToState({status, response}, state) {
+function fetchTeamsToState({ status, response }, state) {
   switch (status) {
     case "loading":
       return {
@@ -60,7 +60,7 @@ function fetchTeamsToState({status, response}, state) {
       return state;
   }
 }
-function addTeamToState({status, response}, state) {
+function addTeamToState({ status, response }, state) {
   switch (status) {
     case "loading":
       return {

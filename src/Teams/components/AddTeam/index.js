@@ -1,83 +1,92 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 //components
-import {
-  InfoLayout,
-  EditPage,
-  Input,
-  UploadImage,
-  ErrorMessage
-} from "../../../global/components/";
+import { Input, UploadImage, AddPage } from "../../../global/components/";
 
 //redux
-import {connect} from "react-redux";
-import {addTeam} from "../../../global/redux/actions/teams";
+import { connect } from "react-redux";
+import { fetchAddTeam } from "../../../global/redux/actions/teams";
 //hooks
-import {useHandleState} from "../../../global/hooks/useHandleState";
-import {useState} from "react";
+import { useHandleState, useError, useRedirect } from "../../../global/hooks";
 
-function AddTeam({addTeam}) {
-  const initialState = {
-    name: "",
-    about: "",
-    picture: "",
-    id: 2
+const INITIAL_STATE = {
+  name: "",
+  description: "",
+  picture: ""
+};
+
+function AddTeam({ fetchAddTeam, loadingAddTeam, errorOnAddTeam }) {
+  const { state, addFormValueToState, addValueToState } = useHandleState(
+    INITIAL_STATE
+  );
+  const { redirectToLastLocation, route, isRedirect } = useRedirect();
+  const { error, setErrorToNull, setError } = useError({
+    updateErrorOnChange: errorOnAddTeam
+  });
+  const [hasSubmit, setHasSubmit] = React.useState(false);
+
+  React.useEffect(() => {
+    if (hasSubmit && !error && !loadingAddTeam) {
+      redirectToLastLocation();
+    }
+  }, [hasSubmit, error, loadingAddTeam]);
+
+  const handleError = () => {
+    setErrorToNull();
+    setHasSubmit(false);
   };
-  const {
-    state,
-    addFormValueToState,
-    addValueToState
-  } = useHandleState(initialState);
 
-  const [error, setError] = useState(null);
-
-  const handlePictureUpload = pictureUrl =>
+  const handlePictureUpload = (pictureUrl) =>
     addValueToState("picture", pictureUrl);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    if (!state.name || !state.about || !state.picture) {
-      setError("Alguno de los campos está invalido!");
+    if (!state.name || !state.description) {
+      setError("Alguno de los campos está vacio.");
     } else {
-      addTeam(state);
+      setHasSubmit(true);
+      fetchAddTeam(state);
     }
   };
 
-  const handleErrorClose = () => setError(false);
-
   return (
-    <InfoLayout
+    <AddPage
       title="Crear un equipo"
-      info="La herramienta para crear equipos 
+      about="La herramienta para crear equipos 
         te permite mantener cominicación con otras personas
       y trabajar juntos en proyectos"
+      error={error}
+      onErrorClose={handleError}
+      onSubmit={handleSubmit}
+      isLoading={loadingAddTeam}
     >
-      <EditPage onSubmit={handleSubmit}>
-        <UploadImage
-          name="picture"
-          value={state.picture}
-          onUpload={handlePictureUpload}
-        />
-        <Input
-          placeholder="ej. Diseño de producto"
-          name="name"
-          value={state.name}
-          onChange={addFormValueToState}
-        />
-        <Input
-          placeholder="El equipo encargo de diseñar el producto en Nescafé"
-          name="about"
-          value={state.about}
-          onChange={addFormValueToState}
-        />
-        {error && (
-          <ErrorMessage error={error} onClose={handleErrorClose} />
-        )}
-      </EditPage>
-    </InfoLayout>
+      <UploadImage
+        name="picture"
+        value={state.picture}
+        onUpload={handlePictureUpload}
+      />
+      <Input
+        placeholder="ej. Diseño de producto"
+        name="name"
+        value={state.name}
+        onChange={addFormValueToState}
+      />
+      <Input
+        placeholder="El equipo encargo de diseñar el producto en Nescafé"
+        name="description"
+        value={state.description}
+        onChange={addFormValueToState}
+      />
+      {isRedirect && <Redirect to={route} />}
+    </AddPage>
   );
 }
 
-export default connect(
-  null,
-  {addTeam}
-)(AddTeam);
+const mapStateToProps = (state) => {
+  return {
+    loadingAddTeam: state.teams.status.loadingAddTeam,
+    errorOnAddTeam: state.teams.status.errorOnAddTeam
+  };
+};
+
+export default connect(mapStateToProps, { fetchAddTeam })(AddTeam);
