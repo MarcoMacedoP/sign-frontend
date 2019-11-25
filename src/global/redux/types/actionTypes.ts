@@ -26,6 +26,7 @@ export const CHANGE_ACTIVITY_TYPE: string = "CHANGE_ACTIVITY_TYPE";
 //Teams
 export const FETCH_TEAMS: string = "FETCH_TEAMS";
 export const ADD_TEAM: string = "ADD_TEAM";
+export const ADD_MEMBER_TO_TEAM: string = "ADD_MEMBER_TO_TEAM";
 //Clients
 export const GET_CLIENTS: string = "FETCH_CLIENTS";
 export const ADD_CLIENT: string = "ADD_CLIENT";

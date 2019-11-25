@@ -26,7 +26,7 @@ function AddUser({ isOpen, onClose, teamId }) {
       <H3>Agregar usuario</H3>
       <Input
         label="Email del usario"
-        name="emial"
+        name="email"
         onChange={addFormValueToState}
         placeholder="test@example.com"
         value={state.email}

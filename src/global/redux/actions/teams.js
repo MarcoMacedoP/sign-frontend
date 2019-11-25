@@ -1,4 +1,8 @@
-import { ADD_TEAM, FETCH_TEAMS } from "../types/actionTypes";
+import {
+  ADD_TEAM,
+  FETCH_TEAMS,
+  ADD_MEMBER_TO_TEAM
+} from "../types/actionTypes";
 import { callApi, callApiWithFormData } from "../../functions/callApi";
 
 //add team--------------
@@ -27,4 +31,18 @@ export const fetchTeams = () => (dispatch) => {
   return callApi("/teams/member/")
     .then((teams) => dispatch(getTeams("success", teams)))
     .catch(({ message }) => dispatch(getTeams("error", message)));
+};
+//add member to team
+const addMemberToTeam = (status, response) => ({
+  payload: { status, response },
+  type: ADD_MEMBER_TO_TEAM
+});
+export const fetchAddMemberToTeam = (teamId, userEmail) => (dispatch) => {
+  dispatch(addMemberToTeam("loading"));
+  return callApi(`/teams/admin/add_member/${teamId}`, {
+    method: "PATCH",
+    body: JSON.stringify({ userEmail })
+  })
+    .then((response) => dispatch(addMemberToTeam("success", response)))
+    .catch((error) => dispatch(addMemberToTeam("error", error)));
 };
