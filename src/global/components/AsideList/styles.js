@@ -81,6 +81,10 @@ export const Aside = styled.aside`
   background-color: ${whiteColorLigth};
 
   transition: width 150ms linear;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @media ${mediumScreen} {
     width: ${(props) => (props.isShowed ? "50vw" : "4rem")};
   }
