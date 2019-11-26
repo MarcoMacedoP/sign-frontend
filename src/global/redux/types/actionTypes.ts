@@ -24,6 +24,7 @@ export const ADD_ACTIVITE: string = "ADD_ACTIVITIE";
 export const ADD_COMMENT: string = "ADD_COMMENT";
 export const CHANGE_ACTIVITY_TYPE: string = "CHANGE_ACTIVITY_TYPE";
 //Teams
+export const GET_TEAMS_PROJECTS: string = "GET_TEAMS_PROJECTS";
 export const FETCH_TEAMS: string = "FETCH_TEAMS";
 export const ADD_TEAM: string = "ADD_TEAM";
 export const ADD_MEMBER_TO_TEAM: string = "ADD_MEMBER_TO_TEAM";

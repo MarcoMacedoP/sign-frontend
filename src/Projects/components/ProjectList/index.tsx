@@ -92,7 +92,7 @@ interface ProjectCardProps {
   dueDate: string | Date;
   onClick: any;
 }
-const ProjectCard: React.FC<ProjectCardProps> = ({
+export const ProjectCard: React.FC<ProjectCardProps> = ({
   about,
   dueDate,
   title,

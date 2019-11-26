@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { whiteColor } from "../../../global/styles/variables";
 import { ItemList } from "../../../global/components";
+import { StyledGridProjects } from "../../../Projects/components/ProjectList/styles";
+
 export const Container = styled.article`
   width: 100%;
   height: 100vh;
@@ -40,8 +42,11 @@ export const Info = styled.aside`
   right: ${(props) => (props.isShowed ? "0" : "-100vw")};
 
   transition: width 150ms linear, position 150ms linear;
-  p:nth-of-type(1) {
+  p {
     width: 100%;
+  }
+  p:nth-of-type(2) {
+    margin-bottom: 1rem;
   }
   strong {
     font-weight: bold;
@@ -75,3 +80,7 @@ export const StyledUserList = styled(ItemList)`
   }
 `;
 export const About = styled.p``;
+export const Grid = styled(StyledGridProjects)`
+  padding: 0 2rem;
+  grid-template-rows: 200px;
+`;

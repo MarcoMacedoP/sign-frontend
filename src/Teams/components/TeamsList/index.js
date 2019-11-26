@@ -76,6 +76,7 @@ function TeamsList({
           (team) =>
             team && (
               <AsideListItem
+                onClick={toggleAsideList}
                 key={team._id}
                 picture={team.picture}
                 title={`${team.name}`}

@@ -1,9 +1,17 @@
 import React from "react";
 //components
-import { Icon, SmallEmptyState, Button } from "../../../global/components";
+import { ProjectCard } from "../../../Projects/components/ProjectList/";
+
+import {
+  Icon,
+  SmallEmptyState,
+  Button,
+  Loading,
+  ErrorMessage
+} from "../../../global/components";
 import TeamList from "../TeamsList";
 //hooks
-import { useHandleState, useModalState } from "../../../global/hooks";
+import { useHandleState, useModalState, useError } from "../../../global/hooks";
 //styled-components
 import {
   Container,
@@ -11,19 +19,46 @@ import {
   Info,
   Picture,
   About,
-  StyledUserList
+  StyledUserList,
+  Grid
 } from "./styles";
 import { H4 } from "../../../global/styles/texts";
 //redux
 import { connect } from "react-redux";
+import { fetchGetProjectsInTeam } from "../../../global/redux/actions/teams";
 import AddUser from "../AddUser";
 import UserInTeam from "../UserInTeam";
 
-function Team({ team, match }) {
+function Team({
+  team,
+  match,
+  fetchGetProjectsInTeam,
+  statusOnGetProjects,
+  projectsInTeam
+}) {
   const { state, toggleStateValue } = useHandleState({
     infoIsShowed: true
   });
   const [addUserIsOpen, toggleAddUserIsOpen] = useModalState();
+  const [shouldFetch, setShoulFetch] = React.useState(true);
+  const { setError, error, setErrorToNull } = useError({
+    updateErrorOnChange: null
+  });
+  React.useEffect(() => {
+    if (shouldFetch) {
+      fetchGetProjectsInTeam(teamId);
+      setShoulFetch(false);
+    }
+  }, [shouldFetch]);
+  React.useEffect(() => {
+    if (
+      statusOnGetProjects !== "loading" &&
+      statusOnGetProjects !== "success"
+    ) {
+      setError(statusOnGetProjects);
+    }
+  }, [statusOnGetProjects]);
+
   const toggleInfo = () => toggleStateValue("infoIsShowed");
   const teamId = match.params.teamId;
 
@@ -40,8 +75,21 @@ function Team({ team, match }) {
             <H4>{team.name}</H4>
             <Icon icon="info" onClick={toggleInfo} />
           </Header>
-          <div>info del proyecto</div>
-
+          {statusOnGetProjects === "loading" && !projectsInTeam && <Loading />}
+          {error && <ErrorMessage error={error} onClose={setErrorToNull} />}
+          {projectsInTeam && (
+            <Grid>
+              {projectsInTeam.map((project) => (
+                <ProjectCard
+                  key={project._id}
+                  onClick={() => console.log("card cliked")}
+                  about={project.description}
+                  title={project.name}
+                  dueDate={project.dueDate}
+                />
+              ))}
+            </Grid>
+          )}
           <Info isShowed={state.infoIsShowed}>
             <Picture>
               <img src={team.picture} alt="" />
@@ -68,8 +116,13 @@ function Team({ team, match }) {
 const mapStateToProps = (state, props) => {
   const teamId = props.match.params.teamId;
   return {
-    team: state.teams.list.find((team) => team && team._id === teamId)
+    team: state.teams.list.find((team) => team && team._id === teamId),
+    statusOnGetProjects: state.teams.status.getProjectsInTeam,
+    projectsInTeam:
+      state.teams.projectsInTeams &&
+      state.teams.projectsInTeams.find((elemt) => elemt.teamId == teamId)
+        .projects
   };
 };
 
-export default connect(mapStateToProps, null)(Team);
+export default connect(mapStateToProps, { fetchGetProjectsInTeam })(Team);
