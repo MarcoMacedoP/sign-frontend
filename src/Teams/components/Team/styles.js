@@ -40,6 +40,12 @@ export const Info = styled.aside`
   right: ${(props) => (props.isShowed ? "0" : "-100vw")};
 
   transition: width 150ms linear, position 150ms linear;
+  p:nth-of-type(1) {
+    width: 100%;
+  }
+  strong {
+    font-weight: bold;
+  }
 `;
 export const Picture = styled.picture`
   background-color: ${whiteColor};
@@ -54,7 +60,7 @@ export const Picture = styled.picture`
 
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     object-position: center;
   }

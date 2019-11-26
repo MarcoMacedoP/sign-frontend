@@ -46,6 +46,9 @@ function Team({ team, match }) {
             <Picture>
               <img src={team.picture} alt="" />
             </Picture>
+            <p>
+              <strong> Acerca de {team.name}</strong>
+            </p>
             <About>{team.description}</About>
             <StyledUserList title="Miembros">
               {team.members.map((user) => (
