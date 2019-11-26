@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {whiteColor} from "../../../global/styles/variables";
-
+import { whiteColor } from "../../../global/styles/variables";
+import { ItemList } from "../../../global/components";
 export const Container = styled.article`
   width: 100%;
   height: 100vh;
@@ -28,16 +28,16 @@ export const Header = styled.header`
 `;
 
 export const Info = styled.aside`
-  padding: ${props => (props.isShowed ? "0.5rem" : "0")};
+  padding: ${(props) => (props.isShowed ? "0.5rem" : "0")};
   border-left: 1px solid ${whiteColor};
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
 
-  width: ${props => (props.isShowed ? "100%" : "0")};
-  position: ${props => (props.isShowed ? "static" : "absolute")};
-  right: ${props => (props.isShowed ? "0" : "-100vw")};
+  width: ${(props) => (props.isShowed ? "100%" : "0")};
+  position: ${(props) => (props.isShowed ? "static" : "absolute")};
+  right: ${(props) => (props.isShowed ? "0" : "-100vw")};
 
   transition: width 150ms linear, position 150ms linear;
 `;
@@ -59,5 +59,13 @@ export const Picture = styled.picture`
     object-position: center;
   }
 `;
-
+export const StyledUserList = styled(ItemList)`
+  width: 100%;
+  a {
+    align-items: center;
+  }
+  i {
+    padding: 0;
+  }
+`;
 export const About = styled.p``;

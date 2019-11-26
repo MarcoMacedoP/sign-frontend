@@ -67,11 +67,12 @@ export const StyledPicture = styled.picture`
 
   background-color: ${whiteColorDark};
   overflow: hidden;
+
   img {
     object-fit: cover;
     object-position: center;
     width: 100%;
-    height: auto;
+    height: 100%;
   }
 `;
 export const StyledDeleteIcon = styled(Icon).attrs(() => ({

@@ -4,14 +4,15 @@ import {
   Picture,
   Description,
   Title,
-  PictureContainer,
+  PictureContainer
 } from "./styles";
 export const PictureCard = ({
-  className="",
+  className = "",
   picture,
   description,
   title,
   to = "/",
+  children,
   onClick = undefined
 }) => (
   <Container to={to} className={className} onClick={onClick}>
@@ -21,6 +22,7 @@ export const PictureCard = ({
     <Title>{title || "Nombre de usuario"}</Title>
     <Description>
       {description ||
+        children ||
         "Quiere la boca exhausta vid, kiwi, piña y fugaz jamón. Fabio me exige, sin tapujos…"}
     </Description>
   </Container>

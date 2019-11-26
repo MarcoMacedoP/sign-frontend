@@ -1,25 +1,39 @@
 import React from "react";
 //components
-import { Icon, SmallEmptyState } from "../../../global/components";
+import { Icon, SmallEmptyState, Button } from "../../../global/components";
 import TeamList from "../TeamsList";
 //hooks
-import { useHandleState } from "../../../global/hooks/useHandleState";
+import { useHandleState, useModalState } from "../../../global/hooks";
 //styled-components
-import { Container, Header, Info, Picture, About } from "./styles";
+import {
+  Container,
+  Header,
+  Info,
+  Picture,
+  About,
+  StyledUserList
+} from "./styles";
 import { H4 } from "../../../global/styles/texts";
 //redux
 import { connect } from "react-redux";
 import AddUser from "../AddUser";
+import UserInTeam from "../UserInTeam";
 
-function Team({ team }) {
+function Team({ team, match }) {
   const { state, toggleStateValue } = useHandleState({
     infoIsShowed: true
   });
+  const [addUserIsOpen, toggleAddUserIsOpen] = useModalState();
   const toggleInfo = () => toggleStateValue("infoIsShowed");
+  const teamId = match.params.teamId;
 
   return (
     <TeamList>
-      <AddUser isOpen={true} onClose={() => console.log(":)")} />
+      <AddUser
+        teamId={teamId}
+        isOpen={addUserIsOpen}
+        onClose={toggleAddUserIsOpen}
+      />
       {team ? (
         <Container>
           <Header>
@@ -33,6 +47,12 @@ function Team({ team }) {
               <img src={team.picture} alt="" />
             </Picture>
             <About>{team.description}</About>
+            <StyledUserList title="Miembros">
+              {team.members.map((user) => (
+                <UserInTeam user={user} key={user.userId} />
+              ))}
+            </StyledUserList>
+            <Button onClick={toggleAddUserIsOpen}>Agregar usuario</Button>
           </Info>
         </Container>
       ) : (
@@ -45,7 +65,7 @@ function Team({ team }) {
 const mapStateToProps = (state, props) => {
   const teamId = props.match.params.teamId;
   return {
-    team: state.teams.list.find((team) => team._id === teamId)
+    team: state.teams.list.find((team) => team && team._id === teamId)
   };
 };
 
