@@ -97,11 +97,12 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
     activities,
     clients = [],
     providers = [],
+    teams = [],
     fullLoaded
   } = project;
 
   const filterActivities = (status: activitiesStatus) =>
-    activities && activities.filter(act => act.status === status);
+    activities && activities.filter((act) => act.status === status);
 
   const pendingActivites = filterActivities("PENDING");
   const donedActivites = filterActivities("DONED");
@@ -158,7 +159,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
                 isLoading={isLoadingAddingClient}
               >
                 {clients.length > 0 &&
-                  clients.map(client => (
+                  clients.map((client) => (
                     <Item
                       key={client.client_id}
                       name={client.name}
@@ -174,11 +175,27 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
                 onAddButtonClick={toggleProvidersList}
               >
                 {providers.length > 0 &&
-                  providers.map(provider => (
+                  providers.map((provider) => (
                     <Item
                       key={provider.provider_id}
                       name={provider.name}
                       onDelete={() => onProviderRemove(provider.provider_id)}
+                    />
+                  ))}
+              </ItemList>
+              {/* teams in project */}
+              <ItemList
+                title="Equipos"
+                isLoading={false}
+                addMessage="Agregar equipo a proyecto"
+                onAddButtonClick={() => console.log("ADD")}
+              >
+                {teams.length > 0 &&
+                  teams.map((team) => (
+                    <Item
+                      key={team._id}
+                      name={team.name}
+                      onDelete={() => console.log("delete team")}
                     />
                   ))}
               </ItemList>
