@@ -5,6 +5,7 @@ import { ProjectTransactionsInfo } from "../ProjectTransactionsInfo";
 import AddActivitie from "../AddActivitie";
 import ClientListSelection from "../../../Clients/components/ClientsListSelection";
 import ProviderListSelection from "../../../Providers/modals/ProvidersListSelection";
+import TeamsListSelection from "../../../Teams/components/TeamsListSelection";
 import {
   InformationHeader,
   Button,
@@ -58,9 +59,14 @@ interface ProjectPageProps {
   //providers on projects
   providerListIsOpen: boolean | any;
   toggleProvidersList: toggleFunctions;
-  isLoadingProviderAction: boolean | any;
   onProviderRemove: Function | any;
   onProviderAdded: Function | any;
+  isLoadingProviderAction: boolean | any;
+  toggleTeamsList: Function | any;
+  teamsListIsOpen: boolean | any;
+  onTeamRemove: Function | any;
+  onTeamAdded: Function | any;
+  isLoadingTeamAction: boolean | any;
 }
 
 interface OptionsMenu {
@@ -88,7 +94,12 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
   onProviderRemove,
   providerListIsOpen,
   toggleProvidersList,
-  isLoadingProviderAction
+  isLoadingProviderAction,
+  isLoadingTeamAction,
+  onTeamAdded,
+  onTeamRemove,
+  teamsListIsOpen,
+  toggleTeamsList
 }) => {
   const {
     name,
@@ -186,16 +197,16 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
               {/* teams in project */}
               <ItemList
                 title="Equipos"
-                isLoading={false}
-                addMessage="Agregar equipo a proyecto"
-                onAddButtonClick={() => console.log("ADD")}
+                isLoading={isLoadingTeamAction}
+                addMessage="Agregar equipo"
+                onAddButtonClick={toggleTeamsList}
               >
                 {teams.length > 0 &&
                   teams.map((team) => (
                     <Item
                       key={team._id}
                       name={team.name}
-                      onDelete={() => console.log("delete team")}
+                      onDelete={() => onTeamRemove(team._id)}
                     />
                   ))}
               </ItemList>
@@ -216,6 +227,11 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({
         onSelection={onProviderAdded}
         onClose={toggleProvidersList}
         isOpen={providerListIsOpen}
+      />
+      <TeamsListSelection
+        onSelection={onTeamAdded}
+        onClose={toggleTeamsList}
+        isOpen={teamsListIsOpen}
       />
       <AddActivitie
         isShowed={addActivitieIsOpen}

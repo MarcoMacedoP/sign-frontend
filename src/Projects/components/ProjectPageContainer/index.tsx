@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import * as projectsActions from "../../../global/redux/actions/projects";
 import {
   fetchRemoveProvider,
-  fetchAddProvider
+  fetchAddProvider,
+  fetchAddTeam,
+  fetchRemoveTeam
 } from "../../../global/redux/actions/projects.new";
 //components
 import { ProjectPage } from "../ProjectPage/index";
@@ -28,6 +30,8 @@ interface ActionsToProps {
   fetchRemoveProvider: Function;
   fetchAddProvider: Function;
   fetchProject: Function;
+  fetchAddTeam: Function;
+  fetchRemoveTeam: Function;
 }
 interface ProjectPageContainerProps extends ActionsToProps, MapedStateToProps {}
 function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
@@ -37,6 +41,8 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
     fetchAddClientToProject,
     fetchAddProvider,
     fetchRemoveProvider,
+    fetchAddTeam,
+    fetchRemoveTeam,
     project,
     fetchProject,
     status
@@ -46,6 +52,7 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
   const [deleteProjectIsOpen, toggleDeleteModal] = useModalState(false);
   const [addClientIsOpen, toggleAddClient] = useModalState();
   const [providerListIsOpen, toggleProvidersList] = useModalState();
+  const [teamsListIsOpen, toggleTeamsList] = useModalState();
   //redirects
   const {
     isRedirect,
@@ -70,6 +77,10 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
     project && fetchRemoveProvider(providerId, project._id);
   const onProviderAdded = (providerId: string) =>
     project && fetchAddProvider(providerId, project._id);
+  const onTeamAdded = (teamId: string) =>
+    project && fetchAddTeam(teamId, project._id);
+  const onTeamRemoved = (teamId: string) =>
+    project && fetchRemoveTeam(teamId, project._id);
   //handle fetch project
   const [shouldFetchProject, setShouldFetchProject] = React.useState(true);
   const handleFetchProject = () => {
@@ -122,9 +133,14 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
         optionsMenuForInformationHeader={optionsMenuForInformationHeader}
         onProviderAdded={onProviderAdded}
         onProviderRemove={onProviderRemove}
+        isLoadingProviderAction={status.providersProject.status === "loading"}
+        onTeamAdded={onTeamAdded}
+        onTeamRemove={onTeamRemoved}
+        isLoadingTeamAction={status.teamsProject.status === "loading"}
+        teamsListIsOpen={teamsListIsOpen}
+        toggleTeamsList={toggleTeamsList}
         providerListIsOpen={providerListIsOpen}
         toggleProvidersList={toggleProvidersList}
-        isLoadingProviderAction={status.providersProject.status === "loading"}
       />
     );
   } else {
@@ -137,7 +153,7 @@ function mapStateToProps(
   props: any
 ): MapedStateToProps {
   const { projectId } = props.match.params;
-  const project = projects.list.find(project => project._id === projectId);
+  const project = projects.list.find((project) => project._id === projectId);
 
   return {
     status: projects.status,
@@ -151,5 +167,7 @@ export default connect(mapStateToProps, {
   fetchRemoveClientOfProject: projectsActions.fetchRemoveClientOfProject,
   fetchProject: projectsActions.fetchProject,
   fetchRemoveProvider,
-  fetchAddProvider
+  fetchAddProvider,
+  fetchAddTeam,
+  fetchRemoveTeam
 })(ProjectPageContainer);

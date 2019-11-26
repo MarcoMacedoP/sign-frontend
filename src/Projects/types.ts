@@ -45,7 +45,7 @@ interface ClientProjectActions extends ProjectActions {
 }
 interface TeamsProjectActions extends ProjectActions {
   type: actionType;
-  teamId: string;
+  teamId?: string;
 }
 
 export interface Project {

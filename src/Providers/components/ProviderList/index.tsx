@@ -3,8 +3,8 @@ import React from "react";
 import { PictureCard, List } from "../../../global/components";
 import { Redirect } from "react-router-dom";
 //hooks
-import { useEffect} from "react";
-import {useError, useRedirect} from "../../../global/hooks/"
+import { useEffect } from "react";
+import { useError, useRedirect } from "../../../global/hooks/";
 // Styled Components
 import { GridList } from "../../../global/styles/Lists";
 //redux
@@ -14,8 +14,14 @@ import { fetchProviders } from "../../../global/redux/actions/providers";
 import { ProvidersState } from "../../../global/redux/reducers/providers";
 import { ADD_PROVIDER_ROUTE } from "../../../global/utils/routes";
 
-function ProviderList({ providers, fetchProviders }:{providers: ProvidersState, fetchProviders: Function}) {
-  const {getProviders} = providers.status;
+function ProviderList({
+  providers,
+  fetchProviders
+}: {
+  providers: ProvidersState;
+  fetchProviders: Function;
+}) {
+  const { getProviders } = providers.status;
   //fetch providers
   useEffect(() => {
     if (getProviders.shouldFetch && getProviders.status !== "loading") {
@@ -23,12 +29,12 @@ function ProviderList({ providers, fetchProviders }:{providers: ProvidersState, 
     }
   }, [getProviders]);
   //handle errors
-  const {error, setErrorToNull} = useError({
+  const { error, setErrorToNull } = useError({
     updateErrorOnChange: getProviders.errorDetails
-  })
+  });
   //handle redirects
-  const {isRedirect, route, toggleRedirect} = useRedirect();
-  const redirectToAddProvider = ()=> toggleRedirect(ADD_PROVIDER_ROUTE);
+  const { isRedirect, route, toggleRedirect } = useRedirect();
+  const redirectToAddProvider = () => toggleRedirect(ADD_PROVIDER_ROUTE);
   return (
     <List
       title="Proveedores"
@@ -61,7 +67,7 @@ function ProviderList({ providers, fetchProviders }:{providers: ProvidersState, 
     </List>
   );
 }
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: any) => ({
   providers: state.providers
 });
 export default connect(mapStateToProps, { fetchProviders })(ProviderList);
