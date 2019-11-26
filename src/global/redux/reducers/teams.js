@@ -1,7 +1,6 @@
 import {
   ADD_TEAM,
   FETCH_TEAMS,
-  GET_TEAMS_PROJECTS,
   ADD_MEMBER_TO_TEAM
 } from "../types/actionTypes";
 
@@ -32,8 +31,7 @@ export default (state = initialState, action) => {
       return fetchTeamsToState(action.payload, state);
     case ADD_MEMBER_TO_TEAM:
       return addMemberToTeam(action.payload, state);
-    case GET_TEAMS_PROJECTS:
-      return getTeamsInProject(action.payload, state);
+
     default:
       return state;
   }
@@ -148,29 +146,29 @@ function addTeamToState({ status, response }, state) {
       return state;
   }
 }
-function getTeamsInProject({ status, response }, state) {
-  switch (status) {
-    case "success":
-      return {
-        ...state,
-        projectsInTeams: state.projectsInTeams
-          ? state.projectsInTeams.map((elemt) =>
-              elemt.teamId === response.teamId ? response : elemt
-            )
-          : [response],
-        status: {
-          ...state.status,
-          getProjectsInTeam: status
-        }
-      };
+// function getTeamsInProject({ status, response }, state) {
+//   switch (status) {
+//     case "success":
+//       return {
+//         ...state,
+//         projectsInTeams: state.projectsInTeams
+//           ? state.projectsInTeams.map((elemt) =>
+//               elemt.teamId === response.teamId ? response : elemt
+//             )
+//           : [response],
+//         status: {
+//           ...state.status,
+//           getProjectsInTeam: status
+//         }
+//       };
 
-    default:
-      return {
-        ...state,
-        status: {
-          ...state.status,
-          getProjectsInTeam: status
-        }
-      };
-  }
-}
+//     default:
+//       return {
+//         ...state,
+//         status: {
+//           ...state.status,
+//           getProjectsInTeam: status
+//         }
+//       };
+//   }
+// }

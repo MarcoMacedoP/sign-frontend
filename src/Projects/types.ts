@@ -3,6 +3,12 @@ import { fetchStatus } from "../global/types/global.types";
 export interface ProjectsState {
   status: ProjectsStateStatus;
   list: Array<Project>;
+  projectsOfTeams: Array<ProjectOfTeam> | null;
+}
+interface ProjectOfTeam {
+  projectId: string;
+  teamId: string;
+  userScope: "member" | "admin" | "founder";
 }
 export interface ProjectsStateStatus {
   getProjects: GetProjectsStatus;
@@ -11,9 +17,10 @@ export interface ProjectsStateStatus {
   clientsProject: ClientProjectActions;
   providersProject: ProviderProjectAction;
   teamsProject: TeamsProjectActions;
+  teamInProject: TeamsProjectActions;
 }
 
-export type actionType = "ADD" | "REMOVE" | null;
+export type actionType = "ADD" | "REMOVE" | "GET" | null;
 
 export interface ProjectActions {
   status: fetchStatus;

@@ -68,15 +68,18 @@ function ProjectListContainer(props: ProjectListProps): JSX.Element {
     >
       {projectList.length !== 0 ? (
         <StyledGridProjects>
-          {projectList.map(({ _id, description, name, dueDate }) => (
-            <ProjectCard
-              key={_id}
-              onClick={() => handleProjectClick(_id)}
-              about={description}
-              title={name}
-              dueDate={dueDate}
-            />
-          ))}
+          {projectList.map(
+            ({ _id, description, name, dueDate }) =>
+              _id && (
+                <ProjectCard
+                  key={_id}
+                  onClick={() => handleProjectClick(_id)}
+                  about={description}
+                  title={name}
+                  dueDate={dueDate}
+                />
+              )
+          )}
         </StyledGridProjects>
       ) : (
         <EmptyProjectsState addProject={handleAddClick} />
@@ -119,10 +122,12 @@ const mapStateToProps = ({
   projects
 }: {
   projects: ProjectsState;
-}): ProjectListState => ({
-  getProjectStatus: projects.status.getProjects,
-  projectList: projects.list
-});
+}): ProjectListState => {
+  return {
+    getProjectStatus: projects.status.getProjects,
+    projectList: projects.list
+  };
+};
 
 export default connect(mapStateToProps, { addProject, fetchProjects })(
   ProjectListContainer

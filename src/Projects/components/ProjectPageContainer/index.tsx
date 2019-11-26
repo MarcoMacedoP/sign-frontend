@@ -148,10 +148,8 @@ function ProjectPageContainer(props: ProjectPageContainerProps): JSX.Element {
   }
 }
 //redux
-function mapStateToProps(
-  { projects }: { projects: ProjectsState },
-  props: any
-): MapedStateToProps {
+function mapStateToProps(state: any, props: any): any {
+  const { projects }: { projects: ProjectsState } = state;
   const { projectId } = props.match.params;
   const project = projects.list.find((project) => project._id === projectId);
 

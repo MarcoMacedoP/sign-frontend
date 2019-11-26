@@ -33,9 +33,15 @@ const initialState: ProjectsState = {
       teamId: "",
       type: null,
       status: null
+    },
+    teamInProject: {
+      teamId: "",
+      status: null,
+      type: null
     }
   },
-  list: []
+  list: [],
+  projectsOfTeams: null
 };
 
 function projectReducer(state = initialState, action: AsyncAction) {
@@ -75,11 +81,8 @@ function projectReducer(state = initialState, action: AsyncAction) {
       return reduceStateFromActionOfTeams(payload, state, "ADD");
     case actionTypes.REMOVE_TEAM_TO_PROJECT:
       return reduceStateFromActionOfTeams(payload, state, "REMOVE");
-    //Reminders into projects
-    case actionTypes.ADD_REMINDER_TO_PROJECT:
-      return;
-    case actionTypes.REMOVE_REMINDER_TO_PROJECT:
-      return;
+    case actionTypes.GET_TEAMS_PROJECTS:
+      return reduceStateWithProjectsOfTeam(payload, state);
 
     default:
       return state;
@@ -125,12 +128,16 @@ function reduceStateFromFetchedProject(
         }
       };
     case "success": {
-      return {
-        list: state.list.map((project) =>
+
+      const list = state.list.map((project) =>
           project._id === response._id
             ? { ...response, fullLoaded: true }
-            : project
-        ),
+            : project)
+      const filterList = filtrarRepetidos(list);
+
+      return {
+        ...state,
+        list: filterList,
         status: {
           ...state.status,
           projectActions: {
@@ -160,6 +167,7 @@ function reduceStateFromRemovedProject(
   switch (status) {
     case "loading":
       return {
+        ...state,
         list: state.list.filter(
           (project) => project._id !== response.projectId
         ),
@@ -236,6 +244,7 @@ function reduceStateFromUpdatedProject(
       };
     case "success":
       return {
+        ...state,
         list: state.list.map((project) =>
           project._id === response._id ? response : project
         ),
@@ -267,6 +276,7 @@ function reduceStateFromAddedProject(
   const { response, status } = payload;
   if (status === "success") {
     return {
+      ...state,
       list: [response, ...state.list],
       status: {
         ...state.status,
@@ -373,6 +383,7 @@ function addActiviteReducer(
         (project) => project._id !== response._id
       );
       return {
+        ...state,
         list: [response, ...filteredProjects],
         status: {
           ...state.status,
@@ -430,8 +441,11 @@ function fetchProjectsReducer(
 ): ProjectsState {
   const { response, status } = payload;
   if (status === "success") {
+    const list =  state.list.length > 0 ? [...state.list, ...response] : response;
+    const filteredList = filtrarRepetidos(list);
     return {
-      list: response,
+      ...state,
+      list: filteredList,
       status: {
         ...state.status,
         getProjects: {
@@ -468,6 +482,7 @@ function reduceStateFromAddedClient(
   const { response, status } = payload;
   if (status === "success") {
     return {
+      ...state,
       list: state.list.map((project) =>
         project._id === response._id
           ? { ...response, fullLoaded: true }
@@ -509,6 +524,7 @@ function reduceStateFromRemovedClient(
   const { response, status } = payload;
   if (status === "success") {
     return {
+      ...state,
       list: state.list.map((project) =>
         project._id === response._id
           ? { ...response, fullLoaded: true }
@@ -555,6 +571,7 @@ function reduceStateFromActionOfProviders(
   const { status, response } = payload;
   if (status === "success") {
     return {
+      ...state,
       list: state.list.map((project) =>
         project._id === response._id
           ? { ...response, fullLoaded: true }
@@ -593,6 +610,7 @@ function reduceStateFromActionOfTeams(
   const { status, response } = payload;
   if (status === "success") {
     return {
+      ...state,
       list: state.list.map((project) =>
         project._id === response._id
           ? { ...response, fullLoaded: true }
@@ -619,6 +637,60 @@ function reduceStateFromActionOfTeams(
       }
     };
   }
+}
+
+function reduceStateWithProjectsOfTeam(
+  payload: Payload,
+  state: ProjectsState
+): ProjectsState {
+  const { response, status } = payload;
+  switch (status) {
+    case "success": {
+      const projectsOfTeams = response.projects.map((project: any) => ({
+        projectId: project._id,
+        teamId: response.teamId,
+        scope: response.scope
+      }));
+      const list =  state.list.length > 0
+            ? [...response.projects, state.list]
+            : response.projects
+      const filteredList = filtrarRepetidos(list)
+
+      return {
+        ...state,
+        list: filteredList,
+        projectsOfTeams,
+        status: {
+          ...state.status,
+          teamInProject: {
+            status: payload.status,
+            type: "GET"
+          }
+        }
+      };
+    }
+
+    default:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          teamInProject: {
+            data: payload.response,
+            status: payload.status,
+            type: "GET"
+          }
+        }
+      };
+  }
+}
+
+function filtrarRepetidos(arregloConRepetidos: Array<any>) {
+  const sinRepetidos = arregloConRepetidos.filter((valorActual, indiceActual, arreglo) => {
+    //Podríamos omitir el return y hacerlo en una línea, pero se vería menos legible
+    return arreglo.findIndex(valorDelArreglo => JSON.stringify(valorDelArreglo) === JSON.stringify(valorActual)) === indiceActual
+});
+return sinRepetidos;
 }
 
 export default projectReducer;

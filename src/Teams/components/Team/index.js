@@ -1,7 +1,7 @@
 import React from "react";
 //components
 import { ProjectCard } from "../../../Projects/components/ProjectList/";
-
+import { Redirect } from "react-router-dom";
 import {
   Icon,
   SmallEmptyState,
@@ -11,7 +11,12 @@ import {
 } from "../../../global/components";
 import TeamList from "../TeamsList";
 //hooks
-import { useHandleState, useModalState, useError } from "../../../global/hooks";
+import {
+  useHandleState,
+  useModalState,
+  useError,
+  useRedirect
+} from "../../../global/hooks";
 //styled-components
 import {
   Container,
@@ -28,7 +33,7 @@ import { connect } from "react-redux";
 import { fetchGetProjectsInTeam } from "../../../global/redux/actions/teams";
 import AddUser from "../AddUser";
 import UserInTeam from "../UserInTeam";
-
+import { PROJECTS_ROUTE } from "../../../global/utils/routes";
 function Team({
   team,
   match,
@@ -58,12 +63,14 @@ function Team({
       setError(statusOnGetProjects);
     }
   }, [statusOnGetProjects]);
-
+  const { isRedirect, route, toggleRedirect } = useRedirect();
+  const handleProjectClick = (id) => toggleRedirect(`${PROJECTS_ROUTE}${id}`);
   const toggleInfo = () => toggleStateValue("infoIsShowed");
   const teamId = match.params.teamId;
 
   return (
     <TeamList>
+      {isRedirect && <Redirect to={route} />}
       <AddUser
         teamId={teamId}
         isOpen={addUserIsOpen}
@@ -79,15 +86,18 @@ function Team({
           {error && <ErrorMessage error={error} onClose={setErrorToNull} />}
           {projectsInTeam && (
             <Grid>
-              {projectsInTeam.map((project) => (
-                <ProjectCard
-                  key={project._id}
-                  onClick={() => console.log("card cliked")}
-                  about={project.description}
-                  title={project.name}
-                  dueDate={project.dueDate}
-                />
-              ))}
+              {projectsInTeam.map(
+                (project) =>
+                  project && (
+                    <ProjectCard
+                      key={project._id}
+                      onClick={() => handleProjectClick(project._id)}
+                      about={project.description}
+                      title={project.name}
+                      dueDate={project.dueDate}
+                    />
+                  )
+              )}
             </Grid>
           )}
           <Info isShowed={state.infoIsShowed}>
@@ -115,14 +125,33 @@ function Team({
 
 const mapStateToProps = (state, props) => {
   const teamId = props.match.params.teamId;
-  return {
-    team: state.teams.list.find((team) => team && team._id === teamId),
-    statusOnGetProjects: state.teams.status.getProjectsInTeam,
-    projectsInTeam:
-      state.teams.projectsInTeams &&
-      state.teams.projectsInTeams.find((elemt) => elemt.teamId == teamId)
-        .projects
-  };
+  if (state.projects.projectsOfTeams) {
+    const referenciasAProyectos = state.projects.projectsOfTeams.map(
+      (projectsInTeam) =>
+        projectsInTeam.teamId === teamId && projectsInTeam.projectId
+    );
+
+    const projects = [];
+    state.projects.list.forEach((p) => {
+      referenciasAProyectos.forEach((id) => {
+        if (p._id === id) {
+          projects.push(p);
+        }
+      });
+    });
+
+    return {
+      team: state.teams.list.find((team) => team && team._id === teamId),
+      statusOnGetProjects: state.projects.status.teamInProject.status,
+      projectsInTeam: projects
+    };
+  } else {
+    return {
+      team: state.teams.list.find((team) => team && team._id === teamId),
+      statusOnGetProjects: state.projects.status.teamInProject.status,
+      projectsInTeam: null
+    };
+  }
 };
 
 export default connect(mapStateToProps, { fetchGetProjectsInTeam })(Team);
